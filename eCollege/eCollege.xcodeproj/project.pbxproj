@@ -54,6 +54,7 @@
 			children = (
 				EAAE7D8813142B7A0051B2A9 /* eCollege */,
 				EAAE7D8113142B7A0051B2A9 /* Frameworks */,
+				EAB6022F131431EA00F62ACF /* Dependent Projects */,
 				EAAE7D7F13142B7A0051B2A9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -99,6 +100,13 @@
 				EAAE7D8F13142B7A0051B2A9 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EAB6022F131431EA00F62ACF /* Dependent Projects */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Dependent Projects";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -208,7 +216,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
@@ -222,7 +230,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
@@ -241,7 +249,13 @@
 				GCC_PREFIX_HEADER = "eCollege/eCollege-Prefix.pch";
 				INFOPLIST_FILE = "eCollege/eCollege-Info.plist";
 				INSTALL_PATH = "$(LOCAL_APPS_DIR)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -255,7 +269,13 @@
 				GCC_PREFIX_HEADER = "eCollege/eCollege-Prefix.pch";
 				INFOPLIST_FILE = "eCollege/eCollege-Info.plist";
 				INSTALL_PATH = "$(LOCAL_APPS_DIR)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -280,6 +300,7 @@
 				EAAE7DB713142B7A0051B2A9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

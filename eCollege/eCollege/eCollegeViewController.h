@@ -9,7 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface eCollegeViewController : UIViewController {
-    
+    IBOutlet UITextField *clientStringText;
+	IBOutlet UITextField *usernameText;
+	IBOutlet UITextField *passwordText;
+	IBOutlet UIButton *logInButton;
 }
 
 @end
