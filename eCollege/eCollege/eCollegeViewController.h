@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ECSession.h"
 
 @interface eCollegeViewController : UIViewController {
     IBOutlet UITextField *clientStringText;

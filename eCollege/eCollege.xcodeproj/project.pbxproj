@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EA7A9F5A13146E3400D9EC6A /* libECAPI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA7A9F5913146E3400D9EC6A /* libECAPI.a */; };
+		EA7A9FBA1314738300D9EC6A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA7A9FB91314738300D9EC6A /* SystemConfiguration.framework */; };
+		EA7A9FBC1314738F00D9EC6A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA7A9FBB1314738F00D9EC6A /* MobileCoreServices.framework */; };
+		EA7A9FBE131473A100D9EC6A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA7A9FBD131473A100D9EC6A /* CFNetwork.framework */; };
+		EA7A9FC0131473D500D9EC6A /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EA7A9FBF131473D500D9EC6A /* libz.1.2.3.dylib */; };
 		EAAE7D8313142B7A0051B2A9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAAE7D8213142B7A0051B2A9 /* UIKit.framework */; };
 		EAAE7D8513142B7A0051B2A9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAAE7D8413142B7A0051B2A9 /* Foundation.framework */; };
 		EAAE7D8713142B7A0051B2A9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAAE7D8613142B7A0051B2A9 /* CoreGraphics.framework */; };
@@ -18,7 +23,37 @@
 		EAAE7D9C13142B7A0051B2A9 /* eCollegeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAAE7D9A13142B7A0051B2A9 /* eCollegeViewController.xib */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		EA7A9F5313146C9E00D9EC6A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA7A9F4A13146C9D00D9EC6A /* ECAPI.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D;
+			remoteInfo = ECAPI;
+		};
+		EA7A9F5513146C9E00D9EC6A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA7A9F4A13146C9D00D9EC6A /* ECAPI.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EABEEA8012F8CBE40028857E;
+			remoteInfo = Tests;
+		};
+		EA7A9F5713146E2800D9EC6A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA7A9F4A13146C9D00D9EC6A /* ECAPI.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
+			remoteInfo = ECAPI;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		EA7A9F4A13146C9D00D9EC6A /* ECAPI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ECAPI.xcodeproj; path = ../ecollegeiosapi/ECAPI/ECAPI.xcodeproj; sourceTree = "<group>"; };
+		EA7A9F5913146E3400D9EC6A /* libECAPI.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libECAPI.a; sourceTree = SOURCE_ROOT; };
+		EA7A9FB91314738300D9EC6A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		EA7A9FBB1314738F00D9EC6A /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		EA7A9FBD131473A100D9EC6A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		EA7A9FBF131473D500D9EC6A /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
 		EAAE7D7E13142B7A0051B2A9 /* eCollege.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eCollege.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAAE7D8213142B7A0051B2A9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EAAE7D8413142B7A0051B2A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -40,6 +75,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA7A9F5A13146E3400D9EC6A /* libECAPI.a in Frameworks */,
+				EA7A9FC0131473D500D9EC6A /* libz.1.2.3.dylib in Frameworks */,
+				EA7A9FBE131473A100D9EC6A /* CFNetwork.framework in Frameworks */,
+				EA7A9FBC1314738F00D9EC6A /* MobileCoreServices.framework in Frameworks */,
+				EA7A9FBA1314738300D9EC6A /* SystemConfiguration.framework in Frameworks */,
 				EAAE7D8313142B7A0051B2A9 /* UIKit.framework in Frameworks */,
 				EAAE7D8513142B7A0051B2A9 /* Foundation.framework in Frameworks */,
 				EAAE7D8713142B7A0051B2A9 /* CoreGraphics.framework in Frameworks */,
@@ -49,11 +89,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EA7A9F4B13146C9D00D9EC6A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EA7A9F5413146C9E00D9EC6A /* libECAPI.a */,
+				EA7A9F5613146C9E00D9EC6A /* Tests.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		EAAE7D7313142B7A0051B2A9 = {
 			isa = PBXGroup;
 			children = (
 				EAAE7D8813142B7A0051B2A9 /* eCollege */,
 				EAAE7D8113142B7A0051B2A9 /* Frameworks */,
+				EA7A9FBF131473D500D9EC6A /* libz.1.2.3.dylib */,
 				EAB6022F131431EA00F62ACF /* Dependent Projects */,
 				EAAE7D7F13142B7A0051B2A9 /* Products */,
 			);
@@ -70,6 +120,9 @@
 		EAAE7D8113142B7A0051B2A9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EA7A9FBD131473A100D9EC6A /* CFNetwork.framework */,
+				EA7A9FBB1314738F00D9EC6A /* MobileCoreServices.framework */,
+				EA7A9FB91314738300D9EC6A /* SystemConfiguration.framework */,
 				EAAE7D8213142B7A0051B2A9 /* UIKit.framework */,
 				EAAE7D8413142B7A0051B2A9 /* Foundation.framework */,
 				EAAE7D8613142B7A0051B2A9 /* CoreGraphics.framework */,
@@ -105,6 +158,8 @@
 		EAB6022F131431EA00F62ACF /* Dependent Projects */ = {
 			isa = PBXGroup;
 			children = (
+				EA7A9F5913146E3400D9EC6A /* libECAPI.a */,
+				EA7A9F4A13146C9D00D9EC6A /* ECAPI.xcodeproj */,
 			);
 			name = "Dependent Projects";
 			sourceTree = "<group>";
@@ -123,6 +178,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				EA7A9F5813146E2800D9EC6A /* PBXTargetDependency */,
 			);
 			name = eCollege;
 			productName = eCollege;
@@ -147,12 +203,35 @@
 			mainGroup = EAAE7D7313142B7A0051B2A9;
 			productRefGroup = EAAE7D7F13142B7A0051B2A9 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = EA7A9F4B13146C9D00D9EC6A /* Products */;
+					ProjectRef = EA7A9F4A13146C9D00D9EC6A /* ECAPI.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				EAAE7D7D13142B7A0051B2A9 /* eCollege */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		EA7A9F5413146C9E00D9EC6A /* libECAPI.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libECAPI.a;
+			remoteRef = EA7A9F5313146C9E00D9EC6A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		EA7A9F5613146C9E00D9EC6A /* Tests.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = Tests.app;
+			remoteRef = EA7A9F5513146C9E00D9EC6A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		EAAE7D7C13142B7A0051B2A9 /* Resources */ = {
@@ -179,6 +258,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EA7A9F5813146E2800D9EC6A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ECAPI;
+			targetProxy = EA7A9F5713146E2800D9EC6A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		EAAE7D8B13142B7A0051B2A9 /* InfoPlist.strings */ = {
@@ -247,6 +334,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "eCollege/eCollege-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/usr/local/include";
 				INFOPLIST_FILE = "eCollege/eCollege-Info.plist";
 				INSTALL_PATH = "$(LOCAL_APPS_DIR)";
 				LIBRARY_SEARCH_PATHS = (
@@ -267,6 +355,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "eCollege/eCollege-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/usr/local/include";
 				INFOPLIST_FILE = "eCollege/eCollege-Info.plist";
 				INSTALL_PATH = "$(LOCAL_APPS_DIR)";
 				LIBRARY_SEARCH_PATHS = (
