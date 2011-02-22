@@ -103,7 +103,6 @@
 			children = (
 				EAAE7D8813142B7A0051B2A9 /* eCollege */,
 				EAAE7D8113142B7A0051B2A9 /* Frameworks */,
-				EA7A9FBF131473D500D9EC6A /* libz.1.2.3.dylib */,
 				EAB6022F131431EA00F62ACF /* Dependent Projects */,
 				EAAE7D7F13142B7A0051B2A9 /* Products */,
 			);
@@ -120,6 +119,7 @@
 		EAAE7D8113142B7A0051B2A9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EA7A9FBF131473D500D9EC6A /* libz.1.2.3.dylib */,
 				EA7A9FBD131473A100D9EC6A /* CFNetwork.framework */,
 				EA7A9FBB1314738F00D9EC6A /* MobileCoreServices.framework */,
 				EA7A9FB91314738300D9EC6A /* SystemConfiguration.framework */,
