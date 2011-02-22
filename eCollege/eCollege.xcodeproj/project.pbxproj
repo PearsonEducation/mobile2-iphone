@@ -1,0 +1,287 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EAAE7D8313142B7A0051B2A9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAAE7D8213142B7A0051B2A9 /* UIKit.framework */; };
+		EAAE7D8513142B7A0051B2A9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAAE7D8413142B7A0051B2A9 /* Foundation.framework */; };
+		EAAE7D8713142B7A0051B2A9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAAE7D8613142B7A0051B2A9 /* CoreGraphics.framework */; };
+		EAAE7D8D13142B7A0051B2A9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EAAE7D8B13142B7A0051B2A9 /* InfoPlist.strings */; };
+		EAAE7D9013142B7A0051B2A9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAE7D8F13142B7A0051B2A9 /* main.m */; };
+		EAAE7D9313142B7A0051B2A9 /* eCollegeAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAE7D9213142B7A0051B2A9 /* eCollegeAppDelegate.m */; };
+		EAAE7D9613142B7A0051B2A9 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAAE7D9413142B7A0051B2A9 /* MainWindow.xib */; };
+		EAAE7D9913142B7A0051B2A9 /* eCollegeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAE7D9813142B7A0051B2A9 /* eCollegeViewController.m */; };
+		EAAE7D9C13142B7A0051B2A9 /* eCollegeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAAE7D9A13142B7A0051B2A9 /* eCollegeViewController.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		EAAE7D7E13142B7A0051B2A9 /* eCollege.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eCollege.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EAAE7D8213142B7A0051B2A9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		EAAE7D8413142B7A0051B2A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		EAAE7D8613142B7A0051B2A9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		EAAE7D8A13142B7A0051B2A9 /* eCollege-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "eCollege-Info.plist"; sourceTree = "<group>"; };
+		EAAE7D8C13142B7A0051B2A9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EAAE7D8E13142B7A0051B2A9 /* eCollege-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "eCollege-Prefix.pch"; sourceTree = "<group>"; };
+		EAAE7D8F13142B7A0051B2A9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		EAAE7D9113142B7A0051B2A9 /* eCollegeAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = eCollegeAppDelegate.h; sourceTree = "<group>"; };
+		EAAE7D9213142B7A0051B2A9 /* eCollegeAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = eCollegeAppDelegate.m; sourceTree = "<group>"; };
+		EAAE7D9513142B7A0051B2A9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		EAAE7D9713142B7A0051B2A9 /* eCollegeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = eCollegeViewController.h; sourceTree = "<group>"; };
+		EAAE7D9813142B7A0051B2A9 /* eCollegeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = eCollegeViewController.m; sourceTree = "<group>"; };
+		EAAE7D9B13142B7A0051B2A9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/eCollegeViewController.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EAAE7D7B13142B7A0051B2A9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EAAE7D8313142B7A0051B2A9 /* UIKit.framework in Frameworks */,
+				EAAE7D8513142B7A0051B2A9 /* Foundation.framework in Frameworks */,
+				EAAE7D8713142B7A0051B2A9 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EAAE7D7313142B7A0051B2A9 = {
+			isa = PBXGroup;
+			children = (
+				EAAE7D8813142B7A0051B2A9 /* eCollege */,
+				EAAE7D8113142B7A0051B2A9 /* Frameworks */,
+				EAAE7D7F13142B7A0051B2A9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EAAE7D7F13142B7A0051B2A9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EAAE7D7E13142B7A0051B2A9 /* eCollege.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EAAE7D8113142B7A0051B2A9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EAAE7D8213142B7A0051B2A9 /* UIKit.framework */,
+				EAAE7D8413142B7A0051B2A9 /* Foundation.framework */,
+				EAAE7D8613142B7A0051B2A9 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EAAE7D8813142B7A0051B2A9 /* eCollege */ = {
+			isa = PBXGroup;
+			children = (
+				EAAE7D9113142B7A0051B2A9 /* eCollegeAppDelegate.h */,
+				EAAE7D9213142B7A0051B2A9 /* eCollegeAppDelegate.m */,
+				EAAE7D9413142B7A0051B2A9 /* MainWindow.xib */,
+				EAAE7D9713142B7A0051B2A9 /* eCollegeViewController.h */,
+				EAAE7D9813142B7A0051B2A9 /* eCollegeViewController.m */,
+				EAAE7D9A13142B7A0051B2A9 /* eCollegeViewController.xib */,
+				EAAE7D8913142B7A0051B2A9 /* Supporting Files */,
+			);
+			path = eCollege;
+			sourceTree = "<group>";
+		};
+		EAAE7D8913142B7A0051B2A9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EAAE7D8A13142B7A0051B2A9 /* eCollege-Info.plist */,
+				EAAE7D8B13142B7A0051B2A9 /* InfoPlist.strings */,
+				EAAE7D8E13142B7A0051B2A9 /* eCollege-Prefix.pch */,
+				EAAE7D8F13142B7A0051B2A9 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EAAE7D7D13142B7A0051B2A9 /* eCollege */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EAAE7DB513142B7A0051B2A9 /* Build configuration list for PBXNativeTarget "eCollege" */;
+			buildPhases = (
+				EAAE7D7A13142B7A0051B2A9 /* Sources */,
+				EAAE7D7B13142B7A0051B2A9 /* Frameworks */,
+				EAAE7D7C13142B7A0051B2A9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = eCollege;
+			productName = eCollege;
+			productReference = EAAE7D7E13142B7A0051B2A9 /* eCollege.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EAAE7D7513142B7A0051B2A9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = EffectiveUI;
+			};
+			buildConfigurationList = EAAE7D7813142B7A0051B2A9 /* Build configuration list for PBXProject "eCollege" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = EAAE7D7313142B7A0051B2A9;
+			productRefGroup = EAAE7D7F13142B7A0051B2A9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EAAE7D7D13142B7A0051B2A9 /* eCollege */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EAAE7D7C13142B7A0051B2A9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EAAE7D8D13142B7A0051B2A9 /* InfoPlist.strings in Resources */,
+				EAAE7D9613142B7A0051B2A9 /* MainWindow.xib in Resources */,
+				EAAE7D9C13142B7A0051B2A9 /* eCollegeViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EAAE7D7A13142B7A0051B2A9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EAAE7D9013142B7A0051B2A9 /* main.m in Sources */,
+				EAAE7D9313142B7A0051B2A9 /* eCollegeAppDelegate.m in Sources */,
+				EAAE7D9913142B7A0051B2A9 /* eCollegeViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		EAAE7D8B13142B7A0051B2A9 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EAAE7D8C13142B7A0051B2A9 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		EAAE7D9413142B7A0051B2A9 /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EAAE7D9513142B7A0051B2A9 /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		EAAE7D9A13142B7A0051B2A9 /* eCollegeViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EAAE7D9B13142B7A0051B2A9 /* en */,
+			);
+			name = eCollegeViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		EAAE7DB313142B7A0051B2A9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		EAAE7DB413142B7A0051B2A9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		EAAE7DB613142B7A0051B2A9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "eCollege/eCollege-Prefix.pch";
+				INFOPLIST_FILE = "eCollege/eCollege-Info.plist";
+				INSTALL_PATH = "$(LOCAL_APPS_DIR)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		EAAE7DB713142B7A0051B2A9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "eCollege/eCollege-Prefix.pch";
+				INFOPLIST_FILE = "eCollege/eCollege-Info.plist";
+				INSTALL_PATH = "$(LOCAL_APPS_DIR)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EAAE7D7813142B7A0051B2A9 /* Build configuration list for PBXProject "eCollege" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EAAE7DB313142B7A0051B2A9 /* Debug */,
+				EAAE7DB413142B7A0051B2A9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EAAE7DB513142B7A0051B2A9 /* Build configuration list for PBXNativeTarget "eCollege" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EAAE7DB613142B7A0051B2A9 /* Debug */,
+				EAAE7DB713142B7A0051B2A9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EAAE7D7513142B7A0051B2A9 /* Project object */;
+}
