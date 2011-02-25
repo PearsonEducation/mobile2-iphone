@@ -21,6 +21,7 @@
 		EAAE7D9613142B7A0051B2A9 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAAE7D9413142B7A0051B2A9 /* MainWindow.xib */; };
 		EAAE7D9913142B7A0051B2A9 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAE7D9813142B7A0051B2A9 /* LogInViewController.m */; };
 		EAAE7D9C13142B7A0051B2A9 /* LogInView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAAE7D9A13142B7A0051B2A9 /* LogInView.xib */; };
+		EAD2DFF913181E7500A4D89C /* ECClientConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD2DFF813181E7500A4D89C /* ECClientConfiguration.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,8 @@
 		EAAE7D9713142B7A0051B2A9 /* LogInViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogInViewController.h; sourceTree = "<group>"; };
 		EAAE7D9813142B7A0051B2A9 /* LogInViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
 		EAAE7D9B13142B7A0051B2A9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/LogInView.xib; sourceTree = "<group>"; };
+		EAD2DFF713181E7500A4D89C /* ECClientConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECClientConfiguration.h; sourceTree = "<group>"; };
+		EAD2DFF813181E7500A4D89C /* ECClientConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECClientConfiguration.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +146,7 @@
 		EAAE7D8813142B7A0051B2A9 /* eCollege */ = {
 			isa = PBXGroup;
 			children = (
+				EAD2DFF613181E4900A4D89C /* Client Configuration */,
 				EA7707331318141F0011FFCB /* Log In */,
 				EAAE7D9113142B7A0051B2A9 /* eCollegeAppDelegate.h */,
 				EAAE7D9213142B7A0051B2A9 /* eCollegeAppDelegate.m */,
@@ -170,6 +174,15 @@
 				EA7A9F4A13146C9D00D9EC6A /* ECAPI.xcodeproj */,
 			);
 			name = "Dependent Projects";
+			sourceTree = "<group>";
+		};
+		EAD2DFF613181E4900A4D89C /* Client Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				EAD2DFF713181E7500A4D89C /* ECClientConfiguration.h */,
+				EAD2DFF813181E7500A4D89C /* ECClientConfiguration.m */,
+			);
+			name = "Client Configuration";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,6 +276,7 @@
 				EAAE7D9013142B7A0051B2A9 /* main.m in Sources */,
 				EAAE7D9313142B7A0051B2A9 /* eCollegeAppDelegate.m in Sources */,
 				EAAE7D9913142B7A0051B2A9 /* LogInViewController.m in Sources */,
+				EAD2DFF913181E7500A4D89C /* ECClientConfiguration.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
