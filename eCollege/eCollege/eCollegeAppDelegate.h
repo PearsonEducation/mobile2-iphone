@@ -8,14 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@class eCollegeViewController;
+@class LogInViewController;
 
 @interface eCollegeAppDelegate : NSObject <UIApplicationDelegate> {
 
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
-
-@property (nonatomic, retain) IBOutlet eCollegeViewController *viewController;
+@property (nonatomic, retain) IBOutlet LogInViewController *logInViewController;
 
 @end

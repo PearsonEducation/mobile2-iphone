@@ -6,10 +6,10 @@
 //  Copyright 2011 EffectiveUI. All rights reserved.
 //
 
-#import "eCollegeViewController.h"
+#import "LogInViewController.h"
 #import "ECSession.h"
 
-@implementation eCollegeViewController
+@implementation LogInViewController
 
 - (void)dealloc {
     [super dealloc];

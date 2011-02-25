@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ECSession.h"
 
-@interface eCollegeViewController : UIViewController<ECSessionAuthenticationDelegate> {
+@interface LogInViewController : UIViewController<ECSessionAuthenticationDelegate> {
     IBOutlet UITextField *clientStringText;
 	IBOutlet UITextField *usernameText;
 	IBOutlet UITextField *passwordText;
