@@ -8,6 +8,7 @@
 
 #import "LogInViewController.h"
 #import "ECSession.h"
+#import "ECClientConfiguration.h"
 
 @implementation LogInViewController
 
@@ -29,14 +30,33 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+#pragma mark - Control callbacks
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+	if (textField == clientStringText) {
+		[usernameText becomeFirstResponder];
+	} else if (textField == usernameText) {
+		[passwordText becomeFirstResponder];
+	} else if (textField == passwordText) {
+		[self logInClicked:passwordText];
+	}
+	return YES;
+}
+
 - (IBAction) logInClicked:(id)caller {
 	ECSession *session = [ECSession sharedSession];
 	session.authenticationDelegate = self;
-	[session authenticateWithClientId:@"30bb1d4f-2677-45d1-be13-339174404402"
-						 clientString:@"ctstate"
-							 username:@"veronicastudent3"
-							 password:@"veronicastudent3"];
+	NSString *clientId = [[ECClientConfiguration currentConfiguration] clientId];
+	NSString *clientString = [[ECClientConfiguration currentConfiguration] clientString];
+	NSString *username = usernameText.text;
+	NSString *password = passwordText.text;
+	[session authenticateWithClientId:clientId
+						 clientString:clientString
+							 username:username
+							 password:password];
 }
+
+#pragma mark - Authentication Complete
 
 - (void) sessionDidAuthenticate:(ECSession *)aSession {
 }
