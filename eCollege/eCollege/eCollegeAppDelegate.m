@@ -33,11 +33,12 @@
 - (void) dismissLoginView {
 	[UIView transitionWithView:self.window
 					  duration:0.75
-					   options:UIViewAnimationOptionTransitionCurlUp
+					   options:UIViewAnimationOptionTransitionCurlUp // wheeee!!!
 					animations:^{
 						[self.logInViewController.view removeFromSuperview];
 					}
 					completion:nil];
+	// show tab navigator
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
