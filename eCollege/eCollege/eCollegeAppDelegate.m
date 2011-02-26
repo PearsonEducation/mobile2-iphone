@@ -8,17 +8,36 @@
 
 #import "eCollegeAppDelegate.h"
 #import "LogInViewController.h"
+#import "ECSession.h"
 
 @implementation eCollegeAppDelegate
 @synthesize window=window;
 @synthesize logInViewController=logInViewController;
 
++ (eCollegeAppDelegate *) delegate {
+	return (eCollegeAppDelegate *)[[UIApplication sharedApplication] delegate];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-	// Override point for customization after application launch.
-	 
-	self.window.rootViewController = self.logInViewController;
+	ECSession *session = [ECSession sharedSession];
+	if ([session hasUnexpiredAccessToken] || [session hasUnexpiredGrantToken]) {
+		// show tab navigator
+	} else {
+		logInViewController = [[LogInViewController alloc] initWithNibName:@"LogInView" bundle:nil];
+		[self.window addSubview:self.logInViewController.view];
+	}
 	[self.window makeKeyAndVisible];
     return YES;
+}
+
+- (void) dismissLoginView {
+	[UIView transitionWithView:self.window
+					  duration:0.75
+					   options:UIViewAnimationOptionTransitionCurlUp
+					animations:^{
+						[self.logInViewController.view removeFromSuperview];
+					}
+					completion:nil];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

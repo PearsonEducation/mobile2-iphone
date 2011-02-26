@@ -14,7 +14,11 @@
 
 }
 
++ (eCollegeAppDelegate *) delegate;
+
 @property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet LogInViewController *logInViewController;
+@property (nonatomic, retain) LogInViewController *logInViewController;
+
+- (void) dismissLoginView;
 
 @end

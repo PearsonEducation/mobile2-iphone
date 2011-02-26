@@ -9,6 +9,7 @@
 #import "LogInViewController.h"
 #import "ECSession.h"
 #import "ECClientConfiguration.h"
+#import "eCollegeAppDelegate.h"
 
 @implementation LogInViewController
 
@@ -56,8 +57,8 @@
 	scrollViewSizeWhenKeyboardIsHidden = scrollView.frame.size;
 	
 	[UIView beginAnimations:nil context:NULL];
-		[UIView setAnimationDuration:0.45];
-		[UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+		[UIView setAnimationDuration:0.25];
+		[UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
 		CGRect viewFrame = scrollView.frame;
 		viewFrame.size.height -= keyboardSize.height;
 		scrollView.frame = viewFrame;
@@ -75,8 +76,8 @@
 	}
 
 	[UIView beginAnimations:nil context:NULL];
-		[UIView setAnimationDuration:0.45];
-		[UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+		[UIView setAnimationDuration:0.25];
+		[UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
 		scrollView.frame = CGRectMake(0, 0, scrollViewSizeWhenKeyboardIsHidden.width, scrollViewSizeWhenKeyboardIsHidden.height);
 		scrollView.contentOffset = scrollViewOffsetWhenKeyboardIsHidden;
 	[UIView commitAnimations];
@@ -112,6 +113,7 @@
 #pragma mark - Authentication Complete
 
 - (void) sessionDidAuthenticate {
+	[[eCollegeAppDelegate delegate] dismissLoginView];
 }
 
 @end
