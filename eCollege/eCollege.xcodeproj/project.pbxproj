@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A2EE3ED5132037DC00745C1C /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2EE3ED3132037DC00745C1C /* HomeViewController.m */; };
+		A2EE3ED6132037DC00745C1C /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2EE3ED4132037DC00745C1C /* HomeViewController.xib */; };
+		A2EE3EDA1320421800745C1C /* DiscussionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2EE3ED81320421800745C1C /* DiscussionsViewController.m */; };
+		A2EE3EDB1320421800745C1C /* DiscussionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2EE3ED91320421800745C1C /* DiscussionsViewController.xib */; };
+		A2EE3EDF1320425C00745C1C /* CoursesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2EE3EDD1320425C00745C1C /* CoursesViewController.m */; };
+		A2EE3EE01320425C00745C1C /* CoursesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2EE3EDE1320425C00745C1C /* CoursesViewController.xib */; };
+		A2EE3EE41320429400745C1C /* PeopleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2EE3EE21320429400745C1C /* PeopleViewController.m */; };
+		A2EE3EE51320429400745C1C /* PeopleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2EE3EE31320429400745C1C /* PeopleViewController.xib */; };
+		A2EE3EE9132042D800745C1C /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2EE3EE7132042D800745C1C /* ProfileViewController.m */; };
+		A2EE3EEA132042D800745C1C /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2EE3EE8132042D800745C1C /* ProfileViewController.xib */; };
 		EA7A9F5A13146E3400D9EC6A /* libECAPI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA7A9F5913146E3400D9EC6A /* libECAPI.a */; };
 		EA7A9FBA1314738300D9EC6A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA7A9FB91314738300D9EC6A /* SystemConfiguration.framework */; };
 		EA7A9FBC1314738F00D9EC6A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA7A9FBB1314738F00D9EC6A /* MobileCoreServices.framework */; };
@@ -49,6 +59,21 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A2EE3ED2132037DC00745C1C /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		A2EE3ED3132037DC00745C1C /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		A2EE3ED4132037DC00745C1C /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
+		A2EE3ED71320421800745C1C /* DiscussionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscussionsViewController.h; sourceTree = "<group>"; };
+		A2EE3ED81320421800745C1C /* DiscussionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscussionsViewController.m; sourceTree = "<group>"; };
+		A2EE3ED91320421800745C1C /* DiscussionsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscussionsViewController.xib; sourceTree = "<group>"; };
+		A2EE3EDC1320425C00745C1C /* CoursesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoursesViewController.h; sourceTree = "<group>"; };
+		A2EE3EDD1320425C00745C1C /* CoursesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoursesViewController.m; sourceTree = "<group>"; };
+		A2EE3EDE1320425C00745C1C /* CoursesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CoursesViewController.xib; sourceTree = "<group>"; };
+		A2EE3EE11320429400745C1C /* PeopleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeopleViewController.h; sourceTree = "<group>"; };
+		A2EE3EE21320429400745C1C /* PeopleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeopleViewController.m; sourceTree = "<group>"; };
+		A2EE3EE31320429400745C1C /* PeopleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PeopleViewController.xib; sourceTree = "<group>"; };
+		A2EE3EE6132042D800745C1C /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		A2EE3EE7132042D800745C1C /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		A2EE3EE8132042D800745C1C /* ProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileViewController.xib; sourceTree = "<group>"; };
 		EA7A9F4A13146C9D00D9EC6A /* ECAPI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ECAPI.xcodeproj; path = ../ecollegeiosapi/ECAPI/ECAPI.xcodeproj; sourceTree = "<group>"; };
 		EA7A9F5913146E3400D9EC6A /* libECAPI.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libECAPI.a; sourceTree = SOURCE_ROOT; };
 		EA7A9FB91314738300D9EC6A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -92,6 +117,69 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A2EE3ECC1320347E00745C1C /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A2EE3ED1132034D200745C1C /* My Profile */,
+				A2EE3ED0132034C900745C1C /* People */,
+				A2EE3ECF132034C000745C1C /* Courses */,
+				A2EE3ECE132034B700745C1C /* Discussions */,
+				A2EE3ECD132034B100745C1C /* Home */,
+				EA7707331318141F0011FFCB /* Log In */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		A2EE3ECD132034B100745C1C /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				A2EE3ED2132037DC00745C1C /* HomeViewController.h */,
+				A2EE3ED3132037DC00745C1C /* HomeViewController.m */,
+				A2EE3ED4132037DC00745C1C /* HomeViewController.xib */,
+			);
+			name = Home;
+			sourceTree = "<group>";
+		};
+		A2EE3ECE132034B700745C1C /* Discussions */ = {
+			isa = PBXGroup;
+			children = (
+				A2EE3ED71320421800745C1C /* DiscussionsViewController.h */,
+				A2EE3ED81320421800745C1C /* DiscussionsViewController.m */,
+				A2EE3ED91320421800745C1C /* DiscussionsViewController.xib */,
+			);
+			name = Discussions;
+			sourceTree = "<group>";
+		};
+		A2EE3ECF132034C000745C1C /* Courses */ = {
+			isa = PBXGroup;
+			children = (
+				A2EE3EDC1320425C00745C1C /* CoursesViewController.h */,
+				A2EE3EDD1320425C00745C1C /* CoursesViewController.m */,
+				A2EE3EDE1320425C00745C1C /* CoursesViewController.xib */,
+			);
+			name = Courses;
+			sourceTree = "<group>";
+		};
+		A2EE3ED0132034C900745C1C /* People */ = {
+			isa = PBXGroup;
+			children = (
+				A2EE3EE11320429400745C1C /* PeopleViewController.h */,
+				A2EE3EE21320429400745C1C /* PeopleViewController.m */,
+				A2EE3EE31320429400745C1C /* PeopleViewController.xib */,
+			);
+			name = People;
+			sourceTree = "<group>";
+		};
+		A2EE3ED1132034D200745C1C /* My Profile */ = {
+			isa = PBXGroup;
+			children = (
+				A2EE3EE6132042D800745C1C /* ProfileViewController.h */,
+				A2EE3EE7132042D800745C1C /* ProfileViewController.m */,
+				A2EE3EE8132042D800745C1C /* ProfileViewController.xib */,
+			);
+			name = "My Profile";
+			sourceTree = "<group>";
+		};
 		EA7707331318141F0011FFCB /* Log In */ = {
 			isa = PBXGroup;
 			children = (
@@ -146,8 +234,8 @@
 		EAAE7D8813142B7A0051B2A9 /* eCollege */ = {
 			isa = PBXGroup;
 			children = (
+				A2EE3ECC1320347E00745C1C /* View Controllers */,
 				EAD2DFF613181E4900A4D89C /* Client Configuration */,
-				EA7707331318141F0011FFCB /* Log In */,
 				EAAE7D9113142B7A0051B2A9 /* eCollegeAppDelegate.h */,
 				EAAE7D9213142B7A0051B2A9 /* eCollegeAppDelegate.m */,
 				EAAE7D9413142B7A0051B2A9 /* MainWindow.xib */,
@@ -263,6 +351,11 @@
 				EAAE7D8D13142B7A0051B2A9 /* InfoPlist.strings in Resources */,
 				EAAE7D9613142B7A0051B2A9 /* MainWindow.xib in Resources */,
 				EAAE7D9C13142B7A0051B2A9 /* LogInView.xib in Resources */,
+				A2EE3ED6132037DC00745C1C /* HomeViewController.xib in Resources */,
+				A2EE3EDB1320421800745C1C /* DiscussionsViewController.xib in Resources */,
+				A2EE3EE01320425C00745C1C /* CoursesViewController.xib in Resources */,
+				A2EE3EE51320429400745C1C /* PeopleViewController.xib in Resources */,
+				A2EE3EEA132042D800745C1C /* ProfileViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,6 +370,11 @@
 				EAAE7D9313142B7A0051B2A9 /* eCollegeAppDelegate.m in Sources */,
 				EAAE7D9913142B7A0051B2A9 /* LogInViewController.m in Sources */,
 				EAD2DFF913181E7500A4D89C /* ECClientConfiguration.m in Sources */,
+				A2EE3ED5132037DC00745C1C /* HomeViewController.m in Sources */,
+				A2EE3EDA1320421800745C1C /* DiscussionsViewController.m in Sources */,
+				A2EE3EDF1320425C00745C1C /* CoursesViewController.m in Sources */,
+				A2EE3EE41320429400745C1C /* PeopleViewController.m in Sources */,
+				A2EE3EE9132042D800745C1C /* ProfileViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

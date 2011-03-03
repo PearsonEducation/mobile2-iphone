@@ -10,9 +10,32 @@
 #import "LogInViewController.h"
 #import "ECSession.h"
 
+@interface eCollegeAppDelegate ()
+
+// Private properties
+@property (nonatomic, retain) UITabBarController* tabBarController;
+@property (nonatomic, retain) HomeViewController* homeViewController;
+@property (nonatomic, retain) ProfileViewController* profileViewController;
+@property (nonatomic, retain) PeopleViewController* peopleViewController;
+@property (nonatomic, retain) CoursesViewController* coursesViewController;
+@property (nonatomic, retain) DiscussionsViewController* discussionsViewController;
+
+
+// Private methods
+- (void) showTabBar;
+
+@end
+
 @implementation eCollegeAppDelegate
+
 @synthesize window=window;
 @synthesize logInViewController=logInViewController;
+@synthesize tabBarController=tabBarController;
+@synthesize homeViewController=homeViewController;
+@synthesize profileViewController=profileViewController;
+@synthesize peopleViewController=peopleViewController;
+@synthesize coursesViewController=coursesViewController;
+@synthesize discussionsViewController=discussionsViewController;
 
 + (eCollegeAppDelegate *) delegate {
 	return (eCollegeAppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -21,7 +44,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	ECSession *session = [ECSession sharedSession];
 	if ([session hasUnexpiredAccessToken] || [session hasUnexpiredGrantToken]) {
-		// show tab navigator
+		[self showTabBar];
 	} else {
 		logInViewController = [[LogInViewController alloc] initWithNibName:@"LogInView" bundle:nil];
 		[self.window addSubview:self.logInViewController.view];
@@ -38,7 +61,46 @@
 						[self.logInViewController.view removeFromSuperview];
 					}
 					completion:nil];
-	// show tab navigator
+	[self showTabBar];
+}
+
+- (void)showTabBar {
+    // instantiate the tab bar
+    self.tabBarController = [[UITabBarController alloc] init];
+    
+    NSMutableArray* allTabs = [[NSMutableArray alloc] initWithCapacity:5];
+    
+    // Create the view controllers for the tabs
+    self.homeViewController = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
+    self.homeViewController.title = @"Home";
+    [self.homeViewController.tabBarItem initWithTabBarSystemItem:UITabBarSystemItemBookmarks tag:0];
+    [allTabs addObject:self.homeViewController];
+
+    self.discussionsViewController = [[DiscussionsViewController alloc] initWithNibName:@"DiscussionsViewController" bundle:nil];
+    self.discussionsViewController.title = @"Discussions";
+    [self.discussionsViewController.tabBarItem initWithTabBarSystemItem:UITabBarSystemItemBookmarks tag:1];
+    [allTabs addObject:self.discussionsViewController];
+
+    self.coursesViewController = [[CoursesViewController alloc] initWithNibName:@"CoursesViewController" bundle:nil];
+    self.coursesViewController.title = @"Courses";
+    [self.coursesViewController.tabBarItem initWithTabBarSystemItem:UITabBarSystemItemBookmarks tag:2];
+    [allTabs addObject:self.coursesViewController];
+
+    self.peopleViewController = [[PeopleViewController alloc] initWithNibName:@"PeopleViewController" bundle:nil];
+    self.peopleViewController.title = @"People";
+    [self.peopleViewController.tabBarItem initWithTabBarSystemItem:UITabBarSystemItemBookmarks tag:3];
+    [allTabs addObject:self.peopleViewController];
+
+    self.profileViewController = [[ProfileViewController alloc] initWithNibName:@"ProfileViewController" bundle:nil];
+    self.profileViewController.title = @"Profile";
+    [self.profileViewController.tabBarItem initWithTabBarSystemItem:UITabBarSystemItemBookmarks tag:4];
+    [allTabs addObject:self.profileViewController];
+
+    // Add the view controllers as children of the tab bar controller
+    self.tabBarController.viewControllers = allTabs;
+    
+    // Add the tab bar controller to the window
+    [window addSubview:self.tabBarController.view];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -78,6 +140,8 @@
 - (void)dealloc {
 	[window release];
 	[logInViewController release];
+    self.tabBarController = nil;
+    self.homeViewController = nil;
     [super dealloc];
 }
 
