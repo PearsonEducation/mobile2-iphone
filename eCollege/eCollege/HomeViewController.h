@@ -7,10 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ActivityStream.h"
+#import "ActivityStreamFetcher.h"
 
 @interface HomeViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
-    
+    ActivityStream* activityStream;
+    ActivityStreamFetcher* activityStreamFetcher;
+    NSMutableArray* activityItemsForToday;
+    NSMutableArray* activityItemsForLater;
+    UITableView* tableView;
 }
+
+@property (nonatomic, retain) ActivityStream* activityStream;
+@property (nonatomic, retain) NSMutableArray* activityItemsForToday;
+@property (nonatomic, retain) NSMutableArray* activityItemsForLater;
 
 @end

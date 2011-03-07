@@ -7,9 +7,24 @@
 //
 
 #import "HomeViewController.h"
+#import "NSDateUtilities.h"
+#import "ActivityStreamItem.h"
 
+@interface HomeViewController ()
+
+@property (nonatomic, retain) ActivityStreamFetcher* activityStreamFetcher;
+@property (nonatomic, retain) UITableView* tableView;
+
+- (void)sortActivityItemsByDate;
+
+@end
 
 @implementation HomeViewController
+
+@synthesize activityStreamFetcher;
+@synthesize activityStream;
+@synthesize activityItemsForLater;
+@synthesize activityItemsForToday;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -22,12 +37,18 @@
 
 - (void)dealloc
 {
+    self.activityItemsForLater = nil;
+    self.activityItemsForToday = nil;
+    self.activityStream = nil;
+    [self.activityStreamFetcher cancel];
+    self.activityStreamFetcher = nil;
+    self.tableView = nil;
     [super dealloc];
 }
 
 - (void)didReceiveMemoryWarning
 {
-    // Releases the view if it doesn't have a superview.
+    // Releases the view if it doesn't have a super view.
     [super didReceiveMemoryWarning];
     
     // Release any cached data, images, etc that aren't in use.
@@ -38,7 +59,55 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+    if (!self.activityStreamFetcher) {
+        self.activityStreamFetcher = [[ActivityStreamFetcher alloc] initWithDelegate:self responseSelector:@selector(loadedMyActivityStreamHandler:)];    
+    } else {
+        // we don't want any existing requests to go through
+        [self.activityStreamFetcher cancel];
+    }
+    
+    [activityStreamFetcher fetchMyActivityStream];
+}
+
+- (void)loadedMyActivityStreamHandler:(ActivityStream*)loadedActivityStream {
+    if ([loadedActivityStream isKindOfClass:[NSError class]]) {
+        // handle errors
+    } else {
+        self.activityStream = loadedActivityStream;
+        [self sortActivityItemsByDate];
+    }
+}
+
+- (void)sortActivityItemsByDate {
+    // create new buckets for items sorted by time
+    self.activityItemsForToday = [[NSMutableArray alloc] init];
+    self.activityItemsForLater = [[NSMutableArray alloc] init];
+    
+    // if there's no activity stream, return.
+    if (!self.activityStream || !self.activityStream.items || ([self.activityStream.items count] == 0)) {
+        return;
+    }
+    
+    // sort the activity stream items by date
+    NSDate *today = [NSDate date];
+    NSDate *tomorrowMidnight = [today nextDayLocalMidnight];
+    for  (ActivityStreamItem* item in self.activityStream.items) {
+// DEBUG CODE: service was returning all objects before the current date,
+// so randomly push some forward awhile...
+//        int x = arc4random() % 100;
+//        if (x > 50) {
+//            item.postedTime = [item.postedTime addDays:100];
+//        }
+        if ([item.postedTime comesBefore:tomorrowMidnight]) {
+            [self.activityItemsForToday addObject:item];
+        } else {
+            [self.activityItemsForLater addObject:item];
+        }
+    }
+    
+    // since we've updated the buckets of data, we must now reload the table
+    [self.tableView reloadData];
 }
 
 - (void)viewDidUnload
