@@ -7,7 +7,11 @@
 //
 
 #import "InfoTableViewController.h"
-
+#import "HelpViewController.h"
+#import "FeedbackViewController.h"
+#import "AboutViewController.h"
+#import "SettingsViewController.h"
+#import "ProfileViewController.h"
 
 @implementation InfoTableViewController
 
@@ -48,7 +52,7 @@
     // Do any additional setup after loading the view from its nib.
     
     // add the "Cancel" button to the navigation bar
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonClicked:)];
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonClicked:)];
     self.navigationItem.leftBarButtonItem = cancelButton;
 }
 
@@ -157,14 +161,30 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
-     */
+    UIViewController* newView;
+    switch (indexPath.row) {
+        case 0:
+            newView = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
+            break;
+        case 1:
+            newView = [[ProfileViewController alloc] initWithNibName:@"ProfileViewController" bundle:nil];
+            break;
+        case 2:
+            newView = [[AboutViewController alloc] initWithNibName:@"AboutViewController" bundle:nil];
+            break;
+        case 3:
+            newView = [[FeedbackViewController alloc] initWithNibName:@"FeedbackViewController" bundle:nil];
+            break;
+        case 4:
+            newView = [[HelpViewController alloc] initWithNibName:@"HelpViewController" bundle:nil];
+            break;            
+        default:
+            break;
+    }
+    
+    [self.navigationController pushViewController:newView animated:YES];
+    [newView release];
+
 }
 
 

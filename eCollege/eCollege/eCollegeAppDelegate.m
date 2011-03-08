@@ -75,27 +75,37 @@
     self.homeViewController = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
     self.homeViewController.title = NSLocalizedString(@"Home", @"Label on the tab bar for the 'home' section");
     [self.homeViewController.tabBarItem initWithTabBarSystemItem:UITabBarSystemItemBookmarks tag:0];
-    [allTabs addObject:self.homeViewController];
+    UINavigationController* homeNav = [[UINavigationController alloc] initWithRootViewController:self.homeViewController];
+    [allTabs addObject:homeNav];
+    [homeNav release];
 
     self.discussionsViewController = [[DiscussionsViewController alloc] initWithNibName:@"DiscussionsViewController" bundle:nil];
     self.discussionsViewController.title = NSLocalizedString(@"Discussions", @"Label on the tab bar for the 'discussions' section");
     [self.discussionsViewController.tabBarItem initWithTabBarSystemItem:UITabBarSystemItemBookmarks tag:1];
-    [allTabs addObject:self.discussionsViewController];
+    UINavigationController* discussionsNav = [[UINavigationController alloc] initWithRootViewController:self.discussionsViewController];
+    [allTabs addObject:discussionsNav];
+    [discussionsViewController release];
 
     self.coursesViewController = [[CoursesViewController alloc] initWithNibName:@"CoursesViewController" bundle:nil];
     self.coursesViewController.title = NSLocalizedString(@"Courses", @"Label on the tab bar for the 'courses' section");
     [self.coursesViewController.tabBarItem initWithTabBarSystemItem:UITabBarSystemItemBookmarks tag:2];
-    [allTabs addObject:self.coursesViewController];
+    UINavigationController* coursesNav = [[UINavigationController alloc] initWithRootViewController:self.coursesViewController];
+    [allTabs addObject:coursesNav];
+    [coursesNav release];
 
     self.peopleViewController = [[PeopleViewController alloc] initWithNibName:@"PeopleViewController" bundle:nil];
     self.peopleViewController.title = NSLocalizedString(@"People", @"Label on the tab bar for the 'people' section");
     [self.peopleViewController.tabBarItem initWithTabBarSystemItem:UITabBarSystemItemBookmarks tag:3];
-    [allTabs addObject:self.peopleViewController];
+    UINavigationController* peopleNav = [[UINavigationController alloc] initWithRootViewController:self.peopleViewController];
+    [allTabs addObject:peopleNav];
+    [peopleNav release];
 
     self.profileViewController = [[ProfileViewController alloc] initWithNibName:@"ProfileViewController" bundle:nil];
     self.profileViewController.title = NSLocalizedString(@"Profile", @"Label on the tab bar for the 'profile' section");
     [self.profileViewController.tabBarItem initWithTabBarSystemItem:UITabBarSystemItemBookmarks tag:4];
-    [allTabs addObject:self.profileViewController];
+    UINavigationController* profileNav = [[UINavigationController alloc] initWithRootViewController:self.profileViewController];
+    [allTabs addObject:profileNav];
+    [profileNav release];
 
     // Add the view controllers as children of the tab bar controller
     self.tabBarController.viewControllers = allTabs;

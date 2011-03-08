@@ -17,7 +17,7 @@
 @property (nonatomic, retain) UITableView* table;
 
 - (void)sortActivityItemsByDate;
-- (IBAction)showInfoView:(id)sender;
+- (void)infoButtonTapped:(id)sender;
 - (void)cancelButtonClicked:(id)sender;
 
 @end
@@ -50,7 +50,7 @@
     [super dealloc];
 }
 
-- (IBAction)showInfoView:(id)sender {
+- (void)infoButtonTapped:(id)sender {
     InfoTableViewController* infoTableViewController = [[InfoTableViewController alloc] initWithNibName:@"InfoTableViewController" bundle:nil];
     infoTableViewController.cancelDelegate = self;
     UINavigationController *infoNavController = [[UINavigationController alloc] initWithRootViewController:infoTableViewController];
@@ -83,6 +83,12 @@
         // we don't want any existing requests to go through
         [self.activityStreamFetcher cancel];
     }
+    
+    // add the info button, give it a tap handler
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeInfoLight];
+    [btn addTarget:self action:@selector(infoButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    [btn release];
     
     [activityStreamFetcher fetchMyActivityStream];
 }

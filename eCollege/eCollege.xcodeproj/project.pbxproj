@@ -175,8 +175,8 @@
 		A233665F1326A44200DC50DD /* Feedback */ = {
 			isa = PBXGroup;
 			children = (
-				A233666B1326A53C00DC50DD /* FeedbackViewController.h */,
 				A233666C1326A53C00DC50DD /* FeedbackViewController.m */,
+				A233666B1326A53C00DC50DD /* FeedbackViewController.h */,
 				A233666D1326A53C00DC50DD /* FeedbackViewController.xib */,
 			);
 			name = Feedback;
