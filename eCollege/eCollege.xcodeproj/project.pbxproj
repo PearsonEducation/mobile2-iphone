@@ -18,6 +18,11 @@
 		A23366781326A55F00DC50DD /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A23366761326A55F00DC50DD /* SettingsViewController.m */; };
 		A23366791326A55F00DC50DD /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A23366771326A55F00DC50DD /* SettingsViewController.xib */; };
 		A27289961326BCE3001A588D /* UIColor+Boost.m in Sources */ = {isa = PBXBuildFile; fileRef = A27289951326BCE3001A588D /* UIColor+Boost.m */; };
+		A27289991326C0AF001A588D /* 53-house.png in Resources */ = {isa = PBXBuildFile; fileRef = A27289981326C0AF001A588D /* 53-house.png */; };
+		A272899D1326C105001A588D /* 08-chat.png in Resources */ = {isa = PBXBuildFile; fileRef = A272899C1326C105001A588D /* 08-chat.png */; };
+		A272899F1326C11F001A588D /* 96-book.png in Resources */ = {isa = PBXBuildFile; fileRef = A272899E1326C11F001A588D /* 96-book.png */; };
+		A27289A11326C180001A588D /* 112-group.png in Resources */ = {isa = PBXBuildFile; fileRef = A27289A01326C180001A588D /* 112-group.png */; };
+		A27289A31326C191001A588D /* 123-id-card.png in Resources */ = {isa = PBXBuildFile; fileRef = A27289A21326C191001A588D /* 123-id-card.png */; };
 		A2EE3ED5132037DC00745C1C /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2EE3ED3132037DC00745C1C /* HomeViewController.m */; };
 		A2EE3EDA1320421800745C1C /* DiscussionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2EE3ED81320421800745C1C /* DiscussionsViewController.m */; };
 		A2EE3EDB1320421800745C1C /* DiscussionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2EE3ED91320421800745C1C /* DiscussionsViewController.xib */; };
@@ -87,6 +92,11 @@
 		A23366771326A55F00DC50DD /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 		A27289941326BCE3001A588D /* UIColor+Boost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Boost.h"; sourceTree = "<group>"; };
 		A27289951326BCE3001A588D /* UIColor+Boost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Boost.m"; sourceTree = "<group>"; };
+		A27289981326C0AF001A588D /* 53-house.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "53-house.png"; sourceTree = "<group>"; };
+		A272899C1326C105001A588D /* 08-chat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "08-chat.png"; sourceTree = "<group>"; };
+		A272899E1326C11F001A588D /* 96-book.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "96-book.png"; sourceTree = "<group>"; };
+		A27289A01326C180001A588D /* 112-group.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "112-group.png"; sourceTree = "<group>"; };
+		A27289A21326C191001A588D /* 123-id-card.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "123-id-card.png"; sourceTree = "<group>"; };
 		A2EE3ED2132037DC00745C1C /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		A2EE3ED3132037DC00745C1C /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		A2EE3ED71320421800745C1C /* DiscussionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscussionsViewController.h; sourceTree = "<group>"; };
@@ -202,6 +212,18 @@
 				A27289951326BCE3001A588D /* UIColor+Boost.m */,
 			);
 			name = Utilities;
+			sourceTree = "<group>";
+		};
+		A27289971326C045001A588D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A27289A21326C191001A588D /* 123-id-card.png */,
+				A27289A01326C180001A588D /* 112-group.png */,
+				A272899E1326C11F001A588D /* 96-book.png */,
+				A272899C1326C105001A588D /* 08-chat.png */,
+				A27289981326C0AF001A588D /* 53-house.png */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		A2EE3ECC1320347E00745C1C /* View Controllers */ = {
@@ -326,6 +348,7 @@
 		EAAE7D8813142B7A0051B2A9 /* eCollege */ = {
 			isa = PBXGroup;
 			children = (
+				A27289971326C045001A588D /* Resources */,
 				A27289931326BCD2001A588D /* Utilities */,
 				A2EE3ECC1320347E00745C1C /* View Controllers */,
 				EAD2DFF613181E4900A4D89C /* Client Configuration */,
@@ -455,6 +478,11 @@
 				A233666F1326A53C00DC50DD /* FeedbackViewController.xib in Resources */,
 				A23366741326A54B00DC50DD /* AboutViewController.xib in Resources */,
 				A23366791326A55F00DC50DD /* SettingsViewController.xib in Resources */,
+				A27289991326C0AF001A588D /* 53-house.png in Resources */,
+				A272899D1326C105001A588D /* 08-chat.png in Resources */,
+				A272899F1326C11F001A588D /* 96-book.png in Resources */,
+				A27289A11326C180001A588D /* 112-group.png in Resources */,
+				A27289A31326C191001A588D /* 123-id-card.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

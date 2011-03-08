@@ -70,42 +70,49 @@
     
     // create an array to hold the tabs
     NSMutableArray* allTabs = [[NSMutableArray alloc] initWithCapacity:5];
-    
+
+    UIImage* img;
+
     // Create the view controllers for the tabs
     self.homeViewController = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
-    self.homeViewController.title = NSLocalizedString(@"Home", @"Label on the tab bar for the 'home' section");
-    [self.homeViewController.tabBarItem initWithTabBarSystemItem:UITabBarSystemItemBookmarks tag:0];
+    img = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"53-house" ofType:@"png"]];
+    [self.homeViewController.tabBarItem initWithTitle:NSLocalizedString(@"Home", @"Label on the tab bar for the 'home' section") image:img tag:0];
     UINavigationController* homeNav = [[UINavigationController alloc] initWithRootViewController:self.homeViewController];
     [allTabs addObject:homeNav];
     [homeNav release];
+    [img release];
 
     self.discussionsViewController = [[DiscussionsViewController alloc] initWithNibName:@"DiscussionsViewController" bundle:nil];
-    self.discussionsViewController.title = NSLocalizedString(@"Discussions", @"Label on the tab bar for the 'discussions' section");
-    [self.discussionsViewController.tabBarItem initWithTabBarSystemItem:UITabBarSystemItemBookmarks tag:1];
+    img = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"08-chat" ofType:@"png"]];
+    [self.discussionsViewController.tabBarItem initWithTitle:NSLocalizedString(@"Discussions", @"Label on the tab bar for the 'discussions' section") image:img tag:0];
     UINavigationController* discussionsNav = [[UINavigationController alloc] initWithRootViewController:self.discussionsViewController];
     [allTabs addObject:discussionsNav];
     [discussionsViewController release];
+    [img release];
 
     self.coursesViewController = [[CoursesViewController alloc] initWithNibName:@"CoursesViewController" bundle:nil];
-    self.coursesViewController.title = NSLocalizedString(@"Courses", @"Label on the tab bar for the 'courses' section");
-    [self.coursesViewController.tabBarItem initWithTabBarSystemItem:UITabBarSystemItemBookmarks tag:2];
+    img = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"96-book" ofType:@"png"]];
+    [self.coursesViewController.tabBarItem initWithTitle:NSLocalizedString(@"Courses", @"Label on the tab bar for the 'courses' section") image:img tag:0];
     UINavigationController* coursesNav = [[UINavigationController alloc] initWithRootViewController:self.coursesViewController];
     [allTabs addObject:coursesNav];
     [coursesNav release];
+    [img release];
 
     self.peopleViewController = [[PeopleViewController alloc] initWithNibName:@"PeopleViewController" bundle:nil];
-    self.peopleViewController.title = NSLocalizedString(@"People", @"Label on the tab bar for the 'people' section");
-    [self.peopleViewController.tabBarItem initWithTabBarSystemItem:UITabBarSystemItemBookmarks tag:3];
+    img = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"112-group" ofType:@"png"]];
+    [self.peopleViewController.tabBarItem initWithTitle:NSLocalizedString(@"People", @"Label on the tab bar for the 'people' section") image:img tag:0];
     UINavigationController* peopleNav = [[UINavigationController alloc] initWithRootViewController:self.peopleViewController];
     [allTabs addObject:peopleNav];
     [peopleNav release];
+    [img release];
 
     self.profileViewController = [[ProfileViewController alloc] initWithNibName:@"ProfileViewController" bundle:nil];
-    self.profileViewController.title = NSLocalizedString(@"Profile", @"Label on the tab bar for the 'profile' section");
-    [self.profileViewController.tabBarItem initWithTabBarSystemItem:UITabBarSystemItemBookmarks tag:4];
+    img = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"123-id-card" ofType:@"png"]];
+    [self.profileViewController.tabBarItem initWithTitle:NSLocalizedString(@"Profile", @"Label on the tab bar for the 'profile' section") image:img tag:0];
     UINavigationController* profileNav = [[UINavigationController alloc] initWithRootViewController:self.profileViewController];
     [allTabs addObject:profileNav];
     [profileNav release];
+    [img release];
 
     // Add the view controllers as children of the tab bar controller
     self.tabBarController.viewControllers = allTabs;
