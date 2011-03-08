@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A233665B13267F2000DC50DD /* InfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A233665913267F2000DC50DD /* InfoTableViewController.m */; };
+		A233665C13267F2000DC50DD /* InfoTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A233665A13267F2000DC50DD /* InfoTableViewController.xib */; };
+		A23366641326A48D00DC50DD /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A23366621326A48D00DC50DD /* HelpViewController.m */; };
+		A23366651326A48D00DC50DD /* HelpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A23366631326A48D00DC50DD /* HelpViewController.xib */; };
+		A233666E1326A53C00DC50DD /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A233666C1326A53C00DC50DD /* FeedbackViewController.m */; };
+		A233666F1326A53C00DC50DD /* FeedbackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A233666D1326A53C00DC50DD /* FeedbackViewController.xib */; };
+		A23366731326A54B00DC50DD /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A23366711326A54B00DC50DD /* AboutViewController.m */; };
+		A23366741326A54B00DC50DD /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A23366721326A54B00DC50DD /* AboutViewController.xib */; };
+		A23366781326A55F00DC50DD /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A23366761326A55F00DC50DD /* SettingsViewController.m */; };
+		A23366791326A55F00DC50DD /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A23366771326A55F00DC50DD /* SettingsViewController.xib */; };
 		A2EE3ED5132037DC00745C1C /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2EE3ED3132037DC00745C1C /* HomeViewController.m */; };
 		A2EE3EDA1320421800745C1C /* DiscussionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2EE3ED81320421800745C1C /* DiscussionsViewController.m */; };
 		A2EE3EDB1320421800745C1C /* DiscussionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2EE3ED91320421800745C1C /* DiscussionsViewController.xib */; };
@@ -59,6 +69,21 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A233665813267F2000DC50DD /* InfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoTableViewController.h; sourceTree = "<group>"; };
+		A233665913267F2000DC50DD /* InfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoTableViewController.m; sourceTree = "<group>"; };
+		A233665A13267F2000DC50DD /* InfoTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoTableViewController.xib; sourceTree = "<group>"; };
+		A23366611326A48D00DC50DD /* HelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
+		A23366621326A48D00DC50DD /* HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
+		A23366631326A48D00DC50DD /* HelpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HelpViewController.xib; sourceTree = "<group>"; };
+		A233666B1326A53C00DC50DD /* FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
+		A233666C1326A53C00DC50DD /* FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
+		A233666D1326A53C00DC50DD /* FeedbackViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedbackViewController.xib; sourceTree = "<group>"; };
+		A23366701326A54B00DC50DD /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		A23366711326A54B00DC50DD /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		A23366721326A54B00DC50DD /* AboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
+		A23366751326A55F00DC50DD /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		A23366761326A55F00DC50DD /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		A23366771326A55F00DC50DD /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 		A2EE3ED2132037DC00745C1C /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		A2EE3ED3132037DC00745C1C /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		A2EE3ED71320421800745C1C /* DiscussionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscussionsViewController.h; sourceTree = "<group>"; };
@@ -117,9 +142,64 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A233665213267E2C00DC50DD /* Info */ = {
+			isa = PBXGroup;
+			children = (
+				A233665813267F2000DC50DD /* InfoTableViewController.h */,
+				A233665913267F2000DC50DD /* InfoTableViewController.m */,
+				A233665A13267F2000DC50DD /* InfoTableViewController.xib */,
+			);
+			name = Info;
+			sourceTree = "<group>";
+		};
+		A233665D1326A42500DC50DD /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				A23366751326A55F00DC50DD /* SettingsViewController.h */,
+				A23366761326A55F00DC50DD /* SettingsViewController.m */,
+				A23366771326A55F00DC50DD /* SettingsViewController.xib */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
+		A233665E1326A42D00DC50DD /* About */ = {
+			isa = PBXGroup;
+			children = (
+				A23366701326A54B00DC50DD /* AboutViewController.h */,
+				A23366711326A54B00DC50DD /* AboutViewController.m */,
+				A23366721326A54B00DC50DD /* AboutViewController.xib */,
+			);
+			name = About;
+			sourceTree = "<group>";
+		};
+		A233665F1326A44200DC50DD /* Feedback */ = {
+			isa = PBXGroup;
+			children = (
+				A233666B1326A53C00DC50DD /* FeedbackViewController.h */,
+				A233666C1326A53C00DC50DD /* FeedbackViewController.m */,
+				A233666D1326A53C00DC50DD /* FeedbackViewController.xib */,
+			);
+			name = Feedback;
+			sourceTree = "<group>";
+		};
+		A23366601326A44900DC50DD /* Help */ = {
+			isa = PBXGroup;
+			children = (
+				A23366611326A48D00DC50DD /* HelpViewController.h */,
+				A23366621326A48D00DC50DD /* HelpViewController.m */,
+				A23366631326A48D00DC50DD /* HelpViewController.xib */,
+			);
+			name = Help;
+			sourceTree = "<group>";
+		};
 		A2EE3ECC1320347E00745C1C /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				A23366601326A44900DC50DD /* Help */,
+				A233665F1326A44200DC50DD /* Feedback */,
+				A233665E1326A42D00DC50DD /* About */,
+				A233665D1326A42500DC50DD /* Settings */,
+				A233665213267E2C00DC50DD /* Info */,
 				A2EE3ED1132034D200745C1C /* My Profile */,
 				A2EE3ED0132034C900745C1C /* People */,
 				A2EE3ECF132034C000745C1C /* Courses */,
@@ -357,6 +437,11 @@
 				A2EE3EE01320425C00745C1C /* CoursesViewController.xib in Resources */,
 				A2EE3EE51320429400745C1C /* PeopleViewController.xib in Resources */,
 				A2EE3EEA132042D800745C1C /* ProfileViewController.xib in Resources */,
+				A233665C13267F2000DC50DD /* InfoTableViewController.xib in Resources */,
+				A23366651326A48D00DC50DD /* HelpViewController.xib in Resources */,
+				A233666F1326A53C00DC50DD /* FeedbackViewController.xib in Resources */,
+				A23366741326A54B00DC50DD /* AboutViewController.xib in Resources */,
+				A23366791326A55F00DC50DD /* SettingsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,6 +461,11 @@
 				A2EE3EDF1320425C00745C1C /* CoursesViewController.m in Sources */,
 				A2EE3EE41320429400745C1C /* PeopleViewController.m in Sources */,
 				A2EE3EE9132042D800745C1C /* ProfileViewController.m in Sources */,
+				A233665B13267F2000DC50DD /* InfoTableViewController.m in Sources */,
+				A23366641326A48D00DC50DD /* HelpViewController.m in Sources */,
+				A233666E1326A53C00DC50DD /* FeedbackViewController.m in Sources */,
+				A23366731326A54B00DC50DD /* AboutViewController.m in Sources */,
+				A23366781326A55F00DC50DD /* SettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

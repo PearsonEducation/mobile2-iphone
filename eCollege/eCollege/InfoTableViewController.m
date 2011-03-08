@@ -1,34 +1,17 @@
 //
-//  HomeViewController.m
+//  InfoTableViewController.m
 //  eCollege
 //
-//  Created by Brad Umbaugh on 3/3/11.
+//  Created by Brad Umbaugh on 3/8/11.
 //  Copyright 2011 EffectiveUI. All rights reserved.
 //
 
-#import "HomeViewController.h"
-#import "NSDateUtilities.h"
-#import "ActivityStreamItem.h"
 #import "InfoTableViewController.h"
 
-@interface HomeViewController ()
 
-@property (nonatomic, retain) ActivityStreamFetcher* activityStreamFetcher;
-@property (nonatomic, retain) UITableView* table;
+@implementation InfoTableViewController
 
-- (void)sortActivityItemsByDate;
-- (IBAction)showInfoView:(id)sender;
-- (void)cancelButtonClicked:(id)sender;
-
-@end
-
-@implementation HomeViewController
-
-@synthesize activityStreamFetcher;
-@synthesize activityStream;
-@synthesize activityItemsForLater;
-@synthesize activityItemsForToday;
-@synthesize table;
+@synthesize cancelDelegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -41,34 +24,20 @@
 
 - (void)dealloc
 {
-    self.activityItemsForLater = nil;
-    self.activityItemsForToday = nil;
-    self.activityStream = nil;
-    [self.activityStreamFetcher cancel];
-    self.activityStreamFetcher = nil;
-    self.table = nil;
+    self.cancelDelegate = nil;
     [super dealloc];
-}
-
-- (IBAction)showInfoView:(id)sender {
-    InfoTableViewController* infoTableViewController = [[InfoTableViewController alloc] initWithNibName:@"InfoTableViewController" bundle:nil];
-    infoTableViewController.cancelDelegate = self;
-    UINavigationController *infoNavController = [[UINavigationController alloc] initWithRootViewController:infoTableViewController];
-    [self presentModalViewController:infoNavController animated:YES];
-    [infoNavController release];
-    [infoTableViewController release];
-}
-
-- (void)cancelButtonClicked:(id)sender {
-    [self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning
 {
-    // Releases the view if it doesn't have a super view.
+    // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
     
     // Release any cached data, images, etc that aren't in use.
+}
+
+- (void)cancelButtonClicked:(id)sender {
+    [cancelDelegate cancelButtonClicked:nil];
 }
 
 #pragma mark - View lifecycle
@@ -76,55 +45,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
     
-    if (!self.activityStreamFetcher) {
-        self.activityStreamFetcher = [[ActivityStreamFetcher alloc] initWithDelegate:self responseSelector:@selector(loadedMyActivityStreamHandler:)];    
-    } else {
-        // we don't want any existing requests to go through
-        [self.activityStreamFetcher cancel];
-    }
-    
-    [activityStreamFetcher fetchMyActivityStream];
-}
-
-- (void)loadedMyActivityStreamHandler:(ActivityStream*)loadedActivityStream {
-    if ([loadedActivityStream isKindOfClass:[NSError class]]) {
-        // handle errors
-    } else {
-        self.activityStream = loadedActivityStream;
-        [self sortActivityItemsByDate];
-    }
-}
-
-- (void)sortActivityItemsByDate {
-    // create new buckets for items sorted by time
-    self.activityItemsForToday = [[NSMutableArray alloc] init];
-    self.activityItemsForLater = [[NSMutableArray alloc] init];
-    
-    // if there's no activity stream, return.
-    if (!self.activityStream || !self.activityStream.items || ([self.activityStream.items count] == 0)) {
-        return;
-    }
-    
-    // sort the activity stream items by date
-    NSDate *today = [NSDate date];
-    NSDate *tomorrowMidnight = [today nextDayLocalMidnight];
-    for  (ActivityStreamItem* item in self.activityStream.items) {
-// DEBUG CODE: service was returning all objects before the current date,
-// so randomly push some forward awhile...
-//        int x = arc4random() % 100;
-//        if (x > 50) {
-//            item.postedTime = [item.postedTime addDays:100];
-//        }
-        if ([item.postedTime comesBefore:tomorrowMidnight]) {
-            [self.activityItemsForToday addObject:item];
-        } else {
-            [self.activityItemsForLater addObject:item];
-        }
-    }
-    
-    // since we've updated the buckets of data, we must now reload the table
-    [self.table reloadData];
+    // add the "Cancel" button to the navigation bar
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonClicked:)];
+    self.navigationItem.leftBarButtonItem = cancelButton;
 }
 
 - (void)viewDidUnload
@@ -145,13 +70,13 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 0;
+    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -163,7 +88,28 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
     
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
     // Configure the cell...
+    switch (indexPath.row) {
+        case 0:
+            cell.textLabel.text = NSLocalizedString(@"Settings", @"Name of the 'Settings' screen");
+            break;
+        case 1:
+            cell.textLabel.text = NSLocalizedString(@"My Profile", @"Name of the 'My Profile' screen");
+            break;
+        case 2:
+            cell.textLabel.text = NSLocalizedString(@"About", @"Name of the 'About' screen");
+            break;
+        case 3:
+            cell.textLabel.text = NSLocalizedString(@"Feedback", @"Name of the 'Feedback' screen");
+            break;
+        case 4:
+            cell.textLabel.text = NSLocalizedString(@"Help", @"Name of the 'Help' screen");
+            break;            
+        default:
+            break;
+    }
     
     return cell;
 }

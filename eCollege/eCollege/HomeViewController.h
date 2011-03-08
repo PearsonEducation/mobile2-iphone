@@ -15,7 +15,7 @@
     ActivityStreamFetcher* activityStreamFetcher;
     NSMutableArray* activityItemsForToday;
     NSMutableArray* activityItemsForLater;
-    UITableView* tableView;
+    UITableView* table;
 }
 
 @property (nonatomic, retain) ActivityStream* activityStream;
