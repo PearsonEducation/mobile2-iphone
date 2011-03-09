@@ -15,7 +15,13 @@
     ActivityStreamFetcher* activityStreamFetcher;
     NSMutableArray* activityItemsForToday;
     NSMutableArray* activityItemsForLater;
-    UITableView* table;
+    IBOutlet UITableView* table;
+    UIImage* dropboxSubmissionImage;
+    UIImage* examSubmissionImage;
+    UIImage* gradeImage;
+    UIImage* remarkImage;
+    UIImage* threadPostImage;
+    UIImage* threadTopicImage;
 }
 
 @property (nonatomic, retain) ActivityStream* activityStream;

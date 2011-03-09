@@ -11,11 +11,14 @@
 #import "ActivityStreamItem.h"
 #import "InfoTableViewController.h"
 #import "UIColor+Boost.h"
+#import "ActivityTableCell.h"
+#import "ActivityStreamItem.h"
+#import "ActivityStreamObject.h"
 
 @interface HomeViewController ()
 
 @property (nonatomic, retain) ActivityStreamFetcher* activityStreamFetcher;
-@property (nonatomic, retain) UITableView* table;
+@property (nonatomic, retain) IBOutlet UITableView* table;
 
 - (void)sortActivityItemsByDate;
 - (void)infoButtonTapped:(id)sender;
@@ -48,6 +51,12 @@
     [self.activityStreamFetcher cancel];
     self.activityStreamFetcher = nil;
     self.table = nil;
+    [dropboxSubmissionImage release];
+    [examSubmissionImage release];
+    [gradeImage release];
+    [remarkImage release];
+    [threadPostImage release];
+    [threadTopicImage release];
     [super dealloc];
 }
 
@@ -107,6 +116,15 @@
     
     // grab all activities
     [activityStreamFetcher fetchMyActivityStream];
+    
+    // load the various images that are used in the table view
+    dropboxSubmissionImage = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ic_dropbox_submission" ofType:@"png"]];
+    examSubmissionImage = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ic_exam_submission" ofType:@"png"]];
+    gradeImage = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ic_grade" ofType:@"png"]];
+    remarkImage = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ic_remark" ofType:@"png"]];
+    threadPostImage = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ic_thread_post" ofType:@"png"]];
+    threadTopicImage = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ic_thread_topic" ofType:@"png"]];
+
 }
 
 - (void)loadedMyActivityStreamHandler:(ActivityStream*)loadedActivityStream {
@@ -116,6 +134,8 @@
         self.activityStream = loadedActivityStream;
         [self sortActivityItemsByDate];
     }
+    // since we've updated the buckets of data, we must now reload the table
+    [self.table reloadData];
 }
 
 - (void)sortActivityItemsByDate {
@@ -134,19 +154,19 @@
     for  (ActivityStreamItem* item in self.activityStream.items) {
 // DEBUG CODE: service was returning all objects before the current date,
 // so randomly push some forward awhile...
-//        int x = arc4random() % 100;
-//        if (x > 50) {
-//            item.postedTime = [item.postedTime addDays:100];
-//        }
+        int x = arc4random() % 100;
+        if (x > 50) {
+            item.postedTime = [item.postedTime addDays:100];
+        }
         if ([item.postedTime comesBefore:tomorrowMidnight]) {
             [self.activityItemsForToday addObject:item];
+            NSLog(@"Before");
         } else {
             [self.activityItemsForLater addObject:item];
+            NSLog(@"After");
         }
     }
-    
-    // since we've updated the buckets of data, we must now reload the table
-    [self.table reloadData];
+
 }
 
 - (void)viewDidUnload
@@ -166,27 +186,41 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
-    return 0;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    return 0;
+    switch (section) {
+        case 0:
+            return ([self.activityItemsForToday count] > 0) ? [self.activityItemsForToday count] : 1;
+            break;
+        case 1:
+            return ([self.activityItemsForLater count] > 0) ? [self.activityItemsForLater count] : 1;
+            break;
+        default:
+            return 0;
+            break;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 51.0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"ActivityTableCell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"ActivityTableCell" owner:self options:nil];
+        cell = [nib objectAtIndex:0];
     }
     
     // Configure the cell...
-    
+    ActivityStreamItem* item = (indexPath.section == 0) ? [self.activityItemsForToday objectAtIndex:indexPath.row] : [self.activityItemsForLater objectAtIndex:indexPath.row];    
+    [(ActivityTableCell*)cell setData:item];
     return cell;
 }
 
@@ -243,5 +277,12 @@
      */
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return NSLocalizedString(@"Today",@"The word meaning 'today'");
+    } else {
+        return NSLocalizedString(@"Later",@"The word meaning 'later'");
+    }
+}
 
 @end
