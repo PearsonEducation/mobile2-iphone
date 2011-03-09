@@ -9,23 +9,20 @@
 #import <UIKit/UIKit.h>
 #import "ActivityStream.h"
 #import "ActivityStreamFetcher.h"
+#import "DateCalculator.h"
 
 @interface HomeViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
     ActivityStream* activityStream;
     ActivityStreamFetcher* activityStreamFetcher;
-    NSMutableArray* activityItemsForToday;
-    NSMutableArray* activityItemsForLater;
+    NSMutableArray* todayActivityItems;
+    NSMutableArray* earlierActivityItems;
     IBOutlet UITableView* table;
-    UIImage* dropboxSubmissionImage;
-    UIImage* examSubmissionImage;
-    UIImage* gradeImage;
-    UIImage* remarkImage;
-    UIImage* threadPostImage;
-    UIImage* threadTopicImage;
+    DateCalculator* dateCalculator;
+    NSDate* today;
 }
 
 @property (nonatomic, retain) ActivityStream* activityStream;
-@property (nonatomic, retain) NSMutableArray* activityItemsForToday;
-@property (nonatomic, retain) NSMutableArray* activityItemsForLater;
+@property (nonatomic, retain) NSMutableArray* todayActivityItems;
+@property (nonatomic, retain) NSMutableArray* earlierActivityItems;
 
 @end

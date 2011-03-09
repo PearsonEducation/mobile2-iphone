@@ -26,7 +26,7 @@
 
 -(void)setData:(ActivityStreamItem*)item {
 	if(item) { 
-        friendlyDate.text = @"Today";
+        friendlyDate.text = item.friendlyDate;
         title.text = item.object.title;
         courseName.text = @"Course name goes here";
         description.text = item.object.summary;

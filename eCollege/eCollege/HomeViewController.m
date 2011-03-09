@@ -14,13 +14,14 @@
 #import "ActivityTableCell.h"
 #import "ActivityStreamItem.h"
 #import "ActivityStreamObject.h"
+#import "DateCalculator.h"
 
 @interface HomeViewController ()
 
 @property (nonatomic, retain) ActivityStreamFetcher* activityStreamFetcher;
 @property (nonatomic, retain) IBOutlet UITableView* table;
 
-- (void)sortActivityItemsByDate;
+- (void)prepareData;
 - (void)infoButtonTapped:(id)sender;
 - (void)cancelButtonClicked:(id)sender;
 
@@ -30,8 +31,8 @@
 
 @synthesize activityStreamFetcher;
 @synthesize activityStream;
-@synthesize activityItemsForLater;
-@synthesize activityItemsForToday;
+@synthesize earlierActivityItems;
+@synthesize todayActivityItems;
 @synthesize table;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -45,18 +46,18 @@
 
 - (void)dealloc
 {
-    self.activityItemsForLater = nil;
-    self.activityItemsForToday = nil;
+    self.earlierActivityItems = nil;
+    self.todayActivityItems = nil;
     self.activityStream = nil;
     [self.activityStreamFetcher cancel];
     self.activityStreamFetcher = nil;
     self.table = nil;
-    [dropboxSubmissionImage release];
-    [examSubmissionImage release];
-    [gradeImage release];
-    [remarkImage release];
-    [threadPostImage release];
-    [threadTopicImage release];
+    if (dateCalculator) {
+        [dateCalculator release];
+    }
+    if (today) {
+        [today release];
+    }
     [super dealloc];
 }
 
@@ -87,13 +88,6 @@
 {
     [super viewDidLoad];
     
-    if (!self.activityStreamFetcher) {
-        self.activityStreamFetcher = [[ActivityStreamFetcher alloc] initWithDelegate:self responseSelector:@selector(loadedMyActivityStreamHandler:)];    
-    } else {
-        // we don't want any existing requests to go through
-        [self.activityStreamFetcher cancel];
-    }
-    
     // add the info button, give it a tap handler
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeInfoLight];
     [btn addTarget:self action:@selector(infoButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
@@ -114,17 +108,21 @@
     [notificationButton release];
     [label release];
     
-    // grab all activities
+    // create the date calculator for later use
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    [gregorian setTimeZone:[NSTimeZone defaultTimeZone]];
+    today = [[NSDate date] retain];
+    dateCalculator = [[DateCalculator alloc] initWithCalendar:gregorian andTodayDate:today];
+    [gregorian release];
+
+    // fetch activities
+    if (!self.activityStreamFetcher) {
+        self.activityStreamFetcher = [[ActivityStreamFetcher alloc] initWithDelegate:self responseSelector:@selector(loadedMyActivityStreamHandler:)];    
+    } else {
+        [self.activityStreamFetcher cancel];
+    }
     [activityStreamFetcher fetchMyActivityStream];
     
-    // load the various images that are used in the table view
-    dropboxSubmissionImage = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ic_dropbox_submission" ofType:@"png"]];
-    examSubmissionImage = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ic_exam_submission" ofType:@"png"]];
-    gradeImage = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ic_grade" ofType:@"png"]];
-    remarkImage = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ic_remark" ofType:@"png"]];
-    threadPostImage = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ic_thread_post" ofType:@"png"]];
-    threadTopicImage = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ic_thread_topic" ofType:@"png"]];
-
 }
 
 - (void)loadedMyActivityStreamHandler:(ActivityStream*)loadedActivityStream {
@@ -132,37 +130,54 @@
         // handle errors
     } else {
         self.activityStream = loadedActivityStream;
-        [self sortActivityItemsByDate];
+        [self prepareData];
     }
+
     // since we've updated the buckets of data, we must now reload the table
     [self.table reloadData];
 }
 
-- (void)sortActivityItemsByDate {
+- (void)prepareData {
+
+//    for  (ActivityStreamItem* aitem in self.activityStream.items) {
+//        int x = arc4random() % 100;
+//        if (x > 50) {
+//            aitem.postedTime = today;
+//        }
+//        if (x > 75) {
+//            aitem.postedTime = [dateCalculator addDays:-1 toDate:today];
+//            NSLog(@"YESTERDAY: %@", [aitem.postedTime iso8601DateString]);
+//        }
+//    }
+
+    
     // create new buckets for items sorted by time
-    self.activityItemsForToday = [[NSMutableArray alloc] init];
-    self.activityItemsForLater = [[NSMutableArray alloc] init];
+    self.todayActivityItems = [[NSMutableArray alloc] init];
+    self.earlierActivityItems = [[NSMutableArray alloc] init];
     
     // if there's no activity stream, return.
     if (!self.activityStream || !self.activityStream.items || ([self.activityStream.items count] == 0)) {
         return;
     }
     
+    NSSortDescriptor* sd = [[NSSortDescriptor alloc] initWithKey:@"postedTime" ascending:NO selector:@selector(compare:)];
+    NSArray* descriptors = [[NSArray alloc] initWithObjects:sd,nil];
+    self.activityStream.items = [self.activityStream.items sortedArrayUsingDescriptors:descriptors];
+    
+    [descriptors release];
+    [sd release];
+
+    
     // sort the activity stream items by date
-    NSDate *today = [NSDate date];
     for  (ActivityStreamItem* item in self.activityStream.items) {
-        // DEBUG CODE: service was returning all objects before the current date,
-        // so randomly push some forward awhile...
-        int x = arc4random() % 100;
-        if (x > 50) {
-            item.postedTime = [item.postedTime addDays:100];
-        }
-        if ([item.postedTime is:0 fromDate:today]) {
-            [self.activityItemsForToday addObject:item];
-            NSLog(@"Today");
+        int numDays = [dateCalculator datesFrom:today to:item.postedTime];
+        item.friendlyDate = [item.postedTime friendlyDateFor:numDays];
+        if (numDays == 0) {
+            [self.todayActivityItems addObject:item];
+            //NSLog(@"Today: %@; numDays = %d; desc = %@", [item.postedTime iso8601DateString], numDays, item.object.title);
         } else {
-            [self.activityItemsForLater addObject:item];
-            NSLog(@"After");            
+            [self.earlierActivityItems addObject:item];
+            //NSLog(@"Earlier: %@; numDays = %d; desc = %@", [item.postedTime iso8601DateString], numDays, item.object.title);            
         }
     }
 
@@ -183,23 +198,33 @@
 
 #pragma mark - Table view data source
 
+- (BOOL)hasTodayItems {
+    return ([self.todayActivityItems count] > 0);     
+}
+
+- (BOOL)hasEarlierItems {
+    return ([self.earlierActivityItems count] > 0);         
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    int cnt = 0;
+    if ([self hasTodayItems]) {
+        cnt++;
+    } 
+    if ([self hasEarlierItems] > 0) {
+        cnt++;
+    } 
+    return cnt;
 }
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    switch (section) {
-        case 0:
-            return ([self.activityItemsForToday count] > 0) ? [self.activityItemsForToday count] : 1;
-            break;
-        case 1:
-            return ([self.activityItemsForLater count] > 0) ? [self.activityItemsForLater count] : 1;
-            break;
-        default:
-            return 0;
-            break;
+    if (section == 0 && [self hasTodayItems]) {
+        return [self.todayActivityItems count];
+    } else {
+        return [self.earlierActivityItems count];
     }
 }
 
@@ -217,9 +242,19 @@
         cell = [nib objectAtIndex:0];
     }
     
-    // Configure the cell...
-    ActivityStreamItem* item = (indexPath.section == 0) ? [self.activityItemsForToday objectAtIndex:indexPath.row] : [self.activityItemsForLater objectAtIndex:indexPath.row];    
-    [(ActivityTableCell*)cell setData:item];
+    // Find the data for the cell...
+    ActivityStreamItem* item;
+    if (indexPath.section == 0 && [self hasTodayItems]) {
+        item = [self.todayActivityItems objectAtIndex:indexPath.row];            
+    } else {
+        item = [self.earlierActivityItems objectAtIndex:indexPath.row];                
+    }
+
+    // set up the cell
+    if (item) {
+        [(ActivityTableCell*)cell setData:item];
+
+    }
     return cell;
 }
 
@@ -277,10 +312,10 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (section == 0) {
+    if (section == 0 && [self hasTodayItems]) {
         return NSLocalizedString(@"Today",@"The word meaning 'today'");
     } else {
-        return NSLocalizedString(@"Later",@"The word meaning 'later'");
+        return NSLocalizedString(@"Earlier",@"The word meaning 'earlier'");
     }
 }
 
