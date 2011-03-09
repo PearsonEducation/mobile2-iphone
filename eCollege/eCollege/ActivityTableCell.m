@@ -59,6 +59,9 @@
 }
 
 - (void)dealloc {
+    if (imageView) {
+        [imageView release];
+    }
     [super dealloc];
 }
 

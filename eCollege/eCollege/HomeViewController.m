@@ -150,20 +150,19 @@
     
     // sort the activity stream items by date
     NSDate *today = [NSDate date];
-    NSDate *tomorrowMidnight = [today nextDayLocalMidnight];
     for  (ActivityStreamItem* item in self.activityStream.items) {
-// DEBUG CODE: service was returning all objects before the current date,
-// so randomly push some forward awhile...
+        // DEBUG CODE: service was returning all objects before the current date,
+        // so randomly push some forward awhile...
         int x = arc4random() % 100;
         if (x > 50) {
             item.postedTime = [item.postedTime addDays:100];
         }
-        if ([item.postedTime comesBefore:tomorrowMidnight]) {
+        if ([item.postedTime is:0 fromDate:today]) {
             [self.activityItemsForToday addObject:item];
-            NSLog(@"Before");
+            NSLog(@"Today");
         } else {
             [self.activityItemsForLater addObject:item];
-            NSLog(@"After");
+            NSLog(@"After");            
         }
     }
 
