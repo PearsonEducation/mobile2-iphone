@@ -77,10 +77,11 @@
     return 1;
 }
 
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 5;
+    return 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -100,15 +101,6 @@
             cell.textLabel.text = NSLocalizedString(@"Settings", @"Name of the 'Settings' screen");
             break;
         case 1:
-            cell.textLabel.text = NSLocalizedString(@"My Profile", @"Name of the 'My Profile' screen");
-            break;
-        case 2:
-            cell.textLabel.text = NSLocalizedString(@"About", @"Name of the 'About' screen");
-            break;
-        case 3:
-            cell.textLabel.text = NSLocalizedString(@"Feedback", @"Name of the 'Feedback' screen");
-            break;
-        case 4:
             cell.textLabel.text = NSLocalizedString(@"Help", @"Name of the 'Help' screen");
             break;            
         default:
@@ -167,15 +159,6 @@
             newView = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
             break;
         case 1:
-            newView = [[ProfileViewController alloc] initWithNibName:@"ProfileViewController" bundle:nil];
-            break;
-        case 2:
-            newView = [[AboutViewController alloc] initWithNibName:@"AboutViewController" bundle:nil];
-            break;
-        case 3:
-            newView = [[FeedbackViewController alloc] initWithNibName:@"FeedbackViewController" bundle:nil];
-            break;
-        case 4:
             newView = [[HelpViewController alloc] initWithNibName:@"HelpViewController" bundle:nil];
             break;            
         default:
