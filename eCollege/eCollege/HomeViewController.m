@@ -142,16 +142,16 @@
 
 - (void)prepareData {
 
-    for  (ActivityStreamItem* aitem in self.activityStream.items) {
-        int x = arc4random() % 100;
-        if (x > 50) {
-            aitem.postedTime = today;
-        }
-        if (x > 75) {
-            aitem.postedTime = [dateCalculator addDays:-1 toDate:today];
-        }
-    }
-
+    // debug code to make sure we have some items for today and yesterday
+    //    for  (ActivityStreamItem* aitem in self.activityStream.items) {
+    //        int x = arc4random() % 100;
+    //        if (x > 50) {
+    //            aitem.postedTime = today;
+    //        }
+    //        if (x > 75) {
+    //            aitem.postedTime = [dateCalculator addDays:-1 toDate:today];
+    //        }
+    //    }
     
     // create new buckets for items sorted by time
     self.todayActivityItems = [[NSMutableArray alloc] init];
