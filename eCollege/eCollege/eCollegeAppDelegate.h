@@ -29,6 +29,6 @@
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) LogInViewController *logInViewController;
 
-- (void) dismissLoginView;
+- (void)dismissLoginView;
 
 @end

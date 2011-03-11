@@ -10,6 +10,7 @@
 #import "ActivityStream.h"
 #import "ActivityStreamFetcher.h"
 #import "DateCalculator.h"
+#import "BlockingActivityView.h"
 
 @interface HomeViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
     ActivityStream* activityStream;
@@ -19,6 +20,7 @@
     IBOutlet UITableView* table;
     DateCalculator* dateCalculator;
     NSDate* today;
+    BlockingActivityView* blockingActivityView;
 }
 
 @property (nonatomic, retain) ActivityStream* activityStream;

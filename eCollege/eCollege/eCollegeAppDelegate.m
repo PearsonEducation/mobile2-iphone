@@ -9,6 +9,9 @@
 #import "eCollegeAppDelegate.h"
 #import "LogInViewController.h"
 #import "ECSession.h"
+#import "NSDateUtilities.h"
+#import "DateCalculator.h"
+#import "GTMNSString+HTML.h"
 
 @interface eCollegeAppDelegate ()
 
@@ -42,6 +45,11 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+//    NSString* b = @"&#038;";
+//    b = [b gtm_stringByUnescapingFromHTML];
+//    NSLog(@"THE STRING IS: %@",b);
+//    
 	ECSession *session = [ECSession sharedSession];
 	if ([session hasUnexpiredAccessToken] || [session hasUnexpiredGrantToken]) {
 		[self showTabBar];
@@ -125,6 +133,7 @@
     // Add the tab bar controller to the window
     [window addSubview:self.tabBarController.view];
 }
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
 	/*

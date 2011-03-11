@@ -25,6 +25,8 @@
 		A272899F1326C11F001A588D /* 96-book.png in Resources */ = {isa = PBXBuildFile; fileRef = A272899E1326C11F001A588D /* 96-book.png */; };
 		A27289A11326C180001A588D /* 112-group.png in Resources */ = {isa = PBXBuildFile; fileRef = A27289A01326C180001A588D /* 112-group.png */; };
 		A27289A31326C191001A588D /* 123-id-card.png in Resources */ = {isa = PBXBuildFile; fileRef = A27289A21326C191001A588D /* 123-id-card.png */; };
+		A2791F7F132AB35800D900C9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2791F7E132AB35800D900C9 /* QuartzCore.framework */; };
+		A2791F82132ABF0800D900C9 /* BlockingActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = A2791F81132ABF0800D900C9 /* BlockingActivityView.m */; };
 		A2B0D27F1326FA87008801E2 /* ic_dropbox_submission.png in Resources */ = {isa = PBXBuildFile; fileRef = A2B0D2791326FA87008801E2 /* ic_dropbox_submission.png */; };
 		A2B0D2801326FA87008801E2 /* ic_exam_submission.png in Resources */ = {isa = PBXBuildFile; fileRef = A2B0D27A1326FA87008801E2 /* ic_exam_submission.png */; };
 		A2B0D2811326FA87008801E2 /* ic_grade.png in Resources */ = {isa = PBXBuildFile; fileRef = A2B0D27B1326FA87008801E2 /* ic_grade.png */; };
@@ -108,6 +110,9 @@
 		A272899E1326C11F001A588D /* 96-book.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "96-book.png"; sourceTree = "<group>"; };
 		A27289A01326C180001A588D /* 112-group.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "112-group.png"; sourceTree = "<group>"; };
 		A27289A21326C191001A588D /* 123-id-card.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "123-id-card.png"; sourceTree = "<group>"; };
+		A2791F7E132AB35800D900C9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		A2791F80132ABF0800D900C9 /* BlockingActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockingActivityView.h; sourceTree = "<group>"; };
+		A2791F81132ABF0800D900C9 /* BlockingActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockingActivityView.m; sourceTree = "<group>"; };
 		A2B0D2791326FA87008801E2 /* ic_dropbox_submission.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_dropbox_submission.png; sourceTree = "<group>"; };
 		A2B0D27A1326FA87008801E2 /* ic_exam_submission.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_exam_submission.png; sourceTree = "<group>"; };
 		A2B0D27B1326FA87008801E2 /* ic_grade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_grade.png; sourceTree = "<group>"; };
@@ -158,6 +163,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2791F7F132AB35800D900C9 /* QuartzCore.framework in Frameworks */,
 				EA7A9F5A13146E3400D9EC6A /* libECAPI.a in Frameworks */,
 				EA7A9FC0131473D500D9EC6A /* libz.1.2.3.dylib in Frameworks */,
 				EA7A9FBE131473A100D9EC6A /* CFNetwork.framework in Frameworks */,
@@ -227,6 +233,8 @@
 			children = (
 				A27289941326BCE3001A588D /* UIColor+Boost.h */,
 				A27289951326BCE3001A588D /* UIColor+Boost.m */,
+				A2791F80132ABF0800D900C9 /* BlockingActivityView.h */,
+				A2791F81132ABF0800D900C9 /* BlockingActivityView.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -342,6 +350,7 @@
 		EAAE7D7313142B7A0051B2A9 = {
 			isa = PBXGroup;
 			children = (
+				A2791F7E132AB35800D900C9 /* QuartzCore.framework */,
 				EAAE7D8813142B7A0051B2A9 /* eCollege */,
 				EAAE7D8113142B7A0051B2A9 /* Frameworks */,
 				EAB6022F131431EA00F62ACF /* Dependent Projects */,
@@ -542,6 +551,7 @@
 				A23366781326A55F00DC50DD /* SettingsViewController.m in Sources */,
 				A27289961326BCE3001A588D /* UIColor+Boost.m in Sources */,
 				A21401431326DABD007C9207 /* ActivityTableCell.m in Sources */,
+				A2791F82132ABF0800D900C9 /* BlockingActivityView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

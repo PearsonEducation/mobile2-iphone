@@ -15,6 +15,7 @@
 #import "ActivityStreamItem.h"
 #import "ActivityStreamObject.h"
 #import "DateCalculator.h"
+#import "eCollegeAppDelegate.h"
 
 @interface HomeViewController ()
 
@@ -39,7 +40,15 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        // activity view
+        blockingActivityView = [[BlockingActivityView alloc] initWithWithView:self.view];
+        // date calculator
+        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        [gregorian setTimeZone:[NSTimeZone defaultTimeZone]];
+        today = [[NSDate date] retain];
+        dateCalculator = [[DateCalculator alloc] initWithCalendar:gregorian andTodayDate:today];
+        [gregorian release];
+
     }
     return self;
 }
@@ -52,12 +61,9 @@
     [self.activityStreamFetcher cancel];
     self.activityStreamFetcher = nil;
     self.table = nil;
-    if (dateCalculator) {
-        [dateCalculator release];
-    }
-    if (today) {
-        [today release];
-    }
+    [blockingActivityView release];
+    [dateCalculator release];
+    [today release];
     [super dealloc];
 }
 
@@ -107,25 +113,22 @@
     [notificationView release];
     [notificationButton release];
     [label release];
-    
-    // create the date calculator for later use
-    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    [gregorian setTimeZone:[NSTimeZone defaultTimeZone]];
-    today = [[NSDate date] retain];
-    dateCalculator = [[DateCalculator alloc] initWithCalendar:gregorian andTodayDate:today];
-    [gregorian release];
+}
 
+- (void)viewWillAppear:(BOOL)animated {
     // fetch activities
     if (!self.activityStreamFetcher) {
         self.activityStreamFetcher = [[ActivityStreamFetcher alloc] initWithDelegate:self responseSelector:@selector(loadedMyActivityStreamHandler:)];    
     } else {
         [self.activityStreamFetcher cancel];
     }
-    [activityStreamFetcher fetchMyActivityStream];
     
+    [activityStreamFetcher fetchMyActivityStream];
+    [blockingActivityView show];    
 }
 
 - (void)loadedMyActivityStreamHandler:(ActivityStream*)loadedActivityStream {
+    [blockingActivityView hide];
     if ([loadedActivityStream isKindOfClass:[NSError class]]) {
         // handle errors
     } else {
