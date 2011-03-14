@@ -8,7 +8,6 @@
 
 #import "ActivityTableCell.h"
 #import "ActivityStreamItem.h"
-#import "GTMNSString+HTML.h"
 
 @implementation ActivityTableCell
 
@@ -27,10 +26,10 @@
 
 -(void)setData:(ActivityStreamItem*)item {
 	if(item) { 
-        friendlyDate.text = [item.friendlyDate gtm_stringByUnescapingFromHTML];
-        title.text = [item.object.title gtm_stringByUnescapingFromHTML];
+        friendlyDate.text = item.friendlyDate;
+        title.text = item.object.title;
         courseName.text = @"Course name goes here";
-        description.text = [item.object.summary gtm_stringByUnescapingFromHTML];
+        description.text = item.object.summary;
         if (!imageView) {
             imageView = [[UIImageView alloc] initWithFrame:CGRectMake(4, 4, 25, 25)];
             [imageView setContentMode:UIViewContentModeScaleAspectFit];           
