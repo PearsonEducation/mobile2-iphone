@@ -11,7 +11,6 @@
 #import "ECSession.h"
 #import "NSDateUtilities.h"
 #import "DateCalculator.h"
-#import "GTMNSString+HTML.h"
 
 @interface eCollegeAppDelegate ()
 
