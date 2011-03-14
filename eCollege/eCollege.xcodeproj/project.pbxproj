@@ -33,6 +33,7 @@
 		A2B0D2821326FA87008801E2 /* ic_remark.png in Resources */ = {isa = PBXBuildFile; fileRef = A2B0D27C1326FA87008801E2 /* ic_remark.png */; };
 		A2B0D2831326FA87008801E2 /* ic_thread_post.png in Resources */ = {isa = PBXBuildFile; fileRef = A2B0D27D1326FA87008801E2 /* ic_thread_post.png */; };
 		A2B0D2841326FA87008801E2 /* ic_thread_topic.png in Resources */ = {isa = PBXBuildFile; fileRef = A2B0D27E1326FA87008801E2 /* ic_thread_topic.png */; };
+		A2DC30B6132E7A770022BC71 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = A2DC30B5132E7A770022BC71 /* GTMNSString+HTML.m */; };
 		A2EE3ED5132037DC00745C1C /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2EE3ED3132037DC00745C1C /* HomeViewController.m */; };
 		A2EE3EDA1320421800745C1C /* DiscussionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2EE3ED81320421800745C1C /* DiscussionsViewController.m */; };
 		A2EE3EDB1320421800745C1C /* DiscussionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2EE3ED91320421800745C1C /* DiscussionsViewController.xib */; };
@@ -43,7 +44,7 @@
 		A2EE3EE9132042D800745C1C /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2EE3EE7132042D800745C1C /* ProfileViewController.m */; };
 		A2EE3EEA132042D800745C1C /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2EE3EE8132042D800745C1C /* ProfileViewController.xib */; };
 		A2FA6E8013206E3B0063268C /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2FA6E8213206E3B0063268C /* HomeViewController.xib */; };
-		EA7A9F5A13146E3400D9EC6A /* libECAPI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA7A9F5913146E3400D9EC6A /* libECAPI.a */; };
+		EA7A9F5A13146E3400D9EC6A /* libECAPI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA7A9F5913146E3400D9EC6A /* libECAPI.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		EA7A9FBA1314738300D9EC6A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA7A9FB91314738300D9EC6A /* SystemConfiguration.framework */; };
 		EA7A9FBC1314738F00D9EC6A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA7A9FBB1314738F00D9EC6A /* MobileCoreServices.framework */; };
 		EA7A9FBE131473A100D9EC6A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA7A9FBD131473A100D9EC6A /* CFNetwork.framework */; };
@@ -119,6 +120,8 @@
 		A2B0D27C1326FA87008801E2 /* ic_remark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_remark.png; sourceTree = "<group>"; };
 		A2B0D27D1326FA87008801E2 /* ic_thread_post.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_thread_post.png; sourceTree = "<group>"; };
 		A2B0D27E1326FA87008801E2 /* ic_thread_topic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_thread_topic.png; sourceTree = "<group>"; };
+		A2DC30B4132E7A770022BC71 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
+		A2DC30B5132E7A770022BC71 /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
 		A2EE3ED2132037DC00745C1C /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		A2EE3ED3132037DC00745C1C /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		A2EE3ED71320421800745C1C /* DiscussionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscussionsViewController.h; sourceTree = "<group>"; };
@@ -231,6 +234,8 @@
 		A27289931326BCD2001A588D /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				A2DC30B4132E7A770022BC71 /* GTMNSString+HTML.h */,
+				A2DC30B5132E7A770022BC71 /* GTMNSString+HTML.m */,
 				A27289941326BCE3001A588D /* UIColor+Boost.h */,
 				A27289951326BCE3001A588D /* UIColor+Boost.m */,
 				A2791F80132ABF0800D900C9 /* BlockingActivityView.h */,
@@ -545,13 +550,14 @@
 				A2EE3EE41320429400745C1C /* PeopleViewController.m in Sources */,
 				A2EE3EE9132042D800745C1C /* ProfileViewController.m in Sources */,
 				A233665B13267F2000DC50DD /* InfoTableViewController.m in Sources */,
-				A23366641326A48D00DC50DD /* HelpViewController.m in Sources */,
 				A233666E1326A53C00DC50DD /* FeedbackViewController.m in Sources */,
+				A23366641326A48D00DC50DD /* HelpViewController.m in Sources */,
 				A23366731326A54B00DC50DD /* AboutViewController.m in Sources */,
 				A23366781326A55F00DC50DD /* SettingsViewController.m in Sources */,
 				A27289961326BCE3001A588D /* UIColor+Boost.m in Sources */,
 				A21401431326DABD007C9207 /* ActivityTableCell.m in Sources */,
 				A2791F82132ABF0800D900C9 /* BlockingActivityView.m in Sources */,
+				A2DC30B6132E7A770022BC71 /* GTMNSString+HTML.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

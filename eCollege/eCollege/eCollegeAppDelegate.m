@@ -46,10 +46,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-//    NSString* b = @"&#038;";
-//    b = [b gtm_stringByUnescapingFromHTML];
-//    NSLog(@"THE STRING IS: %@",b);
-//    
 	ECSession *session = [ECSession sharedSession];
 	if ([session hasUnexpiredAccessToken] || [session hasUnexpiredGrantToken]) {
 		[self showTabBar];
