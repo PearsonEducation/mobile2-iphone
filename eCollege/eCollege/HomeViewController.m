@@ -35,6 +35,7 @@
 @synthesize earlierActivityItems;
 @synthesize todayActivityItems;
 @synthesize table;
+@synthesize lastUpdateTime;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -45,8 +46,7 @@
         // date calculator
         NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
         [gregorian setTimeZone:[NSTimeZone defaultTimeZone]];
-        today = [[NSDate date] retain];
-        dateCalculator = [[DateCalculator alloc] initWithCalendar:gregorian andTodayDate:today];
+        dateCalculator = [[DateCalculator alloc] initWithCalendar:gregorian];
         [gregorian release];
 
     }
@@ -58,6 +58,7 @@
     self.earlierActivityItems = nil;
     self.todayActivityItems = nil;
     self.activityStream = nil;
+    self.lastUpdateTime = nil;
     [self.activityStreamFetcher cancel];
     self.activityStreamFetcher = nil;
     self.table = nil;
@@ -116,15 +117,19 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    // fetch activities
-    if (!self.activityStreamFetcher) {
-        self.activityStreamFetcher = [[ActivityStreamFetcher alloc] initWithDelegate:self responseSelector:@selector(loadedMyActivityStreamHandler:)];    
-    } else {
-        [self.activityStreamFetcher cancel];
+    // if activities have never been updated or the last update was more than an hour ago,
+    // fetch the activities again.
+    if (!self.lastUpdateTime || [self.lastUpdateTime timeIntervalSinceNow] < -3600) {
+        self.lastUpdateTime = [NSDate date];
+        if (!self.activityStreamFetcher) {
+            self.activityStreamFetcher = [[ActivityStreamFetcher alloc] initWithDelegate:self responseSelector:@selector(loadedMyActivityStreamHandler:)];    
+        } else {
+            [self.activityStreamFetcher cancel];
+        }
+        
+        [activityStreamFetcher fetchMyActivityStream];
+        [blockingActivityView show];    
     }
-    
-    [activityStreamFetcher fetchMyActivityStream];
-    [blockingActivityView show];    
 }
 
 - (void)loadedMyActivityStreamHandler:(ActivityStream*)loadedActivityStream {

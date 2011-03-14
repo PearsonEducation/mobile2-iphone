@@ -21,10 +21,12 @@
     DateCalculator* dateCalculator;
     NSDate* today;
     BlockingActivityView* blockingActivityView;
+    NSDate* lastUpdateTime;
 }
 
 @property (nonatomic, retain) ActivityStream* activityStream;
 @property (nonatomic, retain) NSMutableArray* todayActivityItems;
 @property (nonatomic, retain) NSMutableArray* earlierActivityItems;
+@property (nonatomic, retain) NSDate* lastUpdateTime;
 
 @end
