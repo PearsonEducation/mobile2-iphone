@@ -35,6 +35,7 @@
 @synthesize earlierActivityItems;
 @synthesize todayActivityItems;
 @synthesize table;
+@synthesize lastUpdateTime;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -45,8 +46,7 @@
         // date calculator
         NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
         [gregorian setTimeZone:[NSTimeZone defaultTimeZone]];
-        today = [[NSDate date] retain];
-        dateCalculator = [[DateCalculator alloc] initWithCalendar:gregorian andTodayDate:today];
+        dateCalculator = [[DateCalculator alloc] initWithCalendar:gregorian];
         [gregorian release];
 
     }
@@ -58,6 +58,7 @@
     self.earlierActivityItems = nil;
     self.todayActivityItems = nil;
     self.activityStream = nil;
+    self.lastUpdateTime = nil;
     [self.activityStreamFetcher cancel];
     self.activityStreamFetcher = nil;
     self.table = nil;
@@ -74,6 +75,20 @@
     [self presentModalViewController:infoNavController animated:YES];
     [infoNavController release];
     [infoTableViewController release];
+}
+
+- (IBAction)refreshData {
+    // if activities have never been updated or the last update was more than an hour ago,
+    // fetch the activities again.
+    self.lastUpdateTime = [NSDate date];
+    if (!self.activityStreamFetcher) {
+        self.activityStreamFetcher = [[ActivityStreamFetcher alloc] initWithDelegate:self responseSelector:@selector(loadedMyActivityStreamHandler:)];    
+    } else {
+        [self.activityStreamFetcher cancel];
+    }
+    
+    [activityStreamFetcher fetchMyActivityStream];
+    [blockingActivityView show];    
 }
 
 - (void)cancelButtonClicked:(id)sender {
@@ -116,15 +131,13 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    // fetch activities
-    if (!self.activityStreamFetcher) {
-        self.activityStreamFetcher = [[ActivityStreamFetcher alloc] initWithDelegate:self responseSelector:@selector(loadedMyActivityStreamHandler:)];    
-    } else {
-        [self.activityStreamFetcher cancel];
-    }
     
-    [activityStreamFetcher fetchMyActivityStream];
-    [blockingActivityView show];    
+    // if activities have never been updated or the last update was more than an hour ago,
+    // fetch the activities again.
+    if (!self.lastUpdateTime || [self.lastUpdateTime timeIntervalSinceNow] < -3600) {
+        [self refreshData];
+    }    
+    
 }
 
 - (void)loadedMyActivityStreamHandler:(ActivityStream*)loadedActivityStream {
@@ -176,10 +189,8 @@
         item.friendlyDate = [item.postedTime friendlyDateFor:numDays];
         if (numDays == 0) {
             [self.todayActivityItems addObject:item];
-            //NSLog(@"Today: %@; numDays = %d; desc = %@", [item.postedTime iso8601DateString], numDays, item.object.title);
         } else {
             [self.earlierActivityItems addObject:item];
-            //NSLog(@"Earlier: %@; numDays = %d; desc = %@", [item.postedTime iso8601DateString], numDays, item.object.title);            
         }
     }
 
