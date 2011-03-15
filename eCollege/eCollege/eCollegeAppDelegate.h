@@ -12,6 +12,7 @@
 #import "PeopleViewController.h"
 #import "CoursesViewController.h"
 #import "DiscussionsViewController.h"
+#import "Course.h"
 
 @class LogInViewController;
 
@@ -22,13 +23,17 @@
     PeopleViewController* peopleViewController;
     CoursesViewController* coursesViewController;
     DiscussionsViewController* discussionsViewController;
+    NSDictionary* coursesDictionary;
+    NSArray* coursesArray;
 }
 
 + (eCollegeAppDelegate *) delegate;
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) LogInViewController *logInViewController;
+@property (nonatomic, retain) NSArray* coursesArray;
 
 - (void)dismissLoginView;
+- (Course*)getCourseHavingId:(NSInteger)courseId;
 
 @end

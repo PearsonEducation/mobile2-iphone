@@ -38,6 +38,7 @@
 @synthesize peopleViewController=peopleViewController;
 @synthesize coursesViewController=coursesViewController;
 @synthesize discussionsViewController=discussionsViewController;
+@synthesize coursesArray=coursesArray;
 
 + (eCollegeAppDelegate *) delegate {
 	return (eCollegeAppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -54,6 +55,24 @@
 	}
 	[self.window makeKeyAndVisible];
     return YES;
+}
+
+- (void) setCoursesArray:(NSArray *)value {
+    if (value != coursesArray) {
+        if (coursesArray) {
+            [coursesArray release];
+            [coursesDictionary release];
+        }
+        coursesArray = [value retain];
+        coursesDictionary = [[NSMutableDictionary alloc] init];
+        for (Course* course in coursesArray) {
+            [coursesDictionary setValue:course forKey:[NSString stringWithFormat:@"%d",course.courseId]];
+        }
+    }
+}
+
+- (Course*) getCourseHavingId:(NSInteger)courseId {
+    return [coursesDictionary objectForKey:[NSString stringWithFormat:@"%d",courseId]];
 }
 
 - (void) dismissLoginView {
@@ -165,6 +184,10 @@
 }
 
 - (void)dealloc {
+    self.coursesArray = nil;
+    if (coursesDictionary) {
+        [coursesDictionary release];
+    }
 	[window release];
 	[logInViewController release];
     self.tabBarController = nil;

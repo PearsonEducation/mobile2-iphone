@@ -10,10 +10,13 @@
 #import "ECSession.h"
 #import "ECClientConfiguration.h"
 #import "eCollegeAppDelegate.h"
+#import "CourseFetcher.h"
 
 @implementation LogInViewController
 
 - (void)dealloc {
+    [courseFetcher release];
+    [blockingActivityView release];
     [super dealloc];
 }
 
@@ -37,6 +40,10 @@
 											 selector:@selector (keyboardDidHide:)
 												 name: UIKeyboardDidHideNotification object:nil];
 	scrollView.contentSize = self.view.frame.size;
+    
+    blockingActivityView = [[BlockingActivityView alloc] initWithWithView:self.view];
+    courseFetcher = [[CourseFetcher alloc] initWithDelegate:self responseSelector:@selector(coursesLoaded:)];
+
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -74,6 +81,21 @@
 	if (!keyboardIsShowing) {
 		return; //apparently we can sometimes get too many notifications
 	}
+    
+    NSString *clientId = [[ECClientConfiguration currentConfiguration] clientId];
+	NSString *clientString = [[ECClientConfiguration currentConfiguration] clientString];
+	NSString *username = usernameText.text;
+	NSString *password = passwordText.text;
+	BOOL keepLoggedIn = keepLoggedInSwitch.on;
+    [blockingActivityView show];
+	ECSession *session = [ECSession sharedSession];
+	[session authenticateWithClientId:clientId
+						 clientString:clientString
+							 username:username
+							 password:password
+					 keepUserLoggedIn:keepLoggedIn
+							 delegate:self
+							 callback:@selector(sessionDidAuthenticate)];
 
 	[UIView beginAnimations:nil context:NULL];
 		[UIView setAnimationDuration:0.25];
@@ -83,6 +105,10 @@
 	[UIView commitAnimations];
 
 	keyboardIsShowing = NO;
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    return YES;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -95,25 +121,27 @@
 }
 
 - (IBAction) logInClicked:(id)caller {
-	NSString *clientId = [[ECClientConfiguration currentConfiguration] clientId];
-	NSString *clientString = [[ECClientConfiguration currentConfiguration] clientString];
-	NSString *username = usernameText.text;
-	NSString *password = passwordText.text;
-	BOOL keepLoggedIn = keepLoggedInSwitch.on;
-	ECSession *session = [ECSession sharedSession];
-	[session authenticateWithClientId:clientId
-						 clientString:clientString
-							 username:username
-							 password:password
-					 keepUserLoggedIn:keepLoggedIn
-							 delegate:self
-							 callback:@selector(sessionDidAuthenticate)];
+    [usernameText resignFirstResponder];
+    [passwordText resignFirstResponder];
+    
 }
 
 #pragma mark - Authentication Complete
 
 - (void) sessionDidAuthenticate {
-	[[eCollegeAppDelegate delegate] dismissLoginView];
+    [courseFetcher fetchMyCurrentCourses];
+}
+
+- (void)coursesLoaded:(id)coursesArray {
+    [blockingActivityView hide];
+    if ([coursesArray isKindOfClass:[NSError class]]) {
+        NSLog(@"ERROR: Unable to fetch courses.");
+        return;
+    } else {
+        eCollegeAppDelegate* ad = [eCollegeAppDelegate delegate];
+        ad.coursesArray = coursesArray;
+        [ad dismissLoginView];            
+    }
 }
 
 @end

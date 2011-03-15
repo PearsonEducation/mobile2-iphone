@@ -28,6 +28,8 @@
 		A2791F7F132AB35800D900C9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2791F7E132AB35800D900C9 /* QuartzCore.framework */; };
 		A2791F82132ABF0800D900C9 /* BlockingActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = A2791F81132ABF0800D900C9 /* BlockingActivityView.m */; };
 		A27B88AA132EB3B600740C83 /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = A27B88A9132EB3B600740C83 /* refresh.png */; };
+		A28CB5FF132ECD95000B669D /* GradebookItemGradeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A28CB5FD132ECD95000B669D /* GradebookItemGradeDetailViewController.m */; };
+		A28CB600132ECD95000B669D /* GradebookItemGradeDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A28CB5FE132ECD95000B669D /* GradebookItemGradeDetailViewController.xib */; };
 		A2A96751132E826D00554238 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = A2A96750132E826D00554238 /* GTMNSString+HTML.m */; };
 		A2B0D27F1326FA87008801E2 /* ic_dropbox_submission.png in Resources */ = {isa = PBXBuildFile; fileRef = A2B0D2791326FA87008801E2 /* ic_dropbox_submission.png */; };
 		A2B0D2801326FA87008801E2 /* ic_exam_submission.png in Resources */ = {isa = PBXBuildFile; fileRef = A2B0D27A1326FA87008801E2 /* ic_exam_submission.png */; };
@@ -116,6 +118,9 @@
 		A2791F80132ABF0800D900C9 /* BlockingActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockingActivityView.h; sourceTree = "<group>"; };
 		A2791F81132ABF0800D900C9 /* BlockingActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockingActivityView.m; sourceTree = "<group>"; };
 		A27B88A9132EB3B600740C83 /* refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refresh.png; sourceTree = "<group>"; };
+		A28CB5FC132ECD95000B669D /* GradebookItemGradeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradebookItemGradeDetailViewController.h; sourceTree = "<group>"; };
+		A28CB5FD132ECD95000B669D /* GradebookItemGradeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradebookItemGradeDetailViewController.m; sourceTree = "<group>"; };
+		A28CB5FE132ECD95000B669D /* GradebookItemGradeDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GradebookItemGradeDetailViewController.xib; sourceTree = "<group>"; };
 		A2A9674F132E826D00554238 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GTMNSString+HTML.h"; path = "../../ecollegeiosapi/ECAPI/GTMNSString+HTML.h"; sourceTree = "<group>"; };
 		A2A96750132E826D00554238 /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GTMNSString+HTML.m"; path = "../../ecollegeiosapi/ECAPI/GTMNSString+HTML.m"; sourceTree = "<group>"; };
 		A2B0D2791326FA87008801E2 /* ic_dropbox_submission.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_dropbox_submission.png; sourceTree = "<group>"; };
@@ -265,9 +270,44 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		A28CB5F8132ECD43000B669D /* GradebookDetail */ = {
+			isa = PBXGroup;
+			children = (
+				A28CB5FC132ECD95000B669D /* GradebookItemGradeDetailViewController.h */,
+				A28CB5FD132ECD95000B669D /* GradebookItemGradeDetailViewController.m */,
+				A28CB5FE132ECD95000B669D /* GradebookItemGradeDetailViewController.xib */,
+			);
+			name = GradebookDetail;
+			sourceTree = "<group>";
+		};
+		A28CB5F9132ECD51000B669D /* DropboxDetail */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = DropboxDetail;
+			sourceTree = "<group>";
+		};
+		A28CB5FA132ECD61000B669D /* TopicDetail */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = TopicDetail;
+			sourceTree = "<group>";
+		};
+		A28CB5FB132ECD69000B669D /* ReplyDetail */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = ReplyDetail;
+			sourceTree = "<group>";
+		};
 		A2EE3ECC1320347E00745C1C /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				A28CB5FB132ECD69000B669D /* ReplyDetail */,
+				A28CB5FA132ECD61000B669D /* TopicDetail */,
+				A28CB5F9132ECD51000B669D /* DropboxDetail */,
+				A28CB5F8132ECD43000B669D /* GradebookDetail */,
 				A23366601326A44900DC50DD /* Help */,
 				A233665F1326A44200DC50DD /* Feedback */,
 				A233665E1326A42D00DC50DD /* About */,
@@ -534,6 +574,7 @@
 				A2B0D2831326FA87008801E2 /* ic_thread_post.png in Resources */,
 				A2B0D2841326FA87008801E2 /* ic_thread_topic.png in Resources */,
 				A27B88AA132EB3B600740C83 /* refresh.png in Resources */,
+				A28CB600132ECD95000B669D /* GradebookItemGradeDetailViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -562,6 +603,7 @@
 				A21401431326DABD007C9207 /* ActivityTableCell.m in Sources */,
 				A2791F82132ABF0800D900C9 /* BlockingActivityView.m in Sources */,
 				A2A96751132E826D00554238 /* GTMNSString+HTML.m in Sources */,
+				A28CB5FF132ECD95000B669D /* GradebookItemGradeDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

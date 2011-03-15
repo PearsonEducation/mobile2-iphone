@@ -16,6 +16,7 @@
 #import "ActivityStreamObject.h"
 #import "DateCalculator.h"
 #import "eCollegeAppDelegate.h"
+#import "GradebookItemGradeDetailViewController.h"
 
 @interface HomeViewController ()
 
@@ -25,6 +26,7 @@
 - (void)prepareData;
 - (void)infoButtonTapped:(id)sender;
 - (void)cancelButtonClicked:(id)sender;
+- (ActivityStreamItem*)getItemForIndexPath:(NSIndexPath*)indexPath;
 
 @end
 
@@ -137,7 +139,6 @@
     if (!self.lastUpdateTime || [self.lastUpdateTime timeIntervalSinceNow] < -3600) {
         [self refreshData];
     }    
-    
 }
 
 - (void)loadedMyActivityStreamHandler:(ActivityStream*)loadedActivityStream {
@@ -256,12 +257,7 @@
     }
     
     // Find the data for the cell...
-    ActivityStreamItem* item;
-    if (indexPath.section == 0 && [self hasTodayItems]) {
-        item = [self.todayActivityItems objectAtIndex:indexPath.row];            
-    } else {
-        item = [self.earlierActivityItems objectAtIndex:indexPath.row];                
-    }
+    ActivityStreamItem* item = [self getItemForIndexPath:indexPath];
 
     // set up the cell
     if (item) {
@@ -310,18 +306,62 @@
  }
  */
 
+- (ActivityStreamItem*)getItemForIndexPath:(NSIndexPath*)indexPath {
+    if (indexPath.section == 0 && [self hasTodayItems]) {
+        if (self.todayActivityItems && [self.todayActivityItems count] > indexPath.row) {
+            return [self.todayActivityItems objectAtIndex:indexPath.row];            
+        } else {
+            return nil;
+        }
+    } else {
+        if (self.earlierActivityItems && [self.earlierActivityItems count] > indexPath.row) {
+            return [self.earlierActivityItems objectAtIndex:indexPath.row];            
+        } else {
+            return nil;
+        }
+    }    
+}
+
+
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
-     */
+    // get the activity stream item
+    ActivityStreamItem* item = [self getItemForIndexPath:indexPath];
+    if (!item) {
+        NSLog(@"ERROR: unable to find ActivityStreamItem for selected row.");
+        return;
+    }
+    
+    // determine the type of the activity stream item
+    NSString* itemType = [item getType];
+    if (!itemType) {
+        NSLog(@"ERROR: item for selected row does not have an objectType.");
+        return;
+    }
+    
+    // based on the type of the activity stream item, push a view controller.
+    if ([itemType isEqualToString:@"thread-topic"]) {
+        return;
+    } else if ([itemType isEqualToString:@"thread-post"]) {
+        return;
+    } else if ([itemType isEqualToString:@"grade"]) {
+        GradebookItemGradeDetailViewController* gradebookItemGradeDetailViewController = [[GradebookItemGradeDetailViewController alloc] initWithNibName:@"GradebookItemGradeDetailViewController" bundle:nil];
+        gradebookItemGradeDetailViewController.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:gradebookItemGradeDetailViewController animated:YES];
+        gradebookItemGradeDetailViewController.item = item;
+        [gradebookItemGradeDetailViewController release];        
+    } else if ([itemType isEqualToString:@"dropbox-submission"]) {
+        return;
+    } else if ([itemType isEqualToString:@"exam-submission"]) {
+        return;
+    } else if ([itemType isEqualToString:@"remark"]) {
+        return;
+    } else {
+        NSLog(@"ERROR: Unknown objectType '%@' on selected ActivityStreamItem", itemType);
+        return;
+    }
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {

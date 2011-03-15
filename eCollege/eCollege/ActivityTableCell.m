@@ -8,6 +8,8 @@
 
 #import "ActivityTableCell.h"
 #import "ActivityStreamItem.h"
+#import "eCollegeAppDelegate.h"
+#import "Course.h"
 
 @implementation ActivityTableCell
 
@@ -28,7 +30,8 @@
 	if(item) { 
         friendlyDate.text = item.friendlyDate;
         title.text = item.object.title;
-        courseName.text = @"Course name goes here";
+        Course* course = [[eCollegeAppDelegate delegate] getCourseHavingId:item.object.courseId];
+        courseName.text = course.title;
         description.text = item.object.summary;
         if (!imageView) {
             imageView = [[UIImageView alloc] initWithFrame:CGRectMake(4, 4, 25, 25)];

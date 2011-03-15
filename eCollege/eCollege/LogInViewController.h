@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "ECSession.h"
+#import "CourseFetcher.h"
+#import "BlockingActivityView.h"
 
 @interface LogInViewController : UIViewController<UITextFieldDelegate> {
 	IBOutlet UITextField *usernameText;
@@ -19,6 +21,9 @@
 	BOOL keyboardIsShowing;
 	CGPoint scrollViewOffsetWhenKeyboardIsHidden;
 	CGSize scrollViewSizeWhenKeyboardIsHidden;
+    
+    CourseFetcher* courseFetcher;
+    BlockingActivityView* blockingActivityView;
 }
 
 - (IBAction) logInClicked:(id)caller;
