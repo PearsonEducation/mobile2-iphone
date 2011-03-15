@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A21401401326D186007C9207 /* ActivityTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A214013F1326D186007C9207 /* ActivityTableCell.xib */; };
 		A21401431326DABD007C9207 /* ActivityTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A21401421326DABD007C9207 /* ActivityTableCell.m */; };
+		A224B98E13301C9800A4E082 /* NSDateUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A224B98D13301C9800A4E082 /* NSDateUtilities.m */; };
 		A233665B13267F2000DC50DD /* InfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A233665913267F2000DC50DD /* InfoTableViewController.m */; };
 		A233665C13267F2000DC50DD /* InfoTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A233665A13267F2000DC50DD /* InfoTableViewController.xib */; };
 		A23366641326A48D00DC50DD /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A23366621326A48D00DC50DD /* HelpViewController.m */; };
@@ -94,6 +95,8 @@
 		A214013F1326D186007C9207 /* ActivityTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityTableCell.xib; sourceTree = "<group>"; };
 		A21401411326DABD007C9207 /* ActivityTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityTableCell.h; sourceTree = "<group>"; };
 		A21401421326DABD007C9207 /* ActivityTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityTableCell.m; sourceTree = "<group>"; };
+		A224B98C13301C9800A4E082 /* NSDateUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSDateUtilities.h; path = ../../ecollegeiosapi/ECAPI/NSDateUtilities.h; sourceTree = "<group>"; };
+		A224B98D13301C9800A4E082 /* NSDateUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSDateUtilities.m; path = ../../ecollegeiosapi/ECAPI/NSDateUtilities.m; sourceTree = "<group>"; };
 		A233665813267F2000DC50DD /* InfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoTableViewController.h; sourceTree = "<group>"; };
 		A233665913267F2000DC50DD /* InfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoTableViewController.m; sourceTree = "<group>"; };
 		A233665A13267F2000DC50DD /* InfoTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoTableViewController.xib; sourceTree = "<group>"; };
@@ -246,6 +249,8 @@
 		A27289931326BCD2001A588D /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				A224B98C13301C9800A4E082 /* NSDateUtilities.h */,
+				A224B98D13301C9800A4E082 /* NSDateUtilities.m */,
 				A2D182761330079600AAC152 /* PullRefreshTableViewController.m */,
 				A2D182771330079600AAC152 /* PullRefreshTableViewController.h */,
 				A2A9674F132E826D00554238 /* GTMNSString+HTML.h */,
@@ -614,6 +619,7 @@
 				A2A96751132E826D00554238 /* GTMNSString+HTML.m in Sources */,
 				A28CB5FF132ECD95000B669D /* GradebookItemGradeDetailViewController.m in Sources */,
 				A2D182781330079600AAC152 /* PullRefreshTableViewController.m in Sources */,
+				A224B98E13301C9800A4E082 /* NSDateUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

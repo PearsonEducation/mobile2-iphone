@@ -33,6 +33,7 @@
 @interface PullRefreshTableViewController : UIViewController {
     UIView *refreshHeaderView;
     UILabel *refreshLabel;
+    UILabel *lastUpdatedLabel;
     UIImageView *refreshArrow;
     UIActivityIndicatorView *refreshSpinner;
     BOOL isDragging;
@@ -45,6 +46,7 @@
 
 @property (nonatomic, retain) UIView *refreshHeaderView;
 @property (nonatomic, retain) UILabel *refreshLabel;
+@property (nonatomic, retain) UILabel *lastUpdatedLabel;
 @property (nonatomic, retain) UIImageView *refreshArrow;
 @property (nonatomic, retain) UIActivityIndicatorView *refreshSpinner;
 @property (nonatomic, copy) NSString *textPull;
@@ -57,5 +59,7 @@
 - (void)stopLoading;
 - (void)refresh;
 - (void)forcePullDownRefresh;
+- (void)executeAfterHeaderClose;
+- (void)updateLastUpdatedLabel;
 
 @end

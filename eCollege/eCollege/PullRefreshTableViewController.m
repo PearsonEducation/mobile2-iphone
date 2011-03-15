@@ -34,7 +34,7 @@
 
 @implementation PullRefreshTableViewController
 
-@synthesize textPull, textRelease, textLoading, refreshHeaderView, refreshLabel, refreshArrow, refreshSpinner, table;
+@synthesize textPull, textRelease, textLoading, refreshHeaderView, refreshLabel, refreshArrow, refreshSpinner, table, lastUpdatedLabel;
 
 - (void)viewDidLoad {
     textPull = [[NSString alloc] initWithString:@"Pull down to refresh..."];
@@ -49,10 +49,15 @@
     refreshHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0 - REFRESH_HEADER_HEIGHT, 320, REFRESH_HEADER_HEIGHT)];
     refreshHeaderView.backgroundColor = [UIColor clearColor];
     
-    refreshLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, REFRESH_HEADER_HEIGHT)];
+    refreshLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, REFRESH_HEADER_HEIGHT/2)];
     refreshLabel.backgroundColor = [UIColor clearColor];
     refreshLabel.font = [UIFont boldSystemFontOfSize:12.0];
     refreshLabel.textAlignment = UITextAlignmentCenter;
+    
+    lastUpdatedLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, REFRESH_HEADER_HEIGHT/2, 320, REFRESH_HEADER_HEIGHT/2)];
+    lastUpdatedLabel.backgroundColor = [UIColor clearColor];
+    lastUpdatedLabel.font = [UIFont systemFontOfSize:10.0];
+    lastUpdatedLabel.textAlignment = UITextAlignmentCenter;
     
     refreshArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow.png"]];
     refreshArrow.frame = CGRectMake((REFRESH_HEADER_HEIGHT - 27) / 2,
@@ -64,6 +69,7 @@
     refreshSpinner.hidesWhenStopped = YES;
     
     [refreshHeaderView addSubview:refreshLabel];
+    [refreshHeaderView addSubview:lastUpdatedLabel];
     [refreshHeaderView addSubview:refreshArrow];
     [refreshHeaderView addSubview:refreshSpinner];
     [self.table addSubview:refreshHeaderView];
@@ -75,6 +81,7 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self updateLastUpdatedLabel];
     if (isLoading) {
         // Update the content inset, good for section headers
         if (scrollView.contentOffset.y > 0)
@@ -137,6 +144,18 @@
     self.table.contentInset = UIEdgeInsetsZero;
     [refreshArrow layer].transform = CATransform3DMakeRotation(M_PI * 2, 0, 0, 1);
     [UIView commitAnimations];
+    
+    [self performSelector:@selector(executeAfterHeaderClose) withObject:nil afterDelay:0.35];
+    
+    
+}
+
+- (void)executeAfterHeaderClose {
+    
+}
+
+- (void)updateLastUpdatedLabel {
+    
 }
 
 - (void)stopLoadingComplete:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
@@ -155,6 +174,7 @@
 - (void)dealloc {
     [refreshHeaderView release];
     [refreshLabel release];
+    [lastUpdatedLabel release];
     [refreshArrow release];
     [refreshSpinner release];
     [textPull release];

@@ -17,6 +17,7 @@
 #import "DateCalculator.h"
 #import "eCollegeAppDelegate.h"
 #import "GradebookItemGradeDetailViewController.h"
+#import "NSDateUtilities.h"
 
 @interface HomeViewController ()
 
@@ -85,13 +86,27 @@
 - (void)loadData {
     // if activities have never been updated or the last update was more than an hour ago,
     // fetch the activities again.
-    self.lastUpdateTime = [NSDate date];
     if (!self.activityStreamFetcher) {
         self.activityStreamFetcher = [[ActivityStreamFetcher alloc] initWithDelegate:self responseSelector:@selector(loadedMyActivityStreamHandler:)];    
     } else {
         [self.activityStreamFetcher cancel];
     }
     [activityStreamFetcher fetchMyActivityStream];    
+}
+
+- (void)executeAfterHeaderClose {
+    self.lastUpdateTime = [NSDate date];
+}
+
+- (void)updateLastUpdatedLabel {
+    if (self.lastUpdateTime) {
+        NSString* prettyTime = [self.lastUpdateTime niceAndConcise];
+        if (![prettyTime isEqualToString:@""] || [self.lastUpdatedLabel.text isEqualToString:@""]) {
+            self.lastUpdatedLabel.text = [NSString stringWithFormat:@"Last update: %@", prettyTime];
+        }
+    } else {
+        self.lastUpdatedLabel.text = @"";
+    }
 }
 
 - (IBAction)refreshWithModalSpinner {
