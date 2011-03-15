@@ -11,20 +11,20 @@
 #import "ActivityStreamFetcher.h"
 #import "DateCalculator.h"
 #import "BlockingActivityView.h"
+#import "PullRefreshTableViewController.h"
 
-@interface HomeViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+@interface HomeViewController : PullRefreshTableViewController <UITableViewDelegate, UITableViewDataSource> {
     ActivityStream* activityStream;
     ActivityStreamFetcher* activityStreamFetcher;
     NSMutableArray* todayActivityItems;
     NSMutableArray* earlierActivityItems;
-    IBOutlet UITableView* table;
     DateCalculator* dateCalculator;
     NSDate* today;
     BlockingActivityView* blockingActivityView;
     NSDate* lastUpdateTime;
 }
 
--(IBAction)refreshData;
+-(IBAction)refreshWithModalSpinner;
 
 @property (nonatomic, retain) ActivityStream* activityStream;
 @property (nonatomic, retain) NSMutableArray* todayActivityItems;

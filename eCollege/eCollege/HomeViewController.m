@@ -21,8 +21,8 @@
 @interface HomeViewController ()
 
 @property (nonatomic, retain) ActivityStreamFetcher* activityStreamFetcher;
-@property (nonatomic, retain) IBOutlet UITableView* table;
 
+- (void)loadData;
 - (void)prepareData;
 - (void)infoButtonTapped:(id)sender;
 - (void)cancelButtonClicked:(id)sender;
@@ -36,7 +36,6 @@
 @synthesize activityStream;
 @synthesize earlierActivityItems;
 @synthesize todayActivityItems;
-@synthesize table;
 @synthesize lastUpdateTime;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -63,7 +62,6 @@
     self.lastUpdateTime = nil;
     [self.activityStreamFetcher cancel];
     self.activityStreamFetcher = nil;
-    self.table = nil;
     [blockingActivityView release];
     [dateCalculator release];
     [today release];
@@ -79,7 +77,12 @@
     [infoTableViewController release];
 }
 
-- (IBAction)refreshData {
+// overriding parent method
+- (void)refresh {
+    [self loadData];
+}
+
+- (void)loadData {
     // if activities have never been updated or the last update was more than an hour ago,
     // fetch the activities again.
     self.lastUpdateTime = [NSDate date];
@@ -88,9 +91,12 @@
     } else {
         [self.activityStreamFetcher cancel];
     }
-    
-    [activityStreamFetcher fetchMyActivityStream];
+    [activityStreamFetcher fetchMyActivityStream];    
+}
+
+- (IBAction)refreshWithModalSpinner {
     [blockingActivityView show];    
+    [self loadData];
 }
 
 - (void)cancelButtonClicked:(id)sender {
@@ -133,16 +139,15 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    
     // if activities have never been updated or the last update was more than an hour ago,
     // fetch the activities again.
     if (!self.lastUpdateTime || [self.lastUpdateTime timeIntervalSinceNow] < -3600) {
-        [self refreshData];
+        [self forcePullDownRefresh];
+        //[self refreshWithModalSpinner];
     }    
 }
 
 - (void)loadedMyActivityStreamHandler:(ActivityStream*)loadedActivityStream {
-    [blockingActivityView hide];
     if ([loadedActivityStream isKindOfClass:[NSError class]]) {
         // handle errors
     } else {
@@ -152,6 +157,12 @@
 
     // since we've updated the buckets of data, we must now reload the table
     [self.table reloadData];
+    
+    // tell the "pull to refresh" loading header to go away (if it's present)
+    [self stopLoading];
+    
+    // tell the modal loading spinner to go away (if it's present)
+    [blockingActivityView hide];
 }
 
 - (void)prepareData {
@@ -226,7 +237,7 @@
     if ([self hasTodayItems]) {
         cnt++;
     } 
-    if ([self hasEarlierItems] > 0) {
+    if ([self hasEarlierItems]) {
         cnt++;
     } 
     return cnt;
@@ -237,8 +248,10 @@
 {
     if (section == 0 && [self hasTodayItems]) {
         return [self.todayActivityItems count];
-    } else {
+    } else if ([self hasEarlierItems]) {
         return [self.earlierActivityItems count];
+    } else {
+        return 0;
     }
 }
 
@@ -313,13 +326,15 @@
         } else {
             return nil;
         }
-    } else {
+    } else if ([self hasEarlierItems]) {
         if (self.earlierActivityItems && [self.earlierActivityItems count] > indexPath.row) {
             return [self.earlierActivityItems objectAtIndex:indexPath.row];            
         } else {
             return nil;
         }
-    }    
+    } else {
+        return nil;
+    }
 }
 
 
@@ -367,8 +382,10 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (section == 0 && [self hasTodayItems]) {
         return NSLocalizedString(@"Today",@"The word meaning 'today'");
-    } else {
+    } else if ([self hasEarlierItems]) {
         return NSLocalizedString(@"Earlier",@"The word meaning 'earlier'");
+    } else {
+        return @"";
     }
 }
 

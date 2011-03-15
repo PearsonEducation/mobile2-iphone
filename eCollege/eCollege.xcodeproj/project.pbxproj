@@ -37,6 +37,8 @@
 		A2B0D2821326FA87008801E2 /* ic_remark.png in Resources */ = {isa = PBXBuildFile; fileRef = A2B0D27C1326FA87008801E2 /* ic_remark.png */; };
 		A2B0D2831326FA87008801E2 /* ic_thread_post.png in Resources */ = {isa = PBXBuildFile; fileRef = A2B0D27D1326FA87008801E2 /* ic_thread_post.png */; };
 		A2B0D2841326FA87008801E2 /* ic_thread_topic.png in Resources */ = {isa = PBXBuildFile; fileRef = A2B0D27E1326FA87008801E2 /* ic_thread_topic.png */; };
+		A2D182781330079600AAC152 /* PullRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2D182761330079600AAC152 /* PullRefreshTableViewController.m */; };
+		A2D1827A133009BE00AAC152 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = A2D18279133009BE00AAC152 /* arrow.png */; };
 		A2EE3ED5132037DC00745C1C /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2EE3ED3132037DC00745C1C /* HomeViewController.m */; };
 		A2EE3EDA1320421800745C1C /* DiscussionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2EE3ED81320421800745C1C /* DiscussionsViewController.m */; };
 		A2EE3EDB1320421800745C1C /* DiscussionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2EE3ED91320421800745C1C /* DiscussionsViewController.xib */; };
@@ -129,6 +131,9 @@
 		A2B0D27C1326FA87008801E2 /* ic_remark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_remark.png; sourceTree = "<group>"; };
 		A2B0D27D1326FA87008801E2 /* ic_thread_post.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_thread_post.png; sourceTree = "<group>"; };
 		A2B0D27E1326FA87008801E2 /* ic_thread_topic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_thread_topic.png; sourceTree = "<group>"; };
+		A2D182761330079600AAC152 /* PullRefreshTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullRefreshTableViewController.m; sourceTree = "<group>"; };
+		A2D182771330079600AAC152 /* PullRefreshTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullRefreshTableViewController.h; sourceTree = "<group>"; };
+		A2D18279133009BE00AAC152 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		A2EE3ED2132037DC00745C1C /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		A2EE3ED3132037DC00745C1C /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		A2EE3ED71320421800745C1C /* DiscussionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscussionsViewController.h; sourceTree = "<group>"; };
@@ -241,6 +246,8 @@
 		A27289931326BCD2001A588D /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				A2D182761330079600AAC152 /* PullRefreshTableViewController.m */,
+				A2D182771330079600AAC152 /* PullRefreshTableViewController.h */,
 				A2A9674F132E826D00554238 /* GTMNSString+HTML.h */,
 				A2A96750132E826D00554238 /* GTMNSString+HTML.m */,
 				A27289941326BCE3001A588D /* UIColor+Boost.h */,
@@ -254,6 +261,7 @@
 		A27289971326C045001A588D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A2D18279133009BE00AAC152 /* arrow.png */,
 				A27B88A9132EB3B600740C83 /* refresh.png */,
 				A2B0D2791326FA87008801E2 /* ic_dropbox_submission.png */,
 				A2B0D27A1326FA87008801E2 /* ic_exam_submission.png */,
@@ -575,6 +583,7 @@
 				A2B0D2841326FA87008801E2 /* ic_thread_topic.png in Resources */,
 				A27B88AA132EB3B600740C83 /* refresh.png in Resources */,
 				A28CB600132ECD95000B669D /* GradebookItemGradeDetailViewController.xib in Resources */,
+				A2D1827A133009BE00AAC152 /* arrow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -604,6 +613,7 @@
 				A2791F82132ABF0800D900C9 /* BlockingActivityView.m in Sources */,
 				A2A96751132E826D00554238 /* GTMNSString+HTML.m in Sources */,
 				A28CB5FF132ECD95000B669D /* GradebookItemGradeDetailViewController.m in Sources */,
+				A2D182781330079600AAC152 /* PullRefreshTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
