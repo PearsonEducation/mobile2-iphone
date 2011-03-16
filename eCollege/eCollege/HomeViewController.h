@@ -22,6 +22,13 @@
     NSDate* today;
     BlockingActivityView* blockingActivityView;
     NSDate* lastUpdateTime;
+    
+    BOOL currentlyLoading;
+    BOOL activitiesLoadFailure;
+    BOOL coursesLoadFailure;        
+    BOOL courseRefreshInProgress;
+    BOOL activitiesRefreshInProgress;
+    BOOL forceUpdateOnViewWillAppear;
 }
 
 -(IBAction)refreshWithModalSpinner;

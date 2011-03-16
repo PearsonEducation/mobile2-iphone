@@ -19,10 +19,10 @@
 	IBOutlet UIScrollView *scrollView;
 	
 	BOOL keyboardIsShowing;
+    
 	CGPoint scrollViewOffsetWhenKeyboardIsHidden;
 	CGSize scrollViewSizeWhenKeyboardIsHidden;
     
-    CourseFetcher* courseFetcher;
     BlockingActivityView* blockingActivityView;
 }
 

@@ -12,11 +12,20 @@
 #import "eCollegeAppDelegate.h"
 #import "CourseFetcher.h"
 
+@interface LogInViewController ()
+
+- (void)handleCoursesRefreshSuccess:(NSNotification*)notification;
+- (void)handleCoursesRefreshFailure:(NSNotification*)notification;
+- (void)registerForCoursesNotifications;
+- (void)unregisterForCoursesNotifications;
+
+@end
+
 @implementation LogInViewController
 
 - (void)dealloc {
-    [courseFetcher release];
     [blockingActivityView release];
+    [self unregisterForCoursesNotifications];
     [super dealloc];
 }
 
@@ -42,12 +51,34 @@
 	scrollView.contentSize = self.view.frame.size;
     
     blockingActivityView = [[BlockingActivityView alloc] initWithWithView:self.view];
-    courseFetcher = [[CourseFetcher alloc] initWithDelegate:self responseSelector:@selector(coursesLoaded:)];
-
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - Notification handlers and related code
+
+- (void)registerForCoursesNotifications {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleCoursesRefreshSuccess:) name:courseLoadSuccess object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleCoursesRefreshFailure:) name:courseLoadFailure object:nil];
+}
+
+- (void)unregisterForCoursesNotifications {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:courseLoadSuccess object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:courseLoadFailure object:nil];
+}
+
+- (void)handleCoursesRefreshSuccess:(NSNotification*)notification {
+    [self unregisterForCoursesNotifications];
+    [blockingActivityView hide];
+    [[eCollegeAppDelegate delegate] dismissLoginView];
+}
+
+- (void)handleCoursesRefreshFailure:(NSNotification*)notification {
+    NSLog(@"ERROR loading courses; can't move past login screen.");
+    [self unregisterForCoursesNotifications];
+    [blockingActivityView hide];
 }
 
 #pragma mark - Control callbacks and view logic
@@ -129,19 +160,8 @@
 #pragma mark - Authentication Complete
 
 - (void) sessionDidAuthenticate {
-    [courseFetcher fetchMyCurrentCourses];
-}
-
-- (void)coursesLoaded:(id)coursesArray {
-    [blockingActivityView hide];
-    if ([coursesArray isKindOfClass:[NSError class]]) {
-        NSLog(@"ERROR: Unable to fetch courses.");
-        return;
-    } else {
-        eCollegeAppDelegate* ad = [eCollegeAppDelegate delegate];
-        ad.coursesArray = coursesArray;
-        [ad dismissLoginView];            
-    }
+    [self registerForCoursesNotifications];
+    [[eCollegeAppDelegate delegate] refreshCourseList];
 }
 
 @end

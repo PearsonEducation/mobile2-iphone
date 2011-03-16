@@ -21,12 +21,16 @@
 @property (nonatomic, retain) PeopleViewController* peopleViewController;
 @property (nonatomic, retain) CoursesViewController* coursesViewController;
 @property (nonatomic, retain) DiscussionsViewController* discussionsViewController;
-
+@property (nonatomic, retain) CourseFetcher* courseFetcher;
 
 // Private methods
 - (void) showTabBar;
 
 @end
+
+NSString* courseLoadSuccess = @"courseLoadSuccess";
+NSString* courseLoadFailure = @"courseLoadFailure";
+int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
 
 @implementation eCollegeAppDelegate
 
@@ -39,13 +43,14 @@
 @synthesize coursesViewController=coursesViewController;
 @synthesize discussionsViewController=discussionsViewController;
 @synthesize coursesArray=coursesArray;
+@synthesize courseFetcher=courseFetcher;
+@synthesize coursesLastUpdated=coursesLastUpdated;
 
 + (eCollegeAppDelegate *) delegate {
 	return (eCollegeAppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
 	ECSession *session = [ECSession sharedSession];
 	if ([session hasUnexpiredAccessToken] || [session hasUnexpiredGrantToken]) {
 		[self showTabBar];
@@ -55,6 +60,17 @@
 	}
 	[self.window makeKeyAndVisible];
     return YES;
+}
+
+- (BOOL)shouldRefreshCourses {
+    if (!coursesLastUpdated) {
+        return YES;
+    } else {
+        int diff = [coursesLastUpdated timeIntervalSinceNow];
+        // diff will be a negative number; if last refresh were
+        // 5 minutes ago, diff will be: -60 * 5 = -300
+        return ((diff + coursesRefreshInterval) < 0);
+    }
 }
 
 - (void) setCoursesArray:(NSArray *)value {
@@ -148,6 +164,28 @@
     [window addSubview:self.tabBarController.view];
 }
 
+- (void)refreshCourseList {
+    // if courses are already being fetched, don't initiate another call.
+    if (!self.courseFetcher) {
+        self.courseFetcher = [[CourseFetcher alloc] initWithDelegate:self responseSelector:@selector(coursesLoaded:)];
+        [courseFetcher fetchMyCurrentCourses];
+    }    
+}
+
+- (void)coursesLoaded:(id)courses {
+    NSString* notificationName;
+    if ([courses isKindOfClass:[NSError class]]) {
+        NSLog(@"ERROR: Unable to fetch courses");
+        notificationName = courseLoadFailure;
+    } else {
+        NSLog(@"Course load successful.");
+        self.coursesLastUpdated = [NSDate date];
+        self.coursesArray = (NSArray*)courses;
+        notificationName = courseLoadSuccess;
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
+    self.courseFetcher = nil;
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
 	/*
@@ -184,14 +222,21 @@
 }
 
 - (void)dealloc {
-    self.coursesArray = nil;
     if (coursesDictionary) {
-        [coursesDictionary release];
+        [coursesDictionary release]; coursesDictionary = nil;
     }
-	[window release];
-	[logInViewController release];
+    if (logInViewController) {
+        [logInViewController release]; logInViewController = nil;
+    }
+    if (self.courseFetcher) {
+        [self.courseFetcher cancel];
+        self.courseFetcher = nil;
+    }
+    self.coursesLastUpdated = nil;
+    self.coursesArray = nil;
     self.tabBarController = nil;
     self.homeViewController = nil;
+	[window release];
     [super dealloc];
 }
 

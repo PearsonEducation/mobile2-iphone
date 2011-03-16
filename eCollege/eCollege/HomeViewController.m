@@ -28,6 +28,11 @@
 - (void)infoButtonTapped:(id)sender;
 - (void)cancelButtonClicked:(id)sender;
 - (ActivityStreamItem*)getItemForIndexPath:(NSIndexPath*)indexPath;
+- (void)registerForCoursesNotifications;
+- (void)unregisterForCoursesNotifications;
+- (void)handleCoursesRefreshSuccess:(NSNotification*)notification;
+- (void)handleCoursesRefreshFailure:(NSNotification*)notification;
+- (void)loadingComplete;
 
 @end
 
@@ -50,6 +55,7 @@
         [gregorian setTimeZone:[NSTimeZone defaultTimeZone]];
         dateCalculator = [[DateCalculator alloc] initWithCalendar:gregorian];
         [gregorian release];
+        [self registerForCoursesNotifications];
 
     }
     return self;
@@ -57,6 +63,7 @@
 
 - (void)dealloc
 {
+    [self unregisterForCoursesNotifications];
     self.earlierActivityItems = nil;
     self.todayActivityItems = nil;
     self.activityStream = nil;
@@ -84,13 +91,26 @@
 }
 
 - (void)loadData {
-    // if activities have never been updated or the last update was more than an hour ago,
-    // fetch the activities again.
+    
+    if (currentlyLoading) {
+        return;
+    }
+
+    currentlyLoading = YES;
+    
+    // if course data is stale, refresh it.
+    if ([[eCollegeAppDelegate delegate] shouldRefreshCourses]) {
+        courseRefreshInProgress = YES;
+        [[eCollegeAppDelegate delegate] refreshCourseList];
+    }
+  
+    // fetch activities
     if (!self.activityStreamFetcher) {
         self.activityStreamFetcher = [[ActivityStreamFetcher alloc] initWithDelegate:self responseSelector:@selector(loadedMyActivityStreamHandler:)];    
     } else {
         [self.activityStreamFetcher cancel];
     }
+    activitiesRefreshInProgress = YES;
     [activityStreamFetcher fetchMyActivityStream];    
 }
 
@@ -120,10 +140,58 @@
 
 - (void)didReceiveMemoryWarning
 {
-    // Releases the view if it doesn't have a super view.
     [super didReceiveMemoryWarning];
+}
+
+#pragma mark - Notification handlers & related code
+
+- (void)registerForCoursesNotifications {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleCoursesRefreshSuccess:) name:courseLoadSuccess object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleCoursesRefreshFailure:) name:courseLoadFailure object:nil];
+}
+
+- (void)unregisterForCoursesNotifications {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:courseLoadSuccess object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:courseLoadFailure object:nil];
+}
+
+- (void)handleCoursesRefreshSuccess:(NSNotification*)notification {
+    courseRefreshInProgress = NO;
+
+    // if courses were refreshed because we're loading, that means
+    // we can potentially immediately update the interface.
+    if (currentlyLoading) {
+        coursesLoadFailure = NO;
+        if (activitiesRefreshInProgress) {
+            // need to wait for activities refresh to finish
+            return;
+        } else {
+            // everything has been loaded
+            [self loadingComplete];
+        }
+    }
     
-    // Release any cached data, images, etc that aren't in use.
+    // if courses were refreshed from some other place in the application,
+    // force the activities to reload the next time this view appears.
+    else {
+        forceUpdateOnViewWillAppear = YES;
+    }
+}
+
+- (void)handleCoursesRefreshFailure:(NSNotification*)notification {
+    courseRefreshInProgress = NO;
+    NSLog(@"ERROR loading courses; can't move past login screen.");
+    
+    // if the failure happened passively (this view didn't request an
+    // update of the courses), then don't do anything.
+    if (currentlyLoading) {
+        coursesLoadFailure = YES;
+        if (activitiesRefreshInProgress) {
+            return;
+        } else {
+            [self loadingComplete];
+        }
+    }
 }
 
 #pragma mark - View lifecycle
@@ -156,28 +224,50 @@
 - (void)viewWillAppear:(BOOL)animated {
     // if activities have never been updated or the last update was more than an hour ago,
     // fetch the activities again.
-    if (!self.lastUpdateTime || [self.lastUpdateTime timeIntervalSinceNow] < -3600) {
+    if (!self.lastUpdateTime || [self.lastUpdateTime timeIntervalSinceNow] < -3600 || forceUpdateOnViewWillAppear) {
         [self forcePullDownRefresh];
-        //[self refreshWithModalSpinner];
+        forceUpdateOnViewWillAppear = NO;
     }    
 }
 
 - (void)loadedMyActivityStreamHandler:(ActivityStream*)loadedActivityStream {
+    activitiesRefreshInProgress = NO;
+    
+    // check to see if we received an error; if not, save off the data and prep it.
     if ([loadedActivityStream isKindOfClass:[NSError class]]) {
-        // handle errors
+        activitiesLoadFailure = YES;
     } else {
+        activitiesLoadFailure = NO;
         self.activityStream = loadedActivityStream;
         [self prepareData];
     }
 
-    // since we've updated the buckets of data, we must now reload the table
-    [self.table reloadData];
+    // is there another load in progress?  if so, wait; if not, be done loading.
+    if (courseRefreshInProgress) {
+        return;
+    } else {
+        [self loadingComplete];
+    }
+}
+
+- (void)loadingComplete {
+    if (activitiesLoadFailure || coursesLoadFailure) {
+        NSLog(@"Load failure");
+    } else {
+        // since we've updated the buckets of data, we must now reload the table
+        [self.table reloadData];
+    }
     
     // tell the "pull to refresh" loading header to go away (if it's present)
     [self stopLoading];
     
     // tell the modal loading spinner to go away (if it's present)
-    [blockingActivityView hide];
+    [blockingActivityView hide];        
+
+    // no longer loading
+    currentlyLoading = NO;
+    activitiesLoadFailure = NO;
+    coursesLoadFailure = NO;
 }
 
 - (void)prepareData {
