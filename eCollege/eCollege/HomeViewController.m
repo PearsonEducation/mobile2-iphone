@@ -467,10 +467,9 @@
     } else if ([itemType isEqualToString:@"thread-post"]) {
         return;
     } else if ([itemType isEqualToString:@"grade"]) {
-        GradebookItemGradeDetailViewController* gradebookItemGradeDetailViewController = [[GradebookItemGradeDetailViewController alloc] initWithNibName:@"GradebookItemGradeDetailViewController" bundle:nil];
+        GradebookItemGradeDetailViewController* gradebookItemGradeDetailViewController = [[GradebookItemGradeDetailViewController alloc] initWithItem:item];
         gradebookItemGradeDetailViewController.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:gradebookItemGradeDetailViewController animated:YES];
-        gradebookItemGradeDetailViewController.item = item;
         [gradebookItemGradeDetailViewController release];        
     } else if ([itemType isEqualToString:@"dropbox-submission"]) {
         return;

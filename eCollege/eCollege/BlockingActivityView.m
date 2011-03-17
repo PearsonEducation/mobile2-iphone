@@ -69,9 +69,6 @@
 
 
 - (void)dealloc {
-    if (blockingView.superview != nil) {
-        [blockingView removeFromSuperview];
-    }
     [view release];
     [super dealloc];
 }

@@ -9,16 +9,18 @@
 #import <UIKit/UIKit.h>
 #import "ActivityStreamItem.h"
 #import "GradebookItemGradeFetcher.h"
+#import "GradebookItemGrade.h"
+#import "BlockingActivityView.h"
 
 @interface GradebookItemGradeDetailViewController : UIViewController {
     ActivityStreamItem* item;
     GradebookItemGradeFetcher* gradebookItemGradeFetcher;
-    IBOutlet UILabel* titleLabel;
-    IBOutlet UILabel* courseNameLabel;
-    IBOutlet UILabel* numericGradeLabel;
-    IBOutlet UILabel* commentsLabel;
-    IBOutlet UILabel* lastUpdateLabel;
+    GradebookItemGrade* grade;
+    BlockingActivityView* blockingActivityView;
+    
 }
+
+- (id)initWithItem:(ActivityStreamItem*)value;
 
 @property (nonatomic, retain) ActivityStreamItem* item;
 
