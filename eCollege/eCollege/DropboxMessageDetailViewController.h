@@ -7,18 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DropboxMessage.h"
 #import "DropboxMessageFetcher.h"
-#import "ActivityStreamItem.h"
+#import "DropboxBasketFetcher.h"
 #import "BlockingActivityView.h"
 
 @interface DropboxMessageDetailViewController : UIViewController {
-    ActivityStreamItem* item;
-    DropboxMessage* dropboxMessage;
+    id dropboxMessage;
+    id dropboxBasket;
     DropboxMessageFetcher* dropboxMessageFetcher;
+    DropboxBasketFetcher* dropboxBasketFetcher;
     BlockingActivityView* blockingActivityView;
+    NSInteger courseId;
+    NSString* basketId;
+    NSString* messageId;
 }
 
-- (id)initWithItem:(ActivityStreamItem*)value;
+- (id)initWithCourseId:(NSInteger)courseId basketId:(NSString*)basketId messageId:(NSString*)messageId;
 
 @end

@@ -473,7 +473,7 @@
         [self.navigationController pushViewController:gradebookItemGradeDetailViewController animated:YES];
         [gradebookItemGradeDetailViewController release];        
     } else if ([itemType isEqualToString:@"dropbox-submission"]) {
-        DropboxMessageDetailViewController* dropboxMessageDetailViewController = [[DropboxMessageDetailViewController alloc] initWithItem:item];
+        DropboxMessageDetailViewController* dropboxMessageDetailViewController = [[DropboxMessageDetailViewController alloc] initWithCourseId:item.object.courseId basketId:item.target.referenceId messageId:item.object.referenceId];
         dropboxMessageDetailViewController.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:dropboxMessageDetailViewController animated:YES];
         [dropboxMessageDetailViewController release];
