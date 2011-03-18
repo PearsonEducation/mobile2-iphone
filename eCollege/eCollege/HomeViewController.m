@@ -18,6 +18,7 @@
 #import "eCollegeAppDelegate.h"
 #import "GradebookItemGradeDetailViewController.h"
 #import "NSDateUtilities.h"
+#import "DropboxMessageDetailViewController.h"
 
 @interface HomeViewController ()
 
@@ -472,7 +473,10 @@
         [self.navigationController pushViewController:gradebookItemGradeDetailViewController animated:YES];
         [gradebookItemGradeDetailViewController release];        
     } else if ([itemType isEqualToString:@"dropbox-submission"]) {
-        return;
+        DropboxMessageDetailViewController* dropboxMessageDetailViewController = [[DropboxMessageDetailViewController alloc] initWithItem:item];
+        dropboxMessageDetailViewController.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:dropboxMessageDetailViewController animated:YES];
+        [dropboxMessageDetailViewController release];
     } else if ([itemType isEqualToString:@"exam-submission"]) {
         return;
     } else if ([itemType isEqualToString:@"remark"]) {
