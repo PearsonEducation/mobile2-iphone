@@ -45,5 +45,6 @@ extern int coursesRefreshInterval;
 - (Course*)getCourseHavingId:(NSInteger)courseId;
 - (void)refreshCourseList;
 - (BOOL)shouldRefreshCourses;
+- (NSArray*) getAllCourseIds;
 
 @end

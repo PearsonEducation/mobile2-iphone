@@ -91,6 +91,14 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
     return [coursesDictionary objectForKey:[NSString stringWithFormat:@"%d",courseId]];
 }
 
+- (NSArray*) getAllCourseIds {
+    NSMutableArray* arr = [[NSMutableArray alloc] initWithCapacity:[self.coursesArray count]];
+    for(Course* course in self.coursesArray) {
+        [arr addObject:[NSNumber numberWithInt:[course courseId]]];
+    }
+    return arr;
+}
+
 - (void) dismissLoginView {
 	[UIView transitionWithView:self.window
 					  duration:0.75
