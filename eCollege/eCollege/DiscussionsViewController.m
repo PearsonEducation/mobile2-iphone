@@ -12,11 +12,13 @@
 #import "UserDiscussionTopic.h"
 #import "eCollegeAppDelegate.h"
 #import "NSDateUtilities.h"
+#import "TopicTableCell.h"
 
 @interface DiscussionsViewController ()
 
 @property (nonatomic, retain) UserDiscussionTopicFetcher* userDiscussionTopicFetcher;
 @property (nonatomic, retain) NSDate* today;
+@property (nonatomic, retain) NSArray* courseIds;
 
 - (void)loadData;
 - (void)prepareData;
@@ -37,6 +39,7 @@
 @synthesize topics;
 @synthesize lastUpdateTime;
 @synthesize today;
+@synthesize courseIds;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -55,6 +58,7 @@
 
 - (void)dealloc
 {
+    self.courseIds = nil;
     [self unregisterForCoursesNotifications];
     self.topics = nil;
     self.lastUpdateTime = nil;
@@ -318,22 +322,22 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 51.0;
+    return 71.0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"TopicTableCell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"TopicTableCell" owner:self options:nil];
+        cell = [nib objectAtIndex:0];
     }
     
     UserDiscussionTopic* topic = [self getTopicForIndexPath:indexPath];
-    cell.textLabel.text = topic.topic.title;
+    [(TopicTableCell*)cell setData:topic];
     
-    // Configure the cell...    
     return cell;
 }
 

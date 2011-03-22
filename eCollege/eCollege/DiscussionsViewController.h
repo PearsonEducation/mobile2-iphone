@@ -13,6 +13,7 @@
 #import "DateCalculator.h"
 
 @interface DiscussionsViewController : PullRefreshTableViewController <UITableViewDelegate, UITableViewDataSource> {
+    NSArray* courseIds;
     NSArray* topics;
     UserDiscussionTopicFetcher* userDiscussionTopicFetcher;
     BlockingActivityView* blockingActivityView;
