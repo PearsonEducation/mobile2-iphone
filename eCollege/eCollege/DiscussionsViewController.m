@@ -511,7 +511,7 @@
         }
         cell.textLabel.font = [UIFont fontWithName:@"Helvetica-Oblique" size:13.0];
         cell.textLabel.textColor = [UIColor lightGrayColor];
-        cell.textLabel.text = NSLocalizedString(@"No topics for this class",nil);
+        cell.textLabel.text = NSLocalizedString(@"No recent topics for this course",nil);
     }
     return cell;
 }
