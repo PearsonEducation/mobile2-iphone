@@ -40,6 +40,8 @@
 		A27E57AB13391AD200776CE5 /* icon_discussions_hot_topic.png in Resources */ = {isa = PBXBuildFile; fileRef = A27E57A813391AD200776CE5 /* icon_discussions_hot_topic.png */; };
 		A27E57AC13391AD200776CE5 /* icon_discussions_no_responses.png in Resources */ = {isa = PBXBuildFile; fileRef = A27E57A913391AD200776CE5 /* icon_discussions_no_responses.png */; };
 		A27E57AD13391AD200776CE5 /* icon_discussions_responses.png in Resources */ = {isa = PBXBuildFile; fileRef = A27E57AA13391AD200776CE5 /* icon_discussions_responses.png */; };
+		A283D63F133A53F600F46054 /* ResponsesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A283D63D133A53F500F46054 /* ResponsesViewController.m */; };
+		A283D640133A53F600F46054 /* ResponsesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A283D63E133A53F500F46054 /* ResponsesViewController.xib */; };
 		A28CB5FF132ECD95000B669D /* GradebookItemGradeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A28CB5FD132ECD95000B669D /* GradebookItemGradeDetailViewController.m */; };
 		A28CB600132ECD95000B669D /* GradebookItemGradeDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A28CB5FE132ECD95000B669D /* GradebookItemGradeDetailViewController.xib */; };
 		A2A96751132E826D00554238 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = A2A96750132E826D00554238 /* GTMNSString+HTML.m */; };
@@ -149,6 +151,9 @@
 		A27E57A813391AD200776CE5 /* icon_discussions_hot_topic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_discussions_hot_topic.png; sourceTree = "<group>"; };
 		A27E57A913391AD200776CE5 /* icon_discussions_no_responses.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_discussions_no_responses.png; sourceTree = "<group>"; };
 		A27E57AA13391AD200776CE5 /* icon_discussions_responses.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_discussions_responses.png; sourceTree = "<group>"; };
+		A283D63C133A53F500F46054 /* ResponsesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResponsesViewController.h; sourceTree = "<group>"; };
+		A283D63D133A53F500F46054 /* ResponsesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResponsesViewController.m; sourceTree = "<group>"; };
+		A283D63E133A53F500F46054 /* ResponsesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResponsesViewController.xib; sourceTree = "<group>"; };
 		A28CB5FC132ECD95000B669D /* GradebookItemGradeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradebookItemGradeDetailViewController.h; sourceTree = "<group>"; };
 		A28CB5FD132ECD95000B669D /* GradebookItemGradeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradebookItemGradeDetailViewController.m; sourceTree = "<group>"; };
 		A28CB5FE132ECD95000B669D /* GradebookItemGradeDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GradebookItemGradeDetailViewController.xib; sourceTree = "<group>"; };
@@ -405,6 +410,9 @@
 				A2EE3ED81320421800745C1C /* DiscussionsViewController.m */,
 				A2EE3ED91320421800745C1C /* DiscussionsViewController.xib */,
 				A2EE947613384086001CFDDF /* TopicTableCell.xib */,
+				A283D63C133A53F500F46054 /* ResponsesViewController.h */,
+				A283D63D133A53F500F46054 /* ResponsesViewController.m */,
+				A283D63E133A53F500F46054 /* ResponsesViewController.xib */,
 			);
 			name = Discussions;
 			sourceTree = "<group>";
@@ -654,6 +662,7 @@
 				A27D702C13393FDC00B0BBD8 /* courses_icon.png in Resources */,
 				A27D7031133943C600B0BBD8 /* count_bubble.png in Resources */,
 				A27D7032133943C600B0BBD8 /* count_bubble@2x.png in Resources */,
+				A283D640133A53F600F46054 /* ResponsesViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -686,6 +695,7 @@
 				A2D182781330079600AAC152 /* PullRefreshTableViewController.m in Sources */,
 				A2EE2B871332A5290059DFAD /* DropboxMessageDetailViewController.m in Sources */,
 				A2EE947E1338456C001CFDDF /* TopicTableCell.m in Sources */,
+				A283D63F133A53F600F46054 /* ResponsesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
