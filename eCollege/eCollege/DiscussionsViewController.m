@@ -512,49 +512,10 @@
         }
         cell.textLabel.font = [UIFont fontWithName:@"Helvetica-Oblique" size:13.0];
         cell.textLabel.textColor = [UIColor lightGrayColor];
-        cell.textLabel.text = NSLocalizedString(@"No topics for this class",nil);
+        cell.textLabel.text = NSLocalizedString(@"No recent topics for this course",nil);
     }
     return cell;
 }
-
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
-
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
- {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
- }   
- else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }   
- }
- */
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
 
 - (UserDiscussionTopic*)getTopicForIndexPath:(NSIndexPath*)indexPath {
     
@@ -597,7 +558,7 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     
     if (selectedFilterRow != -1) {
-        section = selectedFilterRow;
+		return nil; // will hide the section header when the table is filtered
     }
     
     NSDictionary* dict = [self.courseIdsAndTopicArrays objectAtIndex:section];
