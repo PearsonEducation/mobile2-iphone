@@ -448,6 +448,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
     // get the activity stream item
     ActivityStreamItem* item = [self getItemForIndexPath:indexPath];
     if (!item) {
