@@ -11,6 +11,8 @@
 #import "UserDiscussionTopic.h"
 #import "UserDiscussionResponseFetcher.h"
 #import "UserDiscussionTopicFetcher.h"
+#import "DiscussionTopic.h"
+#import "UserDiscussionResponse.h"
 
 
 @interface ResponsesViewController () 
@@ -27,6 +29,9 @@
 - (void)fetchData;
 - (void)fetchRootItem;
 - (void)fetchResponses;
+- (BOOL)isValidRootItemObject:(id)value;
+- (BOOL)isValidResponsesObject:(id)value;
+- (void)fetchingComplete;
 
 @end
 
@@ -42,38 +47,25 @@
 
 # pragma mark Methods to override in child classes
 
-- (void)rootItemFetchedHandler:(id)result {
-    if ([result isKindOfClass:[UserDiscussionTopic class]]) {
-        NSLog(@"Got a user discussion topic");
-        self.rootItem = result;
-        errorLoadingRootItem = NO;
-        [self fetchResponses];
-    } else {
-        NSLog(@"Got an error");
-    }
+     
+- (BOOL)isValidRootItemObject:(id)value {
+    return value && [value isKindOfClass:[UserDiscussionTopic class]];
 }
 
-- (void)responsesFetchedHandler:(id)result {
-    if ([result isKindOfClass:[NSArray class]]) {
-        self.responses = result;
-    }
+- (BOOL)isValidResponsesObject:(id)value {
+    return value && [value isKindOfClass:[NSArray class]];
 }
 
 - (void)fetchRootItem {
-    if (self.rootItemId && ![self.rootItemId isEqualToString:@""]) {
-        [(UserDiscussionTopicFetcher*)rootItemFetcher fetchDiscussionTopicById:self.rootItemId];        
-    } else {
-        NSLog(@"ERROR: cannot fetch user discussion topic for id %@",self.rootItemId);
-    }
+    [(UserDiscussionTopicFetcher*)rootItemFetcher fetchDiscussionTopicById:self.rootItemId];        
 }
 
 - (void)fetchResponses {
-    if (self.rootItem && [self.rootItem isKindOfClass:[UserDiscussionTopic class]]) {
-        UserDiscussionResponseFetcher* fetcher = (UserDiscussionResponseFetcher*)self.responsesFetcher;
-        [fetcher fetchUserDicussionResponsesForTopicId:self.rootItemId];
-    } else {
-        NSLog(@"ERROR: cannot fetch responses for user discussion topic %@",self.rootItem);
-    }
+    UserDiscussionResponseFetcher* fetcher = (UserDiscussionResponseFetcher*)self.responsesFetcher;
+    UserDiscussionTopic* udt = (UserDiscussionTopic*)self.rootItem;
+    DiscussionTopic* dt = udt.topic;
+    NSInteger dtid = dt.discussionTopicId;    
+    [fetcher fetchUserDiscussionResponsesForTopicId:[NSString stringWithFormat:@"%d",dtid]];
 }
 
 - (void)setupFetchers {    
@@ -139,14 +131,59 @@
 
 #pragma mark - Other methods
 
-- (void)fetchData {
-    if (currentRefreshing) {
-        return;
+- (void)rootItemFetchedHandler:(id)result {
+    if ([self isValidRootItemObject:result]) {
+        NSLog(@"Got a user discussion topic");
+        self.rootItem = result;
+        errorFetchingRootItem = NO;
+        [self fetchResponses];
     } else {
-        currentRefreshing = YES;
-        [self fetchRootItem];
+        NSLog(@"ERROR: problem loading root item");
+        errorFetchingRootItem = YES;
+        [self fetchingComplete];
     }
 }
+
+- (void)responsesFetchedHandler:(id)result {
+    if ([self isValidResponsesObject:result]) {
+        self.responses = result;
+        errorFetchingResponses = NO;
+    } else {
+        NSLog(@"ERROR: problem loading responses");
+        errorFetchingResponses = YES;
+    }
+    [self fetchingComplete];
+}
+
+- (void)fetchData {
+    if (currentlyRefreshing) {
+        return;
+    } else {
+        if (self.rootItemId && ![self.rootItemId isEqualToString:@""]) {
+            errorFetchingRootItem = NO;
+            errorFetchingResponses = NO;
+            currentlyRefreshing = YES;
+            [self fetchRootItem];
+        } else {
+            errorFetchingRootItem = YES;
+            [self fetchingComplete];
+        }
+    }
+}
+
+- (void)fetchingComplete {
+    if (errorFetchingRootItem || errorFetchingResponses) {
+        NSLog(@"ERROR: Problems fetching data.");
+    } else {
+        // since we've updated the buckets of data, we must now reload the table
+        [self.table reloadData];
+    }
+    
+    // tell the "pull to refresh" loading header to go away (if it's present)
+    [self stopLoading];
+    currentlyRefreshing = NO;
+}
+
 
 #pragma mark - View lifecycle
 
@@ -206,13 +243,13 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 0;
+    return [responses count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -223,6 +260,9 @@
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
+    
+    UserDiscussionResponse* response = [responses objectAtIndex:indexPath.row];
+    cell.textLabel.text = response.response.title;
     
     // Configure the cell...
     

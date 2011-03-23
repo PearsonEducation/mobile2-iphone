@@ -19,16 +19,16 @@
     // depending on which subclass is being used
     id rootItem;
     NSString* rootItemId;
-    id errorLoadingRootItem;
+    BOOL errorFetchingRootItem;
     
     NSArray* responses;
-    id errorLoadingResponses;
+    BOOL errorFetchingResponses;
 
     NSDate* lastUpdated;
     
     DateCalculator* dateCalculator;
     
-    BOOL currentRefreshing;
+    BOOL currentlyRefreshing;
     
     BOOL forceUpdateOnViewWillAppear;
 }
