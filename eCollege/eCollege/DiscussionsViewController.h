@@ -12,7 +12,7 @@
 #import "PullRefreshTableViewController.h"
 #import "DateCalculator.h"
 
-@interface DiscussionsViewController : PullRefreshTableViewController <UITableViewDelegate, UITableViewDataSource> {
+@interface DiscussionsViewController : PullRefreshTableViewController <UITableViewDelegate, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate> {
     NSArray* topics;
     UserDiscussionTopicFetcher* userDiscussionTopicFetcher;
     BlockingActivityView* blockingActivityView;
@@ -24,6 +24,12 @@
     BOOL coursesLoadFailure;
     BOOL forceUpdateOnViewWillAppear;
     NSMutableArray* courseIdsAndTopicArrays;
+    NSMutableArray* courseNames;
+    UIPickerView* picker;
+    UIView* filterView;
+    int selectedFilterRow;
+    IBOutlet UILabel* tableTitle;
+    UIView* blockingModalView;
 }
 
 - (IBAction)refreshWithModalSpinner;

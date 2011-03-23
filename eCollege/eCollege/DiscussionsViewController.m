@@ -19,6 +19,11 @@
 @property (nonatomic, retain) UserDiscussionTopicFetcher* userDiscussionTopicFetcher;
 @property (nonatomic, retain) NSDate* today;
 @property (nonatomic, retain) NSMutableArray* courseIdsAndTopicArrays;
+@property (nonatomic, retain) NSMutableArray* courseNames;
+@property (nonatomic, retain) UIPickerView* picker;
+@property (nonatomic, retain) UIView* filterView;
+@property (nonatomic, retain) IBOutlet UILabel* tableTitle;
+@property (nonatomic, retain) UIView* blockingModalView;
 
 - (void)loadData;
 - (void)prepareData;
@@ -30,6 +35,12 @@
 - (void)handleCoursesRefreshSuccess:(NSNotification*)notification;
 - (void)handleCoursesRefreshFailure:(NSNotification*)notification;
 - (void)loadingComplete;
+- (IBAction)filterButtonTapped:(id)sender;
+- (IBAction)filterDoneButtonTapped:(id)sender;
+- (void)applyFilter;
+- (void)filterAppearAnimationStopped:(NSString*)animationId finished:(NSNumber*)finished context:(void*)context;
+- (void)filterDisappearAnimationStopped:(NSString*)animationId finished:(NSNumber*)finished context:(void*)context;
+
 
 @end
 
@@ -40,11 +51,17 @@
 @synthesize lastUpdateTime;
 @synthesize today;
 @synthesize courseIdsAndTopicArrays;
+@synthesize courseNames;
+@synthesize picker;
+@synthesize filterView;
+@synthesize tableTitle;
+@synthesize blockingModalView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        selectedFilterRow = -1;
         self.userDiscussionTopicFetcher = [[UserDiscussionTopicFetcher alloc] initWithDelegate:self responseSelector:@selector(loadedMyTopicsHandler:)];    
         NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
         [gregorian setTimeZone:[NSTimeZone defaultTimeZone]];
@@ -58,17 +75,98 @@
 
 - (void)dealloc
 {
+    self.blockingModalView = nil;
+    self.filterView = nil;
     [self unregisterForCoursesNotifications];
     self.topics = nil;
+    self.tableTitle = nil;
     self.lastUpdateTime = nil;
+    self.courseNames = nil;
     [self.userDiscussionTopicFetcher cancel];
     self.userDiscussionTopicFetcher = nil;
     self.courseIdsAndTopicArrays = nil;
+    self.picker = nil;
     [blockingActivityView release];
     [dateCalculator release];
     [today release];
     [super dealloc];
 }
+
+- (IBAction)filterButtonTapped:(id)sender {
+    
+    [[UIApplication sharedApplication].keyWindow addSubview:self.blockingModalView];
+    [[UIApplication sharedApplication].keyWindow addSubview:self.filterView];
+
+    // make sure the choices are set correctly in the filter picker
+    [picker reloadAllComponents];
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(filterAppearAnimationStopped:finished:context:)];    
+    CGRect filterViewFrame = filterView.frame;
+    filterViewFrame.origin.y = 0;
+    filterView.frame = filterViewFrame;
+    blockingModalView.alpha = 0.25;
+    [UIView commitAnimations];
+}
+
+- (IBAction)filterDoneButtonTapped:(id)sender {
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(filterDisappearAnimationStopped:finished:context:)];    
+    CGRect filterViewFrame = filterView.frame;
+    filterViewFrame.origin.y = 480;
+    filterView.frame = filterViewFrame;
+    blockingModalView.alpha = 0;
+    [UIView commitAnimations];
+}
+
+- (void)filterAppearAnimationStopped:(NSString*)animationId finished:(NSNumber*)finished context:(void*)context {
+    [UIView setAnimationDelegate:nil];
+    [UIView setAnimationDidStopSelector:nil];
+}
+
+- (void)filterDisappearAnimationStopped:(NSString*)animationId finished:(NSNumber*)finished context:(void*)context {
+    [UIView setAnimationDelegate:nil];
+    [UIView setAnimationDidStopSelector:nil];
+    [self.filterView removeFromSuperview];
+    [self.blockingModalView removeFromSuperview];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+
+    if (row == 0) {
+        // "ALL COURSES" was selected
+        selectedFilterRow = -1; 
+    } else {
+        selectedFilterRow = row - 1;
+    }    
+
+    self.tableTitle.text = [self.courseNames objectAtIndex:row];
+    
+    [self applyFilter];
+}
+
+- (void)applyFilter {
+    [self.table reloadData];
+}
+
+- (IBAction)pickerButtonPressed {
+    NSInteger row = [picker selectedRowInComponent:0];
+    NSLog(@"Selected: %@", [courseNames objectAtIndex:row]);
+}
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return [courseNames count];
+}
+
+- (NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    return [courseNames objectAtIndex:row];
+}
+
 
 - (void)infoButtonTapped:(id)sender {
     InfoTableViewController* infoTableViewController = [[InfoTableViewController alloc] initWithNibName:@"InfoTableViewController" bundle:nil];
@@ -77,6 +175,14 @@
     [self presentModalViewController:infoNavController animated:YES];
     [infoNavController release];
     [infoTableViewController release];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (buttonIndex != [actionSheet cancelButtonIndex]) {
+        NSLog(@"Apply");
+    } else {
+        NSLog(@"Cancel");
+    }
 }
 
 // overriding parent method
@@ -178,6 +284,28 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    blockingModalView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+    blockingModalView.backgroundColor = [UIColor blackColor];
+    blockingModalView.alpha = 0;
+    
+    filterView = [[UIView alloc] initWithFrame:CGRectMake(0, 480, 320, 480)];
+    filterView.backgroundColor = [UIColor clearColor];
+    
+    // put a toolbar on top of the filter view
+    UIToolbar* toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 220, 320, 44)];
+    UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(filterDoneButtonTapped:)];    
+    NSArray* buttons = [[NSArray alloc] initWithObjects:flexibleSpace, doneButton, nil];
+    [toolBar setItems:buttons];
+    [filterView addSubview:toolBar];
+    
+    picker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 264, 320, 216)];
+    picker.showsSelectionIndicator = YES;
+    picker.dataSource = self;
+    picker.delegate = self;
+    [filterView addSubview:picker];
+
 
     // Do any additional setup after loading the view from its nib.
     blockingActivityView = [[BlockingActivityView alloc] initWithWithView:self.view];
@@ -287,8 +415,17 @@
     // make an array, one slot per course.  each slot will contain a dictionary with two
     // tuples: courseId -> value, topics -> value
     self.courseIdsAndTopicArrays = nil;
+    self.courseNames = [[[NSMutableArray alloc] initWithCapacity:[courseIds count]+1] autorelease];
+    [self.courseNames addObject:NSLocalizedString(@"All Courses", nil)];
     courseIdsAndTopicArrays = [[NSMutableArray alloc] initWithCapacity:[courseIds count]];
     for (NSString* key in [dict allKeys]) {
+        Course* course = [[eCollegeAppDelegate delegate] getCourseHavingId:[key integerValue]];
+        if (course) {
+            NSLog(@"Adding course: %@", course.title);
+            [courseNames addObject:course.title];
+        } else {
+            NSLog(@"ERROR: no course for id %d",[key integerValue]);
+        }
         NSMutableDictionary* tmp = [[[NSMutableDictionary alloc] initWithCapacity:2] autorelease];
         [tmp setValue:key forKey:@"courseId"];
         [tmp setValue:[dict valueForKey:key] forKey:@"topics"];
@@ -313,12 +450,22 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    NSLog(@"NUMBER OF SECTIONS: %d",[self.courseIdsAndTopicArrays count]);
-    return [self.courseIdsAndTopicArrays count];
+    if (selectedFilterRow == -1) {
+        NSLog(@"NUMBER OF SECTIONS: %d",[self.courseIdsAndTopicArrays count]);
+        return [self.courseIdsAndTopicArrays count];
+    } else {
+        return 1;
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    // if there's a filter applied, then we need to override which section
+    // we're providing data bout.
+    if (selectedFilterRow != -1) {
+        section = selectedFilterRow;
+    }
+        
     NSDictionary* dict = [self.courseIdsAndTopicArrays objectAtIndex:section];
     NSArray* array = [dict objectForKey:@"topics"];
     if (array) {
@@ -409,9 +556,18 @@
  */
 
 - (UserDiscussionTopic*)getTopicForIndexPath:(NSIndexPath*)indexPath {
+    
+    int sectionToUse;
+    // if there's a filter applied, then indexPath isn't accurate...
+    if (selectedFilterRow != -1) {
+        sectionToUse = selectedFilterRow;
+    } else {
+        sectionToUse = indexPath.section;
+    }
+    
     UserDiscussionTopic* returnValue = nil;
     if (indexPath.section < [self.courseIdsAndTopicArrays count]) {
-        NSDictionary* dict = [self.courseIdsAndTopicArrays objectAtIndex:indexPath.section];
+        NSDictionary* dict = [self.courseIdsAndTopicArrays objectAtIndex:sectionToUse];
         if (dict) {
             NSArray* ary = [dict objectForKey:@"topics"];
             if (ary && (indexPath.row < [ary count])) {
@@ -430,6 +586,11 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    
+    if (selectedFilterRow != -1) {
+        section = selectedFilterRow;
+    }
+    
     NSDictionary* dict = [self.courseIdsAndTopicArrays objectAtIndex:section];
     NSString* courseId = [dict objectForKey:@"courseId"];
     Course* course = [[eCollegeAppDelegate delegate] getCourseHavingId:[courseId integerValue]];
