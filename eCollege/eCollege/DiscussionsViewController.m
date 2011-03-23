@@ -334,7 +334,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     // if activities have never been updated or the last update was more than an hour ago,
-    // fetch the activities again.
+    // fetch the topics again.
     if (!self.lastUpdateTime || [self.lastUpdateTime timeIntervalSinceNow] < -3600 || forceUpdateOnViewWillAppear) {
         [self forcePullDownRefresh];
         forceUpdateOnViewWillAppear = NO;
