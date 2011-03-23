@@ -18,7 +18,7 @@
 
 @property (nonatomic, retain) UserDiscussionTopicFetcher* userDiscussionTopicFetcher;
 @property (nonatomic, retain) NSDate* today;
-@property (nonatomic, retain) NSArray* courseIds;
+@property (nonatomic, retain) NSMutableArray* courseIdsAndTopicArrays;
 
 - (void)loadData;
 - (void)prepareData;
@@ -39,13 +39,13 @@
 @synthesize topics;
 @synthesize lastUpdateTime;
 @synthesize today;
-@synthesize courseIds;
+@synthesize courseIdsAndTopicArrays;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        blockingActivityView = [[BlockingActivityView alloc] initWithWithView:self.view];
+        self.userDiscussionTopicFetcher = [[UserDiscussionTopicFetcher alloc] initWithDelegate:self responseSelector:@selector(loadedMyTopicsHandler:)];    
         NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
         [gregorian setTimeZone:[NSTimeZone defaultTimeZone]];
         dateCalculator = [[DateCalculator alloc] initWithCalendar:gregorian];
@@ -58,12 +58,12 @@
 
 - (void)dealloc
 {
-    self.courseIds = nil;
     [self unregisterForCoursesNotifications];
     self.topics = nil;
     self.lastUpdateTime = nil;
     [self.userDiscussionTopicFetcher cancel];
     self.userDiscussionTopicFetcher = nil;
+    self.courseIdsAndTopicArrays = nil;
     [blockingActivityView release];
     [dateCalculator release];
     [today release];
@@ -92,22 +92,13 @@
     
     currentlyLoading = YES;
     
-    // if course data is stale, refresh it.
+    // if course data is stale, refresh it; refresh topics afterward.
     if ([[eCollegeAppDelegate delegate] shouldRefreshCourses]) {
-        courseRefreshInProgress = YES;
         [[eCollegeAppDelegate delegate] refreshCourseList];
-    }
-    
-    // fetch topics
-    if (!self.userDiscussionTopicFetcher) {
-        self.userDiscussionTopicFetcher = [[UserDiscussionTopicFetcher alloc] initWithDelegate:self responseSelector:@selector(loadedMyTopicsHandler:)];    
     } else {
         [self.userDiscussionTopicFetcher cancel];
+        [self.userDiscussionTopicFetcher fetchDiscussionTopicsForCourseIds:[[eCollegeAppDelegate delegate] getAllCourseIds]];        
     }
-    
-    topicsRefreshInProgress = YES;
-    // TODO: filtering
-    [self.userDiscussionTopicFetcher fetchDiscussionTopicsForCourseIds:[[eCollegeAppDelegate delegate] getAllCourseIds]];
 }
 
 - (void)executeAfterHeaderClose {
@@ -156,19 +147,12 @@
 }
 
 - (void)handleCoursesRefreshSuccess:(NSNotification*)notification {
-    courseRefreshInProgress = NO;
-    
     // if courses were refreshed because we're loading, that means
     // we can potentially immediately update the interface.
     if (currentlyLoading) {
         coursesLoadFailure = NO;
-        if (topicsRefreshInProgress) {
-            // need to wait for activities refresh to finish
-            return;
-        } else {
-            // everything has been loaded
-            [self loadingComplete];
-        }
+        [self.userDiscussionTopicFetcher cancel];
+        [self.userDiscussionTopicFetcher fetchDiscussionTopicsForCourseIds:[[eCollegeAppDelegate delegate] getAllCourseIds]];        
     }
     
     // if courses were refreshed from some other place in the application,
@@ -179,18 +163,12 @@
 }
 
 - (void)handleCoursesRefreshFailure:(NSNotification*)notification {
-    courseRefreshInProgress = NO;
-    NSLog(@"ERROR loading courses; can't move past login screen.");
-    
     // if the failure happened passively (this view didn't request an
     // update of the courses), then don't do anything.
     if (currentlyLoading) {
-        topicsLoadFailure = YES;
-        if (topicsRefreshInProgress) {
-            return;
-        } else {
-            [self loadingComplete];
-        }
+        NSLog(@"ERROR loading courses; can't load topics.");
+        coursesLoadFailure = YES;
+        [self loadingComplete];
     }
 }
 
@@ -200,8 +178,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     // Do any additional setup after loading the view from its nib.
-    
+    blockingActivityView = [[BlockingActivityView alloc] initWithWithView:self.view];
+
     // add the info button, give it a tap handler
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeInfoLight];
     [btn addTarget:self action:@selector(infoButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
@@ -234,8 +214,6 @@
 }
 
 - (void)loadedMyTopicsHandler:(NSArray*)loadedTopics {
-    topicsRefreshInProgress = NO;
-    
     // check to see if we received an error; if not, save off the data and prep it.
     if ([loadedTopics isKindOfClass:[NSError class]]) {
         topicsLoadFailure = YES;
@@ -245,12 +223,7 @@
         [self prepareData];
     }
     
-    // is there another load in progress?  if so, wait; if not, be done loading.
-    if (courseRefreshInProgress) {
-        return;
-    } else {
-        [self loadingComplete];
-    }
+    [self loadingComplete];
 }
 
 - (void)loadingComplete {
@@ -275,23 +248,44 @@
 
 - (void)prepareData {
     
-    // debug code to make sure we have some items for today and yesterday
-    //    for  (ActivityStreamItem* aitem in self.activityStream.items) {
-    //        int x = arc4random() % 100;
-    //        if (x > 50) {
-    //            aitem.postedTime = today;
-    //        }
-    //        if (x > 75) {
-    //            aitem.postedTime = [dateCalculator addDays:-1 toDate:today];
-    //        }
-    //    }
-    
-    // if there's no topics, return.
     if (!self.topics || ([self.topics count] == 0)) {
         return;
     }
     
-    // TODO: sorting topics
+    NSArray* courseIds = [[eCollegeAppDelegate delegate] getAllCourseIds];
+    NSMutableDictionary* dict = [[NSMutableDictionary alloc] initWithCapacity:[courseIds count]];
+    
+    for (UserDiscussionTopic* topic in self.topics) {
+        // get the course ID
+        int cid;
+        if (topic && topic.topic && topic.topic.containerInfo) {
+            cid = topic.topic.containerInfo.courseId;
+        } else {
+            NSLog(@"ERROR: topic %@ does not have a courseId",topic);
+            continue;
+        }
+        NSString* scid = [NSString stringWithFormat:@"%d",cid];
+        
+        // get the array associated with that course id from dict
+        NSMutableArray* topicsForCourseId = [dict objectForKey:scid];
+        if (!topicsForCourseId) {
+            topicsForCourseId = [[[NSMutableArray alloc] init] autorelease];
+            [dict setValue:topicsForCourseId forKey:scid];
+        }
+        
+        // add the topic to that array
+        [topicsForCourseId addObject:topic];
+    }
+    
+    self.courseIdsAndTopicArrays = nil;
+    courseIdsAndTopicArrays = [[NSMutableArray alloc] initWithCapacity:[courseIds count]];
+    
+    for (NSString* key in [dict allKeys]) {
+        NSMutableDictionary* tmp = [[[NSMutableDictionary alloc] initWithCapacity:3] autorelease];
+        [tmp setValue:key forKey:@"courseId"];
+        [tmp setValue:[dict valueForKey:key] forKey:@"topics"];
+        [self.courseIdsAndTopicArrays addObject:tmp];
+    }
 }
 
 - (void)viewDidUnload
@@ -311,14 +305,20 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // TODO: hook this up to the number of returned courses
-    return 1;
+    NSLog(@"NUMBER OF SECTIONS: %d",[self.courseIdsAndTopicArrays count]);
+    return [self.courseIdsAndTopicArrays count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // TODO: hook this up to the actual number of rows for the course
-    return [self.topics count];
+    NSDictionary* dict = [self.courseIdsAndTopicArrays objectAtIndex:section];
+    NSArray* array = [dict objectForKey:@"topics"];
+    if (array) {
+        return [array count];
+    } else {
+        NSLog(@"ERROR: No array for section %d",section);
+        return 0;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -381,8 +381,9 @@
  */
 
 - (UserDiscussionTopic*)getTopicForIndexPath:(NSIndexPath*)indexPath {
-    // TODO: get the item for the right course (as specified by the index path)
-    return [topics objectAtIndex:indexPath.row];
+    NSDictionary* dict = [self.courseIdsAndTopicArrays objectAtIndex:indexPath.section];
+    NSArray* ary = [dict objectForKey:@"topics"];
+    return [ary objectAtIndex:indexPath.row];
 }
 
 
@@ -393,9 +394,15 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return @"Section header";
+    NSDictionary* dict = [self.courseIdsAndTopicArrays objectAtIndex:section];
+    NSString* courseId = [dict objectForKey:@"courseId"];
+    Course* course = [[eCollegeAppDelegate delegate] getCourseHavingId:[courseId integerValue]];
+    if (course) {
+        return course.title;
+    } else {
+        NSLog(@"Error: no course returned for id %@",courseId);
+        return @"";
+    }
 }
-
-
 
 @end

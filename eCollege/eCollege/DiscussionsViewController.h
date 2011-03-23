@@ -13,7 +13,6 @@
 #import "DateCalculator.h"
 
 @interface DiscussionsViewController : PullRefreshTableViewController <UITableViewDelegate, UITableViewDataSource> {
-    NSArray* courseIds;
     NSArray* topics;
     UserDiscussionTopicFetcher* userDiscussionTopicFetcher;
     BlockingActivityView* blockingActivityView;
@@ -23,9 +22,8 @@
     BOOL currentlyLoading;
     BOOL topicsLoadFailure;
     BOOL coursesLoadFailure;
-    BOOL courseRefreshInProgress;
-    BOOL topicsRefreshInProgress;
     BOOL forceUpdateOnViewWillAppear;
+    NSMutableArray* courseIdsAndTopicArrays;
 }
 
 - (IBAction)refreshWithModalSpinner;
