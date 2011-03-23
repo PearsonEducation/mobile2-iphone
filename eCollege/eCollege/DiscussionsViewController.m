@@ -255,6 +255,13 @@
     NSArray* courseIds = [[eCollegeAppDelegate delegate] getAllCourseIds];
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] initWithCapacity:[courseIds count]];
     
+    // make an array for each courseID, to hold its topics; store that array in a dictionary
+    for (NSNumber* courseIdNumber in courseIds) {
+        NSMutableArray* arrayOfTopics = [[[NSMutableArray alloc] init] autorelease];
+        [dict setValue:arrayOfTopics forKey:[courseIdNumber stringValue]];
+    }
+    
+    // add all topics to the appropriate array
     for (UserDiscussionTopic* topic in self.topics) {
         // get the course ID
         int cid;
@@ -269,19 +276,20 @@
         // get the array associated with that course id from dict
         NSMutableArray* topicsForCourseId = [dict objectForKey:scid];
         if (!topicsForCourseId) {
-            topicsForCourseId = [[[NSMutableArray alloc] init] autorelease];
-            [dict setValue:topicsForCourseId forKey:scid];
+            NSLog(@"ERROR: shouldn't have a new courseID at this point...");
+            continue;
         }
         
         // add the topic to that array
         [topicsForCourseId addObject:topic];
     }
     
+    // make an array, one slot per course.  each slot will contain a dictionary with two
+    // tuples: courseId -> value, topics -> value
     self.courseIdsAndTopicArrays = nil;
     courseIdsAndTopicArrays = [[NSMutableArray alloc] initWithCapacity:[courseIds count]];
-    
     for (NSString* key in [dict allKeys]) {
-        NSMutableDictionary* tmp = [[[NSMutableDictionary alloc] initWithCapacity:3] autorelease];
+        NSMutableDictionary* tmp = [[[NSMutableDictionary alloc] initWithCapacity:2] autorelease];
         [tmp setValue:key forKey:@"courseId"];
         [tmp setValue:[dict valueForKey:key] forKey:@"topics"];
         [self.courseIdsAndTopicArrays addObject:tmp];
@@ -314,30 +322,50 @@
     NSDictionary* dict = [self.courseIdsAndTopicArrays objectAtIndex:section];
     NSArray* array = [dict objectForKey:@"topics"];
     if (array) {
-        return [array count];
+        int cnt = [array count];
+        if (cnt == 0) {
+            // no data row
+            return 1;
+        } else {
+            return cnt;
+        }
     } else {
         NSLog(@"ERROR: No array for section %d",section);
-        return 0;
+        // no data row
+        return 1;
     }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 71.0;
+    if ([self getTopicForIndexPath:indexPath]) {
+        return 71.0;
+    } else {
+        return 30.0;        
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"TopicTableCell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"TopicTableCell" owner:self options:nil];
-        cell = [nib objectAtIndex:0];
-    }
-    
     UserDiscussionTopic* topic = [self getTopicForIndexPath:indexPath];
-    [(TopicTableCell*)cell setData:topic];
-    
+    UITableViewCell *cell;
+    if (topic) {
+        static NSString *CellIdentifier = @"TopicTableCell";
+        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"TopicTableCell" owner:self options:nil];
+            cell = [nib objectAtIndex:0];
+        }
+        [(TopicTableCell*)cell setData:topic];
+    } else {
+        static NSString *CellIdentifier = @"Cell";
+        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        }
+        cell.textLabel.font = [UIFont fontWithName:@"Helvetica-Oblique" size:13.0];
+        cell.textLabel.textColor = [UIColor lightGrayColor];
+        cell.textLabel.text = NSLocalizedString(@"No topics for this class",nil);
+    }
     return cell;
 }
 
@@ -381,9 +409,17 @@
  */
 
 - (UserDiscussionTopic*)getTopicForIndexPath:(NSIndexPath*)indexPath {
-    NSDictionary* dict = [self.courseIdsAndTopicArrays objectAtIndex:indexPath.section];
-    NSArray* ary = [dict objectForKey:@"topics"];
-    return [ary objectAtIndex:indexPath.row];
+    UserDiscussionTopic* returnValue = nil;
+    if (indexPath.section < [self.courseIdsAndTopicArrays count]) {
+        NSDictionary* dict = [self.courseIdsAndTopicArrays objectAtIndex:indexPath.section];
+        if (dict) {
+            NSArray* ary = [dict objectForKey:@"topics"];
+            if (ary && (indexPath.row < [ary count])) {
+                returnValue = [ary objectAtIndex:indexPath.row];
+            }
+        }
+    }
+    return returnValue;
 }
 
 
