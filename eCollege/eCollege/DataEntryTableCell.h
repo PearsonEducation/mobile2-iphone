@@ -13,4 +13,6 @@
     IBOutlet UITextField* textField;
 }
 
+@property (nonatomic, retain) UITextField* textField;
+
 @end

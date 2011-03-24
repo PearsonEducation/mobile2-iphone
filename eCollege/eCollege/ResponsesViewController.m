@@ -170,6 +170,12 @@
     currentlyRefreshing = NO;
 }
 
+#pragma mark - UITextField delegate methods
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    return NO;
+}
+
 
 #pragma mark - View lifecycle
 
@@ -301,6 +307,7 @@
             NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"DataEntryTableCell" owner:self options:nil];
             cell = [nib objectAtIndex:0];
         }
+        ((DataEntryTableCell*)cell).textField.delegate = self;
     } 
     
     // response cells

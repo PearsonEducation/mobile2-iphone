@@ -8,11 +8,13 @@
 
 #import "DataEntryTableCell.h"
 
-
 @implementation DataEntryTableCell
+
+@synthesize textField;
 
 - (void)dealloc
 {
+    self.textField = nil;
     [super dealloc];
 }
 

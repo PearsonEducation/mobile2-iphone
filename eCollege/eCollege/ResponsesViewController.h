@@ -11,7 +11,7 @@
 #import "DateCalculator.h"
 #import "PullRefreshTableViewController.h"
 
-@interface ResponsesViewController : PullRefreshTableViewController <UITableViewDataSource, UITableViewDelegate> {
+@interface ResponsesViewController : PullRefreshTableViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate> {
     ECAuthenticatedFetcher* rootItemFetcher;
     ECAuthenticatedFetcher* responsesFetcher;
     
