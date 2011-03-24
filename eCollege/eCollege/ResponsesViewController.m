@@ -363,6 +363,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([self isResponseCell:indexPath]) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
         ResponseResponsesViewController* rrvc = [[ResponseResponsesViewController alloc] initWithNibName:@"ResponsesViewController" bundle:nil];
         UserDiscussionResponse* udr = [self.responses objectAtIndex:indexPath.row-3];
         rrvc.rootItemId = udr.userDiscussionResponseId;

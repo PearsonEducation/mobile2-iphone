@@ -547,6 +547,7 @@
 {
     UserDiscussionTopic* topic = [self getTopicForIndexPath:indexPath];
     if (topic) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
         TopicResponsesViewController* topicResponsesViewController = [[TopicResponsesViewController alloc] initWithNibName:@"ResponsesViewController" bundle:nil];
         NSLog(@"Initializing Topic Responses view controller with root item ID: %@",topic.userDiscussionTopicId);
         topicResponsesViewController.rootItemId = topic.userDiscussionTopicId;
