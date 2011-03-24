@@ -15,6 +15,7 @@
 #import "UserDiscussionResponse.h"
 #import "TopicHeaderTableCell.h"
 #import "DataEntryTableCell.h"
+#import "ResponseTableCell.h"
 
 @interface ResponsesViewController () 
 @end
@@ -298,13 +299,16 @@
     
     // response cells
     else {
-        CellIdentifier = @"Cell";
-        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        UserDiscussionResponse* userDiscussionResponse = (UserDiscussionResponse*)[self.responses objectAtIndex:indexPath.row-3];
+        NSString* ident = @"ResponseTableCell";
+        UITableViewCell* cell;
+        cell = [table dequeueReusableCellWithIdentifier:ident];
         if (cell == nil) {
-            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+            NSArray* nib = [[NSBundle mainBundle] loadNibNamed:ident owner:self options:nil];
+            cell = [nib objectAtIndex:0];
         }
-        UserDiscussionResponse* response = [responses objectAtIndex:indexPath.row-3];
-        cell.textLabel.text = response.response.title;
+        [(ResponseTableCell*)cell setData:userDiscussionResponse];
+        return cell;
     }
     return cell;                
 }

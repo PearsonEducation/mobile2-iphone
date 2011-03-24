@@ -7,10 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "UserDiscussionResponse.h"
 
 @interface ResponseTableCell : UITableViewCell {
-    
+    IBOutlet UILabel* titleLabel;
+    IBOutlet UIImageView* activityImage;
+    IBOutlet UIImageView* smallPosterIcon;
+    IBOutlet UIImageView* smallResponsesIcon;
+    IBOutlet UILabel* posterNameLabel;
+    IBOutlet UILabel* numberOfResponsesLabel;
+    IBOutlet UILabel* numberOfUnreadResponsesLabel;
+    IBOutlet UIImageView* countBubbleImage;
+    IBOutlet UIImageView* disclosureArrowImage;
+    IBOutlet UIWebView* responseContentWebView;
+    IBOutlet UILabel* dateLabel;
+    UserDiscussionResponse* userDiscussionResponse;
 }
+
+- (void)setData:(UserDiscussionResponse*)response;
 
 @end
