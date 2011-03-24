@@ -20,6 +20,7 @@
 
 - (void)awakeFromNib {
     self.contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background_main.png"]];    
+    self.selectionStyle = UITableViewCellEditingStyleNone;
 }
 
 #pragma mark - View lifecycle

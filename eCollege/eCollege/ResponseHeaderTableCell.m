@@ -95,6 +95,7 @@
 - (void)awakeFromNib {
     self.contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background_main.png"]];    
     personIcon.image = [UIImage imageNamed:@"person_small_icon.png"];
+    self.selectionStyle = UITableViewCellEditingStyleNone;
 }
 
 - (void)dealloc

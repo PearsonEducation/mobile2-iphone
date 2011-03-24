@@ -103,6 +103,8 @@
     countBubbleImage.image = [[UIImage imageNamed:@"count_bubble.png"] stretchableImageWithLeftCapWidth:14.0 topCapHeight:10];
     
     [webView loadHTMLString:userDiscussionResponse.response.description baseURL:nil];
+    webView.backgroundColor = [UIColor clearColor];
+    webView.opaque = NO;
 }
 
 - (void)awakeFromNib {

@@ -14,6 +14,7 @@
 - (void)awakeFromNib {
     noResponsesMessage.text = NSLocalizedString(@"No responses yet.",nil);
     noResponsesIcon.image = [UIImage imageNamed:@"no_responses_icon.png"];
+    self.selectionStyle = UITableViewCellEditingStyleNone;
 }
 
 - (void)dealloc

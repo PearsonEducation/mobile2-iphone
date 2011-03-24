@@ -88,7 +88,7 @@
 - (void)awakeFromNib {
     self.contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background_main.png"]];    
     disclosureArrowImage.image = [UIImage imageNamed:@"list_arrow_icon.png"];
-
+    self.selectionStyle = UITableViewCellEditingStyleNone;
 }
 
 - (void)dealloc
