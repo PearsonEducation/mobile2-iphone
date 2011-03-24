@@ -12,6 +12,8 @@
 		A21401431326DABD007C9207 /* ActivityTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A21401421326DABD007C9207 /* ActivityTableCell.m */; };
 		A22751C7133B0BD400ED0937 /* ResponseHeaderTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A22751C5133B0BD400ED0937 /* ResponseHeaderTableCell.m */; };
 		A22751C8133B0BD400ED0937 /* ResponseHeaderTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A22751C6133B0BD400ED0937 /* ResponseHeaderTableCell.xib */; };
+		A22F9A80133B383700F05F67 /* NoResponsesTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A22F9A7E133B382F00F05F67 /* NoResponsesTableCell.m */; };
+		A22F9A81133B383700F05F67 /* NoResponsesTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A22F9A7F133B383300F05F67 /* NoResponsesTableCell.xib */; };
 		A233665B13267F2000DC50DD /* InfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A233665913267F2000DC50DD /* InfoTableViewController.m */; };
 		A233665C13267F2000DC50DD /* InfoTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A233665A13267F2000DC50DD /* InfoTableViewController.xib */; };
 		A23366641326A48D00DC50DD /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A23366621326A48D00DC50DD /* HelpViewController.m */; };
@@ -130,6 +132,9 @@
 		A22751C4133B0BD400ED0937 /* ResponseHeaderTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResponseHeaderTableCell.h; sourceTree = "<group>"; };
 		A22751C5133B0BD400ED0937 /* ResponseHeaderTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResponseHeaderTableCell.m; sourceTree = "<group>"; };
 		A22751C6133B0BD400ED0937 /* ResponseHeaderTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResponseHeaderTableCell.xib; sourceTree = "<group>"; };
+		A22F9A7D133B382C00F05F67 /* NoResponsesTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoResponsesTableCell.h; sourceTree = "<group>"; };
+		A22F9A7E133B382F00F05F67 /* NoResponsesTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoResponsesTableCell.m; sourceTree = "<group>"; };
+		A22F9A7F133B383300F05F67 /* NoResponsesTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoResponsesTableCell.xib; sourceTree = "<group>"; };
 		A233665813267F2000DC50DD /* InfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoTableViewController.h; sourceTree = "<group>"; };
 		A233665913267F2000DC50DD /* InfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoTableViewController.m; sourceTree = "<group>"; };
 		A233665A13267F2000DC50DD /* InfoTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoTableViewController.xib; sourceTree = "<group>"; };
@@ -464,6 +469,9 @@
 				A22751C4133B0BD400ED0937 /* ResponseHeaderTableCell.h */,
 				A22751C5133B0BD400ED0937 /* ResponseHeaderTableCell.m */,
 				A22751C6133B0BD400ED0937 /* ResponseHeaderTableCell.xib */,
+				A22F9A7D133B382C00F05F67 /* NoResponsesTableCell.h */,
+				A22F9A7E133B382F00F05F67 /* NoResponsesTableCell.m */,
+				A22F9A7F133B383300F05F67 /* NoResponsesTableCell.xib */,
 			);
 			name = Discussions;
 			sourceTree = "<group>";
@@ -721,6 +729,7 @@
 				A29AD697133AF5B600264A50 /* person_small_icon.png in Resources */,
 				A29AD698133AF5B600264A50 /* person_small_icon@2x.png in Resources */,
 				A22751C8133B0BD400ED0937 /* ResponseHeaderTableCell.xib in Resources */,
+				A22F9A81133B383700F05F67 /* NoResponsesTableCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -760,6 +769,7 @@
 				A26A642A133AE1F900BE5465 /* ResponseTableCell.m in Sources */,
 				A293E312133B0AC2003D3E7F /* ResponseResponsesViewController.m in Sources */,
 				A22751C7133B0BD400ED0937 /* ResponseHeaderTableCell.m in Sources */,
+				A22F9A80133B383700F05F67 /* NoResponsesTableCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

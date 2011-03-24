@@ -122,7 +122,7 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
 
     // Create the view controllers for the tabs
     self.homeViewController = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
-    self.homeViewController.title = NSLocalizedString(@"eCollege", @"The name of the application");
+    self.homeViewController.title = NSLocalizedString(@"eCollege", @"The name of the school");
     img = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"53-house" ofType:@"png"]];
     [self.homeViewController.tabBarItem initWithTitle:NSLocalizedString(@"Home", @"Label on the tab bar for the 'home' section") image:img tag:0];
     UINavigationController* homeNav = [[UINavigationController alloc] initWithRootViewController:self.homeViewController];
@@ -131,7 +131,7 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
     [img release];
 
     self.discussionsViewController = [[DiscussionsViewController alloc] initWithNibName:@"DiscussionsViewController" bundle:nil];
-    self.discussionsViewController.title = NSLocalizedString(@"Discussions", @"Label on the tab bar for the 'discussions' section");
+    self.discussionsViewController.title = NSLocalizedString(@"eCollege", @"The name of the school");
     img = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"08-chat" ofType:@"png"]];
     [self.discussionsViewController.tabBarItem initWithTitle:NSLocalizedString(@"Discussions", @"Label on the tab bar for the 'discussions' section") image:img tag:0];
     UINavigationController* discussionsNav = [[UINavigationController alloc] initWithRootViewController:self.discussionsViewController];
@@ -140,7 +140,7 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
     [img release];
 
     self.coursesViewController = [[CoursesViewController alloc] initWithNibName:@"CoursesViewController" bundle:nil];
-    self.coursesViewController.title = NSLocalizedString(@"Courses", @"Label on the tab bar for the 'courses' section");
+    self.coursesViewController.title = NSLocalizedString(@"eCollege", @"The name of the school");
     img = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"96-book" ofType:@"png"]];
     [self.coursesViewController.tabBarItem initWithTitle:NSLocalizedString(@"Courses", @"Label on the tab bar for the 'courses' section") image:img tag:0];
     UINavigationController* coursesNav = [[UINavigationController alloc] initWithRootViewController:self.coursesViewController];
@@ -149,7 +149,7 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
     [img release];
 
     self.peopleViewController = [[PeopleViewController alloc] initWithNibName:@"PeopleViewController" bundle:nil];
-    self.peopleViewController.title = NSLocalizedString(@"People", @"Label on the tab bar for the 'people' section");
+    self.peopleViewController.title = NSLocalizedString(@"eCollege", @"The name of the school");
     img = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"112-group" ofType:@"png"]];
     [self.peopleViewController.tabBarItem initWithTitle:NSLocalizedString(@"People", @"Label on the tab bar for the 'people' section") image:img tag:0];
     UINavigationController* peopleNav = [[UINavigationController alloc] initWithRootViewController:self.peopleViewController];
@@ -158,7 +158,7 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
     [img release];
 
     self.profileViewController = [[ProfileViewController alloc] initWithNibName:@"ProfileViewController" bundle:nil];
-    self.profileViewController.title = NSLocalizedString(@"Profile", @"Label on the tab bar for the 'profile' section");
+    self.profileViewController.title = NSLocalizedString(@"eCollege", @"The name of the school");
     img = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"123-id-card" ofType:@"png"]];
     [self.profileViewController.tabBarItem initWithTitle:NSLocalizedString(@"Profile", @"Label on the tab bar for the 'profile' section") image:img tag:0];
     UINavigationController* profileNav = [[UINavigationController alloc] initWithRootViewController:self.profileViewController];

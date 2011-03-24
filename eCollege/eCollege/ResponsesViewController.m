@@ -17,6 +17,7 @@
 #import "DataEntryTableCell.h"
 #import "ResponseTableCell.h"
 #import "ResponseResponsesViewController.h"
+#import "NoResponsesTableCell.h"
 
 @interface ResponsesViewController () 
 @end
@@ -239,14 +240,16 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (responses) {
+    if (responses && ([responses count] > 0)) {
         // Return the number of rows in the section, plus three:
         //   1. header cell
         //   2. content of the root item (topic or response)
         //   3. data entry cell
+        // ... and then all the responses
         return [responses count] + 3;
     } else {
-        return 0;
+        // the three above, plus a no data cell
+        return 4;
     }
 }
 
@@ -263,7 +266,7 @@
 }
 
 - (BOOL)isResponseCell:(NSIndexPath*)indexPath {
-    return indexPath.section == 0 && indexPath.row >= 3;
+    return indexPath.section == 0 && indexPath.row >= 3 && self.responses && ([self.responses count] > 0);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -273,8 +276,11 @@
         return 49.0;
     } else if ([self isDataEntryCell:indexPath]) {
         return 39.0;
-    } else {
+    } else if ([self isResponseCell:indexPath]) {
         return 113.0;
+    } else {
+        // no data cell
+        return 93.0;
     }
 }
 
@@ -310,7 +316,7 @@
     } 
     
     // response cells
-    else {
+    else if ([self isResponseCell:indexPath]) {
         UserDiscussionResponse* userDiscussionResponse = (UserDiscussionResponse*)[self.responses objectAtIndex:indexPath.row-3];
         NSString* ident = @"ResponseTableCell";
         UITableViewCell* cell;
@@ -322,6 +328,18 @@
         [(ResponseTableCell*)cell setData:userDiscussionResponse];
         return cell;
     }
+    
+    else {
+        NSString* ident = @"NoResponsesTableCell";
+        UITableViewCell* cell;
+        cell = [table dequeueReusableCellWithIdentifier:ident];
+        if (cell == nil) {
+            NSArray* nib = [[NSBundle mainBundle] loadNibNamed:ident owner:self options:nil];
+            cell = [nib objectAtIndex:0];
+        }
+        return cell;        
+    }
+    
     return cell;                
 }
 
