@@ -306,7 +306,7 @@
     // sort the activity stream items by date
     for  (ActivityStreamItem* item in self.activityStream.items) {
         int numDays = [dateCalculator datesFrom:today to:item.postedTime];
-        item.friendlyDate = [item.postedTime friendlyDateFor:numDays];
+        item.friendlyDate = [item.postedTime friendlyString];
         if (numDays == 0) {
             [self.todayActivityItems addObject:item];
         } else {
