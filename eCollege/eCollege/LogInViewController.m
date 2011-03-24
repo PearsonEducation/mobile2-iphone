@@ -166,6 +166,7 @@
 
 - (void) userLoaded:(id)response {
     if ([response isKindOfClass:[User class]]) {
+        NSLog(@"User load successful; ID = %d", ((User*)response).userId);
         [eCollegeAppDelegate delegate].currentUser = (User*)response;
         [self registerForCoursesNotifications];
         [[eCollegeAppDelegate delegate] refreshCourseList];            
