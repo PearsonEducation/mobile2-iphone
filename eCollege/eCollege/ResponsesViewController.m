@@ -16,6 +16,7 @@
 #import "TopicHeaderTableCell.h"
 #import "DataEntryTableCell.h"
 #import "ResponseTableCell.h"
+#import "ResponseResponsesViewController.h"
 
 @interface ResponsesViewController () 
 @end
@@ -356,14 +357,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
-     */
+    if ([self isResponseCell:indexPath]) {
+        ResponseResponsesViewController* rrvc = [[ResponseResponsesViewController alloc] initWithNibName:@"ResponsesViewController" bundle:nil];
+        UserDiscussionResponse* udr = [self.responses objectAtIndex:indexPath.row-3];
+        rrvc.rootItemId = udr.userDiscussionResponseId;
+        [self.navigationController pushViewController:rrvc animated:YES];
+        [rrvc release];
+    }
 }
 
 @end

@@ -10,6 +10,8 @@
 		A205A225133AF300000D9262 /* ResponseTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A205A224133AF300000D9262 /* ResponseTableCell.xib */; };
 		A21401401326D186007C9207 /* ActivityTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A214013F1326D186007C9207 /* ActivityTableCell.xib */; };
 		A21401431326DABD007C9207 /* ActivityTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A21401421326DABD007C9207 /* ActivityTableCell.m */; };
+		A22751C7133B0BD400ED0937 /* ResponseHeaderTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A22751C5133B0BD400ED0937 /* ResponseHeaderTableCell.m */; };
+		A22751C8133B0BD400ED0937 /* ResponseHeaderTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A22751C6133B0BD400ED0937 /* ResponseHeaderTableCell.xib */; };
 		A233665B13267F2000DC50DD /* InfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A233665913267F2000DC50DD /* InfoTableViewController.m */; };
 		A233665C13267F2000DC50DD /* InfoTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A233665A13267F2000DC50DD /* InfoTableViewController.xib */; };
 		A23366641326A48D00DC50DD /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A23366621326A48D00DC50DD /* HelpViewController.m */; };
@@ -52,6 +54,8 @@
 		A283D640133A53F600F46054 /* ResponsesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A283D63E133A53F500F46054 /* ResponsesViewController.xib */; };
 		A28CB5FF132ECD95000B669D /* GradebookItemGradeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A28CB5FD132ECD95000B669D /* GradebookItemGradeDetailViewController.m */; };
 		A28CB600132ECD95000B669D /* GradebookItemGradeDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A28CB5FE132ECD95000B669D /* GradebookItemGradeDetailViewController.xib */; };
+		A293E312133B0AC2003D3E7F /* ResponseResponsesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A293E310133B0AC0003D3E7F /* ResponseResponsesViewController.m */; };
+		A293E313133B0AC2003D3E7F /* ResponseResponsesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A293E311133B0AC1003D3E7F /* ResponseResponsesViewController.xib */; };
 		A29AD697133AF5B600264A50 /* person_small_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A29AD695133AF5A400264A50 /* person_small_icon.png */; };
 		A29AD698133AF5B600264A50 /* person_small_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A29AD696133AF5AC00264A50 /* person_small_icon@2x.png */; };
 		A2A96751132E826D00554238 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = A2A96750132E826D00554238 /* GTMNSString+HTML.m */; };
@@ -124,6 +128,9 @@
 		A214013F1326D186007C9207 /* ActivityTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityTableCell.xib; sourceTree = "<group>"; };
 		A21401411326DABD007C9207 /* ActivityTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityTableCell.h; sourceTree = "<group>"; };
 		A21401421326DABD007C9207 /* ActivityTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityTableCell.m; sourceTree = "<group>"; };
+		A22751C4133B0BD400ED0937 /* ResponseHeaderTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResponseHeaderTableCell.h; sourceTree = "<group>"; };
+		A22751C5133B0BD400ED0937 /* ResponseHeaderTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResponseHeaderTableCell.m; sourceTree = "<group>"; };
+		A22751C6133B0BD400ED0937 /* ResponseHeaderTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResponseHeaderTableCell.xib; sourceTree = "<group>"; };
 		A233665813267F2000DC50DD /* InfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoTableViewController.h; sourceTree = "<group>"; };
 		A233665913267F2000DC50DD /* InfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoTableViewController.m; sourceTree = "<group>"; };
 		A233665A13267F2000DC50DD /* InfoTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoTableViewController.xib; sourceTree = "<group>"; };
@@ -179,6 +186,9 @@
 		A28CB5FC132ECD95000B669D /* GradebookItemGradeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradebookItemGradeDetailViewController.h; sourceTree = "<group>"; };
 		A28CB5FD132ECD95000B669D /* GradebookItemGradeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradebookItemGradeDetailViewController.m; sourceTree = "<group>"; };
 		A28CB5FE132ECD95000B669D /* GradebookItemGradeDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GradebookItemGradeDetailViewController.xib; sourceTree = "<group>"; };
+		A293E30F133B0ABF003D3E7F /* ResponseResponsesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResponseResponsesViewController.h; sourceTree = "<group>"; };
+		A293E310133B0AC0003D3E7F /* ResponseResponsesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResponseResponsesViewController.m; sourceTree = "<group>"; };
+		A293E311133B0AC1003D3E7F /* ResponseResponsesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResponseResponsesViewController.xib; sourceTree = "<group>"; };
 		A29AD695133AF5A400264A50 /* person_small_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = person_small_icon.png; sourceTree = "<group>"; };
 		A29AD696133AF5AC00264A50 /* person_small_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "person_small_icon@2x.png"; sourceTree = "<group>"; };
 		A2A9674F132E826D00554238 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GTMNSString+HTML.h"; path = "../../ecollegeiosapi/ECAPI/GTMNSString+HTML.h"; sourceTree = "<group>"; };
@@ -451,6 +461,12 @@
 				A26A6427133AE1AD00BE5465 /* ResponseTableCell.h */,
 				A26A6428133AE1BD00BE5465 /* ResponseTableCell.m */,
 				A205A224133AF300000D9262 /* ResponseTableCell.xib */,
+				A293E30F133B0ABF003D3E7F /* ResponseResponsesViewController.h */,
+				A293E310133B0AC0003D3E7F /* ResponseResponsesViewController.m */,
+				A293E311133B0AC1003D3E7F /* ResponseResponsesViewController.xib */,
+				A22751C4133B0BD400ED0937 /* ResponseHeaderTableCell.h */,
+				A22751C5133B0BD400ED0937 /* ResponseHeaderTableCell.m */,
+				A22751C6133B0BD400ED0937 /* ResponseHeaderTableCell.xib */,
 			);
 			name = Discussions;
 			sourceTree = "<group>";
@@ -707,6 +723,8 @@
 				A205A225133AF300000D9262 /* ResponseTableCell.xib in Resources */,
 				A29AD697133AF5B600264A50 /* person_small_icon.png in Resources */,
 				A29AD698133AF5B600264A50 /* person_small_icon@2x.png in Resources */,
+				A293E313133B0AC2003D3E7F /* ResponseResponsesViewController.xib in Resources */,
+				A22751C8133B0BD400ED0937 /* ResponseHeaderTableCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -744,6 +762,8 @@
 				A26A6405133AA8E700BE5465 /* DataEntryTableCell.m in Sources */,
 				A26A6425133AD9BD00BE5465 /* TopicResponsesViewController.m in Sources */,
 				A26A642A133AE1F900BE5465 /* ResponseTableCell.m in Sources */,
+				A293E312133B0AC2003D3E7F /* ResponseResponsesViewController.m in Sources */,
+				A22751C7133B0BD400ED0937 /* ResponseHeaderTableCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

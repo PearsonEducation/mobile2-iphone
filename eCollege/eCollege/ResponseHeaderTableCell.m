@@ -1,21 +1,21 @@
 //
-//  TopicHeaderTableCell.m
+//  ResponseHeaderTableCell.m
 //  eCollege
 //
 //  Created by Brad Umbaugh on 3/21/11.
 //  Copyright 2011 EffectiveUI. All rights reserved.
 //
 
-#import "TopicHeaderTableCell.h"
+#import "ResponseHeaderTableCell.h"
 #import <QuartzCore/CoreAnimation.h>
 #import "UIColor+Boost.h"
 
-@implementation TopicHeaderTableCell
+@implementation ResponseHeaderTableCell
 
-@synthesize topic;
+@synthesize response;
 
--(void)setData:(UserDiscussionTopic*)topicValue {
-    self.topic = topicValue;
+-(void)setData:(UserDiscussionResponse*)responseValue {
+    self.response = responseValue;
     
     // grab the counts
     int totalResponses = 0;
@@ -23,15 +23,15 @@
     int unreadResponses = 0;
     int last24HourResponseCount = 0;
     
-    if (topic.childResponseCounts) {
-        totalResponses = topic.childResponseCounts.totalResponseCount;
-        myResponses = topic.childResponseCounts.personalResponseCount;
-        unreadResponses = topic.childResponseCounts.unreadResponseCount;
-        last24HourResponseCount = topic.childResponseCounts.last24HourResponseCount;
+    if (response.childResponseCounts) {
+        totalResponses = response.childResponseCounts.totalResponseCount;
+        myResponses = response.childResponseCounts.personalResponseCount;
+        unreadResponses = response.childResponseCounts.unreadResponseCount;
+        last24HourResponseCount = response.childResponseCounts.last24HourResponseCount;
     }
     
     // set the title
-    titleLabel.text = topic.topic.title;
+    titleLabel.text = response.response.title;
     
     // set the big icon
     if (last24HourResponseCount >= 10) {
@@ -88,12 +88,11 @@
 - (void)awakeFromNib {
     self.contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background_main.png"]];    
     disclosureArrowImage.image = [UIImage imageNamed:@"list_arrow_icon.png"];
-
 }
 
 - (void)dealloc
 {
-    self.topic = nil;
+    self.response = nil;
     [super dealloc];
 }
 
