@@ -550,6 +550,7 @@
         TopicResponsesViewController* topicResponsesViewController = [[TopicResponsesViewController alloc] initWithNibName:@"ResponsesViewController" bundle:nil];
         NSLog(@"Initializing Topic Responses view controller with root item ID: %@",topic.userDiscussionTopicId);
         topicResponsesViewController.rootItemId = topic.userDiscussionTopicId;
+        topicResponsesViewController.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:topicResponsesViewController animated:YES];
         [topicResponsesViewController release];
     }

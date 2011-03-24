@@ -31,6 +31,10 @@
     // set the date
     dateLabel.text = [responseValue.response.postedDate friendlyString];
     
+    // set the name
+    if (self.userDiscussionResponse && self.userDiscussionResponse.response && self.userDiscussionResponse.response.author && ![[self.userDiscussionResponse.response.author fullName] isEqualToString:@""]) {
+        posterNameLabel.text = [self.userDiscussionResponse.response.author fullName];        
+    }
     
     // grab the counts
     int totalResponses = 0;

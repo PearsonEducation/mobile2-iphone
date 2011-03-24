@@ -112,6 +112,10 @@
 
 #pragma mark - Other methods
 
+- (NSString*)getTitleOfRootItem {
+    return nil;
+}
+
 - (void)rootItemFetchedHandler:(id)result {
     if ([self isValidRootItemObject:result]) {
         NSLog(@"Got a user discussion topic");
@@ -153,6 +157,7 @@
 }
 
 - (void)fetchingComplete {
+    self.title = [self getTitleOfRootItem];
     if (errorFetchingRootItem || errorFetchingResponses) {
         NSLog(@"ERROR: Problems fetching data.");
     } else {
@@ -361,6 +366,7 @@
         ResponseResponsesViewController* rrvc = [[ResponseResponsesViewController alloc] initWithNibName:@"ResponsesViewController" bundle:nil];
         UserDiscussionResponse* udr = [self.responses objectAtIndex:indexPath.row-3];
         rrvc.rootItemId = udr.userDiscussionResponseId;
+        rrvc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:rrvc animated:YES];
         [rrvc release];
     }

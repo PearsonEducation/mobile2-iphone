@@ -21,6 +21,10 @@
     return value && [value isKindOfClass:[NSArray class]];
 }
 
+- (NSString*)getTitleOfRootItem {
+    return ((UserDiscussionResponse*)rootItem).response.title;
+}
+
 - (void)fetchRootItem {
     [(UserDiscussionResponseFetcher*)rootItemFetcher fetchUserDiscussionResponseByUserResponseId:self.rootItemId];        
 }

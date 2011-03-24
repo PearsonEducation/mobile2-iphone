@@ -56,5 +56,6 @@
 - (BOOL)isDataEntryCell:(NSIndexPath*)indexPath;
 - (BOOL)isResponseCell:(NSIndexPath*)indexPath;
 - (UITableViewCell*)getHeaderTableCell;
+- (NSString*)getTitleOfRootItem;
 
 @end

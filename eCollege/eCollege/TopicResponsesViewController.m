@@ -14,6 +14,11 @@
 
 @implementation TopicResponsesViewController
 
+
+- (NSString*)getTitleOfRootItem {
+    return ((UserDiscussionTopic*)rootItem).topic.title;
+}
+
 - (BOOL)isValidRootItemObject:(id)value {
     return value && [value isKindOfClass:[UserDiscussionTopic class]];
 }
