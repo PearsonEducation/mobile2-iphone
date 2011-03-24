@@ -9,6 +9,7 @@
 #import "ResponseHeaderTableCell.h"
 #import <QuartzCore/CoreAnimation.h>
 #import "UIColor+Boost.h"
+#import "NSDateUtilities.h"
 
 @implementation ResponseHeaderTableCell
 
@@ -32,6 +33,12 @@
     
     // set the title
     titleLabel.text = response.response.title;
+    
+    // set the name
+    nameLabel.text = [self.response.response.author fullName];
+    
+    // set the date
+    dateLabel.text = [self.response.response.postedDate friendlyString];
     
     // set the big icon
     if (last24HourResponseCount >= 10) {
@@ -87,7 +94,7 @@
 
 - (void)awakeFromNib {
     self.contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background_main.png"]];    
-    disclosureArrowImage.image = [UIImage imageNamed:@"list_arrow_icon.png"];
+    personIcon.image = [UIImage imageNamed:@"person_small_icon.png"];
 }
 
 - (void)dealloc

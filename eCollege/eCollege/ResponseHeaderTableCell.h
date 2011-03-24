@@ -16,8 +16,10 @@
     IBOutlet UIImageView* smallResponsesImage;
     IBOutlet UILabel* totalResponsesLabel;
     IBOutlet UILabel* unreadResponsesLabel;
-    IBOutlet UIImageView* disclosureArrowImage;
     IBOutlet UIImageView* countBubbleImage;
+    IBOutlet UILabel* dateLabel;
+    IBOutlet UIImageView* personIcon;
+    IBOutlet UILabel* nameLabel;
 }
 
 @property (nonatomic, retain) UserDiscussionResponse* response;
