@@ -33,6 +33,8 @@
     BOOL forceUpdateOnViewWillAppear;
     
     int contentHeight;
+    UIWebView* webView;
+    int actualContentHeight;
 }
 
 // The only reason these things are public properties is so they're accessible

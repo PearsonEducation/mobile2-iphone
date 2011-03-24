@@ -90,6 +90,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        actualContentHeight = -1;
         contentHeight = 49;
         NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
         [gregorian setTimeZone:[NSTimeZone defaultTimeZone]];
@@ -293,8 +294,10 @@
 
 - (void)contentButtonTapped:(id)sender {
     NSLog(@"Button tapped");
-    if (contentHeight == 49) {
-        contentHeight = 150;
+    [webView sizeToFit];
+    if (contentHeight == 49 && webView.frame.size.height > 49) {
+        contentHeight = webView.frame.size.height;
+        actualContentHeight = contentHeight;
     } else {
         contentHeight = 49;
     }
@@ -322,8 +325,15 @@
             cell = [nib objectAtIndex:0];
         }
         ResponseContentTableCell* rctc = (ResponseContentTableCell*)cell;
+        webView = rctc.webView;
         rctc.webView.backgroundColor = [UIColor clearColor];
         rctc.webView.opaque = NO;
+        rctc.clipsToBounds = YES;
+        if (actualContentHeight != -1) {
+            CGRect f = rctc.webView.frame;
+            f.size.height = actualContentHeight;
+            rctc.webView.frame = f;
+        }
         [rctc.button addTarget:self action:@selector(contentButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [rctc loadHtmlString:[self getHtmlContentString]];
         return cell;        
