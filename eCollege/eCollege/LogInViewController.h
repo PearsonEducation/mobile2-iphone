@@ -10,6 +10,7 @@
 #import "ECSession.h"
 #import "CourseFetcher.h"
 #import "BlockingActivityView.h"
+#import "UserFetcher.h"
 
 @interface LogInViewController : UIViewController<UITextFieldDelegate> {
 	IBOutlet UITextField *usernameText;
@@ -24,6 +25,8 @@
 	CGSize scrollViewSizeWhenKeyboardIsHidden;
     
     BlockingActivityView* blockingActivityView;
+    
+    UserFetcher* userFetcher;
 }
 
 - (IBAction) logInClicked:(id)caller;

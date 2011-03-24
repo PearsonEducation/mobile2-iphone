@@ -14,6 +14,7 @@
 #import "DiscussionsViewController.h"
 #import "Course.h"
 #import "CourseFetcher.h"
+#import "User.h"
 
 @class LogInViewController;
 
@@ -32,6 +33,7 @@ extern int coursesRefreshInterval;
     NSArray* coursesArray;
     CourseFetcher* courseFetcher;
     NSDate* coursesLastUpdated;
+    User* currentUser;
 }
 
 + (eCollegeAppDelegate *) delegate;
@@ -40,6 +42,7 @@ extern int coursesRefreshInterval;
 @property (nonatomic, retain) LogInViewController *logInViewController;
 @property (nonatomic, retain) NSArray* coursesArray;
 @property (nonatomic, retain) NSDate* coursesLastUpdated;
+@property (nonatomic, retain) User* currentUser;
 
 - (void)dismissLoginView;
 - (Course*)getCourseHavingId:(NSInteger)courseId;

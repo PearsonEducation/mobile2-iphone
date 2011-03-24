@@ -160,8 +160,18 @@
 #pragma mark - Authentication Complete
 
 - (void) sessionDidAuthenticate {
-    [self registerForCoursesNotifications];
-    [[eCollegeAppDelegate delegate] refreshCourseList];
+    userFetcher = [[UserFetcher alloc] initWithDelegate:self responseSelector:@selector(userLoaded:)];
+    [userFetcher fetchMe];
+}
+
+- (void) userLoaded:(id)response {
+    if ([response isKindOfClass:[User class]]) {
+        [eCollegeAppDelegate delegate].currentUser = (User*)response;
+        [self registerForCoursesNotifications];
+        [[eCollegeAppDelegate delegate] refreshCourseList];            
+    } else {
+        NSLog(@"ERROR: unable to load user; cannot move past login screen");
+    }
 }
 
 @end

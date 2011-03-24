@@ -45,6 +45,7 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
 @synthesize coursesArray=coursesArray;
 @synthesize courseFetcher=courseFetcher;
 @synthesize coursesLastUpdated=coursesLastUpdated;
+@synthesize currentUser=currentUser;
 
 + (eCollegeAppDelegate *) delegate {
 	return (eCollegeAppDelegate *)[[UIApplication sharedApplication] delegate];
