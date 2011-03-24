@@ -13,6 +13,8 @@
 #import "UserDiscussionTopicFetcher.h"
 #import "DiscussionTopic.h"
 #import "UserDiscussionResponse.h"
+#import "TopicHeaderTableCell.h"
+#import "DataEntryTableCell.h"
 
 
 @interface ResponsesViewController () 
@@ -32,6 +34,10 @@
 - (BOOL)isValidRootItemObject:(id)value;
 - (BOOL)isValidResponsesObject:(id)value;
 - (void)fetchingComplete;
+- (BOOL)isHeaderCell:(NSIndexPath*)indexPath;
+- (BOOL)isRootItemContentCell:(NSIndexPath*)indexPath;
+- (BOOL)isDataEntryCell:(NSIndexPath*)indexPath;
+- (BOOL)isResponseCell:(NSIndexPath*)indexPath;
 
 @end
 
@@ -248,25 +254,93 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    return [responses count];
+    if (responses) {
+        // Return the number of rows in the section, plus three:
+        //   1. header cell
+        //   2. content of the root item (topic or response)
+        //   3. data entry cell
+        return [responses count] + 3;
+    } else {
+        return 0;
+    }
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (BOOL)isHeaderCell:(NSIndexPath*)indexPath {
+    return indexPath.section == 0 && indexPath.row == 0;
+}
+
+- (BOOL)isRootItemContentCell:(NSIndexPath *)indexPath {
+    return indexPath.section == 0 && indexPath.row == 1;
+}
+
+- (BOOL)isDataEntryCell:(NSIndexPath*)indexPath {
+    return indexPath.section == 0 && indexPath.row == 2;
+}
+
+- (BOOL)isResponseCell:(NSIndexPath*)indexPath {
+    return indexPath.section == 0 && indexPath.row >= 3;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self isHeaderCell:indexPath]) {
+        return 70.0;
+    } else if ([self isRootItemContentCell:indexPath]) {
+        return 49.0;
+    } else if ([self isDataEntryCell:indexPath]) {
+        return 39.0;
+    } else {
+        return 113.0;
+    }
+}
+
+- (UITableViewCell *)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell* cell = nil;
+    static NSString *CellIdentifier;
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+    // topic cell
+    if ([self isHeaderCell:indexPath]) {
+        UserDiscussionTopic* topic = (UserDiscussionTopic*)self.rootItem;
+        CellIdentifier = @"TopicHeaderTableCell";
+        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"TopicHeaderTableCell" owner:self options:nil];
+            cell = [nib objectAtIndex:0];
+        }
+        [(TopicHeaderTableCell*)cell setData:topic];
+    } 
+    
+    // root item (topic or response) content cell
+    else if([self isRootItemContentCell:indexPath]) {
+        static NSString *CellIdentifier = @"RootItemContentTableCell";
+        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        }
+        cell.textLabel.text = @"Content goes here";
     }
     
-    UserDiscussionResponse* response = [responses objectAtIndex:indexPath.row];
-    cell.textLabel.text = response.response.title;
+    // post box
+    else if ([self isDataEntryCell:indexPath]) {
+        CellIdentifier = @"DataEntryTableCell";
+        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"DataEntryTableCell" owner:self options:nil];
+            cell = [nib objectAtIndex:0];
+        }
+    } 
     
-    // Configure the cell...
-    
-    return cell;
+    // response cells
+    else {
+        static NSString *CellIdentifier = @"Cell";
+        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        }
+        UserDiscussionResponse* response = [responses objectAtIndex:indexPath.row-3];
+        cell.textLabel.text = response.response.title;
+    }
+    return cell;                
 }
 
 /*

@@ -19,6 +19,11 @@
 		A23366741326A54B00DC50DD /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A23366721326A54B00DC50DD /* AboutViewController.xib */; };
 		A23366781326A55F00DC50DD /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A23366761326A55F00DC50DD /* SettingsViewController.m */; };
 		A23366791326A55F00DC50DD /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A23366771326A55F00DC50DD /* SettingsViewController.xib */; };
+		A26A63FE133A9DF700BE5465 /* TopicHeaderTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A26A63FC133A9DF500BE5465 /* TopicHeaderTableCell.m */; };
+		A26A6401133A9EF700BE5465 /* TopicHeaderTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26A6400133A9EF600BE5465 /* TopicHeaderTableCell.xib */; };
+		A26A6405133AA8E700BE5465 /* DataEntryTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A26A6403133AA8DC00BE5465 /* DataEntryTableCell.m */; };
+		A26A6406133AA8E700BE5465 /* DataEntryTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26A6404133AA8E400BE5465 /* DataEntryTableCell.xib */; };
+		A26A6421133AD60900BE5465 /* background_main.png in Resources */ = {isa = PBXBuildFile; fileRef = A26A6420133AD60900BE5465 /* background_main.png */; };
 		A27289961326BCE3001A588D /* UIColor+Boost.m in Sources */ = {isa = PBXBuildFile; fileRef = A27289951326BCE3001A588D /* UIColor+Boost.m */; };
 		A27289991326C0AF001A588D /* 53-house.png in Resources */ = {isa = PBXBuildFile; fileRef = A27289981326C0AF001A588D /* 53-house.png */; };
 		A272899D1326C105001A588D /* 08-chat.png in Resources */ = {isa = PBXBuildFile; fileRef = A272899C1326C105001A588D /* 08-chat.png */; };
@@ -128,6 +133,13 @@
 		A23366751326A55F00DC50DD /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		A23366761326A55F00DC50DD /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		A23366771326A55F00DC50DD /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
+		A26A63FB133A9DF500BE5465 /* TopicHeaderTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicHeaderTableCell.h; sourceTree = "<group>"; };
+		A26A63FC133A9DF500BE5465 /* TopicHeaderTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicHeaderTableCell.m; sourceTree = "<group>"; };
+		A26A6400133A9EF600BE5465 /* TopicHeaderTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TopicHeaderTableCell.xib; sourceTree = "<group>"; };
+		A26A6402133AA8D900BE5465 /* DataEntryTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataEntryTableCell.h; sourceTree = "<group>"; };
+		A26A6403133AA8DC00BE5465 /* DataEntryTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataEntryTableCell.m; sourceTree = "<group>"; };
+		A26A6404133AA8E400BE5465 /* DataEntryTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DataEntryTableCell.xib; sourceTree = "<group>"; };
+		A26A6420133AD60900BE5465 /* background_main.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_main.png; sourceTree = "<group>"; };
 		A27289941326BCE3001A588D /* UIColor+Boost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Boost.h"; sourceTree = "<group>"; };
 		A27289951326BCE3001A588D /* UIColor+Boost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Boost.m"; sourceTree = "<group>"; };
 		A27289981326C0AF001A588D /* 53-house.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "53-house.png"; sourceTree = "<group>"; };
@@ -302,6 +314,7 @@
 		A27289971326C045001A588D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A26A6420133AD60900BE5465 /* background_main.png */,
 				A27D702F133943C600B0BBD8 /* count_bubble.png */,
 				A27D7030133943C600B0BBD8 /* count_bubble@2x.png */,
 				A27D702B13393FDB00B0BBD8 /* courses_icon.png */,
@@ -404,15 +417,21 @@
 		A2EE3ECE132034B700745C1C /* Discussions */ = {
 			isa = PBXGroup;
 			children = (
+				A2EE947613384086001CFDDF /* TopicTableCell.xib */,
 				A2EE947C1338456B001CFDDF /* TopicTableCell.h */,
 				A2EE947D1338456C001CFDDF /* TopicTableCell.m */,
 				A2EE3ED71320421800745C1C /* DiscussionsViewController.h */,
 				A2EE3ED81320421800745C1C /* DiscussionsViewController.m */,
 				A2EE3ED91320421800745C1C /* DiscussionsViewController.xib */,
-				A2EE947613384086001CFDDF /* TopicTableCell.xib */,
 				A283D63C133A53F500F46054 /* ResponsesViewController.h */,
 				A283D63D133A53F500F46054 /* ResponsesViewController.m */,
 				A283D63E133A53F500F46054 /* ResponsesViewController.xib */,
+				A26A6400133A9EF600BE5465 /* TopicHeaderTableCell.xib */,
+				A26A63FB133A9DF500BE5465 /* TopicHeaderTableCell.h */,
+				A26A63FC133A9DF500BE5465 /* TopicHeaderTableCell.m */,
+				A26A6402133AA8D900BE5465 /* DataEntryTableCell.h */,
+				A26A6403133AA8DC00BE5465 /* DataEntryTableCell.m */,
+				A26A6404133AA8E400BE5465 /* DataEntryTableCell.xib */,
 			);
 			name = Discussions;
 			sourceTree = "<group>";
@@ -663,6 +682,9 @@
 				A27D7031133943C600B0BBD8 /* count_bubble.png in Resources */,
 				A27D7032133943C600B0BBD8 /* count_bubble@2x.png in Resources */,
 				A283D640133A53F600F46054 /* ResponsesViewController.xib in Resources */,
+				A26A6401133A9EF700BE5465 /* TopicHeaderTableCell.xib in Resources */,
+				A26A6406133AA8E700BE5465 /* DataEntryTableCell.xib in Resources */,
+				A26A6421133AD60900BE5465 /* background_main.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -696,6 +718,8 @@
 				A2EE2B871332A5290059DFAD /* DropboxMessageDetailViewController.m in Sources */,
 				A2EE947E1338456C001CFDDF /* TopicTableCell.m in Sources */,
 				A283D63F133A53F600F46054 /* ResponsesViewController.m in Sources */,
+				A26A63FE133A9DF700BE5465 /* TopicHeaderTableCell.m in Sources */,
+				A26A6405133AA8E700BE5465 /* DataEntryTableCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
