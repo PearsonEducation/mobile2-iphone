@@ -469,7 +469,14 @@
 
     // based on the type of the activity stream item, push a view controller.
     if ([itemType isEqualToString:@"thread-topic"]) {
-        return;
+        NSInteger userId = [[[eCollegeAppDelegate delegate] currentUser] userId];
+        NSString* refId = item.object.referenceId;
+        TopicResponsesViewController* trvc = [[TopicResponsesViewController alloc] initWithNibName:@"ResponsesViewController" bundle:nil];
+        trvc.rootItemId = [NSString stringWithFormat:@"%d-%@",userId,refId];
+        NSLog(@"Setting ID on TopicResponsesViewController to: %@", trvc.rootItemId);
+        trvc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:trvc animated:YES];
+        [trvc release];
     } else if ([itemType isEqualToString:@"thread-post"]) {
         NSInteger userId = [[[eCollegeAppDelegate delegate] currentUser] userId];
         NSString* refId = item.object.referenceId;
