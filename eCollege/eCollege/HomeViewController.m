@@ -19,6 +19,8 @@
 #import "GradebookItemGradeDetailViewController.h"
 #import "NSDateUtilities.h"
 #import "DropboxMessageDetailViewController.h"
+#import "ResponseResponsesViewController.h"
+#import "TopicResponsesViewController.h"
 
 @interface HomeViewController ()
 
@@ -462,12 +464,21 @@
         NSLog(@"ERROR: item for selected row does not have an objectType.");
         return;
     }
-    
+
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
     // based on the type of the activity stream item, push a view controller.
     if ([itemType isEqualToString:@"thread-topic"]) {
         return;
     } else if ([itemType isEqualToString:@"thread-post"]) {
-        return;
+        NSInteger userId = [[[eCollegeAppDelegate delegate] currentUser] userId];
+        NSString* refId = item.object.referenceId;
+        ResponseResponsesViewController* rrvc = [[ResponseResponsesViewController alloc] initWithNibName:@"ResponsesViewController" bundle:nil];
+        rrvc.rootItemId = [NSString stringWithFormat:@"%d-%@",userId,refId];
+        NSLog(@"Setting ID on ResponseResponsesViewController to: %@", rrvc.rootItemId);
+        rrvc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:rrvc animated:YES];
+        [rrvc release];
     } else if ([itemType isEqualToString:@"grade"]) {
         GradebookItemGradeDetailViewController* gradebookItemGradeDetailViewController = [[GradebookItemGradeDetailViewController alloc] initWithItem:item];
         gradebookItemGradeDetailViewController.hidesBottomBarWhenPushed = YES;
