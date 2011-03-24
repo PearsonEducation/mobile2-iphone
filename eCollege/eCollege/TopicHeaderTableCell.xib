@@ -61,7 +61,7 @@
 							<object class="IBUILabel" id="2974549">
 								<reference key="NSNextResponder" ref="256973209"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{45, 6}, {180, 21}}</string>
+								<string key="NSFrame">{{45, 17}, {180, 21}}</string>
 								<reference key="NSSuperview" ref="256973209"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView"/>
@@ -88,7 +88,7 @@
 							<object class="IBUIImageView" id="910914714">
 								<reference key="NSNextResponder" ref="256973209"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{45, 29}, {13, 13}}</string>
+								<string key="NSFrame">{{45, 38}, {13, 13}}</string>
 								<reference key="NSSuperview" ref="256973209"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="405368957"/>
@@ -98,7 +98,7 @@
 							<object class="IBUILabel" id="405368957">
 								<reference key="NSNextResponder" ref="256973209"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{64, 29}, {197, 13}}</string>
+								<string key="NSFrame">{{64, 38}, {197, 13}}</string>
 								<reference key="NSSuperview" ref="256973209"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView"/>
@@ -124,7 +124,7 @@
 							<object class="IBUIImageView" id="908220884">
 								<reference key="NSNextResponder" ref="256973209"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{12, 11}, {26, 26}}</string>
+								<string key="NSFrame">{{12, 23}, {26, 26}}</string>
 								<reference key="NSSuperview" ref="256973209"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="2974549"/>
@@ -355,8 +355,6 @@
 							<string>activityImage</string>
 							<string>countBubbleImage</string>
 							<string>disclosureArrowImage</string>
-							<string>posterIconImage</string>
-							<string>posterName</string>
 							<string>smallResponsesImage</string>
 							<string>titleLabel</string>
 							<string>totalResponsesLabel</string>
@@ -367,8 +365,6 @@
 							<string>UIImageView</string>
 							<string>UIImageView</string>
 							<string>UIImageView</string>
-							<string>UIImageView</string>
-							<string>UILabel</string>
 							<string>UIImageView</string>
 							<string>UILabel</string>
 							<string>UILabel</string>
@@ -382,8 +378,6 @@
 							<string>activityImage</string>
 							<string>countBubbleImage</string>
 							<string>disclosureArrowImage</string>
-							<string>posterIconImage</string>
-							<string>posterName</string>
 							<string>smallResponsesImage</string>
 							<string>titleLabel</string>
 							<string>totalResponsesLabel</string>
@@ -402,14 +396,6 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">disclosureArrowImage</string>
 								<string key="candidateClassName">UIImageView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">posterIconImage</string>
-								<string key="candidateClassName">UIImageView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">posterName</string>
-								<string key="candidateClassName">UILabel</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">smallResponsesImage</string>

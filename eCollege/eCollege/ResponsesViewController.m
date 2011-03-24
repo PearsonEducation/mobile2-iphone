@@ -16,29 +16,7 @@
 #import "TopicHeaderTableCell.h"
 #import "DataEntryTableCell.h"
 
-
 @interface ResponsesViewController () 
-
-@property (nonatomic, retain) ECAuthenticatedFetcher* rootItemFetcher;
-@property (nonatomic, retain) ECAuthenticatedFetcher* responsesFetcher;
-@property (nonatomic, retain) NSDate* lastUpdated;
-@property (nonatomic, retain) DateCalculator* dateCalculator;
-@property (nonatomic, retain) id rootItem;
-@property (nonatomic, retain) id responses;
-
-- (void)rootItemFetchedHandler:(id)result;
-- (void)responsesFetchedHandler:(id)result;
-- (void)fetchData;
-- (void)fetchRootItem;
-- (void)fetchResponses;
-- (BOOL)isValidRootItemObject:(id)value;
-- (BOOL)isValidResponsesObject:(id)value;
-- (void)fetchingComplete;
-- (BOOL)isHeaderCell:(NSIndexPath*)indexPath;
-- (BOOL)isRootItemContentCell:(NSIndexPath*)indexPath;
-- (BOOL)isDataEntryCell:(NSIndexPath*)indexPath;
-- (BOOL)isResponseCell:(NSIndexPath*)indexPath;
-
 @end
 
 @implementation ResponsesViewController
@@ -53,32 +31,27 @@
 
 # pragma mark Methods to override in child classes
 
-     
 - (BOOL)isValidRootItemObject:(id)value {
-    return value && [value isKindOfClass:[UserDiscussionTopic class]];
+    return NO;
 }
 
 - (BOOL)isValidResponsesObject:(id)value {
-    return value && [value isKindOfClass:[NSArray class]];
+    return NO;
 }
 
 - (void)fetchRootItem {
-    [(UserDiscussionTopicFetcher*)rootItemFetcher fetchDiscussionTopicById:self.rootItemId];        
 }
 
 - (void)fetchResponses {
-    UserDiscussionResponseFetcher* fetcher = (UserDiscussionResponseFetcher*)self.responsesFetcher;
-    UserDiscussionTopic* udt = (UserDiscussionTopic*)self.rootItem;
-    DiscussionTopic* dt = udt.topic;
-    NSInteger dtid = dt.discussionTopicId;    
-    [fetcher fetchUserDiscussionResponsesForTopicId:[NSString stringWithFormat:@"%d",dtid]];
+    return;
 }
 
 - (void)setupFetchers {    
-    self.rootItemFetcher = [[UserDiscussionTopicFetcher alloc] initWithDelegate:self responseSelector:@selector(rootItemFetchedHandler:)];
-    self.responsesFetcher = [[UserDiscussionResponseFetcher alloc] initWithDelegate:self responseSelector:@selector(responsesFetchedHandler:)];
 }
 
+- (UITableViewCell*)getHeaderTableCell {
+    return nil;
+}
 
 # pragma mark PullRefreshTableViewController methods
 
@@ -300,19 +273,12 @@
     
     // topic cell
     if ([self isHeaderCell:indexPath]) {
-        UserDiscussionTopic* topic = (UserDiscussionTopic*)self.rootItem;
-        CellIdentifier = @"TopicHeaderTableCell";
-        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-            NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"TopicHeaderTableCell" owner:self options:nil];
-            cell = [nib objectAtIndex:0];
-        }
-        [(TopicHeaderTableCell*)cell setData:topic];
+        cell = [self getHeaderTableCell];
     } 
     
     // root item (topic or response) content cell
     else if([self isRootItemContentCell:indexPath]) {
-        static NSString *CellIdentifier = @"RootItemContentTableCell";
+        CellIdentifier = @"RootItemContentTableCell";
         cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
             cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
@@ -332,7 +298,7 @@
     
     // response cells
     else {
-        static NSString *CellIdentifier = @"Cell";
+        CellIdentifier = @"Cell";
         cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
             cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];

@@ -13,7 +13,7 @@
 #import "eCollegeAppDelegate.h"
 #import "NSDateUtilities.h"
 #import "TopicTableCell.h"
-#import "ResponsesViewController.h"
+#import "TopicResponsesViewController.h"
 
 @interface DiscussionsViewController ()
 
@@ -547,11 +547,11 @@
 {
     UserDiscussionTopic* topic = [self getTopicForIndexPath:indexPath];
     if (topic) {
-        ResponsesViewController* responsesViewController = [[ResponsesViewController alloc] initWithNibName:@"ResponsesViewController" bundle:nil];
-        NSLog(@"ROOT ITEM ID: %@",topic.userDiscussionTopicId);
-        responsesViewController.rootItemId = topic.userDiscussionTopicId;
-        [self.navigationController pushViewController:responsesViewController animated:YES];
-        [responsesViewController release];
+        TopicResponsesViewController* topicResponsesViewController = [[TopicResponsesViewController alloc] initWithNibName:@"ResponsesViewController" bundle:nil];
+        NSLog(@"Initializing Topic Responses view controller with root item ID: %@",topic.userDiscussionTopicId);
+        topicResponsesViewController.rootItemId = topic.userDiscussionTopicId;
+        [self.navigationController pushViewController:topicResponsesViewController animated:YES];
+        [topicResponsesViewController release];
     }
 }
 
