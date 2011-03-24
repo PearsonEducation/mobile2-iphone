@@ -14,6 +14,9 @@
 
 @implementation TopicResponsesViewController
 
+- (NSString*)getHtmlContentString {
+    return [[(UserDiscussionTopic*)rootItem topic] description];
+}
 
 - (NSString*)getTitleOfRootItem {
     return ((UserDiscussionTopic*)rootItem).topic.title;

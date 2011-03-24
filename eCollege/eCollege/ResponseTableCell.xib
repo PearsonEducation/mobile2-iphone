@@ -12,6 +12,7 @@
 		</object>
 		<object class="NSArray" key="IBDocument.IntegratedClassDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<string>IBUIWebView</string>
 			<string>IBUITableViewCell</string>
 			<string>IBUIImageView</string>
 			<string>IBUILabel</string>
@@ -54,7 +55,7 @@
 								<string key="NSFrame">{{300, 35}, {9, 13}}</string>
 								<reference key="NSSuperview" ref="358337279"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
+								<reference key="NSNextKeyView" ref="767942881"/>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							</object>
@@ -74,7 +75,7 @@
 								<string key="NSFrame">{{43, 6}, {180, 21}}</string>
 								<reference key="NSSuperview" ref="358337279"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="222933176"/>
+								<reference key="NSNextKeyView" ref="59499057"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
@@ -111,7 +112,7 @@
 								<string key="NSFrame">{{59, 28}, {197, 13}}</string>
 								<reference key="NSSuperview" ref="358337279"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="471632077"/>
+								<reference key="NSNextKeyView" ref="68203049"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
@@ -137,6 +138,7 @@
 								<string key="NSFrame">{{59, 44}, {197, 13}}</string>
 								<reference key="NSSuperview" ref="358337279"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="471632077"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
@@ -155,7 +157,7 @@
 								<string key="NSFrame">{{10, 11}, {26, 26}}</string>
 								<reference key="NSSuperview" ref="358337279"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="68203049"/>
+								<reference key="NSNextKeyView" ref="497592231"/>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							</object>
@@ -188,7 +190,7 @@
 								<string key="NSFrame">{{43, 45}, {13, 12}}</string>
 								<reference key="NSSuperview" ref="358337279"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="497592231"/>
+								<reference key="NSNextKeyView" ref="677710805"/>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							</object>
@@ -198,6 +200,7 @@
 								<string key="NSFrame">{{223, 3}, {86, 15}}</string>
 								<reference key="NSSuperview" ref="358337279"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="222933176"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
@@ -214,6 +217,21 @@
 								<int key="IBUIBaselineAdjustment">1</int>
 								<float key="IBUIMinimumFontSize">11</float>
 								<int key="IBUITextAlignment">2</int>
+							</object>
+							<object class="IBUIWebView" id="767942881">
+								<reference key="NSNextResponder" ref="358337279"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{10, 65}, {299, 42}}</string>
+								<reference key="NSSuperview" ref="358337279"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
+								<object class="NSColor" key="IBUIBackgroundColor" id="402681308">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MSAxIDEAA</bytes>
+								</object>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<int key="IBUIDataDetectorTypes">1</int>
+								<bool key="IBUIDetectsPhoneNumbers">YES</bool>
 							</object>
 						</object>
 						<string key="NSFrameSize">{320, 113}</string>
@@ -235,10 +253,8 @@
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="358337279"/>
-				<object class="NSColor" key="IBUIBackgroundColor">
-					<int key="NSColorSpace">1</int>
-					<bytes key="NSRGB">MSAxIDEAA</bytes>
-				</object>
+				<reference key="IBUIBackgroundColor" ref="402681308"/>
+				<bool key="IBUIOpaque">NO</bool>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 				<int key="IBUISeparatorStyle">1</int>
 				<reference key="IBUIContentView" ref="358337279"/>
@@ -327,6 +343,14 @@
 					</object>
 					<int key="connectionID">55</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">webView</string>
+						<reference key="source" ref="747100426"/>
+						<reference key="destination" ref="767942881"/>
+					</object>
+					<int key="connectionID">57</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -363,6 +387,7 @@
 							<reference ref="68203049"/>
 							<reference ref="677710805"/>
 							<reference ref="59499057"/>
+							<reference ref="767942881"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -416,6 +441,11 @@
 						<reference key="object" ref="59499057"/>
 						<reference key="parent" ref="747100426"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">56</int>
+						<reference key="object" ref="767942881"/>
+						<reference key="parent" ref="747100426"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -435,12 +465,14 @@
 					<string>50.IBPluginDependency</string>
 					<string>51.IBPluginDependency</string>
 					<string>54.IBPluginDependency</string>
+					<string>56.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>UIResponder</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>ResponseTableCell</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -465,7 +497,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">55</int>
+			<int key="maxID">58</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -488,6 +520,7 @@
 							<string>smallPosterIcon</string>
 							<string>smallResponsesIcon</string>
 							<string>titleLabel</string>
+							<string>webView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -502,6 +535,7 @@
 							<string>UIImageView</string>
 							<string>UIImageView</string>
 							<string>UILabel</string>
+							<string>UIWebView</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -519,6 +553,7 @@
 							<string>smallPosterIcon</string>
 							<string>smallResponsesIcon</string>
 							<string>titleLabel</string>
+							<string>webView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -565,6 +600,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">titleLabel</string>
 								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">webView</string>
+								<string key="candidateClassName">UIWebView</string>
 							</object>
 						</object>
 					</object>

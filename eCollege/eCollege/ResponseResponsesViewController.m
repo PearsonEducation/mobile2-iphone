@@ -13,6 +13,10 @@
 
 @implementation ResponseResponsesViewController
 
+- (NSString*)getHtmlContentString {
+    return [[(UserDiscussionResponse*)rootItem response] description];
+}
+
 - (BOOL)isValidRootItemObject:(id)value {
     return value && [value isKindOfClass:[UserDiscussionResponse class]];
 }

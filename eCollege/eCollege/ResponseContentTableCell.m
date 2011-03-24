@@ -1,29 +1,33 @@
 //
-//  DataEntryTableCell.m
+//  ResponseContentTableCell.m
 //  eCollege
 //
-//  Created by Brad Umbaugh on 3/23/11.
+//  Created by Brad Umbaugh on 3/24/11.
 //  Copyright 2011 EffectiveUI. All rights reserved.
 //
 
-#import "DataEntryTableCell.h"
+#import "ResponseContentTableCell.h"
 
-@implementation DataEntryTableCell
 
-@synthesize textField;
+@implementation ResponseContentTableCell
+
+@synthesize button;
+@synthesize webView;
 
 - (void)dealloc
 {
-    self.textField = nil;
     [super dealloc];
 }
+
+#pragma mark - View lifecycle
 
 - (void)awakeFromNib {
     self.contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background_main.png"]];    
 }
 
-#pragma mark - View lifecycle
-
+- (void)loadHtmlString:(NSString*)htmlString {
+    [webView loadHTMLString:htmlString baseURL:nil];
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

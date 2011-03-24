@@ -31,6 +31,8 @@
     BOOL currentlyRefreshing;
     
     BOOL forceUpdateOnViewWillAppear;
+    
+    int contentHeight;
 }
 
 // The only reason these things are public properties is so they're accessible
@@ -57,5 +59,6 @@
 - (BOOL)isResponseCell:(NSIndexPath*)indexPath;
 - (UITableViewCell*)getHeaderTableCell;
 - (NSString*)getTitleOfRootItem;
+- (NSString*)getHtmlContentString;
 
 @end

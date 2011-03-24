@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		A205A225133AF300000D9262 /* ResponseTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A205A224133AF300000D9262 /* ResponseTableCell.xib */; };
+		A20A35BC133B47470091F584 /* ResponseContentTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A20A35BA133B473D0091F584 /* ResponseContentTableCell.m */; };
+		A20A35BD133B47470091F584 /* ResponseContentTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A20A35BB133B47410091F584 /* ResponseContentTableCell.xib */; };
 		A21401401326D186007C9207 /* ActivityTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A214013F1326D186007C9207 /* ActivityTableCell.xib */; };
 		A21401431326DABD007C9207 /* ActivityTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A21401421326DABD007C9207 /* ActivityTableCell.m */; };
 		A22751C7133B0BD400ED0937 /* ResponseHeaderTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A22751C5133B0BD400ED0937 /* ResponseHeaderTableCell.m */; };
@@ -126,6 +128,9 @@
 
 /* Begin PBXFileReference section */
 		A205A224133AF300000D9262 /* ResponseTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResponseTableCell.xib; sourceTree = "<group>"; };
+		A20A35B9133B47370091F584 /* ResponseContentTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResponseContentTableCell.h; sourceTree = "<group>"; };
+		A20A35BA133B473D0091F584 /* ResponseContentTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResponseContentTableCell.m; sourceTree = "<group>"; };
+		A20A35BB133B47410091F584 /* ResponseContentTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResponseContentTableCell.xib; sourceTree = "<group>"; };
 		A214013F1326D186007C9207 /* ActivityTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityTableCell.xib; sourceTree = "<group>"; };
 		A21401411326DABD007C9207 /* ActivityTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityTableCell.h; sourceTree = "<group>"; };
 		A21401421326DABD007C9207 /* ActivityTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityTableCell.m; sourceTree = "<group>"; };
@@ -472,6 +477,9 @@
 				A22F9A7D133B382C00F05F67 /* NoResponsesTableCell.h */,
 				A22F9A7E133B382F00F05F67 /* NoResponsesTableCell.m */,
 				A22F9A7F133B383300F05F67 /* NoResponsesTableCell.xib */,
+				A20A35B9133B47370091F584 /* ResponseContentTableCell.h */,
+				A20A35BA133B473D0091F584 /* ResponseContentTableCell.m */,
+				A20A35BB133B47410091F584 /* ResponseContentTableCell.xib */,
 			);
 			name = Discussions;
 			sourceTree = "<group>";
@@ -730,6 +738,7 @@
 				A29AD698133AF5B600264A50 /* person_small_icon@2x.png in Resources */,
 				A22751C8133B0BD400ED0937 /* ResponseHeaderTableCell.xib in Resources */,
 				A22F9A81133B383700F05F67 /* NoResponsesTableCell.xib in Resources */,
+				A20A35BD133B47470091F584 /* ResponseContentTableCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -770,6 +779,7 @@
 				A293E312133B0AC2003D3E7F /* ResponseResponsesViewController.m in Sources */,
 				A22751C7133B0BD400ED0937 /* ResponseHeaderTableCell.m in Sources */,
 				A22F9A80133B383700F05F67 /* NoResponsesTableCell.m in Sources */,
+				A20A35BC133B47470091F584 /* ResponseContentTableCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

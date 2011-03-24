@@ -18,6 +18,7 @@
 #import "ResponseTableCell.h"
 #import "ResponseResponsesViewController.h"
 #import "NoResponsesTableCell.h"
+#import "ResponseContentTableCell.h"
 
 @interface ResponsesViewController () 
 @end
@@ -56,6 +57,11 @@
     return nil;
 }
 
+// override in child classes
+- (NSString*)getHtmlContentString {
+    return nil;
+}
+
 # pragma mark PullRefreshTableViewController methods
 
 - (void)refresh {
@@ -84,6 +90,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        contentHeight = 49;
         NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
         [gregorian setTimeZone:[NSTimeZone defaultTimeZone]];
         dateCalculator = [[DateCalculator alloc] initWithCalendar:gregorian];
@@ -273,7 +280,7 @@
     if ([self isHeaderCell:indexPath]) {
         return 70.0;
     } else if ([self isRootItemContentCell:indexPath]) {
-        return 49.0;
+        return contentHeight;    
     } else if ([self isDataEntryCell:indexPath]) {
         return 39.0;
     } else if ([self isResponseCell:indexPath]) {
@@ -282,6 +289,17 @@
         // no data cell
         return 93.0;
     }
+}
+
+- (void)contentButtonTapped:(id)sender {
+    NSLog(@"Button tapped");
+    if (contentHeight == 49) {
+        contentHeight = 150;
+    } else {
+        contentHeight = 49;
+    }
+    [table beginUpdates];
+    [table endUpdates];
 }
 
 - (UITableViewCell *)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -296,12 +314,19 @@
     
     // root item (topic or response) content cell
     else if([self isRootItemContentCell:indexPath]) {
-        CellIdentifier = @"RootItemContentTableCell";
-        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        NSString* ident = @"ResponseContentTableCell";
+        UITableViewCell* cell;
+        cell = [table dequeueReusableCellWithIdentifier:ident];
         if (cell == nil) {
-            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+            NSArray* nib = [[NSBundle mainBundle] loadNibNamed:ident owner:self options:nil];
+            cell = [nib objectAtIndex:0];
         }
-        cell.textLabel.text = @"Content goes here";
+        ResponseContentTableCell* rctc = (ResponseContentTableCell*)cell;
+        rctc.webView.backgroundColor = [UIColor clearColor];
+        rctc.webView.opaque = NO;
+        [rctc.button addTarget:self action:@selector(contentButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        [rctc loadHtmlString:[self getHtmlContentString]];
+        return cell;        
     }
     
     // post box

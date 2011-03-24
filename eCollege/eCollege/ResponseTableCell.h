@@ -21,6 +21,7 @@
     IBOutlet UIImageView* disclosureArrowImage;
     IBOutlet UIWebView* responseContentWebView;
     IBOutlet UILabel* dateLabel;
+    IBOutlet UIWebView* webView;
     UserDiscussionResponse* userDiscussionResponse;
 }
 
