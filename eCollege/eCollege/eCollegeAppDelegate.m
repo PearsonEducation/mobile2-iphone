@@ -97,7 +97,7 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
     for(Course* course in self.coursesArray) {
         [arr addObject:[NSNumber numberWithInt:[course courseId]]];
     }
-    return arr;
+    return [arr autorelease];
 }
 
 - (void) dismissLoginView {
