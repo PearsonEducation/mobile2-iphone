@@ -25,7 +25,12 @@
 
 @implementation LogInViewController
 
+@synthesize usernameText;
+@synthesize passwordText;
+
 - (void)dealloc {
+    self.usernameText = nil;
+    self.passwordText = nil;
     [blockingActivityView release];
     [self unregisterForCoursesNotifications];
     [super dealloc];
@@ -173,6 +178,8 @@
     if (![obj isKindOfClass:[NSError class]]) {
         userFetcher = [[UserFetcher alloc] initWithDelegate:self responseSelector:@selector(userLoaded:)];
         [userFetcher fetchMe];        
+    } else {
+        [blockingActivityView hide];
     }
 }
 

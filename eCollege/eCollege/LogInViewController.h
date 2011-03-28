@@ -29,6 +29,9 @@
     UserFetcher* userFetcher;
 }
 
+@property (nonatomic, retain) IBOutlet UITextField* usernameText;
+@property (nonatomic, retain) IBOutlet UITextField* passwordText;
+
 - (IBAction) logInClicked:(id)caller;
 
 @end

@@ -24,8 +24,10 @@
 @property (nonatomic, retain) DiscussionsViewController* discussionsViewController;
 @property (nonatomic, retain) CourseFetcher* courseFetcher;
 
+
 // Private methods
 - (void) showTabBar;
+- (void) showLoginView;
 
 @end
 
@@ -52,9 +54,18 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
 	return (eCollegeAppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
-- (void)handleError:(NSError*)error {
-    UIAlertView* alert = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:[error.userInfo objectForKey:@"error"] delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", nil), nil] autorelease];
-    [alert show];
+- (void)generalServiceCallback:(id)obj {    
+    if ([obj isKindOfClass:[NSError class]]) {
+        NSError* error = (NSError*)obj;
+        UIAlertView* alert = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:[error.userInfo objectForKey:@"error"] delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", nil), nil] autorelease];
+        if (error.code == AUTHENTICATION_ERROR) {
+            NSLog(@"Authentication error");
+            alert.message = NSLocalizedString(@"Your authentication credentials have expired. Please login again.", nil);
+            [self showLoginView];
+        }
+        
+        [alert show];
+    }
 }
 
 - (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex {
@@ -63,10 +74,10 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    [ECAuthenticatedFetcher setErrorDelegate:self andSelector:@selector(handleError:)];
+    [ECAuthenticatedFetcher setGeneralDelegate:self andSelector:@selector(generalServiceCallback:)];
     
 	ECSession *session = [ECSession sharedSession];
-	if ([session hasUnexpiredAccessToken] || [session hasUnexpiredGrantToken]) {
+	if ([session hasActiveAccessToken] || [session hasActiveGrantToken]) {
 		[self showTabBar];
 	} else {
 		logInViewController = [[LogInViewController alloc] initWithNibName:@"LogInView" bundle:nil];
@@ -116,12 +127,31 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
 - (void) dismissLoginView {
 	[UIView transitionWithView:self.window
 					  duration:0.75
-					   options:UIViewAnimationOptionTransitionCurlUp // wheeee!!!
+					   options:UIViewAnimationOptionTransitionFlipFromRight // wheeee!!!
 					animations:^{
 						[self.logInViewController.view removeFromSuperview];
 					}
 					completion:nil];
 	[self showTabBar];
+}
+
+- (void) showLoginView {
+    
+    self.logInViewController.passwordText.text = @"";
+    self.logInViewController.usernameText.text = @"";
+    
+    // transition to the login controller
+	[UIView transitionWithView:self.window
+					  duration:0.75
+					   options:UIViewAnimationOptionTransitionFlipFromLeft // wheeee!!!
+					animations:^{
+                        [self.tabBarController.view removeFromSuperview];
+                        self.tabBarController = nil;
+					}
+					completion:nil];
+    
+    // get rid of the old tab bar
+    [window addSubview:self.logInViewController.view];
 }
 
 - (void)showTabBar {

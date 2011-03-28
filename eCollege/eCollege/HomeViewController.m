@@ -21,6 +21,7 @@
 #import "DropboxMessageDetailViewController.h"
 #import "ResponseResponsesViewController.h"
 #import "TopicResponsesViewController.h"
+#import "ECSession.h"
 
 @interface HomeViewController ()
 
@@ -86,6 +87,13 @@
     [self presentModalViewController:infoNavController animated:YES];
     [infoNavController release];
     [infoTableViewController release];
+
+//  DEBUG CODE: deletes credentials (just a handy place to put it)    
+//    ECSession* ecs = [ECSession sharedSession];
+//    NSLog(@"Forgetting grant token...");
+//    [ecs forgetGrantToken];
+//    NSLog(@"Forgetting access token...");
+//    [ecs forgetAccessToken];        
 }
 
 // overriding parent method
