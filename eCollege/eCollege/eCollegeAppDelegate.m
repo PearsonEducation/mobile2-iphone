@@ -11,6 +11,7 @@
 #import "ECSession.h"
 #import "NSDateUtilities.h"
 #import "DateCalculator.h"
+#import "ECConstants.h"
 
 @interface eCollegeAppDelegate ()
 
@@ -51,7 +52,19 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
 	return (eCollegeAppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
+- (void)handleError:(NSError*)error {
+    UIAlertView* alert = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:[error.userInfo objectForKey:@"error"] delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", nil), nil] autorelease];
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex {
+    NSLog(@"CANCEL");
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    [ECAuthenticatedFetcher setErrorDelegate:self andSelector:@selector(handleError:)];
+    
 	ECSession *session = [ECSession sharedSession];
 	if ([session hasUnexpiredAccessToken] || [session hasUnexpiredGrantToken]) {
 		[self showTabBar];

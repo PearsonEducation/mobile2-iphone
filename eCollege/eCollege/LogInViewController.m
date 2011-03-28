@@ -18,6 +18,8 @@
 - (void)handleCoursesRefreshFailure:(NSNotification*)notification;
 - (void)registerForCoursesNotifications;
 - (void)unregisterForCoursesNotifications;
+- (void)sessionDidAuthenticate:(id)obj;
+- (void)authenticate;
 
 @end
 
@@ -113,6 +115,19 @@
 		return; //apparently we can sometimes get too many notifications
 	}
     
+    [self authenticate];
+    
+	[UIView beginAnimations:nil context:NULL];
+		[UIView setAnimationDuration:0.25];
+		[UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+		scrollView.frame = CGRectMake(0, 0, scrollViewSizeWhenKeyboardIsHidden.width, scrollViewSizeWhenKeyboardIsHidden.height);
+		scrollView.contentOffset = scrollViewOffsetWhenKeyboardIsHidden;
+	[UIView commitAnimations];
+
+	keyboardIsShowing = NO;
+}
+
+- (void)authenticate {
     NSString *clientId = [[ECClientConfiguration currentConfiguration] clientId];
 	NSString *clientString = [[ECClientConfiguration currentConfiguration] clientString];
 	NSString *username = usernameText.text;
@@ -126,16 +141,7 @@
 							 password:password
 					 keepUserLoggedIn:keepLoggedIn
 							 delegate:self
-							 callback:@selector(sessionDidAuthenticate)];
-
-	[UIView beginAnimations:nil context:NULL];
-		[UIView setAnimationDuration:0.25];
-		[UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-		scrollView.frame = CGRectMake(0, 0, scrollViewSizeWhenKeyboardIsHidden.width, scrollViewSizeWhenKeyboardIsHidden.height);
-		scrollView.contentOffset = scrollViewOffsetWhenKeyboardIsHidden;
-	[UIView commitAnimations];
-
-	keyboardIsShowing = NO;
+							 callback:@selector(sessionDidAuthenticate:)];    
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
@@ -152,16 +158,22 @@
 }
 
 - (IBAction) logInClicked:(id)caller {
-    [usernameText resignFirstResponder];
-    [passwordText resignFirstResponder];
+    if ([usernameText isFirstResponder] || [passwordText isFirstResponder]) {
+        [usernameText resignFirstResponder];
+        [passwordText resignFirstResponder];        
+    } else {
+        [self authenticate];
+    }
     
 }
 
 #pragma mark - Authentication Complete
 
-- (void) sessionDidAuthenticate {
-    userFetcher = [[UserFetcher alloc] initWithDelegate:self responseSelector:@selector(userLoaded:)];
-    [userFetcher fetchMe];
+- (void) sessionDidAuthenticate:(id)obj {
+    if (![obj isKindOfClass:[NSError class]]) {
+        userFetcher = [[UserFetcher alloc] initWithDelegate:self responseSelector:@selector(userLoaded:)];
+        [userFetcher fetchMe];        
+    }
 }
 
 - (void) userLoaded:(id)response {
@@ -172,6 +184,7 @@
         [[eCollegeAppDelegate delegate] refreshCourseList];            
     } else {
         NSLog(@"ERROR: unable to load user; cannot move past login screen");
+        [blockingActivityView hide];
     }
 }
 

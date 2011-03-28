@@ -22,7 +22,7 @@ extern NSString* courseLoadSuccess;
 extern NSString* courseLoadFailure;
 extern int coursesRefreshInterval;
 
-@interface eCollegeAppDelegate : NSObject <UIApplicationDelegate> {
+@interface eCollegeAppDelegate : NSObject <UIApplicationDelegate, UIAlertViewDelegate> {
     UITabBarController* tabBarController;
     HomeViewController* homeViewController;
     ProfileViewController* profileViewController;
@@ -49,5 +49,6 @@ extern int coursesRefreshInterval;
 - (void)refreshCourseList;
 - (BOOL)shouldRefreshCourses;
 - (NSArray*) getAllCourseIds;
+- (void)handleError:(NSError*)error;
 
 @end
