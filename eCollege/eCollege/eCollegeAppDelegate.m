@@ -57,11 +57,18 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
 - (void)generalServiceCallback:(id)obj {    
     if ([obj isKindOfClass:[NSError class]]) {
         NSError* error = (NSError*)obj;
+        NSDictionary* dict = error.userInfo;
+        NSString* message = [dict objectForKey:@"message"];
+
         UIAlertView* alert = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:[error.userInfo objectForKey:@"error"] delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", nil), nil] autorelease];
+
         if (error.code == AUTHENTICATION_ERROR) {
             NSLog(@"Authentication error");
             alert.message = NSLocalizedString(@"Your authentication credentials have expired. Please login again.", nil);
             [self showLoginView];
+        } else if ([message isEqualToString:@"unauthorized_client"]) {
+            NSLog(@"Invalid username/password");
+            alert.message = NSLocalizedString(@"Invalid username or password. Please try again.", nil);
         }
         
         [alert show];
