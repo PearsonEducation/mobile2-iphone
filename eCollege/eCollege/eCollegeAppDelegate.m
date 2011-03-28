@@ -69,6 +69,9 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
         } else if ([message isEqualToString:@"unauthorized_client"]) {
             NSLog(@"Invalid username/password");
             alert.message = NSLocalizedString(@"Invalid username or password. Please try again.", nil);
+            if (!loginShowing) {
+                [self showLoginView];
+            }
         }
         
         [alert show];
@@ -89,6 +92,7 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
 	} else {
 		logInViewController = [[LogInViewController alloc] initWithNibName:@"LogInView" bundle:nil];
 		[self.window addSubview:self.logInViewController.view];
+        loginShowing = YES;
 	}
 	[self.window makeKeyAndVisible];
     return YES;
@@ -140,6 +144,7 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
 					}
 					completion:nil];
 	[self showTabBar];
+    loginShowing = NO;
 }
 
 - (void) showLoginView {
@@ -159,6 +164,8 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
     
     // get rid of the old tab bar
     [window addSubview:self.logInViewController.view];
+    
+    loginShowing = YES;
 }
 
 - (void)showTabBar {

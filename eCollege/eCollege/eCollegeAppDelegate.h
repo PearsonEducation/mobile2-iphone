@@ -34,6 +34,7 @@ extern int coursesRefreshInterval;
     CourseFetcher* courseFetcher;
     NSDate* coursesLastUpdated;
     User* currentUser;
+    BOOL loginShowing;
 }
 
 + (eCollegeAppDelegate *) delegate;
