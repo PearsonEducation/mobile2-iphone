@@ -223,54 +223,57 @@
     commentsLabel.backgroundColor = [UIColor clearColor];
     commentsLabel.numberOfLines = 0;
     [whiteBox addSubview:commentsLabel];
-    
-    // set up a button for each attachment
-    int count = 0;
-    UIButton* btn = nil;
-    
-    while (count < [message.attachments count]) {
-        
-        // grab the attachment
-        DropboxAttachment *attachment = [message.attachments objectAtIndex:count];
-        
-        // figure out the y coordinate of the new button we're making
-        int y;
-        if (count == 0) {
-            y = commentsLabel.frame.origin.y + commentsLabel.frame.size.height + 20;
-        } else {
-            y = btn.frame.origin.y + btn.frame.size.height + 10;
-        }
-        
-        // if this isn't the first iteration through the loop, release the previous button
-        if (btn) {
-            [btn release];
-        }
-        
-        // make the new button
-        btn = [[UIButton alloc] initWithFrame:CGRectMake(45, y, 242, 30)];
-        btn.titleLabel.font = buttonFont;
-        [btn setTitle:attachment.name forState:UIControlStateNormal];
-        [btn setTitleColor:buttonTextColor forState:UIControlStateNormal];
-        btn.backgroundColor = HEXCOLOR(0xE9E9E9);
-        btn.layer.cornerRadius = 3.0;
-        btn.layer.borderWidth = 1.0;
-        btn.layer.borderColor = [HEXCOLOR(0xC0C0C0) CGColor];
-        [btn setTag:count];
-        [whiteBox addSubview:btn];
-        count += 1;
-    }
+
+// [BSU, 3/29/2011] 
+// Taking this out for now, so that in the future we can add them back in with quick look / preview
+//
+// set up a button for each attachment
+//    int count = 0;
+//    UIButton* btn = nil;
+//    
+//    while (count < [message.attachments count]) {
+//        
+//        // grab the attachment
+//        DropboxAttachment *attachment = [message.attachments objectAtIndex:count];
+//        
+//        // figure out the y coordinate of the new button we're making
+//        int y;
+//        if (count == 0) {
+//            y = commentsLabel.frame.origin.y + commentsLabel.frame.size.height + 20;
+//        } else {
+//            y = btn.frame.origin.y + btn.frame.size.height + 10;
+//        }
+//        
+//        // if this isn't the first iteration through the loop, release the previous button
+//        if (btn) {
+//            [btn release];
+//        }
+//        
+//        // make the new button
+//        btn = [[UIButton alloc] initWithFrame:CGRectMake(45, y, 242, 30)];
+//        btn.titleLabel.font = buttonFont;
+//        [btn setTitle:attachment.name forState:UIControlStateNormal];
+//        [btn setTitleColor:buttonTextColor forState:UIControlStateNormal];
+//        btn.backgroundColor = HEXCOLOR(0xE9E9E9);
+//        btn.layer.cornerRadius = 3.0;
+//        btn.layer.borderWidth = 1.0;
+//        btn.layer.borderColor = [HEXCOLOR(0xC0C0C0) CGColor];
+//        [btn setTag:count];
+//        [whiteBox addSubview:btn];
+//        count += 1;
+//    }
     
     // set the height of the white box
     CGRect boxFrame = whiteBox.frame;
-    if (btn) {
-        boxFrame.size.height = btn.frame.origin.y + btn.frame.size.height + 16; 
-    } else {
+//    if (btn) {
+//        boxFrame.size.height = btn.frame.origin.y + btn.frame.size.height + 16; 
+//    } else {
         boxFrame.size.height = commentsLabel.frame.origin.y + commentsLabel.frame.size.height + 16;
-    }
+//    }
     whiteBox.frame = boxFrame;
     
     // memory management
-    [btn release];
+//    [btn release];
     [img release];
     [commentsLabel release];
     [dateLabel release];
