@@ -209,9 +209,28 @@
 #pragma mark - UITextField delegate methods
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    
+    // get the rect for the input row...
+    CGRect inputRect = [self.table rectForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+    CGSize contentSize = [self.table contentSize];
+    CGPoint contentOffset = [self.table contentOffset];
+    
+    // think of contentOffset as the amount of content that has already scrolled off the screen
+    float inputBoxScreenY = inputRect.origin.y - contentOffset.y;
+    float targetScreenY = 66;
+    float diff = inputBoxScreenY - targetScreenY;
+    
+    [UIView beginAnimations:nil context:nil];
+    CGRect f = self.table.frame;        
+    f.origin.y = -1*diff;
+    self.table.frame = f;
+    [UIView commitAnimations];
     dataEntryIsMinimized = NO;
     [table beginUpdates];
     [table endUpdates];
+    self.table.scrollEnabled = NO;
+
+//    [self.table setContentOffset:CGPointMake(0, 40) animated:YES];
     return YES;
 }
 

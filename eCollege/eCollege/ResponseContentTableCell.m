@@ -24,6 +24,7 @@
 - (void)awakeFromNib {
     self.contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background_main.png"]];    
     self.selectionStyle = UITableViewCellEditingStyleNone;
+    [self.webView setUserInteractionEnabled:NO];
 }
 
 - (void)loadHtmlString:(NSString*)htmlString {

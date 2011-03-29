@@ -32,6 +32,8 @@
     self.contentBackground.image = [[UIImage imageNamed:@"text_input_background.png"] stretchableImageWithLeftCapWidth:147.0 topCapHeight:15.0];
     self.clipsToBounds = YES;
     
+    titleTextField.placeholder = NSLocalizedString(@"Title of your response...",nil);
+    
 }
 
 #pragma mark - View lifecycle
