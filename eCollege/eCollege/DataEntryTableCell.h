@@ -10,9 +10,15 @@
 
 
 @interface DataEntryTableCell : UITableViewCell {
-    IBOutlet UITextField* textField;
+    IBOutlet UITextField* titleTextField;
+    IBOutlet UIImageView* titleBackground;
+    IBOutlet UITextView* contentTextView;
+    IBOutlet UIImageView* contentBackground;
 }
 
-@property (nonatomic, retain) UITextField* textField;
+@property (nonatomic, retain) UITextField* titleTextField;
+@property (nonatomic, retain) UIImageView* titleBackground;
+@property (nonatomic, retain) UITextView* contentTextView;
+@property (nonatomic, retain) UIImageView* contentBackground;
 
 @end

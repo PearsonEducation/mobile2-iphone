@@ -114,6 +114,11 @@
         actualContentHeight = -1;
         minimizedContentHeight = 100;
         contentIsMinimized = YES;
+        
+        actualDataEntryHeight = 135.0;
+        minimizedDataEntryHeight = 39.0;
+        dataEntryIsMinimized = YES;
+        
         NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
         [gregorian setTimeZone:[NSTimeZone defaultTimeZone]];
         dateCalculator = [[DateCalculator alloc] initWithCalendar:gregorian];
@@ -204,7 +209,10 @@
 #pragma mark - UITextField delegate methods
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    return NO;
+    dataEntryIsMinimized = NO;
+    [table beginUpdates];
+    [table endUpdates];
+    return YES;
 }
 
 #pragma mark - View lifecycle
@@ -311,7 +319,11 @@
             return actualContentHeight;
         }
     } else if ([self isDataEntryCell:indexPath]) {
-        return 39.0;
+        if (dataEntryIsMinimized) {
+            return minimizedDataEntryHeight;
+        } else {
+            return actualDataEntryHeight;
+        }
     } else if ([self isResponseCell:indexPath]) {
         return 113.0;
     } else {
@@ -367,7 +379,12 @@
             NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"DataEntryTableCell" owner:self options:nil];
             cell = [nib objectAtIndex:0];
         }
-        ((DataEntryTableCell*)cell).textField.delegate = self;
+        if (dataEntryIsMinimized) {
+            CGRect f = cell.frame;
+            f.size.height = minimizedDataEntryHeight;
+            cell.frame = f;
+        }
+        ((DataEntryTableCell*)cell).titleTextField.delegate = self;
     } 
     
     // response cells

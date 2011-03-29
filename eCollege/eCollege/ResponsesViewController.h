@@ -39,6 +39,10 @@
     UIWebView* webView;
     UIButton* collapseButton;
     
+    float minimizedDataEntryHeight;
+    float actualDataEntryHeight;
+    BOOL dataEntryIsMinimized;
+    
 }
 
 // The only reason these things are public properties is so they're accessible
