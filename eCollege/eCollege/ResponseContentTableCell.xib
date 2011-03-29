@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1056</int>
-		<string key="IBDocument.SystemVersion">10J567</string>
+		<string key="IBDocument.SystemVersion">10J869</string>
 		<string key="IBDocument.InterfaceBuilderVersion">1305</string>
 		<string key="IBDocument.AppKitVersion">1038.35</string>
-		<string key="IBDocument.HIToolboxVersion">462.00</string>
+		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">300</string>
@@ -51,7 +51,7 @@
 							<object class="IBUIWebView" id="867438021">
 								<reference key="NSNextResponder" ref="721253271"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{7, 2}, {239, 46}}</string>
+								<string key="NSFrame">{{7, 0}, {239, 100}}</string>
 								<reference key="NSSuperview" ref="721253271"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="955258746"/>
@@ -98,7 +98,7 @@
 								</object>
 							</object>
 						</object>
-						<string key="NSFrameSize">{320, 50}</string>
+						<string key="NSFrameSize">{320, 100}</string>
 						<reference key="NSSuperview" ref="162925614"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="867438021"/>
@@ -113,7 +113,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 				</object>
-				<string key="NSFrameSize">{320, 50}</string>
+				<string key="NSFrameSize">{320, 100}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="721253271"/>

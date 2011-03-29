@@ -62,6 +62,27 @@
     return nil;
 }
 
+- (void)webViewDidFinishLoad:(UIWebView *)w {
+    // now that the data is loaded in the web view, it can be sized.
+    [w sizeToFit];
+    
+    // capture how big the web view actually is with the data
+    actualContentHeight = w.frame.size.height + 20;
+    NSLog(@"Actual content height: %f", actualContentHeight);
+    
+    // reduce the minimum if necessary
+    if (actualContentHeight < minimizedContentHeight) {
+        minimizedContentHeight = actualContentHeight;
+    }
+    
+    // update the table cells
+    [table beginUpdates];
+    [table endUpdates];
+    
+    // cleanup
+    [w removeFromSuperview];
+}
+
 # pragma mark PullRefreshTableViewController methods
 
 - (void)refresh {
@@ -91,7 +112,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         actualContentHeight = -1;
-        contentHeight = 49;
+        minimizedContentHeight = 100;
+        contentIsMinimized = YES;
         NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
         [gregorian setTimeZone:[NSTimeZone defaultTimeZone]];
         dateCalculator = [[DateCalculator alloc] initWithCalendar:gregorian];
@@ -166,6 +188,7 @@
 }
 
 - (void)fetchingComplete {
+    currentlyRefreshing = NO;
     self.title = [self getTitleOfRootItem];
     if (errorFetchingRootItem || errorFetchingResponses) {
         NSLog(@"ERROR: Problems fetching data.");
@@ -176,7 +199,6 @@
     
     // tell the "pull to refresh" loading header to go away (if it's present)
     [self stopLoading];
-    currentlyRefreshing = NO;
 }
 
 #pragma mark - UITextField delegate methods
@@ -248,7 +270,9 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (responses && ([responses count] > 0)) {
+    if (currentlyRefreshing) {
+        return 0;
+    } else if (responses && ([responses count] > 0)) {
         // Return the number of rows in the section, plus three:
         //   1. header cell
         //   2. content of the root item (topic or response)
@@ -281,7 +305,24 @@
     if ([self isHeaderCell:indexPath]) {
         return 70.0;
     } else if ([self isRootItemContentCell:indexPath]) {
-        return contentHeight;    
+        // the actual height has not yet been determined; kick off the process to figure that out
+        if (actualContentHeight == -1) {
+            UIWebView* tmpWebView = [[[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 15)] autorelease];
+            tmpWebView.delegate = self;
+            tmpWebView.alpha = 0;
+            // for some reason, if we add it as a subview to self.view, sizing doesn't work correctly...
+            [self.view.window addSubview:tmpWebView];
+            [tmpWebView loadHTMLString:[self getHtmlContentString] baseURL:nil];
+        }
+        if (contentIsMinimized) {
+            return minimizedContentHeight;
+        } else {
+            return 944;
+            CGRect f = webView.frame;
+            f.size.height = 944;
+            webView.frame = f;
+            return actualContentHeight;
+        }
     } else if ([self isDataEntryCell:indexPath]) {
         return 39.0;
     } else if ([self isResponseCell:indexPath]) {
@@ -295,12 +336,7 @@
 - (void)contentButtonTapped:(id)sender {
     NSLog(@"Button tapped");
     [webView sizeToFit];
-    if (contentHeight == 49 && webView.frame.size.height > 49) {
-        contentHeight = webView.frame.size.height;
-        actualContentHeight = contentHeight;
-    } else {
-        contentHeight = 49;
-    }
+    contentIsMinimized = !contentIsMinimized;
     [table beginUpdates];
     [table endUpdates];
 }
@@ -329,11 +365,6 @@
         rctc.webView.backgroundColor = [UIColor clearColor];
         rctc.webView.opaque = NO;
         rctc.clipsToBounds = YES;
-        if (actualContentHeight != -1) {
-            CGRect f = rctc.webView.frame;
-            f.size.height = actualContentHeight;
-            rctc.webView.frame = f;
-        }
         [rctc.button addTarget:self action:@selector(contentButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [rctc loadHtmlString:[self getHtmlContentString]];
         return cell;        

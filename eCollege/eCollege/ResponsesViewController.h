@@ -11,7 +11,7 @@
 #import "DateCalculator.h"
 #import "PullRefreshTableViewController.h"
 
-@interface ResponsesViewController : PullRefreshTableViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate> {
+@interface ResponsesViewController : PullRefreshTableViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UIWebViewDelegate> {
     ECAuthenticatedFetcher* rootItemFetcher;
     ECAuthenticatedFetcher* responsesFetcher;
     
@@ -32,9 +32,12 @@
     
     BOOL forceUpdateOnViewWillAppear;
     
-    int contentHeight;
+    float minimizedContentHeight;
+    float actualContentHeight;
+    BOOL contentIsMinimized;
+    
     UIWebView* webView;
-    int actualContentHeight;
+    
 }
 
 // The only reason these things are public properties is so they're accessible
