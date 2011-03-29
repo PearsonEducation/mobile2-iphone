@@ -67,7 +67,7 @@
     [w sizeToFit];
     
     // capture how big the web view actually is with the data
-    actualContentHeight = w.frame.size.height + 20;
+    actualContentHeight = w.frame.size.height;
     NSLog(@"Actual content height: %f", actualContentHeight);
     
     // reduce the minimum if necessary
@@ -78,9 +78,6 @@
     // update the table cells
     [table beginUpdates];
     [table endUpdates];
-    
-    // cleanup
-    [w removeFromSuperview];
 }
 
 # pragma mark PullRefreshTableViewController methods
@@ -305,22 +302,9 @@
     if ([self isHeaderCell:indexPath]) {
         return 70.0;
     } else if ([self isRootItemContentCell:indexPath]) {
-        // the actual height has not yet been determined; kick off the process to figure that out
-        if (actualContentHeight == -1) {
-            UIWebView* tmpWebView = [[[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 15)] autorelease];
-            tmpWebView.delegate = self;
-            tmpWebView.alpha = 0;
-            // for some reason, if we add it as a subview to self.view, sizing doesn't work correctly...
-            [self.view.window addSubview:tmpWebView];
-            [tmpWebView loadHTMLString:[self getHtmlContentString] baseURL:nil];
-        }
         if (contentIsMinimized) {
             return minimizedContentHeight;
         } else {
-            return 944;
-            CGRect f = webView.frame;
-            f.size.height = 944;
-            webView.frame = f;
             return actualContentHeight;
         }
     } else if ([self isDataEntryCell:indexPath]) {
@@ -362,6 +346,7 @@
         }
         ResponseContentTableCell* rctc = (ResponseContentTableCell*)cell;
         webView = rctc.webView;
+        webView.delegate = self;
         rctc.webView.backgroundColor = [UIColor clearColor];
         rctc.webView.opaque = NO;
         rctc.clipsToBounds = YES;
