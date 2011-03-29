@@ -2,17 +2,16 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1056</int>
-		<string key="IBDocument.SystemVersion">10J567</string>
+		<string key="IBDocument.SystemVersion">10J869</string>
 		<string key="IBDocument.InterfaceBuilderVersion">1305</string>
 		<string key="IBDocument.AppKitVersion">1038.35</string>
-		<string key="IBDocument.HIToolboxVersion">462.00</string>
+		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">300</string>
 		</object>
 		<object class="NSArray" key="IBDocument.IntegratedClassDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<string>IBUIWebView</string>
 			<string>IBUITableViewCell</string>
 			<string>IBUIImageView</string>
 			<string>IBUILabel</string>
@@ -55,7 +54,7 @@
 								<string key="NSFrame">{{300, 35}, {9, 13}}</string>
 								<reference key="NSSuperview" ref="358337279"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="767942881"/>
+								<reference key="NSNextKeyView" ref="644123170"/>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							</object>
@@ -218,20 +217,29 @@
 								<float key="IBUIMinimumFontSize">11</float>
 								<int key="IBUITextAlignment">2</int>
 							</object>
-							<object class="IBUIWebView" id="767942881">
+							<object class="IBUILabel" id="644123170">
 								<reference key="NSNextResponder" ref="358337279"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{10, 65}, {299, 42}}</string>
+								<string key="NSFrame">{{10, 59}, {299, 50}}</string>
 								<reference key="NSSuperview" ref="358337279"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView"/>
-								<object class="NSColor" key="IBUIBackgroundColor" id="402681308">
-									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MSAxIDEAA</bytes>
-								</object>
+								<bool key="IBUIOpaque">NO</bool>
+								<bool key="IBUIClipsSubviews">YES</bool>
+								<int key="IBUIContentMode">7</int>
+								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<int key="IBUIDataDetectorTypes">1</int>
-								<bool key="IBUIDetectsPhoneNumbers">YES</bool>
+								<string key="IBUIText"/>
+								<object class="NSFont" key="IBUIFont">
+									<string key="NSName">Helvetica</string>
+									<double key="NSSize">13</double>
+									<int key="NSfFlags">16</int>
+								</object>
+								<reference key="IBUITextColor" ref="693550036"/>
+								<nil key="IBUIHighlightedColor"/>
+								<int key="IBUIBaselineAdjustment">1</int>
+								<float key="IBUIMinimumFontSize">13</float>
+								<int key="IBUINumberOfLines">3</int>
 							</object>
 						</object>
 						<string key="NSFrameSize">{320, 113}</string>
@@ -253,7 +261,10 @@
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="358337279"/>
-				<reference key="IBUIBackgroundColor" ref="402681308"/>
+				<object class="NSColor" key="IBUIBackgroundColor">
+					<int key="NSColorSpace">1</int>
+					<bytes key="NSRGB">MSAxIDEAA</bytes>
+				</object>
 				<bool key="IBUIOpaque">NO</bool>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 				<int key="IBUISeparatorStyle">1</int>
@@ -345,11 +356,11 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">webView</string>
+						<string key="label">contentLabel</string>
 						<reference key="source" ref="747100426"/>
-						<reference key="destination" ref="767942881"/>
+						<reference key="destination" ref="644123170"/>
 					</object>
-					<int key="connectionID">57</int>
+					<int key="connectionID">60</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -387,7 +398,7 @@
 							<reference ref="68203049"/>
 							<reference ref="677710805"/>
 							<reference ref="59499057"/>
-							<reference ref="767942881"/>
+							<reference ref="644123170"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -442,8 +453,8 @@
 						<reference key="parent" ref="747100426"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">56</int>
-						<reference key="object" ref="767942881"/>
+						<int key="objectID">59</int>
+						<reference key="object" ref="644123170"/>
 						<reference key="parent" ref="747100426"/>
 					</object>
 				</object>
@@ -465,7 +476,7 @@
 					<string>50.IBPluginDependency</string>
 					<string>51.IBPluginDependency</string>
 					<string>54.IBPluginDependency</string>
-					<string>56.IBPluginDependency</string>
+					<string>59.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -497,7 +508,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">58</int>
+			<int key="maxID">60</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -510,6 +521,7 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>activityImage</string>
+							<string>contentLabel</string>
 							<string>countBubbleImage</string>
 							<string>dateLabel</string>
 							<string>disclosureArrowImage</string>
@@ -520,11 +532,11 @@
 							<string>smallPosterIcon</string>
 							<string>smallResponsesIcon</string>
 							<string>titleLabel</string>
-							<string>webView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>UIImageView</string>
+							<string>UILabel</string>
 							<string>UIImageView</string>
 							<string>UILabel</string>
 							<string>UIImageView</string>
@@ -535,7 +547,6 @@
 							<string>UIImageView</string>
 							<string>UIImageView</string>
 							<string>UILabel</string>
-							<string>UIWebView</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -543,6 +554,7 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>activityImage</string>
+							<string>contentLabel</string>
 							<string>countBubbleImage</string>
 							<string>dateLabel</string>
 							<string>disclosureArrowImage</string>
@@ -553,13 +565,16 @@
 							<string>smallPosterIcon</string>
 							<string>smallResponsesIcon</string>
 							<string>titleLabel</string>
-							<string>webView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBToOneOutletInfo">
 								<string key="name">activityImage</string>
 								<string key="candidateClassName">UIImageView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">contentLabel</string>
+								<string key="candidateClassName">UILabel</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">countBubbleImage</string>
@@ -600,10 +615,6 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">titleLabel</string>
 								<string key="candidateClassName">UILabel</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">webView</string>
-								<string key="candidateClassName">UIWebView</string>
 							</object>
 						</object>
 					</object>

@@ -101,10 +101,10 @@
     //      unreadResponsesLabel.backgroundColor = HEXCOLOR(0x1D2372);
     countBubbleImage.frame = labelFrame;
     countBubbleImage.image = [[UIImage imageNamed:@"count_bubble.png"] stretchableImageWithLeftCapWidth:14.0 topCapHeight:10];
+
+    // set the content text
+    contentLabel.text = userDiscussionResponse.response.description;
     
-    [webView loadHTMLString:userDiscussionResponse.response.description baseURL:nil];
-    webView.backgroundColor = [UIColor clearColor];
-    webView.opaque = NO;
 }
 
 - (void)awakeFromNib {
