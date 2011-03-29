@@ -37,6 +37,7 @@
     BOOL contentIsMinimized;
     
     UIWebView* webView;
+    UIButton* collapseButton;
     
 }
 

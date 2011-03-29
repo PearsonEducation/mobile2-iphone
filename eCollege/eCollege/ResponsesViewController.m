@@ -71,8 +71,11 @@
     NSLog(@"Actual content height: %f", actualContentHeight);
     
     // reduce the minimum if necessary
-    if (actualContentHeight < minimizedContentHeight) {
+    if (actualContentHeight <= minimizedContentHeight) {
         minimizedContentHeight = actualContentHeight;
+        collapseButton.hidden = YES;
+    } else {
+        collapseButton.hidden = NO;
     }
     
     // update the table cells
@@ -350,6 +353,7 @@
         rctc.webView.backgroundColor = [UIColor clearColor];
         rctc.webView.opaque = NO;
         rctc.clipsToBounds = YES;
+        collapseButton = rctc.button;
         [rctc.button addTarget:self action:@selector(contentButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [rctc loadHtmlString:[self getHtmlContentString]];
         return cell;        
