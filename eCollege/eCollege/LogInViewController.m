@@ -43,11 +43,16 @@
 #pragma mark - View lifecycle
 
 - (void)viewDidUnload {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
     [super viewDidUnload];
 }
 
 - (void) viewDidLoad {
+	scrollView.contentSize = self.view.frame.size;
+    
+    blockingActivityView = [[BlockingActivityView alloc] initWithWithView:self.view];
+}
+
+- (void) viewDidAppear:(BOOL)animated {
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector (keyboardDidShow:)
 												 name: UIKeyboardDidShowNotification object:nil];
@@ -55,9 +60,11 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self 
 											 selector:@selector (keyboardDidHide:)
 												 name: UIKeyboardDidHideNotification object:nil];
-	scrollView.contentSize = self.view.frame.size;
     
-    blockingActivityView = [[BlockingActivityView alloc] initWithWithView:self.view];
+}
+
+- (void) viewDidDisappear:(BOOL)animated {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];    
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
