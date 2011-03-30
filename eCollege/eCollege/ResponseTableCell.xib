@@ -220,7 +220,7 @@
 							<object class="IBUILabel" id="644123170">
 								<reference key="NSNextResponder" ref="358337279"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{10, 59}, {299, 50}}</string>
+								<string key="NSFrame">{{43, 67}, {186, 34}}</string>
 								<reference key="NSSuperview" ref="358337279"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView"/>
@@ -232,14 +232,14 @@
 								<string key="IBUIText"/>
 								<object class="NSFont" key="IBUIFont">
 									<string key="NSName">Helvetica</string>
-									<double key="NSSize">13</double>
+									<double key="NSSize">14</double>
 									<int key="NSfFlags">16</int>
 								</object>
 								<reference key="IBUITextColor" ref="693550036"/>
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">1</int>
 								<float key="IBUIMinimumFontSize">13</float>
-								<int key="IBUINumberOfLines">3</int>
+								<int key="IBUINumberOfLines">2</int>
 							</object>
 						</object>
 						<string key="NSFrameSize">{320, 113}</string>
