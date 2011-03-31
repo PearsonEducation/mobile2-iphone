@@ -109,7 +109,9 @@
     }
     
     // update the table cells
-    [self animateTableCellHeightChanges];
+    if (!currentlyRefreshing) {
+        [self animateTableCellHeightChanges];
+    }
 }
 
 # pragma mark PullRefreshTableViewController methods
