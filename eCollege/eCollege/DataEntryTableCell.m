@@ -14,6 +14,7 @@
 @synthesize titleBackground;
 @synthesize contentTextView;
 @synthesize contentBackground;
+@synthesize contentPromptLabel;
 
 - (void)dealloc
 {
@@ -21,6 +22,7 @@
     self.titleBackground = nil;
     self.contentTextView = nil;
     self.contentBackground = nil;
+    self.contentPromptLabel = nil;
     [super dealloc];
 }
 
@@ -32,7 +34,8 @@
     self.contentBackground.image = [[UIImage imageNamed:@"text_input_background.png"] stretchableImageWithLeftCapWidth:147.0 topCapHeight:15.0];
     self.clipsToBounds = YES;
     
-    titleTextField.placeholder = NSLocalizedString(@"Title of your response...",nil);
+    titleTextField.placeholder = NSLocalizedString(@"Enter a response",nil);
+    contentPromptLabel.text = NSLocalizedString(@"Enter a response: body", nil);
     
 }
 

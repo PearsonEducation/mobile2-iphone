@@ -12,6 +12,7 @@
 #import "NSDateUtilities.h"
 #import "DateCalculator.h"
 #import "ECConstants.h"
+#import "BlockingActivityView.h"
 
 @interface eCollegeAppDelegate ()
 
@@ -23,6 +24,7 @@
 @property (nonatomic, retain) CoursesViewController* coursesViewController;
 @property (nonatomic, retain) DiscussionsViewController* discussionsViewController;
 @property (nonatomic, retain) CourseFetcher* courseFetcher;
+@property (nonatomic, retain) BlockingActivityView* blockingActivityView;
 
 
 // Private methods
@@ -49,6 +51,7 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
 @synthesize courseFetcher=courseFetcher;
 @synthesize coursesLastUpdated=coursesLastUpdated;
 @synthesize currentUser=currentUser;
+@synthesize blockingActivityView=blockingActivityView;
 
 + (eCollegeAppDelegate *) delegate {
 	return (eCollegeAppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -230,6 +233,19 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
     [window addSubview:self.tabBarController.view];
 }
 
+- (void)showGlobalLoader {
+    if (!self.blockingActivityView) {
+        self.blockingActivityView = [[BlockingActivityView alloc] initWithWithView:[UIApplication sharedApplication].keyWindow];
+        UIColor* bgColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.25];
+        self.blockingActivityView.backgroundColor = bgColor;
+    }
+    [self.blockingActivityView show];
+}
+
+- (void)hideGlobalLoader {
+    [self.blockingActivityView hide];
+}
+
 - (void)refreshCourseList {
     // if courses are already being fetched, don't initiate another call.
     if (!self.courseFetcher) {
@@ -298,6 +314,7 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
         [self.courseFetcher cancel];
         self.courseFetcher = nil;
     }
+    self.blockingActivityView = nil;
     self.coursesLastUpdated = nil;
     self.coursesArray = nil;
     self.tabBarController = nil;

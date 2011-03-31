@@ -11,6 +11,7 @@
 #import "UserDiscussionTopicFetcher.h"
 #import "UserDiscussionResponseFetcher.h"
 #import "TopicHeaderTableCell.h"
+#import "eCollegeAppDelegate.h"
 
 @implementation TopicResponsesViewController
 
@@ -43,6 +44,7 @@
 }
 
 - (void)setupFetchers {    
+    [super setupFetchers];
     self.rootItemFetcher = [[UserDiscussionTopicFetcher alloc] initWithDelegate:self responseSelector:@selector(rootItemFetchedHandler:)];
     self.responsesFetcher = [[UserDiscussionResponseFetcher alloc] initWithDelegate:self responseSelector:@selector(responsesFetchedHandler:)];
 }
@@ -58,6 +60,14 @@
     }
     [(TopicHeaderTableCell*)cell setData:topic];
     return cell;
+}
+
+- (void)postResponse {
+    if (parent) {
+        [parent forceFutureRefresh];
+    }
+    UserDiscussionTopic* udt = (UserDiscussionTopic*)self.rootItem;
+    [self.postFetcher postResponseToTopicWithId:[NSString stringWithFormat:@"%d",udt.topic.discussionTopicId] andTitle:textField.text andText:textView.text];
 }
 
 @end

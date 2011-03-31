@@ -132,17 +132,13 @@
     
     // set up some colors
     UIColor *headerFontColor = HEXCOLOR(0x151848);
-    UIColor *subheaderFontColor = HEXCOLOR(0x005B92);
     UIColor *normalTextColor = HEXCOLOR(0x262626);
-    UIColor *buttonTextColor = HEXCOLOR(0x5A5A5A);
     
     // set up some fonts
     UIFont* courseNameFont = [UIFont fontWithName:@"Helvetica-Bold" size:13];
     UIFont* titleFont = [UIFont fontWithName:@"Helvetica-Bold" size:19];
-    UIFont* subheaderFont = [UIFont fontWithName:@"Helvetica-Bold" size:14];
     UIFont* commentsFont = [UIFont fontWithName:@"Helvetica" size:13];
     UIFont* dateFont = [UIFont fontWithName:@"Helvetica-Oblique" size:12];
-    UIFont* buttonFont = [UIFont fontWithName:@"Helvetica-Bold" size:12];
     
     // set up the course name label
     Course* course = [[eCollegeAppDelegate delegate] getCourseHavingId:courseId];

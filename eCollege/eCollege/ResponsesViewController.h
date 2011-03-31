@@ -10,10 +10,12 @@
 #import "ECAuthenticatedFetcher.h"
 #import "DateCalculator.h"
 #import "PullRefreshTableViewController.h"
+#import "UserDiscussionResponseFetcher.h"
 
-@interface ResponsesViewController : PullRefreshTableViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UIWebViewDelegate> {
+@interface ResponsesViewController : PullRefreshTableViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UIWebViewDelegate, UITextViewDelegate> {
     ECAuthenticatedFetcher* rootItemFetcher;
     ECAuthenticatedFetcher* responsesFetcher;
+    UserDiscussionResponseFetcher* postFetcher;
     
     // rootItem will either be a UserDiscussionTopic or a UserDiscussionResponse,
     // depending on which subclass is being used
@@ -38,11 +40,16 @@
     
     UIWebView* webView;
     UIButton* collapseButton;
+    UITextField* textField;
+    UITextView* textView;
     
     float minimizedDataEntryHeight;
     float actualDataEntryHeight;
-    BOOL dataEntryIsMinimized;
+    BOOL dataEntryIsMinimized;    
     
+    UILabel* responsePromptLabel;
+    
+    id parent;
 }
 
 // The only reason these things are public properties is so they're accessible
@@ -50,10 +57,12 @@
 @property (nonatomic, retain) NSString* rootItemId;;
 @property (nonatomic, retain) ECAuthenticatedFetcher* rootItemFetcher;
 @property (nonatomic, retain) ECAuthenticatedFetcher* responsesFetcher;
+@property (nonatomic, retain) UserDiscussionResponseFetcher* postFetcher;
 @property (nonatomic, retain) NSDate* lastUpdated;
 @property (nonatomic, retain) DateCalculator* dateCalculator;
 @property (nonatomic, retain) id rootItem;
 @property (nonatomic, retain) id responses;
+@property (nonatomic, retain) id parent;
 
 - (void)rootItemFetchedHandler:(id)result;
 - (void)responsesFetchedHandler:(id)result;
@@ -70,5 +79,20 @@
 - (UITableViewCell*)getHeaderTableCell;
 - (NSString*)getTitleOfRootItem;
 - (NSString*)getHtmlContentString;
+- (void)cancelButtonClicked:(id)sender;
+- (void)doneButtonClicked:(id)sender;
+- (void)showCancelButton;
+- (void)showDoneButton;
+- (void)hideCancelButton;
+- (void)hideDoneButton;
+- (void)moveTableViewTo:(float)y;
+- (float)tableOffsetForDataEntryView;
+- (void)animateTableCellHeightChanges;
+- (void)toggleViewOfFullDataEntryCell;
+- (void)postResponse;
+- (void)postResponseCompleteHandler:(id)obj;
+- (void)setupFetchers;
+- (void)forceFutureRefresh;
+
 
 @end

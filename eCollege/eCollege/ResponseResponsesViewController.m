@@ -42,6 +42,7 @@
 }
 
 - (void)setupFetchers {    
+    [super setupFetchers];
     self.rootItemFetcher = [[UserDiscussionResponseFetcher alloc] initWithDelegate:self responseSelector:@selector(rootItemFetchedHandler:)];
     self.responsesFetcher = [[UserDiscussionResponseFetcher alloc] initWithDelegate:self responseSelector:@selector(responsesFetchedHandler:)];
 }
@@ -57,6 +58,14 @@
     }
     [(ResponseHeaderTableCell*)cell setData:response];
     return cell;
+}
+
+- (void)postResponse {
+    if (parent) {
+        [parent forceFutureRefresh];
+    }
+    UserDiscussionResponse* udr = (UserDiscussionResponse*)self.rootItem;
+    [self.postFetcher postResponseToResponseWithId:[NSString stringWithFormat:@"%d",udr.response.discussionResponseId] andTitle:textField.text andText:textView.text];
 }
 
 @end

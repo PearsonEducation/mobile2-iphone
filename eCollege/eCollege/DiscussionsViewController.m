@@ -540,6 +540,9 @@
     return returnValue;
 }
 
+- (void)forceFutureRefresh {    
+    forceUpdateOnViewWillAppear = YES;
+}
 
 #pragma mark - Table view delegate
 
@@ -552,6 +555,7 @@
         NSLog(@"Initializing Topic Responses view controller with root item ID: %@",topic.userDiscussionTopicId);
         topicResponsesViewController.rootItemId = topic.userDiscussionTopicId;
         topicResponsesViewController.hidesBottomBarWhenPushed = YES;
+        topicResponsesViewController.parent = self;
         [self.navigationController pushViewController:topicResponsesViewController animated:YES];
         [topicResponsesViewController release];
     }

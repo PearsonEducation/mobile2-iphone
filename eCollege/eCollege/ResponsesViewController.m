@@ -19,8 +19,11 @@
 #import "ResponseResponsesViewController.h"
 #import "NoResponsesTableCell.h"
 #import "ResponseContentTableCell.h"
+#import "eCollegeAppDelegate.h"
 
 @interface ResponsesViewController () 
+
+
 @end
 
 @implementation ResponsesViewController
@@ -28,12 +31,21 @@
 @synthesize rootItemId;
 @synthesize rootItemFetcher;
 @synthesize responsesFetcher;
+@synthesize postFetcher;
 @synthesize lastUpdated;
 @synthesize dateCalculator;
 @synthesize rootItem;
 @synthesize responses;
+@synthesize parent;
 
 # pragma mark Methods to override in child classes
+
+- (void)forceFutureRefresh {    
+    forceUpdateOnViewWillAppear = YES;
+    if (parent) {
+        [parent forceFutureRefresh];
+    }
+}
 
 - (BOOL)isValidRootItemObject:(id)value {
     return NO;
@@ -50,7 +62,25 @@
     return;
 }
 
-- (void)setupFetchers {    
+- (void)setupFetchers { 
+    self.postFetcher = [[UserDiscussionResponseFetcher alloc] initWithDelegate:self responseSelector:@selector(postResponseCompleteHandler:)];
+}
+
+- (void)postResponse {
+}
+
+- (void)postResponseCompleteHandler:(id)obj {
+    [[eCollegeAppDelegate delegate] hideGlobalLoader];
+    if ([obj isKindOfClass:[NSError class]]) {
+        [textView becomeFirstResponder];
+        [self moveTableViewTo:-1*[self tableOffsetForDataEntryView]];
+    } else {
+        [self hideDoneButton];
+        [self hideCancelButton];
+        self.table.scrollEnabled = YES;
+        [self toggleViewOfFullDataEntryCell];
+        [self forcePullDownRefresh];
+    }
 }
 
 - (UITableViewCell*)getHeaderTableCell {
@@ -79,8 +109,7 @@
     }
     
     // update the table cells
-    [table beginUpdates];
-    [table endUpdates];
+    [self animateTableCellHeightChanges];
 }
 
 # pragma mark PullRefreshTableViewController methods
@@ -103,7 +132,6 @@
         self.lastUpdatedLabel.text = @"";
     }
 }
-
 
 # pragma mark Construction, destruction, memory
 
@@ -130,9 +158,11 @@
 
 - (void)dealloc
 {
+    self.parent = nil;
     self.rootItemId = nil;
     self.rootItemFetcher = nil;
     self.responsesFetcher = nil;
+    self.postFetcher = nil;
     self.dateCalculator = nil;
     
     [super dealloc];
@@ -205,46 +235,135 @@
     // tell the "pull to refresh" loading header to go away (if it's present)
     [self stopLoading];
 }
+- (void)showCancelButton {
+    UIBarButtonItem* cancelButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel",nil) style:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonClicked:)];
+    // setting the left bar button item will automatically hide the "back" button
+    self.navigationItem.leftBarButtonItem = cancelButton;
+    [cancelButton release];
+}
 
-#pragma mark - UITextField delegate methods
+- (void)showDoneButton {
+    UIBarButtonItem* doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done",nil) style:UIBarButtonItemStyleDone target:self action:@selector(doneButtonClicked:)];
+    self.navigationItem.rightBarButtonItem = doneButton;
+    [doneButton release];
+}
 
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    
+- (void)hideCancelButton {
+    self.navigationItem.leftBarButtonItem = nil;
+}
+
+- (void)hideDoneButton {
+    self.navigationItem.rightBarButtonItem = nil;
+}
+
+- (void)moveTableViewTo:(float)y {
+    // animate the table
+    [UIView beginAnimations:nil context:nil];
+    CGRect f = self.table.frame;        
+    f.origin.y = y;
+    self.table.frame = f;
+    [UIView commitAnimations];
+}
+
+- (float)tableOffsetForDataEntryView {
     // get the rect for the input row...
     CGRect inputRect = [self.table rectForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
-    CGSize contentSize = [self.table contentSize];
     CGPoint contentOffset = [self.table contentOffset];
     
     // think of contentOffset as the amount of content that has already scrolled off the screen
     float inputBoxScreenY = inputRect.origin.y - contentOffset.y;
+    // TODO: don't use a magic number here, calculate it based on the keyboard frame (somehow)
     float targetScreenY = 66;
-    float diff = inputBoxScreenY - targetScreenY;
-    
-    [UIView beginAnimations:nil context:nil];
-    CGRect f = self.table.frame;        
-    f.origin.y = -1*diff;
-    self.table.frame = f;
-    [UIView commitAnimations];
-    dataEntryIsMinimized = NO;
+    return inputBoxScreenY - targetScreenY;
+}
+
+- (void)animateTableCellHeightChanges {
     [table beginUpdates];
     [table endUpdates];
-    self.table.scrollEnabled = NO;
+}
 
-//    [self.table setContentOffset:CGPointMake(0, 40) animated:YES];
+- (void)toggleViewOfFullDataEntryCell {
+    dataEntryIsMinimized = !dataEntryIsMinimized;
+    [self animateTableCellHeightChanges];
+    if (dataEntryIsMinimized) {
+        textField.placeholder = NSLocalizedString(@"Enter a response",nil);
+    } else {
+        textField.placeholder = NSLocalizedString(@"Enter a response: subject",nil); 
+    }
+}
+
+
+#pragma mark - UITextField delegate methods
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textFieldValue {
+    // for some reason, when using the simulator and pressing tab to
+    // move OUT of the title field and IN to the body field,
+    // this method fires again, which is weird.  So, wrapping
+    // it in the isFirstResponder call below prevents weirdness.
+    if (![textFieldValue isFirstResponder]) {
+        // if the user taps from the body back into the header,
+        // we don't want to toggle the full view again of the data entry 
+        // cell, move the dable, or show the buttons again... that has
+        // already been done.
+        if (dataEntryIsMinimized) {
+            [self showCancelButton];
+            [self showDoneButton];
+            [self toggleViewOfFullDataEntryCell];
+            [self moveTableViewTo:-1*[self tableOffsetForDataEntryView]];
+            self.table.scrollEnabled = NO;
+        }
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textView becomeFirstResponder];
     return YES;
 }
+
+# pragma mark - UITextView delegate methods
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+    return YES;
+}
+
+- (void)textViewDidChange:(UITextView *)tv {
+    responsePromptLabel.hidden = ![tv.text isEqualToString:@""];
+}
+
+# pragma mark Methods to use when posting / cancelling
+
+- (void)cancelButtonClicked:(id)sender {
+    NSLog(@"Cancel button clicked");
+    textView.text = @"";
+    NSLog(@"TEXT IS: %@", textView.text);
+    textField.text = @"";
+    [textView resignFirstResponder];
+    [textField resignFirstResponder];
+    [self toggleViewOfFullDataEntryCell];
+    [self moveTableViewTo:0];
+    [self hideCancelButton];
+    [self hideDoneButton];
+    self.table.scrollEnabled = YES;
+}
+
+- (void)doneButtonClicked:(id)sender {
+    NSLog(@"Done button clicked");
+    [[eCollegeAppDelegate delegate] showGlobalLoader];
+    [textView resignFirstResponder];
+    [textField resignFirstResponder];
+    [self moveTableViewTo:0];
+    [self postResponse];
+}
+
 
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [super viewDidLoad];    
 }
 
 - (void)viewDidUnload
@@ -263,7 +382,6 @@
         [self forcePullDownRefresh];
         forceUpdateOnViewWillAppear = NO;
     }    
-
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -355,8 +473,7 @@
     NSLog(@"Button tapped");
     [webView sizeToFit];
     contentIsMinimized = !contentIsMinimized;
-    [table beginUpdates];
-    [table endUpdates];
+    [self animateTableCellHeightChanges];
 }
 
 - (UITableViewCell *)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -402,8 +519,16 @@
             CGRect f = cell.frame;
             f.size.height = minimizedDataEntryHeight;
             cell.frame = f;
+        } else {
+            CGRect f = cell.frame;
+            f.size.height = actualDataEntryHeight;
+            cell.frame = f;
         }
-        ((DataEntryTableCell*)cell).titleTextField.delegate = self;
+        textField = ((DataEntryTableCell*)cell).titleTextField;
+        textField.delegate = self;
+        textView = ((DataEntryTableCell*)cell).contentTextView;
+        textView.delegate = self;
+        responsePromptLabel = ((DataEntryTableCell*)cell).contentPromptLabel;
     } 
     
     // response cells
@@ -434,45 +559,6 @@
     return cell;                
 }
 
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
-
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
- {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
- }   
- else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }   
- }
- */
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
-
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -483,6 +569,7 @@
         UserDiscussionResponse* udr = [self.responses objectAtIndex:indexPath.row-3];
         rrvc.rootItemId = udr.userDiscussionResponseId;
         rrvc.hidesBottomBarWhenPushed = YES;
+        rrvc.parent = self;
         [self.navigationController pushViewController:rrvc animated:YES];
         [rrvc release];
     }

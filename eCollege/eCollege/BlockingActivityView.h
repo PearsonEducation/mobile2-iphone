@@ -12,7 +12,10 @@
     UIView* view;
     int count;
     UIView* blockingView;
+    UIColor* backgroundColor;
 }
+
+@property (nonatomic, retain) UIColor* backgroundColor;
 
 - (id)initWithWithView:(UIView*)view;
 - (void)show;

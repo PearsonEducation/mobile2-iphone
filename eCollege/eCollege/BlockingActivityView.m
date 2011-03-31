@@ -11,6 +11,8 @@
 
 @implementation BlockingActivityView
 
+@synthesize backgroundColor;
+
 - (id)initWithWithView:(UIView*)v {
     if ((self = [super init]) != nil) {
         view = v;
@@ -27,7 +29,10 @@
     if (count == 1) {
         
         // create the view the prevents the user from touching whatever is behind the activitiy viewer
-        blockingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, view.bounds.size.width, view.bounds.size.width)];
+        CGRect f = CGRectMake(0, 0, view.bounds.size.width, view.bounds.size.height);
+        blockingView = [[UIView alloc] initWithFrame:f];
+        UIColor* c = (self.backgroundColor != nil) ? self.backgroundColor : [UIColor clearColor];
+        blockingView.backgroundColor = c;
         
         // create the rounded grey box
         int width = 125;
@@ -69,6 +74,7 @@
 
 
 - (void)dealloc {
+    self.backgroundColor = nil;
     [view release];
     [super dealloc];
 }

@@ -15,6 +15,7 @@
 #import "Course.h"
 #import "CourseFetcher.h"
 #import "User.h"
+#import "BlockingActivityView.h"
 
 @class LogInViewController;
 
@@ -35,6 +36,7 @@ extern int coursesRefreshInterval;
     NSDate* coursesLastUpdated;
     User* currentUser;
     BOOL loginShowing;
+    BlockingActivityView* blockingActivityView;
 }
 
 + (eCollegeAppDelegate *) delegate;
@@ -50,6 +52,7 @@ extern int coursesRefreshInterval;
 - (void)refreshCourseList;
 - (BOOL)shouldRefreshCourses;
 - (NSArray*) getAllCourseIds;
-- (void)handleError:(NSError*)error;
+- (void)showGlobalLoader;
+- (void)hideGlobalLoader;
 
 @end

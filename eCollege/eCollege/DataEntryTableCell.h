@@ -14,11 +14,13 @@
     IBOutlet UIImageView* titleBackground;
     IBOutlet UITextView* contentTextView;
     IBOutlet UIImageView* contentBackground;
+    IBOutlet UILabel* contentPromptLabel;
 }
 
 @property (nonatomic, retain) UITextField* titleTextField;
 @property (nonatomic, retain) UIImageView* titleBackground;
 @property (nonatomic, retain) UITextView* contentTextView;
 @property (nonatomic, retain) UIImageView* contentBackground;
+@property (nonatomic, retain) UILabel* contentPromptLabel;
 
 @end
