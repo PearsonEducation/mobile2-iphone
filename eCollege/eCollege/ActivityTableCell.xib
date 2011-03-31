@@ -81,7 +81,7 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string key="IBUIText">Label</string>
-						<object class="NSFont" key="IBUIFont">
+						<object class="NSFont" key="IBUIFont" id="667151918">
 							<string key="NSName">Helvetica</string>
 							<double key="NSSize">13</double>
 							<int key="NSfFlags">16</int>
@@ -97,6 +97,7 @@
 						<string key="NSFrame">{{38, 30}, {251, 21}}</string>
 						<reference key="NSSuperview" ref="1010882696"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<int key="IBUIContentMode">7</int>
@@ -116,7 +117,7 @@
 					<object class="IBUILabel" id="853230094">
 						<reference key="NSNextResponder" ref="1010882696"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{215, 0}, {100, 15}}</string>
+						<string key="NSFrame">{{226, 4}, {86, 15}}</string>
 						<reference key="NSSuperview" ref="1010882696"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="301454922"/>
@@ -126,11 +127,7 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string key="IBUIText">Label</string>
-						<object class="NSFont" key="IBUIFont">
-							<string key="NSName">Helvetica</string>
-							<double key="NSSize">11</double>
-							<int key="NSfFlags">16</int>
-						</object>
+						<reference key="IBUIFont" ref="667151918"/>
 						<reference key="IBUITextColor" ref="975939100"/>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">1</int>
@@ -141,6 +138,7 @@
 				<string key="NSFrameSize">{320, 51}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
+				<reference key="NSNextKeyView" ref="805705647"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MQA</bytes>

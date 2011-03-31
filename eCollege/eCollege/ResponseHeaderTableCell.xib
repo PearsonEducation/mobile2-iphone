@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1056</int>
-		<string key="IBDocument.SystemVersion">10J567</string>
+		<string key="IBDocument.SystemVersion">10J869</string>
 		<string key="IBDocument.InterfaceBuilderVersion">1305</string>
 		<string key="IBDocument.AppKitVersion">1038.35</string>
-		<string key="IBDocument.HIToolboxVersion">462.00</string>
+		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">300</string>
@@ -51,7 +51,7 @@
 							<object class="IBUIImageView" id="582049659">
 								<reference key="NSNextResponder" ref="321072846"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{234, 13}, {32, 27}}</string>
+								<string key="NSFrame">{{234, 23}, {32, 27}}</string>
 								<reference key="NSSuperview" ref="321072846"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="680112219"/>
@@ -61,7 +61,7 @@
 							<object class="IBUILabel" id="613375004">
 								<reference key="NSNextResponder" ref="321072846"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{46, 8}, {180, 21}}</string>
+								<string key="NSFrame">{{46, 8}, {173, 21}}</string>
 								<reference key="NSSuperview" ref="321072846"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="437596257"/>
@@ -111,14 +111,14 @@
 								<string key="NSFrame">{{65, 44}, {197, 13}}</string>
 								<reference key="NSSuperview" ref="321072846"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
+								<reference key="NSNextKeyView" ref="582049659"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<string key="IBUIText">Label</string>
-								<object class="NSFont" key="IBUIFont" id="808790243">
+								<object class="NSFont" key="IBUIFont">
 									<string key="NSName">Helvetica-Bold</string>
 									<double key="NSSize">12</double>
 									<int key="NSfFlags">16</int>
@@ -137,14 +137,18 @@
 								<string key="NSFrame">{{65, 29}, {197, 13}}</string>
 								<reference key="NSSuperview" ref="321072846"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="582049659"/>
+								<reference key="NSNextKeyView" ref="683178874"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<string key="IBUIText">Label</string>
-								<reference key="IBUIFont" ref="808790243"/>
+								<object class="NSFont" key="IBUIFont">
+									<string key="NSName">Helvetica</string>
+									<double key="NSSize">12</double>
+									<int key="NSfFlags">16</int>
+								</object>
 								<reference key="IBUITextColor" ref="66587550"/>
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">1</int>
@@ -163,10 +167,10 @@
 							<object class="IBUILabel" id="680112219">
 								<reference key="NSNextResponder" ref="321072846"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{249, 16}, {42, 21}}</string>
+								<string key="NSFrame">{{249, 26}, {42, 21}}</string>
 								<reference key="NSSuperview" ref="321072846"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="683178874"/>
+								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
@@ -186,7 +190,7 @@
 							<object class="IBUILabel" id="437596257">
 								<reference key="NSNextResponder" ref="321072846"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{217, 2}, {86, 15}}</string>
+								<string key="NSFrame">{{227, 11}, {86, 16}}</string>
 								<reference key="NSSuperview" ref="321072846"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="984378365"/>
@@ -195,10 +199,10 @@
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<string key="IBUIText">Label</string>
+								<string key="IBUIText"/>
 								<object class="NSFont" key="IBUIFont">
 									<string key="NSName">Helvetica</string>
-									<double key="NSSize">11</double>
+									<double key="NSSize">13</double>
 									<int key="NSfFlags">16</int>
 								</object>
 								<reference key="IBUITextColor" ref="66587550"/>
@@ -338,14 +342,14 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="582049659"/>
-							<reference ref="613375004"/>
 							<reference ref="683178874"/>
 							<reference ref="1016327041"/>
 							<reference ref="505678063"/>
 							<reference ref="680112219"/>
-							<reference ref="437596257"/>
 							<reference ref="984378365"/>
 							<reference ref="620486490"/>
+							<reference ref="613375004"/>
+							<reference ref="437596257"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -456,7 +460,6 @@
 							<string>activityImage</string>
 							<string>countBubbleImage</string>
 							<string>dateLabel</string>
-							<string>disclosureArrowImage</string>
 							<string>nameLabel</string>
 							<string>personIcon</string>
 							<string>smallResponsesImage</string>
@@ -469,7 +472,6 @@
 							<string>UIImageView</string>
 							<string>UIImageView</string>
 							<string>UILabel</string>
-							<string>UIImageView</string>
 							<string>UILabel</string>
 							<string>UIImageView</string>
 							<string>UIImageView</string>
@@ -485,7 +487,6 @@
 							<string>activityImage</string>
 							<string>countBubbleImage</string>
 							<string>dateLabel</string>
-							<string>disclosureArrowImage</string>
 							<string>nameLabel</string>
 							<string>personIcon</string>
 							<string>smallResponsesImage</string>
@@ -506,10 +507,6 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">dateLabel</string>
 								<string key="candidateClassName">UILabel</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">disclosureArrowImage</string>
-								<string key="candidateClassName">UIImageView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">nameLabel</string>
