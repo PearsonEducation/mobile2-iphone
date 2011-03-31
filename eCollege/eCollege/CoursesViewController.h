@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 
 
-@interface CoursesViewController : UIViewController {
-    
+@interface CoursesViewController : UIViewController <UITableViewDelegate, UITableViewDelegate> {
+    IBOutlet UITableView* table;
 }
 
 @end

@@ -28,6 +28,9 @@
 		A23366741326A54B00DC50DD /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A23366721326A54B00DC50DD /* AboutViewController.xib */; };
 		A23366781326A55F00DC50DD /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A23366761326A55F00DC50DD /* SettingsViewController.m */; };
 		A23366791326A55F00DC50DD /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A23366771326A55F00DC50DD /* SettingsViewController.xib */; };
+		A25D9A701345267F007C7711 /* CourseTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A25D9A6F1345267E007C7711 /* CourseTableCell.xib */; };
+		A25D9A73134526E5007C7711 /* CourseTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A25D9A72134526E5007C7711 /* CourseTableCell.m */; };
+		A25D9A75134529EC007C7711 /* icon_course.png in Resources */ = {isa = PBXBuildFile; fileRef = A25D9A74134529EC007C7711 /* icon_course.png */; };
 		A26A63FE133A9DF700BE5465 /* TopicHeaderTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A26A63FC133A9DF500BE5465 /* TopicHeaderTableCell.m */; };
 		A26A6401133A9EF700BE5465 /* TopicHeaderTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26A6400133A9EF600BE5465 /* TopicHeaderTableCell.xib */; };
 		A26A6405133AA8E700BE5465 /* DataEntryTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A26A6403133AA8DC00BE5465 /* DataEntryTableCell.m */; };
@@ -159,6 +162,10 @@
 		A23366751326A55F00DC50DD /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		A23366761326A55F00DC50DD /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		A23366771326A55F00DC50DD /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
+		A25D9A6F1345267E007C7711 /* CourseTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CourseTableCell.xib; sourceTree = "<group>"; };
+		A25D9A71134526E5007C7711 /* CourseTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseTableCell.h; sourceTree = "<group>"; };
+		A25D9A72134526E5007C7711 /* CourseTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseTableCell.m; sourceTree = "<group>"; };
+		A25D9A74134529EC007C7711 /* icon_course.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_course.png; sourceTree = "<group>"; };
 		A26A63FB133A9DF500BE5465 /* TopicHeaderTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicHeaderTableCell.h; sourceTree = "<group>"; };
 		A26A63FC133A9DF500BE5465 /* TopicHeaderTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicHeaderTableCell.m; sourceTree = "<group>"; };
 		A26A6400133A9EF600BE5465 /* TopicHeaderTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TopicHeaderTableCell.xib; sourceTree = "<group>"; };
@@ -348,6 +355,7 @@
 		A27289971326C045001A588D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A25D9A74134529EC007C7711 /* icon_course.png */,
 				A21F97141342865800E68FAC /* text_input_background.png */,
 				A21F97151342865800E68FAC /* text_input_background@2x.png */,
 				A29AD695133AF5A400264A50 /* person_small_icon.png */,
@@ -496,6 +504,9 @@
 				A2EE3EDC1320425C00745C1C /* CoursesViewController.h */,
 				A2EE3EDD1320425C00745C1C /* CoursesViewController.m */,
 				A2EE3EDE1320425C00745C1C /* CoursesViewController.xib */,
+				A25D9A6F1345267E007C7711 /* CourseTableCell.xib */,
+				A25D9A71134526E5007C7711 /* CourseTableCell.h */,
+				A25D9A72134526E5007C7711 /* CourseTableCell.m */,
 			);
 			name = Courses;
 			sourceTree = "<group>";
@@ -747,6 +758,8 @@
 				A20A35BD133B47470091F584 /* ResponseContentTableCell.xib in Resources */,
 				A21F97161342865800E68FAC /* text_input_background.png in Resources */,
 				A21F97171342865800E68FAC /* text_input_background@2x.png in Resources */,
+				A25D9A701345267F007C7711 /* CourseTableCell.xib in Resources */,
+				A25D9A75134529EC007C7711 /* icon_course.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -788,6 +801,7 @@
 				A22751C7133B0BD400ED0937 /* ResponseHeaderTableCell.m in Sources */,
 				A22F9A80133B383700F05F67 /* NoResponsesTableCell.m in Sources */,
 				A20A35BC133B47470091F584 /* ResponseContentTableCell.m in Sources */,
+				A25D9A73134526E5007C7711 /* CourseTableCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
