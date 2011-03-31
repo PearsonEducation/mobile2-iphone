@@ -33,10 +33,10 @@
 @synthesize responsesFetcher;
 @synthesize postFetcher;
 @synthesize lastUpdated;
-@synthesize dateCalculator;
 @synthesize rootItem;
 @synthesize responses;
 @synthesize parent;
+@synthesize markAsReadFetcher;
 
 # pragma mark Methods to override in child classes
 
@@ -64,6 +64,7 @@
 
 - (void)setupFetchers { 
     self.postFetcher = [[UserDiscussionResponseFetcher alloc] initWithDelegate:self responseSelector:@selector(postResponseCompleteHandler:)];
+    self.markAsReadFetcher = [[UserDiscussionResponseFetcher alloc] initWithDelegate:self responseSelector:@selector(markAsReadCompleteHandler:)];
 }
 
 - (void)postResponse {
@@ -83,35 +84,19 @@
     }
 }
 
+- (NSString*)getTitleOfRootItem {
+    return nil;
+}
+
 - (UITableViewCell*)getHeaderTableCell {
     return nil;
 }
 
-// override in child classes
 - (NSString*)getHtmlContentString {
     return nil;
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)w {
-    // now that the data is loaded in the web view, it can be sized.
-    [w sizeToFit];
-    
-    // capture how big the web view actually is with the data
-    actualContentHeight = w.frame.size.height;
-    NSLog(@"Actual content height: %f", actualContentHeight);
-    
-    // reduce the minimum if necessary
-    if (actualContentHeight <= minimizedContentHeight) {
-        minimizedContentHeight = actualContentHeight;
-        collapseButton.hidden = YES;
-    } else {
-        collapseButton.hidden = NO;
-    }
-    
-    // update the table cells
-    if (!currentlyRefreshing) {
-        [self animateTableCellHeightChanges];
-    }
+- (void)markAsRead {
 }
 
 # pragma mark PullRefreshTableViewController methods
@@ -148,11 +133,7 @@
         actualDataEntryHeight = 135.0;
         minimizedDataEntryHeight = 39.0;
         dataEntryIsMinimized = YES;
-        
-        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-        [gregorian setTimeZone:[NSTimeZone defaultTimeZone]];
-        dateCalculator = [[DateCalculator alloc] initWithCalendar:gregorian];
-        [gregorian release];
+
         [self setupFetchers];
     }
     return self;
@@ -165,7 +146,7 @@
     self.rootItemFetcher = nil;
     self.responsesFetcher = nil;
     self.postFetcher = nil;
-    self.dateCalculator = nil;
+    self.markAsReadFetcher = nil;
     
     [super dealloc];
 }
@@ -180,8 +161,26 @@
 
 #pragma mark - Other methods
 
-- (NSString*)getTitleOfRootItem {
-    return nil;
+- (void)webViewDidFinishLoad:(UIWebView *)w {
+    // now that the data is loaded in the web view, it can be sized.
+    [w sizeToFit];
+    
+    // capture how big the web view actually is with the data
+    actualContentHeight = w.frame.size.height;
+    NSLog(@"Actual content height: %f", actualContentHeight);
+    
+    // reduce the minimum if necessary
+    if (actualContentHeight <= minimizedContentHeight) {
+        minimizedContentHeight = actualContentHeight;
+        collapseButton.hidden = YES;
+    } else {
+        collapseButton.hidden = NO;
+    }
+    
+    // update the table cells
+    if (!currentlyRefreshing) {
+        [self animateTableCellHeightChanges];
+    }
 }
 
 - (void)rootItemFetchedHandler:(id)result {
@@ -230,6 +229,10 @@
     if (errorFetchingRootItem || errorFetchingResponses) {
         NSLog(@"ERROR: Problems fetching data.");
     } else {
+        // call the service to mark this item as read
+        // (note: this method is overridden by child classes)
+        [self markAsRead];
+        
         // since we've updated the buckets of data, we must now reload the table
         [self.table reloadData];
     }
@@ -237,6 +240,15 @@
     // tell the "pull to refresh" loading header to go away (if it's present)
     [self stopLoading];
 }
+
+- (void)markAsReadCompleteHandler:(id)obj {
+    NSLog(@"Mark as read complete.");
+    if (parent) {
+        // force parent counts to update
+        [parent forceFutureRefresh];
+    }
+}
+
 - (void)showCancelButton {
     UIBarButtonItem* cancelButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel",nil) style:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonClicked:)];
     // setting the left bar button item will automatically hide the "back" button

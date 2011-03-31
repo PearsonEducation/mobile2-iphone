@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "ECAuthenticatedFetcher.h"
-#import "DateCalculator.h"
 #import "PullRefreshTableViewController.h"
 #import "UserDiscussionResponseFetcher.h"
 
@@ -16,6 +15,7 @@
     ECAuthenticatedFetcher* rootItemFetcher;
     ECAuthenticatedFetcher* responsesFetcher;
     UserDiscussionResponseFetcher* postFetcher;
+    UserDiscussionResponseFetcher* markAsReadFetcher;
     
     // rootItem will either be a UserDiscussionTopic or a UserDiscussionResponse,
     // depending on which subclass is being used
@@ -27,8 +27,6 @@
     BOOL errorFetchingResponses;
 
     NSDate* lastUpdated;
-    
-    DateCalculator* dateCalculator;
     
     BOOL currentlyRefreshing;
     
@@ -58,8 +56,8 @@
 @property (nonatomic, retain) ECAuthenticatedFetcher* rootItemFetcher;
 @property (nonatomic, retain) ECAuthenticatedFetcher* responsesFetcher;
 @property (nonatomic, retain) UserDiscussionResponseFetcher* postFetcher;
+@property (nonatomic, retain) UserDiscussionResponseFetcher* markAsReadFetcher;
 @property (nonatomic, retain) NSDate* lastUpdated;
-@property (nonatomic, retain) DateCalculator* dateCalculator;
 @property (nonatomic, retain) id rootItem;
 @property (nonatomic, retain) id responses;
 @property (nonatomic, retain) id parent;
@@ -93,6 +91,7 @@
 - (void)postResponseCompleteHandler:(id)obj;
 - (void)setupFetchers;
 - (void)forceFutureRefresh;
-
+- (void)markAsRead;
+- (void)markAsReadCompleteHandler:(id)obj;
 
 @end

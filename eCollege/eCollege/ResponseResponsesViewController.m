@@ -1,3 +1,4 @@
+
 //
 //  ResponseResponsesViewController.m
 //  eCollege
@@ -66,6 +67,14 @@
     }
     UserDiscussionResponse* udr = (UserDiscussionResponse*)self.rootItem;
     [self.postFetcher postResponseToResponseWithId:[NSString stringWithFormat:@"%d",udr.response.discussionResponseId] andTitle:textField.text andText:textView.text];
+}
+
+- (void)markAsRead {
+    UserDiscussionResponse* udr = (UserDiscussionResponse*)self.rootItem;
+    if (!udr.markedAsRead) {
+        NSLog(@"Marking response %d as read", udr.response.discussionResponseId);
+        [self.markAsReadFetcher markResponseId:[NSString stringWithFormat:@"%d",udr.response.discussionResponseId] asRead:YES];
+    }
 }
 
 @end

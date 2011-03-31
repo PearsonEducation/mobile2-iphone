@@ -27,6 +27,12 @@
 
 -(void)setData:(UserDiscussionResponse*)responseValue {
     self.userDiscussionResponse = responseValue;
+    
+    if (responseValue.markedAsRead) {
+        activityImage.alpha = 0.35;
+    } else {
+        activityImage.alpha = 1.0;
+    }
 
     // set the date
     dateLabel.text = [responseValue.response.postedDate friendlyString];
