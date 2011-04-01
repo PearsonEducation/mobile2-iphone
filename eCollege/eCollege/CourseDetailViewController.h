@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "Course.h"
+#import "BlockingActivityView.h"
+#import "CourseFetcher.h"
 
 @interface CourseDetailViewController : UIViewController {
     Course* course;
+    BlockingActivityView* blockingActivityView;
+    CourseFetcher* instructorsFetcher;
 }
 
 @property (nonatomic, retain) Course* course;
