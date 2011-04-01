@@ -16,6 +16,8 @@
 		A21F97171342865800E68FAC /* text_input_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A21F97151342865800E68FAC /* text_input_background@2x.png */; };
 		A22751C7133B0BD400ED0937 /* ResponseHeaderTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A22751C5133B0BD400ED0937 /* ResponseHeaderTableCell.m */; };
 		A22751C8133B0BD400ED0937 /* ResponseHeaderTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A22751C6133B0BD400ED0937 /* ResponseHeaderTableCell.xib */; };
+		A22ACA8F13462AEA00990A9A /* CourseDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A22ACA8D13462AEA00990A9A /* CourseDetailViewController.m */; };
+		A22ACA9013462AEA00990A9A /* CourseDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A22ACA8E13462AEA00990A9A /* CourseDetailViewController.xib */; };
 		A22F9A80133B383700F05F67 /* NoResponsesTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A22F9A7E133B382F00F05F67 /* NoResponsesTableCell.m */; };
 		A22F9A81133B383700F05F67 /* NoResponsesTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A22F9A7F133B383300F05F67 /* NoResponsesTableCell.xib */; };
 		A233665B13267F2000DC50DD /* InfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A233665913267F2000DC50DD /* InfoTableViewController.m */; };
@@ -144,6 +146,9 @@
 		A22751C4133B0BD400ED0937 /* ResponseHeaderTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResponseHeaderTableCell.h; sourceTree = "<group>"; };
 		A22751C5133B0BD400ED0937 /* ResponseHeaderTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResponseHeaderTableCell.m; sourceTree = "<group>"; };
 		A22751C6133B0BD400ED0937 /* ResponseHeaderTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResponseHeaderTableCell.xib; sourceTree = "<group>"; };
+		A22ACA8C13462AEA00990A9A /* CourseDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseDetailViewController.h; sourceTree = "<group>"; };
+		A22ACA8D13462AEA00990A9A /* CourseDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseDetailViewController.m; sourceTree = "<group>"; };
+		A22ACA8E13462AEA00990A9A /* CourseDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CourseDetailViewController.xib; sourceTree = "<group>"; };
 		A22F9A7D133B382C00F05F67 /* NoResponsesTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoResponsesTableCell.h; sourceTree = "<group>"; };
 		A22F9A7E133B382F00F05F67 /* NoResponsesTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoResponsesTableCell.m; sourceTree = "<group>"; };
 		A22F9A7F133B383300F05F67 /* NoResponsesTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoResponsesTableCell.xib; sourceTree = "<group>"; };
@@ -287,6 +292,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A22ACA8613462A8700990A9A /* Course Detail */ = {
+			isa = PBXGroup;
+			children = (
+				A22ACA8C13462AEA00990A9A /* CourseDetailViewController.h */,
+				A22ACA8D13462AEA00990A9A /* CourseDetailViewController.m */,
+				A22ACA8E13462AEA00990A9A /* CourseDetailViewController.xib */,
+			);
+			name = "Course Detail";
+			sourceTree = "<group>";
+		};
 		A233665213267E2C00DC50DD /* Info */ = {
 			isa = PBXGroup;
 			children = (
@@ -501,6 +516,7 @@
 		A2EE3ECF132034C000745C1C /* Courses */ = {
 			isa = PBXGroup;
 			children = (
+				A22ACA8613462A8700990A9A /* Course Detail */,
 				A2EE3EDC1320425C00745C1C /* CoursesViewController.h */,
 				A2EE3EDD1320425C00745C1C /* CoursesViewController.m */,
 				A2EE3EDE1320425C00745C1C /* CoursesViewController.xib */,
@@ -760,6 +776,7 @@
 				A21F97171342865800E68FAC /* text_input_background@2x.png in Resources */,
 				A25D9A701345267F007C7711 /* CourseTableCell.xib in Resources */,
 				A25D9A75134529EC007C7711 /* icon_course.png in Resources */,
+				A22ACA9013462AEA00990A9A /* CourseDetailViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -802,6 +819,7 @@
 				A22F9A80133B383700F05F67 /* NoResponsesTableCell.m in Sources */,
 				A20A35BC133B47470091F584 /* ResponseContentTableCell.m in Sources */,
 				A25D9A73134526E5007C7711 /* CourseTableCell.m in Sources */,
+				A22ACA8F13462AEA00990A9A /* CourseDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

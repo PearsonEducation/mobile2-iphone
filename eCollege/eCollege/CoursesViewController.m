@@ -11,6 +11,7 @@
 #import "UIColor+Boost.h"
 #import "eCollegeAppDelegate.h"
 #import "CourseTableCell.h"
+#import "CourseDetailViewController.h"
 
 @implementation CoursesViewController
 
@@ -133,5 +134,18 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Course* c = [[[eCollegeAppDelegate delegate] coursesArray] objectAtIndex:indexPath.row];
+    if (c) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        CourseDetailViewController* courseDetailViewController = [[CourseDetailViewController alloc] initWithNibName:@"CourseDetailViewController" bundle:nil];
+        courseDetailViewController.hidesBottomBarWhenPushed = YES;
+        courseDetailViewController.course = c;
+        NSLog(@"Drilling into course detail view for course: %@", c);
+        [self.navigationController pushViewController:courseDetailViewController animated:YES];
+        [courseDetailViewController release];
+    }
+}
 
 @end
