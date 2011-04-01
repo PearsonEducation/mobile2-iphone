@@ -201,7 +201,7 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
 
     self.coursesViewController = [[CoursesViewController alloc] initWithNibName:@"CoursesViewController" bundle:nil];
     self.coursesViewController.title = NSLocalizedString(@"eCollege", @"The name of the school");
-    img = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"96-book" ofType:@"png"]];
+    img = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"courses_icon" ofType:@"png"]];
     [self.coursesViewController.tabBarItem initWithTitle:NSLocalizedString(@"Courses", @"Label on the tab bar for the 'courses' section") image:img tag:0];
     UINavigationController* coursesNav = [[UINavigationController alloc] initWithRootViewController:self.coursesViewController];
     [allTabs addObject:coursesNav];

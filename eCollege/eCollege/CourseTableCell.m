@@ -43,7 +43,7 @@
 }
 
 - (void)awakeFromNib {
-    iconImageView.image = [UIImage imageNamed:@"icon_course.png"];
+    iconImageView.image = [UIImage imageNamed:@"course_icon.png"];
     disclosureIndicatorImageView.image = [UIImage imageNamed:@"list_arrow_icon.png"];
 }
 
