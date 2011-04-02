@@ -46,6 +46,7 @@
 		A27162A11346E0D3006FEE26 /* HighlightedAnnouncementTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A27162A01346E0D3006FEE26 /* HighlightedAnnouncementTableCell.m */; };
 		A27162AC1346E722006FEE26 /* DrawGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = A27162AB1346E722006FEE26 /* DrawGradient.m */; };
 		A27162AF1346E895006FEE26 /* GradientCellBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = A27162AE1346E895006FEE26 /* GradientCellBackground.m */; };
+		A27162B31346F406006FEE26 /* CourseDetailTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A27162B21346F406006FEE26 /* CourseDetailTableCell.m */; };
 		A27289961326BCE3001A588D /* UIColor+Boost.m in Sources */ = {isa = PBXBuildFile; fileRef = A27289951326BCE3001A588D /* UIColor+Boost.m */; };
 		A27289991326C0AF001A588D /* 53-house.png in Resources */ = {isa = PBXBuildFile; fileRef = A27289981326C0AF001A588D /* 53-house.png */; };
 		A272899D1326C105001A588D /* 08-chat.png in Resources */ = {isa = PBXBuildFile; fileRef = A272899C1326C105001A588D /* 08-chat.png */; };
@@ -197,6 +198,8 @@
 		A27162AB1346E722006FEE26 /* DrawGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawGradient.m; sourceTree = "<group>"; };
 		A27162AD1346E895006FEE26 /* GradientCellBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientCellBackground.h; sourceTree = "<group>"; };
 		A27162AE1346E895006FEE26 /* GradientCellBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientCellBackground.m; sourceTree = "<group>"; };
+		A27162B11346F405006FEE26 /* CourseDetailTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseDetailTableCell.h; sourceTree = "<group>"; };
+		A27162B21346F406006FEE26 /* CourseDetailTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseDetailTableCell.m; sourceTree = "<group>"; };
 		A27289941326BCE3001A588D /* UIColor+Boost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Boost.h"; sourceTree = "<group>"; };
 		A27289951326BCE3001A588D /* UIColor+Boost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Boost.m"; sourceTree = "<group>"; };
 		A27289981326C0AF001A588D /* 53-house.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "53-house.png"; sourceTree = "<group>"; };
@@ -320,6 +323,8 @@
 				A27162A01346E0D3006FEE26 /* HighlightedAnnouncementTableCell.m */,
 				A27162AD1346E895006FEE26 /* GradientCellBackground.h */,
 				A27162AE1346E895006FEE26 /* GradientCellBackground.m */,
+				A27162B11346F405006FEE26 /* CourseDetailTableCell.h */,
+				A27162B21346F406006FEE26 /* CourseDetailTableCell.m */,
 			);
 			name = "Course Detail";
 			sourceTree = "<group>";
@@ -852,6 +857,7 @@
 				A27162A11346E0D3006FEE26 /* HighlightedAnnouncementTableCell.m in Sources */,
 				A27162AC1346E722006FEE26 /* DrawGradient.m in Sources */,
 				A27162AF1346E895006FEE26 /* GradientCellBackground.m in Sources */,
+				A27162B31346F406006FEE26 /* CourseDetailTableCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

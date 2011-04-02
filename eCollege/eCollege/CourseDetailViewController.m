@@ -9,6 +9,7 @@
 #import "CourseDetailViewController.h"
 #import "CourseDetailHeaderTableCell.h"
 #import "HighlightedAnnouncementTableCell.h"
+#import "CourseDetailTableCell.h"
 
 @interface CourseDetailViewController ()
 
@@ -155,6 +156,42 @@
     return cell;
 }
 
+- (BOOL)haveAnnouncements {
+    return self.announcements && [self.announcements count] > 0;
+}
+
+- (BOOL)isHeaderCell:(NSIndexPath*)indexPath {
+    return indexPath.row == 0;
+}
+
+- (BOOL)isHighlightedAnnouncementCell:(NSIndexPath*)indexPath {
+    return (indexPath.row == 1 && [self haveAnnouncements]);
+}
+
+- (BOOL)isAnnouncementsCell:(NSIndexPath*)indexPath {
+    if ([self haveAnnouncements]) {
+        return indexPath.row == 2;
+    } else {
+        return indexPath.row == 1;
+    }
+}
+
+- (BOOL)isGradebookCell:(NSIndexPath*)indexPath {
+    if ([self haveAnnouncements]) {
+        return indexPath.row == 3;
+    } else {
+        return indexPath.row == 2;
+    }
+}
+
+- (BOOL)isPeopleCell:(NSIndexPath*)indexPath {
+    if ([self haveAnnouncements]) {
+        return indexPath.row == 4;
+    } else {
+        return indexPath.row == 3;
+    }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (!instructors || !course) {
@@ -162,12 +199,12 @@
     }
     
     // header cell
-    if (indexPath.row == 0) {
+    if ([self isHeaderCell:indexPath]) {
         return self.headerCell;
     } 
     
     // announcement cell
-    else if (indexPath.row == 1 && [self.announcements count] > 0) {
+    else if ([self isHighlightedAnnouncementCell:indexPath]) {
         UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"HighlightedAnnouncementTableCell"];
         if (cell == nil) {
             cell = [[HighlightedAnnouncementTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"HighlightedAnnouncementTableCell"];
@@ -177,7 +214,19 @@
     }
     
     else {
-        return [self getBasicTableViewCell:tableView];        
+        UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"CourseDetailTableCell"];
+        if (cell == nil) {
+            cell = [[CourseDetailTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CourseDetailTableCell"];
+        }
+
+        if ([self isAnnouncementsCell:indexPath]) {
+            cell.textLabel.text = NSLocalizedString(@"Announcements",nil);
+        } else if ([self isGradebookCell:indexPath]) {
+            cell.textLabel.text = NSLocalizedString(@"Gradebook",nil);
+        } else if ([self isPeopleCell:indexPath]) {
+            cell.textLabel.text = NSLocalizedString(@"People",nil);
+        }
+        return cell;
     }
 }
 
