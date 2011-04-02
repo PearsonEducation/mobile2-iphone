@@ -79,9 +79,19 @@
     cell.professorNameLabel.text = allNames;
     cell.professorNameLabel.backgroundColor = [UIColor clearColor];
     
+    // place the professor icon
+    cell.professorIcon.image = [UIImage imageNamed:@"person_small_icon.png"];
+    CGRect iconFrame = CGRectMake(cell.professorNameLabel.frame.origin.x - 17, cell.professorNameLabel.frame.origin.y + 2, 12, 12);
+    cell.professorIcon.frame = iconFrame;
+    cell.professorIcon.hidden = [allNames isEqualToString:@""];
+    
     // set the size of the cell
     CGRect cellFrame = cell.frame;
-    cellFrame.size.height = cell.professorNameLabel.frame.origin.y + cell.professorNameLabel.frame.size.height + 20;
+    if ([allNames isEqualToString:@""]) {
+        cellFrame.size.height = cell.courseTitleLabel.frame.origin.y + cell.courseTitleLabel.frame.size.height + 20;
+    } else {
+        cellFrame.size.height = cell.professorNameLabel.frame.origin.y + cell.professorNameLabel.frame.size.height + 20;        
+    }
     cell.frame = cellFrame;
     cell.contentView.frame = cellFrame;
     
