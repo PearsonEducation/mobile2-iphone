@@ -20,9 +20,15 @@
     UIView* courseIconBackground;
 }
 
-- (void)setCourse:(Course*)courseValue andInstructors:(NSArray*)instructorsValue;
++ (CourseDetailHeaderTableCell*)cellForCourse:(Course*)course andInstructors:(NSArray*)instructors;
 
 @property (nonatomic, retain) NSArray* instructors;
 @property (nonatomic, retain) Course* course;
+@property (nonatomic, retain) UILabel *courseTitleLabel;
+@property (nonatomic, retain) UILabel *professorNameLabel;
+@property (nonatomic, retain) UIImageView *professorIcon;
+@property (nonatomic, retain) UIImageView *courseIcon;
+@property (nonatomic, retain) UIView* courseIconBackground;
+
 
 @end

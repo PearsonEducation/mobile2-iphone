@@ -12,6 +12,7 @@
 @interface CourseDetailViewController ()
 
 @property (nonatomic, retain) BlockingActivityView* blockingActivityView;
+@property (nonatomic, retain) CourseDetailHeaderTableCell* headerCell;
 
 @end
 
@@ -21,6 +22,7 @@
 @synthesize blockingActivityView;
 @synthesize announcements;
 @synthesize instructors;
+@synthesize headerCell;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -37,6 +39,8 @@
     if (!self.instructors || !self.announcements) {
         return;
     }
+    
+    [table reloadData];
 
     NSLog(@"Instructors: %@", self.instructors);
     NSLog(@"Announcements: %@", self.announcements);
@@ -66,6 +70,7 @@
     self.course = nil;
     self.announcements = nil;
     self.instructors = nil;
+    self.headerCell = nil;
     
     [super dealloc];
 }
@@ -124,46 +129,43 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    // HEADER cell
     if (indexPath.row == 0) {
-        // TODO: calculate the height of the header cell based on the heights of all labels
-        return 99.0;
+        // the header cell resizes its height depending on how long the text it contains is. so,
+        // create the actual cell here so that we know how tall it will ultimately be.
+        if (self.course && self.instructors) {
+            self.headerCell = [CourseDetailHeaderTableCell cellForCourse:self.course andInstructors:self.instructors];
+            return self.headerCell.frame.size.height;
+        } else {
+            // default to a height of 99.0, as in the comps
+            return 99.0;
+        }
     } 
-    
-    // All other cells
     else {
-        // Featured announcement cell and "normal" cells have the same height
-        return 51.0;
+        return 44.0;
     }
     
 }
 
+- (UITableViewCell*)getBasicTableViewCell:(UITableView*)tableView {
+    NSString *ident = @"CourseDetailBasicTableCell";
+    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:ident];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ident];
+    }
+    return cell;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell* cell;
-    
-    // determine what kind of cell to make
-    static NSString *CellIdentifier;
-    if (indexPath.row == 0) {
-        CellIdentifier = @"CourseDetailHeaderTableCell";
-        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-            cell = [[CourseDetailHeaderTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        }
-        CGRect f = CGRectMake(0, 0, 320, [self tableView:tableView heightForRowAtIndexPath:indexPath]);
-        cell.frame = f;
-        cell.contentView.frame = f;
-        [(CourseDetailHeaderTableCell*)cell setCourse:self.course andInstructors:self.instructors];
-    } else {
-        CellIdentifier = @"CourseDetailBasicTableCell";
-        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        }
+    if (!instructors || !course) {
+        return [self getBasicTableViewCell:tableView];
     }
     
-    // configure the cell if necessary
-    return cell;
+    if (indexPath.row == 0) {
+        return self.headerCell;
+    } else {
+        return [self getBasicTableViewCell:tableView];
+    }    
 }
 
 

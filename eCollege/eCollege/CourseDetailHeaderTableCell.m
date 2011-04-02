@@ -8,14 +8,11 @@
 
 #import "CourseDetailHeaderTableCell.h"
 #import <QuartzCore/QuartzCore.h>
+#import "UIColor+Boost.h"
+#import "User.h"
 
 @interface CourseDetailHeaderTableCell ()
 
-@property (nonatomic, retain) UILabel *courseTitleLabel;
-@property (nonatomic, retain) UILabel *professorNameLabel;
-@property (nonatomic, retain) UIImageView *professorIcon;
-@property (nonatomic, retain) UIImageView *courseIcon;
-@property (nonatomic, retain) UIView* courseIconBackground;
 
 @end
 
@@ -28,6 +25,69 @@
 @synthesize professorIcon;
 @synthesize courseIcon;
 @synthesize courseIconBackground;
+
++ (CourseDetailHeaderTableCell*)cellForCourse:(Course*)course andInstructors:(NSArray*)instructors {
+    CourseDetailHeaderTableCell* cell = [[[CourseDetailHeaderTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CourseDetailHeaderTableCell"] autorelease];
+    cell.instructors = instructors;
+    cell.course = course;
+    
+    // FONTS
+    UIFont* courseTitleLabelFont = [UIFont fontWithName:@"Helvetica-Bold" size:20.0];
+    UIFont* professorNameLabelFont = [UIFont fontWithName:@"Helvetica-Bold" size:12.0];
+    
+    // COLORS
+    UIColor* courseTitleLabelColor = HEXCOLOR(0x14194A);
+    UIColor* professorNameLabelColor = HEXCOLOR(0x252525);
+
+    // SIZES
+    CGSize maximumCourseTitleLabelSize = CGSizeMake(260, 1000);
+    CGSize maximumProfessorNameLabelSize = CGSizeMake(234, 1000);
+    CGSize actualLabelSize;
+    
+    // FRAMES
+    CGRect labelFrame;
+    
+    // courseTitleLabel setup
+    cell.courseTitleLabel.textColor = courseTitleLabelColor;
+    actualLabelSize = [course.title sizeWithFont:courseTitleLabelFont constrainedToSize:maximumCourseTitleLabelSize lineBreakMode:UILineBreakModeWordWrap];
+    labelFrame = CGRectMake(53, 8, actualLabelSize.width, actualLabelSize.height);
+    cell.courseTitleLabel.font = courseTitleLabelFont;
+    cell.courseTitleLabel.lineBreakMode = UILineBreakModeWordWrap;
+    cell.courseTitleLabel.frame = labelFrame;
+    cell.courseTitleLabel.text = course.title;
+    cell.courseTitleLabel.numberOfLines = 0;
+    cell.courseTitleLabel.backgroundColor = [UIColor clearColor];
+    
+    // professorNameLabel setup
+    cell.professorNameLabel.font = professorNameLabelFont;
+    cell.professorNameLabel.lineBreakMode = UILineBreakModeCharacterWrap;
+    cell.professorNameLabel.numberOfLines = 0;
+    NSString* allNames = @"";
+    if (instructors && [instructors count] > 0) {
+        allNames = [(User*)[instructors objectAtIndex:0] fullName];
+        int index = 1;
+        while (index < [instructors count]) {
+            User* u = [instructors objectAtIndex:index];
+            allNames = [NSString stringWithFormat:@"%@, %@", allNames, [u fullName]];
+            index += 1;
+        }
+    }
+    cell.professorNameLabel.textColor = professorNameLabelColor;
+    actualLabelSize = [allNames sizeWithFont:professorNameLabelFont constrainedToSize:maximumProfessorNameLabelSize lineBreakMode:UILineBreakModeWordWrap];
+    labelFrame = CGRectMake(78, cell.courseTitleLabel.frame.origin.y + cell.courseTitleLabel.frame.size.height + 13, actualLabelSize.width, actualLabelSize.height);
+    cell.professorNameLabel.frame = labelFrame;
+    cell.professorNameLabel.text = allNames;
+    cell.professorNameLabel.backgroundColor = [UIColor clearColor];
+    
+    // set the size of the cell
+    CGRect cellFrame = cell.frame;
+    cellFrame.size.height = cell.professorNameLabel.frame.origin.y + cell.professorNameLabel.frame.size.height + 20;
+    cell.frame = cellFrame;
+    cell.contentView.frame = cellFrame;
+    
+    // return this cell, which is now setup
+    return cell;
+}
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -56,24 +116,11 @@
         courseIcon.image = [UIImage imageNamed:@"course_icon.png"];
         [courseIconBackground addSubview:courseIcon];
         
-        CGRect selfFrame = self.frame;
-        CGRect contentViewFrame = self.contentView.frame;
-        
         // set the background image
         self.contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background_main.png"]]; 
         self.backgroundColor = [UIColor redColor];
     }
     return self;
-}
-
-- (void)setCourse:(Course*)courseValue andInstructors:(NSArray*)instructorsValue {
-    self.instructors = instructorsValue;
-    self.course = courseValue;    
-    [self setNeedsLayout];
-}
-
-- (void)layoutSubviews {
-
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

@@ -11,6 +11,7 @@
 #import "BlockingActivityView.h"
 #import "CourseFetcher.h"
 #import "AnnouncementFetcher.h"
+#import "CourseDetailHeaderTableCell.h"
 
 @interface CourseDetailViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
     IBOutlet UITableView* table;
@@ -19,7 +20,8 @@
     CourseFetcher* instructorsFetcher;
     AnnouncementFetcher* announcementFetcher;
     NSArray* announcements;
-    NSArray* instructors;    
+    NSArray* instructors;
+    CourseDetailHeaderTableCell* headerCell;
 }
 
 @property (nonatomic, retain) Course* course;
