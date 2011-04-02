@@ -43,6 +43,9 @@
 		A26A6421133AD60900BE5465 /* background_main.png in Resources */ = {isa = PBXBuildFile; fileRef = A26A6420133AD60900BE5465 /* background_main.png */; };
 		A26A6425133AD9BD00BE5465 /* TopicResponsesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A26A6423133AD99100BE5465 /* TopicResponsesViewController.m */; };
 		A26A642A133AE1F900BE5465 /* ResponseTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A26A6428133AE1BD00BE5465 /* ResponseTableCell.m */; };
+		A27162A11346E0D3006FEE26 /* HighlightedAnnouncementTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A27162A01346E0D3006FEE26 /* HighlightedAnnouncementTableCell.m */; };
+		A27162AC1346E722006FEE26 /* DrawGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = A27162AB1346E722006FEE26 /* DrawGradient.m */; };
+		A27162AF1346E895006FEE26 /* GradientCellBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = A27162AE1346E895006FEE26 /* GradientCellBackground.m */; };
 		A27289961326BCE3001A588D /* UIColor+Boost.m in Sources */ = {isa = PBXBuildFile; fileRef = A27289951326BCE3001A588D /* UIColor+Boost.m */; };
 		A27289991326C0AF001A588D /* 53-house.png in Resources */ = {isa = PBXBuildFile; fileRef = A27289981326C0AF001A588D /* 53-house.png */; };
 		A272899D1326C105001A588D /* 08-chat.png in Resources */ = {isa = PBXBuildFile; fileRef = A272899C1326C105001A588D /* 08-chat.png */; };
@@ -188,6 +191,12 @@
 		A26A6423133AD99100BE5465 /* TopicResponsesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicResponsesViewController.m; sourceTree = "<group>"; };
 		A26A6427133AE1AD00BE5465 /* ResponseTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResponseTableCell.h; sourceTree = "<group>"; };
 		A26A6428133AE1BD00BE5465 /* ResponseTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResponseTableCell.m; sourceTree = "<group>"; };
+		A271629F1346E0D2006FEE26 /* HighlightedAnnouncementTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighlightedAnnouncementTableCell.h; sourceTree = "<group>"; };
+		A27162A01346E0D3006FEE26 /* HighlightedAnnouncementTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighlightedAnnouncementTableCell.m; sourceTree = "<group>"; };
+		A27162AA1346E722006FEE26 /* DrawGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawGradient.h; sourceTree = "<group>"; };
+		A27162AB1346E722006FEE26 /* DrawGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawGradient.m; sourceTree = "<group>"; };
+		A27162AD1346E895006FEE26 /* GradientCellBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientCellBackground.h; sourceTree = "<group>"; };
+		A27162AE1346E895006FEE26 /* GradientCellBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientCellBackground.m; sourceTree = "<group>"; };
 		A27289941326BCE3001A588D /* UIColor+Boost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Boost.h"; sourceTree = "<group>"; };
 		A27289951326BCE3001A588D /* UIColor+Boost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Boost.m"; sourceTree = "<group>"; };
 		A27289981326C0AF001A588D /* 53-house.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "53-house.png"; sourceTree = "<group>"; };
@@ -307,6 +316,10 @@
 				A22ACA8E13462AEA00990A9A /* CourseDetailViewController.xib */,
 				A2BD370A134693D200792EE1 /* CourseDetailHeaderTableCell.h */,
 				A2BD370B134693D300792EE1 /* CourseDetailHeaderTableCell.m */,
+				A271629F1346E0D2006FEE26 /* HighlightedAnnouncementTableCell.h */,
+				A27162A01346E0D3006FEE26 /* HighlightedAnnouncementTableCell.m */,
+				A27162AD1346E895006FEE26 /* GradientCellBackground.h */,
+				A27162AE1346E895006FEE26 /* GradientCellBackground.m */,
 			);
 			name = "Course Detail";
 			sourceTree = "<group>";
@@ -372,6 +385,8 @@
 				A27289951326BCE3001A588D /* UIColor+Boost.m */,
 				A2791F80132ABF0800D900C9 /* BlockingActivityView.h */,
 				A2791F81132ABF0800D900C9 /* BlockingActivityView.m */,
+				A27162AA1346E722006FEE26 /* DrawGradient.h */,
+				A27162AB1346E722006FEE26 /* DrawGradient.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -834,6 +849,9 @@
 				A25D9A73134526E5007C7711 /* CourseTableCell.m in Sources */,
 				A22ACA8F13462AEA00990A9A /* CourseDetailViewController.m in Sources */,
 				A2BD370C134693D300792EE1 /* CourseDetailHeaderTableCell.m in Sources */,
+				A27162A11346E0D3006FEE26 /* HighlightedAnnouncementTableCell.m in Sources */,
+				A27162AC1346E722006FEE26 /* DrawGradient.m in Sources */,
+				A27162AF1346E895006FEE26 /* GradientCellBackground.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

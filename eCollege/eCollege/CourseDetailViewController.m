@@ -8,6 +8,7 @@
 
 #import "CourseDetailViewController.h"
 #import "CourseDetailHeaderTableCell.h"
+#import "HighlightedAnnouncementTableCell.h"
 
 @interface CourseDetailViewController ()
 
@@ -136,12 +137,11 @@
             self.headerCell = [CourseDetailHeaderTableCell cellForCourse:self.course andInstructors:self.instructors];
             return self.headerCell.frame.size.height;
         } else {
-            // default to a height of 99.0, as in the comps
-            return 99.0;
+            return 55.0;
         }
     } 
     else {
-        return 44.0;
+        return 55.0;
     }
     
 }
@@ -161,11 +161,24 @@
         return [self getBasicTableViewCell:tableView];
     }
     
+    // header cell
     if (indexPath.row == 0) {
         return self.headerCell;
-    } else {
-        return [self getBasicTableViewCell:tableView];
-    }    
+    } 
+    
+    // announcement cell
+    else if (indexPath.row == 1 && [self.announcements count] > 0) {
+        UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"HighlightedAnnouncementTableCell"];
+        if (cell == nil) {
+            cell = [[HighlightedAnnouncementTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"HighlightedAnnouncementTableCell"];
+        }
+        ((HighlightedAnnouncementTableCell*)cell).announcement = [self.announcements objectAtIndex:0];
+        return cell;
+    }
+    
+    else {
+        return [self getBasicTableViewCell:tableView];        
+    }
 }
 
 
