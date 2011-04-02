@@ -30,6 +30,7 @@
     CourseDetailHeaderTableCell* cell = [[[CourseDetailHeaderTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CourseDetailHeaderTableCell"] autorelease];
     cell.instructors = instructors;
     cell.course = course;
+    cell.selectionStyle = UITableViewCellEditingStyleNone;
     
     // FONTS
     UIFont* courseTitleLabelFont = [UIFont fontWithName:@"Helvetica-Bold" size:20.0];
