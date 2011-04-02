@@ -10,13 +10,20 @@
 #import "Course.h"
 #import "BlockingActivityView.h"
 #import "CourseFetcher.h"
+#import "AnnouncementFetcher.h"
 
-@interface CourseDetailViewController : UIViewController {
+@interface CourseDetailViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+    IBOutlet UITableView* table;
     Course* course;
     BlockingActivityView* blockingActivityView;
     CourseFetcher* instructorsFetcher;
+    AnnouncementFetcher* announcementFetcher;
+    NSArray* announcements;
+    NSArray* instructors;    
 }
 
 @property (nonatomic, retain) Course* course;
+@property (nonatomic, retain) NSArray* announcements;
+@property (nonatomic, retain) NSArray* instructors;
 
 @end
