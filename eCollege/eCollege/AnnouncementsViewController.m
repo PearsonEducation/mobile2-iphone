@@ -120,7 +120,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     
-    self.title = self.courseName;
+    self.title = NSLocalizedString(@"Announcements",nil);
     
     // if activities have never been updated or the last update was more than an hour ago,
     // fetch the topics again.
