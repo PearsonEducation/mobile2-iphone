@@ -36,6 +36,10 @@
 		A23366791326A55F00DC50DD /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A23366771326A55F00DC50DD /* SettingsViewController.xib */; };
 		A25D9A701345267F007C7711 /* CourseTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A25D9A6F1345267E007C7711 /* CourseTableCell.xib */; };
 		A25D9A73134526E5007C7711 /* CourseTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A25D9A72134526E5007C7711 /* CourseTableCell.m */; };
+		A25FC79F134A5A8D0031D2C2 /* AnnouncementTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A25FC79E134A5A8D0031D2C2 /* AnnouncementTableCell.m */; };
+		A2651D41134A29CE00490400 /* AnnouncementsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2651D3F134A29CE00490400 /* AnnouncementsViewController.m */; };
+		A2651D42134A29CE00490400 /* AnnouncementsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2651D40134A29CE00490400 /* AnnouncementsViewController.xib */; };
+		A2651D47134A49B100490400 /* AnnouncementDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2651D45134A49B100490400 /* AnnouncementDetailViewController.m */; };
 		A26A63FE133A9DF700BE5465 /* TopicHeaderTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A26A63FC133A9DF500BE5465 /* TopicHeaderTableCell.m */; };
 		A26A6401133A9EF700BE5465 /* TopicHeaderTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26A6400133A9EF600BE5465 /* TopicHeaderTableCell.xib */; };
 		A26A6405133AA8E700BE5465 /* DataEntryTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A26A6403133AA8DC00BE5465 /* DataEntryTableCell.m */; };
@@ -185,6 +189,13 @@
 		A25D9A6F1345267E007C7711 /* CourseTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CourseTableCell.xib; sourceTree = "<group>"; };
 		A25D9A71134526E5007C7711 /* CourseTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseTableCell.h; sourceTree = "<group>"; };
 		A25D9A72134526E5007C7711 /* CourseTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseTableCell.m; sourceTree = "<group>"; };
+		A25FC79D134A5A8D0031D2C2 /* AnnouncementTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementTableCell.h; sourceTree = "<group>"; };
+		A25FC79E134A5A8D0031D2C2 /* AnnouncementTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementTableCell.m; sourceTree = "<group>"; };
+		A2651D3E134A29CE00490400 /* AnnouncementsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementsViewController.h; sourceTree = "<group>"; };
+		A2651D3F134A29CE00490400 /* AnnouncementsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementsViewController.m; sourceTree = "<group>"; };
+		A2651D40134A29CE00490400 /* AnnouncementsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnnouncementsViewController.xib; sourceTree = "<group>"; };
+		A2651D44134A49B100490400 /* AnnouncementDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementDetailViewController.h; sourceTree = "<group>"; };
+		A2651D45134A49B100490400 /* AnnouncementDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementDetailViewController.m; sourceTree = "<group>"; };
 		A26A63FB133A9DF500BE5465 /* TopicHeaderTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicHeaderTableCell.h; sourceTree = "<group>"; };
 		A26A63FC133A9DF500BE5465 /* TopicHeaderTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicHeaderTableCell.m; sourceTree = "<group>"; };
 		A26A6400133A9EF600BE5465 /* TopicHeaderTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TopicHeaderTableCell.xib; sourceTree = "<group>"; };
@@ -387,6 +398,28 @@
 			name = Help;
 			sourceTree = "<group>";
 		};
+		A2651D3D134A298100490400 /* Announcements */ = {
+			isa = PBXGroup;
+			children = (
+				A2651D43134A497A00490400 /* Announcement Detail View Controller */,
+				A2651D3E134A29CE00490400 /* AnnouncementsViewController.h */,
+				A2651D3F134A29CE00490400 /* AnnouncementsViewController.m */,
+				A2651D40134A29CE00490400 /* AnnouncementsViewController.xib */,
+				A25FC79D134A5A8D0031D2C2 /* AnnouncementTableCell.h */,
+				A25FC79E134A5A8D0031D2C2 /* AnnouncementTableCell.m */,
+			);
+			name = Announcements;
+			sourceTree = "<group>";
+		};
+		A2651D43134A497A00490400 /* Announcement Detail View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				A2651D44134A49B100490400 /* AnnouncementDetailViewController.h */,
+				A2651D45134A49B100490400 /* AnnouncementDetailViewController.m */,
+			);
+			name = "Announcement Detail View Controller";
+			sourceTree = "<group>";
+		};
 		A27289931326BCD2001A588D /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -486,6 +519,7 @@
 		A2EE3ECC1320347E00745C1C /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				A2651D3D134A298100490400 /* Announcements */,
 				A28CB5FB132ECD69000B669D /* ReplyDetail */,
 				A28CB5FA132ECD61000B669D /* TopicDetail */,
 				A28CB5F9132ECD51000B669D /* DropboxMessageDetail */,
@@ -826,6 +860,7 @@
 				EAD48D55134A688F00B33ACD /* person_male_icon@2x.png in Resources */,
 				EAD48D58134A6AC700B33ACD /* you_banner.png in Resources */,
 				EAD48D59134A6AC700B33ACD /* you_banner@2x.png in Resources */,
+				A2651D42134A29CE00490400 /* AnnouncementsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -874,6 +909,9 @@
 				A27162AC1346E722006FEE26 /* DrawGradient.m in Sources */,
 				A27162AF1346E895006FEE26 /* GradientCellBackground.m in Sources */,
 				A27162B31346F406006FEE26 /* CourseDetailTableCell.m in Sources */,
+				A2651D41134A29CE00490400 /* AnnouncementsViewController.m in Sources */,
+				A2651D47134A49B100490400 /* AnnouncementDetailViewController.m in Sources */,
+				A25FC79F134A5A8D0031D2C2 /* AnnouncementTableCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

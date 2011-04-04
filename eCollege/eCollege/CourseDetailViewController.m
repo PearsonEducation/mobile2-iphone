@@ -10,6 +10,8 @@
 #import "CourseDetailHeaderTableCell.h"
 #import "HighlightedAnnouncementTableCell.h"
 #import "CourseDetailTableCell.h"
+#import "AnnouncementsViewController.h"
+#import "AnnouncementDetailViewController.h"
 
 @interface CourseDetailViewController ()
 
@@ -104,7 +106,13 @@
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    self.title = self.course.title;
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
+    [instructorsFetcher cancel];
+    [announcementFetcher cancel];
 }
 
 - (void)viewDidUnload
@@ -151,7 +159,7 @@
     NSString *ident = @"CourseDetailBasicTableCell";
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:ident];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ident];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ident] autorelease];
     }
     return cell;
 }
@@ -207,7 +215,7 @@
     else if ([self isHighlightedAnnouncementCell:indexPath]) {
         UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"HighlightedAnnouncementTableCell"];
         if (cell == nil) {
-            cell = [[HighlightedAnnouncementTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"HighlightedAnnouncementTableCell"];
+            cell = [[[HighlightedAnnouncementTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"HighlightedAnnouncementTableCell"] autorelease];
         }
         ((HighlightedAnnouncementTableCell*)cell).announcement = [self.announcements objectAtIndex:0];
         return cell;
@@ -216,9 +224,8 @@
     else {
         UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"CourseDetailTableCell"];
         if (cell == nil) {
-            cell = [[CourseDetailTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CourseDetailTableCell"];
+            cell = [[[CourseDetailTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CourseDetailTableCell"] autorelease];
         }
-
         if ([self isAnnouncementsCell:indexPath]) {
             cell.textLabel.text = NSLocalizedString(@"Announcements",nil);
         } else if ([self isGradebookCell:indexPath]) {
@@ -235,6 +242,21 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if ([self isAnnouncementsCell:indexPath]) {
+        AnnouncementsViewController* avc = [[AnnouncementsViewController alloc] initWithNibName:@"AnnouncementsViewController" bundle:nil];
+        avc.courseId = self.course.courseId;
+        avc.courseName = self.course.title;        
+        [self.navigationController pushViewController:avc animated:YES];
+        [avc release];
+    } else if ([self isHighlightedAnnouncementCell:indexPath]) {
+        AnnouncementDetailViewController* advc = [[AnnouncementDetailViewController alloc] initWithNibName:@"AnnouncementsDetailViewController" bundle:nil];
+        Announcement* announcement = [announcements objectAtIndex:0];
+        [advc setAnnouncementId:announcement.announcementId andCourseId:self.course.courseId andCourseName:self.course.title];
+        advc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:advc animated:YES];
+        [advc release];
+    }
 }
 
 
