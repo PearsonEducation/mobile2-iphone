@@ -47,7 +47,7 @@
         descLabel = [[UILabel alloc] initWithFrame:CGRectMake(10,subjectLabel.frame.origin.y + subjectLabel.frame.size.height + 2, 280, 15)];
         descLabel.font = [UIFont fontWithName:@"Helvetica" size:13.0];
         descLabel.textColor = [UIColor darkGrayColor];
-        [self.contentView addSubview:descLabel];
+        [self.contentView addSubview:descLabel];        
     }
     return self;
 }

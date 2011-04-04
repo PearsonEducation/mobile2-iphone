@@ -105,7 +105,6 @@
     UIFont* courseNameFont = [UIFont fontWithName:@"Helvetica-Bold" size:13];
     UIFont* titleFont = [UIFont fontWithName:@"Helvetica-Bold" size:19];
     UIFont* commentsFont = [UIFont fontWithName:@"Helvetica" size:13];
-    UIFont* dateFont = [UIFont fontWithName:@"Helvetica-Oblique" size:12];
     
     // set up the course name label
     CGSize maximumSize = CGSizeMake(284.0, 1000.0);
@@ -157,22 +156,11 @@
     postedByLabel.numberOfLines = 0;
     [whiteBox addSubview:postedByLabel];
     
-    // set up the date label
-    NSString* dateString = [a.endDisplayDate friendlyString];
-    CGSize dateSize = [dateString sizeWithFont:dateFont constrainedToSize:maximumSize lineBreakMode:UILineBreakModeWordWrap];
-    UILabel* dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, postedByLabel.frame.origin.y + postedByLabel.frame.size.height + 5, dateSize.width, dateSize.height)];
-    dateLabel.font = dateFont;
-    dateLabel.textColor = normalTextColor;
-    dateLabel.text = dateString;
-    dateLabel.backgroundColor = [UIColor clearColor];
-    dateLabel.numberOfLines = 0;
-    [whiteBox addSubview:dateLabel];
-    
     // set up the comments label
     NSString* comments = a.text;
     maximumSize = CGSizeMake(243, 2000);
     CGSize commentsSize = [comments sizeWithFont:commentsFont constrainedToSize:maximumSize lineBreakMode:UILineBreakModeWordWrap];
-    UILabel* commentsLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, dateLabel.frame.origin.y + dateLabel.frame.size.height + 5, commentsSize.width, commentsSize.height)];
+    UILabel* commentsLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, postedByLabel.frame.origin.y + postedByLabel.frame.size.height + 5, commentsSize.width, commentsSize.height)];
     commentsLabel.font = commentsFont;
     commentsLabel.textColor = normalTextColor;
     commentsLabel.text = comments;
@@ -182,18 +170,12 @@
     
     // set the height of the white box
     CGRect boxFrame = whiteBox.frame;
-    //    if (btn) {
-    //        boxFrame.size.height = btn.frame.origin.y + btn.frame.size.height + 16; 
-    //    } else {
     boxFrame.size.height = commentsLabel.frame.origin.y + commentsLabel.frame.size.height + 16;
-    //    }
     whiteBox.frame = boxFrame;
     
     // memory management
-    //    [btn release];
     [img release];
     [commentsLabel release];
-    [dateLabel release];
     [postedByLabel release];
     [subjectLabel release];
     [courseNameLabel release];
