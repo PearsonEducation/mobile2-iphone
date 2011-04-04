@@ -30,6 +30,7 @@
 // Private methods
 - (void) showTabBar;
 - (void) showLoginView;
+- (void) showTabsIfMeAndCoursesLoaded;
 
 @end
 
@@ -91,7 +92,10 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
     
 	ECSession *session = [ECSession sharedSession];
 	if ([session hasActiveAccessToken] || [session hasActiveGrantToken]) {
-		[self showTabBar];
+		userFetcher = [[UserFetcher alloc] initWithDelegate:self responseSelector:@selector(userLoaded:)];
+        [userFetcher fetchMe];        
+		[self refreshCourseList];
+		[self showGlobalLoader];
 	} else {
 		logInViewController = [[LogInViewController alloc] initWithNibName:@"LogInView" bundle:nil];
 		[self.window addSubview:self.logInViewController.view];
@@ -251,6 +255,16 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
     [self.blockingActivityView hide];
 }
 
+- (void) userLoaded:(id)response {
+    if ([response isKindOfClass:[User class]]) {
+        NSLog(@"User load successful; ID = %d", ((User*)response).userId);
+        self.currentUser = (User*)response;
+		[self showTabsIfMeAndCoursesLoaded];
+    } else {
+        [blockingActivityView hide];
+    }
+}
+
 - (void)refreshCourseList {
     // if courses are already being fetched, don't initiate another call.
     if (!self.courseFetcher) {
@@ -269,9 +283,17 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
         self.coursesLastUpdated = [NSDate date];
         self.coursesArray = (NSArray*)courses;
         notificationName = courseLoadSuccess;
+		[self showTabsIfMeAndCoursesLoaded];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
     self.courseFetcher = nil;
+}
+
+- (void) showTabsIfMeAndCoursesLoaded {
+	if (self.currentUser && self.coursesArray && self.tabBarController == nil) {
+		[self hideGlobalLoader];
+		[self showTabBar];
+	}
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -309,16 +331,11 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
 }
 
 - (void)dealloc {
-    if (coursesDictionary) {
-        [coursesDictionary release]; coursesDictionary = nil;
-    }
-    if (logInViewController) {
-        [logInViewController release]; logInViewController = nil;
-    }
-    if (self.courseFetcher) {
-        [self.courseFetcher cancel];
-        self.courseFetcher = nil;
-    }
+	[userFetcher release]; userFetcher = nil;
+    [coursesDictionary release]; coursesDictionary = nil;
+    [logInViewController release]; logInViewController = nil;
+    [self.courseFetcher cancel];
+    self.courseFetcher = nil;
     self.blockingActivityView = nil;
     self.coursesLastUpdated = nil;
     self.coursesArray = nil;

@@ -16,6 +16,7 @@
 #import "CourseFetcher.h"
 #import "User.h"
 #import "BlockingActivityView.h"
+#import "UserFetcher.h"
 
 @class LogInViewController;
 
@@ -32,6 +33,7 @@ extern int coursesRefreshInterval;
     DiscussionsViewController* discussionsViewController;
     NSDictionary* coursesDictionary;
     NSArray* coursesArray;
+	UserFetcher *userFetcher;
     CourseFetcher* courseFetcher;
     NSDate* coursesLastUpdated;
     User* currentUser;
