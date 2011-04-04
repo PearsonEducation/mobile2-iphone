@@ -208,15 +208,15 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
     [coursesNav release];
     [img release];
 
-    self.peopleViewController = [[PeopleViewController alloc] initWithNibName:@"PeopleViewController" bundle:nil];
-    self.peopleViewController.title = NSLocalizedString(@"eCollege", @"The name of the school");
-    img = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"112-group" ofType:@"png"]];
-    [self.peopleViewController.tabBarItem initWithTitle:NSLocalizedString(@"People", @"Label on the tab bar for the 'people' section") image:img tag:0];
-    UINavigationController* peopleNav = [[UINavigationController alloc] initWithRootViewController:self.peopleViewController];
-    [allTabs addObject:peopleNav];
-    [peopleNav release];
-    [img release];
-
+//    self.peopleViewController = [[PeopleViewController alloc] initWithNibName:@"PeopleViewController" bundle:nil];
+//    self.peopleViewController.title = NSLocalizedString(@"eCollege", @"The name of the school");
+//    img = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"112-group" ofType:@"png"]];
+//    [self.peopleViewController.tabBarItem initWithTitle:NSLocalizedString(@"People", @"Label on the tab bar for the 'people' section") image:img tag:0];
+//    UINavigationController* peopleNav = [[UINavigationController alloc] initWithRootViewController:self.peopleViewController];
+//    [allTabs addObject:peopleNav];
+//    [peopleNav release];
+//    [img release];
+//
     self.profileViewController = [[ProfileViewController alloc] initWithNibName:@"ProfileViewController" bundle:nil];
     self.profileViewController.title = NSLocalizedString(@"eCollege", @"The name of the school");
     img = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"123-id-card" ofType:@"png"]];
