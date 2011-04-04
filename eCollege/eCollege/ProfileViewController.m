@@ -9,29 +9,25 @@
 #import "ProfileViewController.h"
 #import "InfoTableViewController.h"
 #import "UIColor+Boost.h"
+#import "eCollegeAppDelegate.h"
+#import "User.h"
 
 @implementation ProfileViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+		
     }
     return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
     [super dealloc];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
 }
 
 - (void)infoButtonTapped:(id)sender {
@@ -47,45 +43,35 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
+- (IBAction) signOutPressed:(id)sender {
+	[[eCollegeAppDelegate delegate] signOut];
+}
+
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    
-    // add the info button, give it a tap handler
+
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeInfoLight];
     [btn addTarget:self action:@selector(infoButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     [btn release];
-    
-    // add the notifications indicator in the header
-    UIView* notificationView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 18, 18)];
-    notificationView.backgroundColor = HEXCOLOR(0xF5FF6F);
-    UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(0,0,18,18)];
-    label.text = @"3";
-    label.textAlignment = UITextAlignmentCenter;
-    label.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
-    [notificationView addSubview:label];
-    UIBarButtonItem* notificationButton = [[UIBarButtonItem alloc] initWithCustomView:notificationView];
-    self.navigationItem.rightBarButtonItem = notificationButton;
-    [notificationView release];
-    [notificationButton release];
-    [label release];
-
+	
+	[signOutButton setTitle:NSLocalizedString(@"Sign Out", @"Sign Out label")
+				   forState:UIControlStateNormal];
 }
 
-- (void)viewDidUnload
-{
+- (void) viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	User *currentUser = [eCollegeAppDelegate delegate].currentUser;
+	studentNameLabel.text = [currentUser fullName];
+}
+
+- (void)viewDidUnload {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 

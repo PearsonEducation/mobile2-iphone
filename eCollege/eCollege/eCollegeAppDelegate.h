@@ -54,5 +54,6 @@ extern int coursesRefreshInterval;
 - (NSArray*) getAllCourseIds;
 - (void)showGlobalLoader;
 - (void)hideGlobalLoader;
+- (void) signOut;
 
 @end

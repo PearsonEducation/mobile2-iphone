@@ -171,6 +171,11 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
     loginShowing = YES;
 }
 
+- (void) signOut {
+	[[ECSession sharedSession] forgetCredentials];
+	[self showLoginView];
+}
+
 - (void)showTabBar {
     // instantiate the tab bar
     self.tabBarController = [[UITabBarController alloc] init];

@@ -10,7 +10,10 @@
 
 
 @interface ProfileViewController : UIViewController {
-    
+    IBOutlet UILabel *studentNameLabel;
+	IBOutlet UIButton *signOutButton;
 }
+
+- (IBAction) signOutPressed:(id)sender;
 
 @end
