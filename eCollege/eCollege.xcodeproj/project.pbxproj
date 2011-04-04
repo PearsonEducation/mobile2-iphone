@@ -36,6 +36,7 @@
 		A23366791326A55F00DC50DD /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A23366771326A55F00DC50DD /* SettingsViewController.xib */; };
 		A25D9A701345267F007C7711 /* CourseTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A25D9A6F1345267E007C7711 /* CourseTableCell.xib */; };
 		A25D9A73134526E5007C7711 /* CourseTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A25D9A72134526E5007C7711 /* CourseTableCell.m */; };
+		A25FC79F134A5A8D0031D2C2 /* AnnouncementTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A25FC79E134A5A8D0031D2C2 /* AnnouncementTableCell.m */; };
 		A2651D41134A29CE00490400 /* AnnouncementsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2651D3F134A29CE00490400 /* AnnouncementsViewController.m */; };
 		A2651D42134A29CE00490400 /* AnnouncementsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2651D40134A29CE00490400 /* AnnouncementsViewController.xib */; };
 		A2651D47134A49B100490400 /* AnnouncementDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2651D45134A49B100490400 /* AnnouncementDetailViewController.m */; };
@@ -184,6 +185,8 @@
 		A25D9A6F1345267E007C7711 /* CourseTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CourseTableCell.xib; sourceTree = "<group>"; };
 		A25D9A71134526E5007C7711 /* CourseTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseTableCell.h; sourceTree = "<group>"; };
 		A25D9A72134526E5007C7711 /* CourseTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseTableCell.m; sourceTree = "<group>"; };
+		A25FC79D134A5A8D0031D2C2 /* AnnouncementTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementTableCell.h; sourceTree = "<group>"; };
+		A25FC79E134A5A8D0031D2C2 /* AnnouncementTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementTableCell.m; sourceTree = "<group>"; };
 		A2651D3E134A29CE00490400 /* AnnouncementsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementsViewController.h; sourceTree = "<group>"; };
 		A2651D3F134A29CE00490400 /* AnnouncementsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementsViewController.m; sourceTree = "<group>"; };
 		A2651D40134A29CE00490400 /* AnnouncementsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnnouncementsViewController.xib; sourceTree = "<group>"; };
@@ -394,6 +397,8 @@
 				A2651D3E134A29CE00490400 /* AnnouncementsViewController.h */,
 				A2651D3F134A29CE00490400 /* AnnouncementsViewController.m */,
 				A2651D40134A29CE00490400 /* AnnouncementsViewController.xib */,
+				A25FC79D134A5A8D0031D2C2 /* AnnouncementTableCell.h */,
+				A25FC79E134A5A8D0031D2C2 /* AnnouncementTableCell.m */,
 			);
 			name = Announcements;
 			sourceTree = "<group>";
@@ -890,6 +895,7 @@
 				A27162B31346F406006FEE26 /* CourseDetailTableCell.m in Sources */,
 				A2651D41134A29CE00490400 /* AnnouncementsViewController.m in Sources */,
 				A2651D47134A49B100490400 /* AnnouncementDetailViewController.m in Sources */,
+				A25FC79F134A5A8D0031D2C2 /* AnnouncementTableCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

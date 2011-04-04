@@ -10,6 +10,7 @@
 #import "CourseDetailHeaderTableCell.h"
 #import "HighlightedAnnouncementTableCell.h"
 #import "CourseDetailTableCell.h"
+#import "AnnouncementsViewController.h"
 
 @interface CourseDetailViewController ()
 
@@ -104,7 +105,13 @@
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    self.title = self.course.title;
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
+    [instructorsFetcher cancel];
+    [announcementFetcher cancel];
 }
 
 - (void)viewDidUnload
@@ -218,7 +225,6 @@
         if (cell == nil) {
             cell = [[[CourseDetailTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CourseDetailTableCell"] autorelease];
         }
-
         if ([self isAnnouncementsCell:indexPath]) {
             cell.textLabel.text = NSLocalizedString(@"Announcements",nil);
         } else if ([self isGradebookCell:indexPath]) {
@@ -235,6 +241,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if ([self isAnnouncementsCell:indexPath]) {
+        AnnouncementsViewController* avc = [[AnnouncementsViewController alloc] initWithNibName:@"AnnouncementsViewController" bundle:nil];
+        avc.courseId = self.course.courseId;
+        avc.courseName = self.course.title;        
+        [self.navigationController pushViewController:avc animated:YES];
+        [avc release];
+    }
 }
 
 

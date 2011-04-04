@@ -11,13 +11,14 @@
 #import "AnnouncementFetcher.h"
 #import "Announcement.h"
 
-@interface AnnouncementDetailViewcontroller : UIViewController {
+@interface AnnouncementDetailViewController : UIViewController {
     AnnouncementFetcher *announcementFetcher;
     id announcement;
     NSInteger announcementId;
     BlockingActivityView* blockingActivityView;
+    NSString* courseName;
 }
 
-- (id)initWithAnnouncementId:(NSInteger)announcementId andCourseId:(NSInteger)courseId;
+- (void)setAnnouncementId:(NSInteger)announcementIdValue andCourseId:(NSInteger)courseIdValue andCourseName:(NSString*)courseName;
 
 @end

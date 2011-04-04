@@ -10,7 +10,6 @@
 #import "AnnouncementDetailViewController.h"
 #import "AnnouncementTableCell.h"
 #import "UIColor+Boost.h"
-#import "InfoTableViewController.h"
 #import "Announcement.h"
 #import "eCollegeAppDelegate.h"
 #import "NSDateUtilities.h"
@@ -25,7 +24,6 @@
 
 - (void)loadData;
 - (void)prepareData;
-- (void)infoButtonTapped:(id)sender;
 - (Announcement*)getTopicForIndexPath:(NSIndexPath*)indexPath;
 - (void)loadingComplete;
 - (Announcement*)getAnnouncementForIndexPath:(NSIndexPath*)indexPath;
@@ -42,6 +40,7 @@
 @synthesize currentlyLoading;
 @synthesize announcementsLoadFailure;
 @synthesize forceUpdateOnViewWillAppear;
+@synthesize courseName;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -55,20 +54,12 @@
 
 - (void)dealloc
 {
+    self.blockingActivityView = nil;
     self.announcements = nil;
     self.announcementsFetcher = nil;
-    self.blockingActivityView = nil;
     self.lastUpdateTime = nil;
+    self.courseName = nil;
     [super dealloc];
-}
-
-- (void)infoButtonTapped:(id)sender {
-    InfoTableViewController* infoTableViewController = [[InfoTableViewController alloc] initWithNibName:@"InfoTableViewController" bundle:nil];
-    infoTableViewController.cancelDelegate = self;
-    UINavigationController *infoNavController = [[UINavigationController alloc] initWithRootViewController:infoTableViewController];
-    [self presentModalViewController:infoNavController animated:YES];
-    [infoNavController release];
-    [infoTableViewController release];
 }
 
 // overriding parent method
@@ -124,31 +115,13 @@
     [super viewDidLoad];
             
     // Do any additional setup after loading the view from its nib.
-    blockingActivityView = [[BlockingActivityView alloc] initWithWithView:self.view];
-    
-    // add the info button, give it a tap handler
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeInfoLight];
-    [btn addTarget:self action:@selector(infoButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-    [btn release];
-    
-    // add the notifications indicator in the header
-    UIView* notificationView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 18, 18)];
-    notificationView.backgroundColor = HEXCOLOR(0xF5FF6F);
-    UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(0,0,18,18)];
-    label.text = @"3";
-    label.textAlignment = UITextAlignmentCenter;
-    label.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
-    [notificationView addSubview:label];
-    UIBarButtonItem* notificationButton = [[UIBarButtonItem alloc] initWithCustomView:notificationView];
-    self.navigationItem.rightBarButtonItem = notificationButton;
-    [notificationView release];
-    [notificationButton release];
-    [label release];
-    
+    blockingActivityView = [[BlockingActivityView alloc] initWithWithView:self.view];    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    
+    self.title = self.courseName;
+    
     // if activities have never been updated or the last update was more than an hour ago,
     // fetch the topics again.
     if (!self.lastUpdateTime || [self.lastUpdateTime timeIntervalSinceNow] < -3600 || forceUpdateOnViewWillAppear) {
@@ -229,19 +202,18 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 44.0;
+    return 55.0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return nil;
     Announcement* announcement = [self getAnnouncementForIndexPath:indexPath];
     UITableViewCell *cell;
     if (announcement) {
         static NSString *CellIdentifier = @"AnnouncementTableCell";
         cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
-            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+            cell = [[[AnnouncementTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AnnouncementTableCell"] autorelease];
         }
         [(AnnouncementTableCell*)cell setData:announcement];        
     } else {
@@ -269,6 +241,10 @@
     forceUpdateOnViewWillAppear = YES;
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [announcementsFetcher cancel];
+}
+
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -277,10 +253,11 @@
     if (announcement) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         AnnouncementDetailViewController* announcementDetailViewController = [[AnnouncementDetailViewController alloc] initWithNibName:@"AnnouncementDetailViewController" bundle:nil];
-        NSLog(@"Initializing AnnouncementDetailViewController controller with announcement ID: %d",announcement.announcementId);
-        announcementDetailViewController.announcementId = announcement.announcementId;
-        topicResponsesViewController.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:topicResponsesViewController animated:YES];
+        NSLog(@"Initializing AnnouncementDetailViewController controller with announcement ID: %d and course ID: %d",announcement.announcementId, self.courseId);
+        [announcementDetailViewController setAnnouncementId:announcement.announcementId andCourseId:self.courseId andCourseName:self.courseName];
+        announcementDetailViewController.hidesBottomBarWhenPushed = YES;
+        [self.table deselectRowAtIndexPath:indexPath animated:YES];
+        [self.navigationController pushViewController:announcementDetailViewController animated:YES];
         [announcementDetailViewController release];
     }
 }

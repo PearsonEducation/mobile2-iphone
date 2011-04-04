@@ -75,7 +75,6 @@
 
 - (void)dealloc {
     self.backgroundColor = nil;
-    [view release];
     [super dealloc];
 }
 

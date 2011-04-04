@@ -1,12 +1,12 @@
 //
-//  AnnouncementDetailViewcontroller.m
+//  AnnouncementDetailViewController.m
 //  eCollege
 //
 //  Created by Brad Umbaugh on 3/17/11.
 //  Copyright 2011 EffectiveUI. All rights reserved.
 //
 
-#import "AnnouncementDetailViewcontroller.h"
+#import "AnnouncementDetailViewController.h"
 #import "DropboxMessage.h"
 #import "DropboXBasket.h"
 #import "UIColor+Boost.h"
@@ -16,13 +16,14 @@
 #import "DateCalculator.h"
 #import "DropboxAttachment.h"
 
-@interface AnnouncementDetailViewcontroller ()
+@interface AnnouncementDetailViewController ()
 
 @property (nonatomic, retain) AnnouncementFetcher* announcementFetcher;
 @property (nonatomic, retain) id announcement;
 @property (nonatomic, retain) BlockingActivityView* blockingActivityView;
 @property (nonatomic, assign) NSInteger announcementId;
 @property (nonatomic, assign) NSInteger courseId;
+@property (nonatomic, retain) NSString* courseName;
 
 - (void)announcementLoaded:(id)announcementValue;
 - (void)setupView;
@@ -31,22 +32,27 @@
 
 @end
 
-@implementation AnnouncementDetailViewcontroller
+@implementation AnnouncementDetailViewController
 
 @synthesize announcementFetcher;
 @synthesize announcement;
 @synthesize blockingActivityView;
 @synthesize announcementId;
 @synthesize courseId;
+@synthesize courseName;
 
-- (id)initWithAnnouncementId:(NSInteger)announcementIdValue andCourseId:(NSInteger)courseIdValue {
-    self = [super init];
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nil];
     if (self) {
-        self.announcementId = announcementIdValue;
-        self.courseId = courseIdValue;
         self.announcementFetcher = [[AnnouncementFetcher alloc] initWithDelegate:self responseSelector:@selector(announcementLoaded:)];
     }
     return self;
+}
+
+- (void)setAnnouncementId:(NSInteger)announcementIdValue andCourseId:(NSInteger)courseIdValue andCourseName:(NSString *)courseNameValue {
+    self.announcementId = announcementIdValue;
+    self.courseId = courseIdValue;
+    self.courseName = courseNameValue;
 }
 
 - (void)loadAnnouncement {
@@ -71,9 +77,9 @@
 }
 
 - (void)serviceCallComplete {
-    if (dropboxBasket && dropboxMessage) {
+    if (announcement) {
         // service calls are complete
-        if ([dropboxBasket isKindOfClass:[DropboxBasket class]] && [dropboxMessage isKindOfClass:[DropboxMessage class]]) {
+        if ([announcement isKindOfClass:[Announcement class]]) {
             [self setupView];
         } else {
             [self handleErrors];
@@ -86,22 +92,10 @@
 
 - (void)handleErrors {
     NSLog(@"Errors loading dropbox basket / dropbox message");
-    UIFont* errorFont = [UIFont fontWithName:@"Helvetica-Bold" size:19];
-    NSString* error = NSLocalizedString(@"Error loading dropbox item",@"Statement that there is an error loading a dropbox item.");
-    CGSize maximumSize = CGSizeMake(320, 1000);
-    CGSize errorSize = [error sizeWithFont:errorFont constrainedToSize:maximumSize lineBreakMode:UILineBreakModeWordWrap];
-    UILabel* errorLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - errorSize.width/2, self.view.frame.size.height/2 - errorSize.height/2, errorSize.width, errorSize.height)];
-    [errorLabel setTextColor:HEXCOLOR(0x151848)];
-    errorLabel.backgroundColor = [UIColor clearColor];
-    errorLabel.text = error;
-    errorLabel.textAlignment = UITextAlignmentCenter;    
-    [self.view addSubview:errorLabel];
-    [errorLabel release];
 }
 
 - (void)setupView {
-    DropboxBasket* basket = (DropboxBasket*)self.dropboxBasket;
-    DropboxMessage* message = (DropboxMessage*)self.dropboxMessage;
+    Announcement* a = (Announcement*)self.announcement;
     
     // set up some colors
     UIColor *headerFontColor = HEXCOLOR(0x151848);
@@ -114,10 +108,8 @@
     UIFont* dateFont = [UIFont fontWithName:@"Helvetica-Oblique" size:12];
     
     // set up the course name label
-    Course* course = [[eCollegeAppDelegate delegate] getCourseHavingId:courseId];
-    NSString *courseName = course.title;    
     CGSize maximumSize = CGSizeMake(284.0, 1000.0);
-    CGSize courseNameSize = [courseName sizeWithFont:courseNameFont constrainedToSize:maximumSize lineBreakMode:UILineBreakModeWordWrap]; // 18px left, right margins, so 284.0 width
+    CGSize courseNameSize = [self.courseName sizeWithFont:courseNameFont constrainedToSize:maximumSize lineBreakMode:UILineBreakModeWordWrap]; // 18px left, right margins, so 284.0 width
     UILabel* courseNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(18, 16, courseNameSize.width, courseNameSize.height)];
     courseNameLabel.font = courseNameFont;
     courseNameLabel.textColor = headerFontColor;
@@ -128,19 +120,19 @@
     [self.view addSubview:courseNameLabel];
     
     // set up the assignment title label
-    NSString* assignmentName = basket.title;
-    CGSize assignmentNameSize = [assignmentName sizeWithFont:titleFont constrainedToSize:maximumSize lineBreakMode:UILineBreakModeWordWrap];
-    UILabel* assignmentLabel = [[UILabel alloc] initWithFrame:CGRectMake(18, courseNameLabel.frame.origin.y + courseNameLabel.frame.size.height + 5, assignmentNameSize.width, assignmentNameSize.height)];
-    assignmentLabel.font = titleFont;
-    assignmentLabel.textColor = headerFontColor;
-    assignmentLabel.lineBreakMode = UILineBreakModeWordWrap;
-    assignmentLabel.text = assignmentName;
-    assignmentLabel.backgroundColor =  [UIColor clearColor];
-    assignmentLabel.numberOfLines = 0;
-    [self.view addSubview:assignmentLabel];
+    NSString* subject = a.subject;
+    CGSize subjectSize = [subject sizeWithFont:titleFont constrainedToSize:maximumSize lineBreakMode:UILineBreakModeWordWrap];
+    UILabel* subjectLabel = [[UILabel alloc] initWithFrame:CGRectMake(18, courseNameLabel.frame.origin.y + courseNameLabel.frame.size.height + 5, subjectSize.width, subjectSize.height)];
+    subjectLabel.font = titleFont;
+    subjectLabel.textColor = headerFontColor;
+    subjectLabel.lineBreakMode = UILineBreakModeWordWrap;
+    subjectLabel.text = subject;
+    subjectLabel.backgroundColor =  [UIColor clearColor];
+    subjectLabel.numberOfLines = 0;
+    [self.view addSubview:subjectLabel];
     
     // set up the white box in the background, with rounded corners and drop shadow (arbitrary initial height, will change that later)
-    UIView* whiteBox = [[UIView alloc] initWithFrame:CGRectMake(9, assignmentLabel.frame.origin.y + assignmentLabel.frame.size.height + 10, 303, 500)];
+    UIView* whiteBox = [[UIView alloc] initWithFrame:CGRectMake(9, subjectLabel.frame.origin.y + subjectLabel.frame.size.height + 10, 303, 500)];
     whiteBox.backgroundColor = [UIColor whiteColor];
     whiteBox.layer.cornerRadius = 10.0;
     whiteBox.layer.shadowColor = [[UIColor lightGrayColor] CGColor];
@@ -155,7 +147,7 @@
     [whiteBox addSubview:img];    
     
     // set up the 'Posted By' label
-    NSString* postedByText = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Posted by",nil), [message nameOfSubmissionStudent]];
+    NSString* postedByText = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Posted by",nil), a.submitter];
     CGSize postedBySize = [postedByText sizeWithFont:commentsFont constrainedToSize:maximumSize lineBreakMode:UILineBreakModeWordWrap];
     UILabel* postedByLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, 16, postedBySize.width, postedBySize.height)];
     postedByLabel.font = commentsFont;
@@ -166,12 +158,7 @@
     [whiteBox addSubview:postedByLabel];
     
     // set up the date label
-    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    [gregorian setTimeZone:[NSTimeZone defaultTimeZone]];
-    DateCalculator* dateCalculator = [[DateCalculator alloc] initWithCalendar:gregorian];
-    [gregorian release];
-    int numDays = [dateCalculator datesFrom:[NSDate date] to:message.date];
-    NSString* dateString = [message.date friendlyDateWithTimeFor:numDays];
+    NSString* dateString = [a.endDisplayDate friendlyString];
     CGSize dateSize = [dateString sizeWithFont:dateFont constrainedToSize:maximumSize lineBreakMode:UILineBreakModeWordWrap];
     UILabel* dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, postedByLabel.frame.origin.y + postedByLabel.frame.size.height + 5, dateSize.width, dateSize.height)];
     dateLabel.font = dateFont;
@@ -182,7 +169,7 @@
     [whiteBox addSubview:dateLabel];
     
     // set up the comments label
-    NSString* comments = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Comments",nil), message.comments];
+    NSString* comments = a.text;
     maximumSize = CGSizeMake(243, 2000);
     CGSize commentsSize = [comments sizeWithFont:commentsFont constrainedToSize:maximumSize lineBreakMode:UILineBreakModeWordWrap];
     UILabel* commentsLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, dateLabel.frame.origin.y + dateLabel.frame.size.height + 5, commentsSize.width, commentsSize.height)];
@@ -192,45 +179,6 @@
     commentsLabel.backgroundColor = [UIColor clearColor];
     commentsLabel.numberOfLines = 0;
     [whiteBox addSubview:commentsLabel];
-    
-    // [BSU, 3/29/2011] 
-    // Taking this out for now, so that in the future we can add them back in with quick look / preview
-    //
-    // set up a button for each attachment
-    //    int count = 0;
-    //    UIButton* btn = nil;
-    //    
-    //    while (count < [message.attachments count]) {
-    //        
-    //        // grab the attachment
-    //        DropboxAttachment *attachment = [message.attachments objectAtIndex:count];
-    //        
-    //        // figure out the y coordinate of the new button we're making
-    //        int y;
-    //        if (count == 0) {
-    //            y = commentsLabel.frame.origin.y + commentsLabel.frame.size.height + 20;
-    //        } else {
-    //            y = btn.frame.origin.y + btn.frame.size.height + 10;
-    //        }
-    //        
-    //        // if this isn't the first iteration through the loop, release the previous button
-    //        if (btn) {
-    //            [btn release];
-    //        }
-    //        
-    //        // make the new button
-    //        btn = [[UIButton alloc] initWithFrame:CGRectMake(45, y, 242, 30)];
-    //        btn.titleLabel.font = buttonFont;
-    //        [btn setTitle:attachment.name forState:UIControlStateNormal];
-    //        [btn setTitleColor:buttonTextColor forState:UIControlStateNormal];
-    //        btn.backgroundColor = HEXCOLOR(0xE9E9E9);
-    //        btn.layer.cornerRadius = 3.0;
-    //        btn.layer.borderWidth = 1.0;
-    //        btn.layer.borderColor = [HEXCOLOR(0xC0C0C0) CGColor];
-    //        [btn setTag:count];
-    //        [whiteBox addSubview:btn];
-    //        count += 1;
-    //    }
     
     // set the height of the white box
     CGRect boxFrame = whiteBox.frame;
@@ -247,7 +195,7 @@
     [commentsLabel release];
     [dateLabel release];
     [postedByLabel release];
-    [assignmentLabel release];
+    [subjectLabel release];
     [courseNameLabel release];
     [whiteBox release];
 }
@@ -264,22 +212,11 @@
 
 - (void)dealloc
 {
-    self.dropboxBasket = nil;
-    self.dropboxMessage = nil;
+    [self.announcementFetcher cancel];
+    self.courseName = nil;
+    self.announcementFetcher = nil;
+    self.announcement = nil;
     self.blockingActivityView = nil;
-    self.messageId = nil;
-    self.basketId = nil;
-    
-    if (self.dropboxMessageFetcher) {
-        [self.dropboxMessageFetcher cancel];
-    }
-    self.dropboxMessageFetcher = nil;
-    
-    if (self.dropboxBasketFetcher) {
-        [self.dropboxBasketFetcher cancel];
-    }
-    self.dropboxBasketFetcher = nil;
-    
     [super dealloc];
 }
 
@@ -298,9 +235,12 @@
     [super viewDidLoad];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [self loadDropboxMessage];    
-    [self loadDropboxBasket];
+- (void)viewWillAppear:(BOOL)animated {
+    [self loadAnnouncement];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self.announcementFetcher cancel];
 }
 
 - (void)viewDidUnload
