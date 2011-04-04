@@ -151,7 +151,7 @@
     NSString *ident = @"CourseDetailBasicTableCell";
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:ident];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ident];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ident] autorelease];
     }
     return cell;
 }
@@ -207,7 +207,7 @@
     else if ([self isHighlightedAnnouncementCell:indexPath]) {
         UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"HighlightedAnnouncementTableCell"];
         if (cell == nil) {
-            cell = [[HighlightedAnnouncementTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"HighlightedAnnouncementTableCell"];
+            cell = [[[HighlightedAnnouncementTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"HighlightedAnnouncementTableCell"] autorelease];
         }
         ((HighlightedAnnouncementTableCell*)cell).announcement = [self.announcements objectAtIndex:0];
         return cell;
@@ -216,7 +216,7 @@
     else {
         UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"CourseDetailTableCell"];
         if (cell == nil) {
-            cell = [[CourseDetailTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CourseDetailTableCell"];
+            cell = [[[CourseDetailTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CourseDetailTableCell"] autorelease];
         }
 
         if ([self isAnnouncementsCell:indexPath]) {

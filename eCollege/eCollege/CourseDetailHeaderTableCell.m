@@ -61,7 +61,7 @@
     
     // professorNameLabel setup
     cell.professorNameLabel.font = professorNameLabelFont;
-    cell.professorNameLabel.lineBreakMode = UILineBreakModeCharacterWrap;
+    cell.professorNameLabel.lineBreakMode = UILineBreakModeWordWrap;
     cell.professorNameLabel.numberOfLines = 0;
     NSString* allNames = @"";
     if (instructors && [instructors count] > 0) {
