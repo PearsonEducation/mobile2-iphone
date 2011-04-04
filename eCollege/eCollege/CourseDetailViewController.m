@@ -11,6 +11,7 @@
 #import "HighlightedAnnouncementTableCell.h"
 #import "CourseDetailTableCell.h"
 #import "AnnouncementsViewController.h"
+#import "AnnouncementDetailViewController.h"
 
 @interface CourseDetailViewController ()
 
@@ -241,12 +242,20 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if ([self isAnnouncementsCell:indexPath]) {
         AnnouncementsViewController* avc = [[AnnouncementsViewController alloc] initWithNibName:@"AnnouncementsViewController" bundle:nil];
         avc.courseId = self.course.courseId;
         avc.courseName = self.course.title;        
         [self.navigationController pushViewController:avc animated:YES];
         [avc release];
+    } else if ([self isHighlightedAnnouncementCell:indexPath]) {
+        AnnouncementDetailViewController* advc = [[AnnouncementDetailViewController alloc] initWithNibName:@"AnnouncementsDetailViewController" bundle:nil];
+        Announcement* announcement = [announcements objectAtIndex:0];
+        [advc setAnnouncementId:announcement.announcementId andCourseId:self.course.courseId andCourseName:self.course.title];
+        advc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:advc animated:YES];
+        [advc release];
     }
 }
 
