@@ -22,6 +22,7 @@
     BOOL forceUpdateOnViewWillAppear;
     NSMutableDictionary* namesByLetter;
     NSMutableArray* sortedKeys;
+    IBOutlet UISegmentedControl* filterControl;
 }
 
 - (IBAction)refreshWithModalSpinner;
