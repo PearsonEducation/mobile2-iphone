@@ -61,6 +61,10 @@
 	return [[eCollegeAppDelegate delegate].coursesArray count];
 }
 
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	return nil;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     Course *c = [[eCollegeAppDelegate delegate].coursesArray objectAtIndex:indexPath.row];
     UITableViewCell* cell = nil;
