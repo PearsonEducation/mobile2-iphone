@@ -24,7 +24,6 @@
 
 - (void)loadData;
 - (void)prepareData;
-- (Announcement*)getTopicForIndexPath:(NSIndexPath*)indexPath;
 - (void)loadingComplete;
 - (Announcement*)getAnnouncementForIndexPath:(NSIndexPath*)indexPath;
 
@@ -252,7 +251,7 @@
     Announcement* announcement = [self getAnnouncementForIndexPath:indexPath];
     if (announcement) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        AnnouncementDetailViewController* announcementDetailViewController = [[AnnouncementDetailViewController alloc] initWithNibName:@"AnnouncementDetailViewController" bundle:nil];
+        AnnouncementDetailViewController* announcementDetailViewController = [[AnnouncementDetailViewController alloc] init];
         NSLog(@"Initializing AnnouncementDetailViewController controller with announcement ID: %d and course ID: %d",announcement.announcementId, self.courseId);
         [announcementDetailViewController setAnnouncementId:announcement.announcementId andCourseId:self.courseId andCourseName:self.courseName];
         announcementDetailViewController.hidesBottomBarWhenPushed = YES;

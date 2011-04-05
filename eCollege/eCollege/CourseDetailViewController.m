@@ -12,6 +12,7 @@
 #import "CourseDetailTableCell.h"
 #import "AnnouncementsViewController.h"
 #import "AnnouncementDetailViewController.h"
+#import "PeopleViewController.h"
 
 @interface CourseDetailViewController ()
 
@@ -256,6 +257,12 @@
         advc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:advc animated:YES];
         [advc release];
+    } else if ([self isPeopleCell:indexPath]) {
+        PeopleViewController* pvc = [[PeopleViewController alloc] initWithNibName:@"PeopleViewController" bundle:nil];
+        pvc.courseId = self.course.courseId;
+        pvc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:pvc animated:YES];
+        [pvc release];
     }
 }
 
