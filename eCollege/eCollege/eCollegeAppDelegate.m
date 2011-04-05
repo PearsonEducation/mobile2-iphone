@@ -260,9 +260,7 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
         NSLog(@"User load successful; ID = %d", ((User*)response).userId);
         self.currentUser = (User*)response;
 		[self showTabsIfMeAndCoursesLoaded];
-    } else {
-        [blockingActivityView hide];
-    }
+    } // TODO: fail silently? What else should we do?
 }
 
 - (void)refreshCourseList {
