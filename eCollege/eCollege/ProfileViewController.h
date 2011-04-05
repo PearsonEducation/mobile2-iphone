@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 
 
-@interface ProfileViewController : UIViewController {
+@interface ProfileViewController : UIViewController<UITableViewDataSource, UITableViewDelegate> {
     IBOutlet UILabel *studentNameLabel;
 	IBOutlet UIButton *signOutButton;
+	IBOutlet UILabel *tableTitleLable;
+	IBOutlet UITableView *tableView;
 }
 
 - (IBAction) signOutPressed:(id)sender;
