@@ -7,7 +7,7 @@
 //
 
 #import "PeopleViewController.h"
-// #import "AnnouncementDetailViewController.h"
+#import "PersonDetailViewController.h"
 #import "PersonTableCell.h"
 #import "UIColor+Boost.h"
 #import "RosterUser.h"
@@ -316,17 +316,18 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    User* user = [self getUserForIndexPath:indexPath];
-//    if (user) {
-//        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//        PersonDetailViewController* pdvc = [[PersonDetailViewController alloc] initWithNibName:@"PersonDetailViewController" bundle:nil];
-//        NSLog(@"Initializing PersonDetailViewController controller with user id: %d", user.userId);
-//        pdvc.personId = user.userId;
-//        pdvc.hidesBottomBarWhenPushed = YES;
-//        [self.table deselectRowAtIndexPath:indexPath animated:YES];
-//        [self.navigationController pushViewController:pdvc animated:YES];
-//        [pdvc release];
-//    }
+    RosterUser* user = [self getUserForIndexPath:indexPath];
+    if (user) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        PersonDetailViewController *pdvc = [[PersonDetailViewController alloc] initWithNibName:@"PersonDetailViewController" bundle:nil];
+        NSLog(@"Initializing PersonDetailViewController controller with user id: %d", user.rosterUserId);
+        pdvc.user = user;
+        pdvc.courseId = self.courseId;
+        pdvc.hidesBottomBarWhenPushed = YES;
+        [self.table deselectRowAtIndexPath:indexPath animated:YES];
+        [self.navigationController pushViewController:pdvc animated:YES];
+        [pdvc release];
+    }
 }
 
 @end

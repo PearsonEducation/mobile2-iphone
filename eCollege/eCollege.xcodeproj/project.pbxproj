@@ -37,6 +37,8 @@
 		A25D9A701345267F007C7711 /* CourseTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A25D9A6F1345267E007C7711 /* CourseTableCell.xib */; };
 		A25D9A73134526E5007C7711 /* CourseTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A25D9A72134526E5007C7711 /* CourseTableCell.m */; };
 		A25FC79F134A5A8D0031D2C2 /* AnnouncementTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A25FC79E134A5A8D0031D2C2 /* AnnouncementTableCell.m */; };
+		A2642077134B94D000B3048E /* PersonDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2642075134B94D000B3048E /* PersonDetailViewController.m */; };
+		A2642078134B94D000B3048E /* PersonDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2642076134B94D000B3048E /* PersonDetailViewController.xib */; };
 		A2651D41134A29CE00490400 /* AnnouncementsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2651D3F134A29CE00490400 /* AnnouncementsViewController.m */; };
 		A2651D42134A29CE00490400 /* AnnouncementsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2651D40134A29CE00490400 /* AnnouncementsViewController.xib */; };
 		A2651D47134A49B100490400 /* AnnouncementDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2651D45134A49B100490400 /* AnnouncementDetailViewController.m */; };
@@ -192,6 +194,9 @@
 		A25D9A72134526E5007C7711 /* CourseTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseTableCell.m; sourceTree = "<group>"; };
 		A25FC79D134A5A8D0031D2C2 /* AnnouncementTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementTableCell.h; sourceTree = "<group>"; };
 		A25FC79E134A5A8D0031D2C2 /* AnnouncementTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementTableCell.m; sourceTree = "<group>"; };
+		A2642074134B94D000B3048E /* PersonDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonDetailViewController.h; sourceTree = "<group>"; };
+		A2642075134B94D000B3048E /* PersonDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonDetailViewController.m; sourceTree = "<group>"; };
+		A2642076134B94D000B3048E /* PersonDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonDetailViewController.xib; sourceTree = "<group>"; };
 		A2651D3E134A29CE00490400 /* AnnouncementsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementsViewController.h; sourceTree = "<group>"; };
 		A2651D3F134A29CE00490400 /* AnnouncementsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementsViewController.m; sourceTree = "<group>"; };
 		A2651D40134A29CE00490400 /* AnnouncementsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnnouncementsViewController.xib; sourceTree = "<group>"; };
@@ -615,6 +620,9 @@
 				A2EE3EE31320429400745C1C /* PeopleViewController.xib */,
 				A2F267C6134AB46F00605AF0 /* PersonTableCell.h */,
 				A2F267C7134AB46F00605AF0 /* PersonTableCell.m */,
+				A2642074134B94D000B3048E /* PersonDetailViewController.h */,
+				A2642075134B94D000B3048E /* PersonDetailViewController.m */,
+				A2642076134B94D000B3048E /* PersonDetailViewController.xib */,
 			);
 			name = People;
 			sourceTree = "<group>";
@@ -866,6 +874,7 @@
 				EAD48D58134A6AC700B33ACD /* you_banner.png in Resources */,
 				EAD48D59134A6AC700B33ACD /* you_banner@2x.png in Resources */,
 				A2651D42134A29CE00490400 /* AnnouncementsViewController.xib in Resources */,
+				A2642078134B94D000B3048E /* PersonDetailViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -918,6 +927,7 @@
 				A2651D47134A49B100490400 /* AnnouncementDetailViewController.m in Sources */,
 				A25FC79F134A5A8D0031D2C2 /* AnnouncementTableCell.m in Sources */,
 				A2F267C8134AB46F00605AF0 /* PersonTableCell.m in Sources */,
+				A2642077134B94D000B3048E /* PersonDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
