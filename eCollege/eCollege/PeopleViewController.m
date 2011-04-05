@@ -8,9 +8,9 @@
 
 #import "PeopleViewController.h"
 // #import "AnnouncementDetailViewController.h"
-// #import "AnnouncementTableCell.h"
+#import "PersonTableCell.h"
 #import "UIColor+Boost.h"
-#import "User.h"
+#import "RosterUser.h"
 #import "eCollegeAppDelegate.h"
 #import "NSDateUtilities.h"
 
@@ -21,10 +21,12 @@
 @property (nonatomic, assign) BOOL currentlyLoading;
 @property (nonatomic, assign) BOOL peopleLoadFailure;
 @property (nonatomic, assign) BOOL forceUpdateOnViewWillAppear;
+@property (nonatomic, retain) NSMutableDictionary* namesByLetter;
+@property (nonatomic, retain) NSMutableArray* sortedKeys;
 
 - (void)loadData;
 - (void)prepareData;
-- (User*)getUserForIndexPath:(NSIndexPath*)indexPath;
+- (RosterUser*)getUserForIndexPath:(NSIndexPath*)indexPath;
 - (void)loadingComplete;
 
 @end
@@ -39,7 +41,8 @@
 @synthesize currentlyLoading;
 @synthesize peopleLoadFailure;
 @synthesize forceUpdateOnViewWillAppear;
-
+@synthesize namesByLetter;
+@synthesize sortedKeys;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -56,6 +59,8 @@
     self.lastUpdateTime = nil;
     self.userFetcher = nil;
     self.blockingActivityView = nil;
+    self.namesByLetter = nil;
+    self.sortedKeys = nil;
     [super dealloc];
 }
 
@@ -160,6 +165,28 @@
 }
 
 - (void)prepareData {
+    // sort by full name
+    NSSortDescriptor* sd = [[NSSortDescriptor alloc] initWithKey:@"fullNameString" ascending:YES selector:@selector(caseInsensitiveCompare:)];
+    NSArray* descriptors = [[NSArray alloc] initWithObjects:sd,nil];
+    self.people = [self.people sortedArrayUsingDescriptors:descriptors];
+    [descriptors release];
+    [sd release];
+    
+    self.sortedKeys = [[NSMutableArray alloc] init];    
+
+    // index the names by first letter (they're already sorted; no more sorting required)
+    namesByLetter = [[NSMutableDictionary alloc] init];
+    for (RosterUser* ru in people) {
+        NSString* firstLetter = [[ru.fullNameString substringToIndex:1] uppercaseString];
+        NSMutableArray* namesForLetter = [namesByLetter objectForKey:firstLetter];
+        if (namesForLetter) {
+            [namesForLetter addObject:ru];
+        } else {
+            namesForLetter = [[NSMutableArray alloc] initWithObjects:ru, nil];
+            [namesByLetter setValue:namesForLetter forKey:firstLetter];
+            [sortedKeys addObject:firstLetter];
+        }
+    }    
 }
 
 - (void)viewDidUnload
@@ -179,23 +206,19 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return [[namesByLetter allKeys] count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (self.peopleLoadFailure) {
-        int cnt = [self.people count];
-        if (cnt > 0) {
-            return cnt;
-        } else {
-            // no data cell
-            return 1;
+    if (sortedKeys) {
+        NSString* letter = [sortedKeys objectAtIndex:section];
+        NSArray* namesForLetter = [namesByLetter objectForKey:letter];
+        if (namesForLetter) {
+            return [namesForLetter count];
         }
-    } else {
-        // still loading
-        return 0;
     }
+    return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -204,16 +227,24 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    User* user = [self getUserForIndexPath:indexPath];
+    RosterUser* user = nil;
+    if (sortedKeys) {
+        NSString* letter = [sortedKeys objectAtIndex:indexPath.section];
+        NSArray* namesForLetter = [namesByLetter objectForKey:letter];
+        if (namesForLetter) {
+            user =  [namesForLetter objectAtIndex:indexPath.row];
+        }
+    }
+     
     UITableViewCell *cell;
-//    if (user) {
-//        static NSString *CellIdentifier = @"UserTableCell";
-//        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-//        if (cell == nil) {
-//            cell = [[[UserTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UserTableCell"] autorelease];
-//        }
-//        [(UserTableCell*)cell setData:user];        
-//    } else {
+    if (user) {
+        static NSString *CellIdentifier = @"PersonTableCell";
+        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[[PersonTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PersonTableCell"] autorelease];
+        }
+        [(PersonTableCell*)cell setData:user];        
+    } else {
         static NSString *CellIdentifier = @"Cell";
         cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
@@ -222,12 +253,20 @@
         cell.textLabel.font = [UIFont fontWithName:@"Helvetica-Oblique" size:13.0];
         cell.textLabel.textColor = [UIColor lightGrayColor];
         cell.textLabel.text = NSLocalizedString(@"No people",nil);
-//    }
+    }
     return cell;
 }
 
-- (User*)getUserForIndexPath:(NSIndexPath *)indexPath {
-    User* returnValue = nil;
+- (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (sortedKeys) {
+        return [sortedKeys objectAtIndex:section];
+    } else {
+        return nil;
+    }
+}
+
+- (RosterUser*)getUserForIndexPath:(NSIndexPath *)indexPath {
+    RosterUser* returnValue = nil;
     if (indexPath.row < [self.people count]) {
         returnValue = [self.people objectAtIndex:indexPath.row];
     }

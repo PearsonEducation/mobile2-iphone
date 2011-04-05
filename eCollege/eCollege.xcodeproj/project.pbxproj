@@ -102,6 +102,7 @@
 		A2EE3EEA132042D800745C1C /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2EE3EE8132042D800745C1C /* ProfileViewController.xib */; };
 		A2EE947713384086001CFDDF /* TopicTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2EE947613384086001CFDDF /* TopicTableCell.xib */; };
 		A2EE947E1338456C001CFDDF /* TopicTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A2EE947D1338456C001CFDDF /* TopicTableCell.m */; };
+		A2F267C8134AB46F00605AF0 /* PersonTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A2F267C7134AB46F00605AF0 /* PersonTableCell.m */; };
 		A2FA6E8013206E3B0063268C /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2FA6E8213206E3B0063268C /* HomeViewController.xib */; };
 		EA7A9F5A13146E3400D9EC6A /* libECAPI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA7A9F5913146E3400D9EC6A /* libECAPI.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		EA7A9FBA1314738300D9EC6A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA7A9FB91314738300D9EC6A /* SystemConfiguration.framework */; };
@@ -281,6 +282,8 @@
 		A2EE947613384086001CFDDF /* TopicTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TopicTableCell.xib; sourceTree = "<group>"; };
 		A2EE947C1338456B001CFDDF /* TopicTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicTableCell.h; sourceTree = "<group>"; };
 		A2EE947D1338456C001CFDDF /* TopicTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicTableCell.m; sourceTree = "<group>"; };
+		A2F267C6134AB46F00605AF0 /* PersonTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonTableCell.h; sourceTree = "<group>"; };
+		A2F267C7134AB46F00605AF0 /* PersonTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonTableCell.m; sourceTree = "<group>"; };
 		A2FA6E8113206E3B0063268C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/HomeViewController.xib; sourceTree = "<group>"; };
 		EA7A9F4A13146C9D00D9EC6A /* ECAPI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ECAPI.xcodeproj; path = ../ecollegeiosapi/ECAPI/ECAPI.xcodeproj; sourceTree = "<group>"; };
 		EA7A9F5913146E3400D9EC6A /* libECAPI.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libECAPI.a; sourceTree = SOURCE_ROOT; };
@@ -610,6 +613,8 @@
 				A2EE3EE11320429400745C1C /* PeopleViewController.h */,
 				A2EE3EE21320429400745C1C /* PeopleViewController.m */,
 				A2EE3EE31320429400745C1C /* PeopleViewController.xib */,
+				A2F267C6134AB46F00605AF0 /* PersonTableCell.h */,
+				A2F267C7134AB46F00605AF0 /* PersonTableCell.m */,
 			);
 			name = People;
 			sourceTree = "<group>";
@@ -912,6 +917,7 @@
 				A2651D41134A29CE00490400 /* AnnouncementsViewController.m in Sources */,
 				A2651D47134A49B100490400 /* AnnouncementDetailViewController.m in Sources */,
 				A25FC79F134A5A8D0031D2C2 /* AnnouncementTableCell.m in Sources */,
+				A2F267C8134AB46F00605AF0 /* PersonTableCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

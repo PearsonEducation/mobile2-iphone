@@ -20,6 +20,8 @@
     BOOL currentlyLoading;
     BOOL peopleLoadFailure;
     BOOL forceUpdateOnViewWillAppear;
+    NSMutableDictionary* namesByLetter;
+    NSMutableArray* sortedKeys;
 }
 
 - (IBAction)refreshWithModalSpinner;
