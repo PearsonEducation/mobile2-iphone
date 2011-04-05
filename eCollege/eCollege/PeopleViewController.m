@@ -14,6 +14,10 @@
 #import "eCollegeAppDelegate.h"
 #import "NSDateUtilities.h"
 
+#define EVERYONE 0
+#define CLASSMATES 1
+#define INSTRUCTORS 2
+
 @interface PeopleViewController ()
 
 @property (nonatomic, retain) UserFetcher* userFetcher;
@@ -23,11 +27,15 @@
 @property (nonatomic, assign) BOOL forceUpdateOnViewWillAppear;
 @property (nonatomic, retain) NSMutableDictionary* namesByLetter;
 @property (nonatomic, retain) NSMutableArray* sortedKeys;
+@property (nonatomic, retain) UISegmentedControl* filterControl;
 
 - (void)loadData;
-- (void)prepareData;
+- (void)sortData;
 - (RosterUser*)getUserForIndexPath:(NSIndexPath*)indexPath;
 - (void)loadingComplete;
+- (void)refreshTable;
+- (void)filterData;
+- (BOOL)filterExcludesUser:(RosterUser*)user;
 
 @end
 
@@ -43,6 +51,7 @@
 @synthesize forceUpdateOnViewWillAppear;
 @synthesize namesByLetter;
 @synthesize sortedKeys;
+@synthesize filterControl;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -61,6 +70,7 @@
     self.blockingActivityView = nil;
     self.namesByLetter = nil;
     self.sortedKeys = nil;
+    self.filterControl = nil;
     [super dealloc];
 }
 
@@ -110,6 +120,12 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+- (IBAction)filterSelectionChanged {
+    if (!currentlyLoading) {
+        [self refreshTable];
+    }
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -117,7 +133,11 @@
     [super viewDidLoad];
     
     // Do any additional setup after loading the view from its nib.
-    blockingActivityView = [[BlockingActivityView alloc] initWithWithView:self.view];    
+    blockingActivityView = [[BlockingActivityView alloc] initWithWithView:self.view];
+    [filterControl setTitle:NSLocalizedString(@"Everyone", nil) forSegmentAtIndex:EVERYONE];
+    [filterControl setTitle:NSLocalizedString(@"Classmates", nil) forSegmentAtIndex:CLASSMATES];
+    [filterControl setTitle:NSLocalizedString(@"Instructors", nil) forSegmentAtIndex:INSTRUCTORS];
+    filterControl.selectedSegmentIndex = EVERYONE;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -139,10 +159,16 @@
     } else {
         peopleLoadFailure = NO;
         self.people = loadedPeople;
-        [self prepareData];
+        [self sortData];
+        [self filterData];
     }
     
     [self loadingComplete];
+}
+
+- (void)refreshTable {
+    [self filterData];
+    [table reloadData];
 }
 
 - (void)loadingComplete {
@@ -150,7 +176,7 @@
         NSLog(@"Load failure");
     } else {
         // since we've updated the buckets of data, we must now reload the table
-        [self.table reloadData];
+        [self refreshTable];
     }
     
     // tell the "pull to refresh" loading header to go away (if it's present)
@@ -164,19 +190,29 @@
     peopleLoadFailure = NO;
 }
 
-- (void)prepareData {
+- (void)sortData {
     // sort by full name
     NSSortDescriptor* sd = [[NSSortDescriptor alloc] initWithKey:@"fullNameString" ascending:YES selector:@selector(caseInsensitiveCompare:)];
     NSArray* descriptors = [[NSArray alloc] initWithObjects:sd,nil];
     self.people = [self.people sortedArrayUsingDescriptors:descriptors];
     [descriptors release];
     [sd release];
-    
+}
+
+- (BOOL)filterExcludesUser:(RosterUser*)user {
+    return ((filterControl.selectedSegmentIndex == CLASSMATES && [user isInstructor]) || (filterControl.selectedSegmentIndex == INSTRUCTORS && [user isStudent]));
+}
+
+- (void)filterData {
     self.sortedKeys = [[NSMutableArray alloc] init];    
 
     // index the names by first letter (they're already sorted; no more sorting required)
     namesByLetter = [[NSMutableDictionary alloc] init];
     for (RosterUser* ru in people) {
+        // filter out users we don't want
+        if ([self filterExcludesUser:ru]) {
+            continue;
+        }
         NSString* firstLetter = [[ru.fullNameString substringToIndex:1] uppercaseString];
         NSMutableArray* namesForLetter = [namesByLetter objectForKey:firstLetter];
         if (namesForLetter) {
@@ -206,7 +242,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [[namesByLetter allKeys] count];
+    return [sortedKeys count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -227,16 +263,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    RosterUser* user = nil;
-    if (sortedKeys) {
-        NSString* letter = [sortedKeys objectAtIndex:indexPath.section];
-        NSArray* namesForLetter = [namesByLetter objectForKey:letter];
-        if (namesForLetter) {
-            user =  [namesForLetter objectAtIndex:indexPath.row];
-        }
-    }
-     
     UITableViewCell *cell;
+    RosterUser* user = [self getUserForIndexPath:indexPath];
     if (user) {
         static NSString *CellIdentifier = @"PersonTableCell";
         cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -266,11 +294,14 @@
 }
 
 - (RosterUser*)getUserForIndexPath:(NSIndexPath *)indexPath {
-    RosterUser* returnValue = nil;
-    if (indexPath.row < [self.people count]) {
-        returnValue = [self.people objectAtIndex:indexPath.row];
+    if (sortedKeys) {
+        NSString* letter = [sortedKeys objectAtIndex:indexPath.section];
+        NSArray* namesForLetter = [namesByLetter objectForKey:letter];
+        if (namesForLetter) {
+            return [namesForLetter objectAtIndex:indexPath.row];
+        }
     }
-    return returnValue;
+    return nil;
 }
 
 - (void)forceFutureRefresh {    
