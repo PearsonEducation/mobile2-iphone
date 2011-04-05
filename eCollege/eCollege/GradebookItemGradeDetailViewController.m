@@ -7,7 +7,7 @@
 //
 
 #import "GradebookItemGradeDetailViewController.h"
-#import "GradebookItemGrade.h"
+#import "Grade.h"
 #import "UIColor+Boost.h"
 #import "eCollegeAppDelegate.h"
 #import <QuartzCore/CoreAnimation.h>
@@ -53,7 +53,7 @@
     //[blockingActivityView hide];
     if ([gradebookItemGrade isKindOfClass:[NSError class]]) {
         NSLog(@"ERROR: Received an error when looking up a grade: %@",(NSError*)gradebookItemGrade);
-    } else if([gradebookItemGrade isKindOfClass:[GradebookItemGrade class]]) {
+    } else if([gradebookItemGrade isKindOfClass:[Grade class]]) {
         NSLog(@"Received a gradebookItemGrade");
         grade = [gradebookItemGrade retain];
         [self setupView];
