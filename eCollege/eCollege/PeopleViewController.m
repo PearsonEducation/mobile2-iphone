@@ -35,6 +35,7 @@
 - (void)loadingComplete;
 - (void)refreshTable;
 - (void)filterData;
+- (BOOL)filterExcludesUser:(RosterUser*)user;
 
 @end
 
@@ -198,6 +199,10 @@
     [sd release];
 }
 
+- (BOOL)filterExcludesUser:(RosterUser*)user {
+    return ((filterControl.selectedSegmentIndex == CLASSMATES && [user isInstructor]) || (filterControl.selectedSegmentIndex == INSTRUCTORS && [user isStudent]));
+}
+
 - (void)filterData {
     self.sortedKeys = [[NSMutableArray alloc] init];    
 
@@ -205,7 +210,7 @@
     namesByLetter = [[NSMutableDictionary alloc] init];
     for (RosterUser* ru in people) {
         // filter out users we don't want
-        if ((filterControl.selectedSegmentIndex == CLASSMATES && [ru isInstructor]) || (filterControl.selectedSegmentIndex == INSTRUCTORS && [ru isStudent])) {
+        if ([self filterExcludesUser:ru]) {
             continue;
         }
         NSString* firstLetter = [[ru.fullNameString substringToIndex:1] uppercaseString];
@@ -237,7 +242,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [[namesByLetter allKeys] count];
+    return [sortedKeys count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -258,16 +263,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    RosterUser* user = nil;
-    if (sortedKeys) {
-        NSString* letter = [sortedKeys objectAtIndex:indexPath.section];
-        NSArray* namesForLetter = [namesByLetter objectForKey:letter];
-        if (namesForLetter) {
-            user =  [namesForLetter objectAtIndex:indexPath.row];
-        }
-    }
-     
     UITableViewCell *cell;
+    RosterUser* user = [self getUserForIndexPath:indexPath];
     if (user) {
         static NSString *CellIdentifier = @"PersonTableCell";
         cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];

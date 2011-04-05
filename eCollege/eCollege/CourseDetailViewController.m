@@ -19,6 +19,13 @@
 @property (nonatomic, retain) BlockingActivityView* blockingActivityView;
 @property (nonatomic, retain) CourseDetailHeaderTableCell* headerCell;
 
+- (BOOL)haveAnnouncements;
+- (BOOL)isHeaderCell:(NSIndexPath*)indexPath;
+- (BOOL)isHighlightedAnnouncementCell:(NSIndexPath*)indexPath;
+- (BOOL)isAnnouncementsCell:(NSIndexPath*)indexPath;
+- (BOOL)isGradebookCell:(NSIndexPath*)indexPath;
+- (BOOL)isPeopleCell:(NSIndexPath*)indexPath;
+
 @end
 
 @implementation CourseDetailViewController
@@ -43,12 +50,8 @@
     // make sure both instructors and announcements have loaded
     if (!self.instructors || !self.announcements) {
         return;
-    }
-    
+    }    
     [table reloadData];
-
-    NSLog(@"Instructors: %@", self.instructors);
-    NSLog(@"Announcements: %@", self.announcements);
 }
 
 - (void)loadedInstructors:(id)obj {
@@ -136,7 +139,11 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    if ([self haveAnnouncements]) {
+        return 5;
+    } else {
+        return 4;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
