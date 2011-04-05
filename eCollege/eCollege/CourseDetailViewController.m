@@ -13,6 +13,7 @@
 #import "AnnouncementsViewController.h"
 #import "AnnouncementDetailViewController.h"
 #import "PeopleViewController.h"
+#import "CourseGradebookViewController.h"
 
 @interface CourseDetailViewController ()
 
@@ -270,9 +271,13 @@
         pvc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:pvc animated:YES];
         [pvc release];
-    }
+    } else if ([self isGradebookCell:indexPath]) {
+        CourseGradebookViewController *cgvc = [[CourseGradebookViewController alloc] initWithStyle:UITableViewStylePlain];
+		cgvc.courseId = self.course.courseId;
+        cgvc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:cgvc animated:YES];
+        [cgvc release];
+	}
 }
-
-
 
 @end

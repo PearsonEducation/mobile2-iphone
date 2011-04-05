@@ -7,10 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "GradebookItemFetcher.h"
 
 @interface CourseGradebookViewController : UITableViewController {
-    
+    GradebookItemFetcher *fetcher;
+	NSArray *gradebookItems;
+	NSInteger courseId;
 }
+
+@property(nonatomic, retain) NSArray *gradebookItems;
+@property(nonatomic, assign) NSInteger courseId;
 
 @end

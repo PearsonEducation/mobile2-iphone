@@ -10,26 +10,28 @@
 
 
 @implementation GradebookItemCell
+@synthesize gradeLabel;
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        // Initialization code
+		self.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"list_arrow_icon.png"]];
+		self.gradeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     }
     return self;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+- (void) layoutSubviews {
+	[super layoutSubviews];
+	CGRect cellFrame = self.frame;
+	self.gradeLabel.frame = CGRectMake(cellFrame.size.width - 80, cellFrame.size.height/2 - 15, 50, 30);
+	self.gradeLabel.textAlignment = UITextAlignmentRight;
+	[self.contentView addSubview:self.gradeLabel];
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
     [super dealloc];
+	self.gradeLabel = nil;
 }
 
 @end

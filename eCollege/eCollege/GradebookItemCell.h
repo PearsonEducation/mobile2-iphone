@@ -10,7 +10,9 @@
 
 
 @interface GradebookItemCell : UITableViewCell {
-    
+    UILabel *gradeLabel;
 }
+
+@property(nonatomic,retain) UILabel *gradeLabel;
 
 @end
