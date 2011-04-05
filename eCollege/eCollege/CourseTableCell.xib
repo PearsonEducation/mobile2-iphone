@@ -54,15 +54,17 @@
 								<string key="NSFrame">{{12, 12}, {25, 30}}</string>
 								<reference key="NSSuperview" ref="791998264"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="408727373"/>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							</object>
 							<object class="IBUILabel" id="408727373">
 								<reference key="NSNextResponder" ref="791998264"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{45, 10}, {245, 21}}</string>
+								<string key="NSFrame">{{45, 9}, {245, 21}}</string>
 								<reference key="NSSuperview" ref="791998264"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="944518472"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
@@ -86,9 +88,10 @@
 							<object class="IBUILabel" id="944518472">
 								<reference key="NSNextResponder" ref="791998264"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{45, 24}, {245, 21}}</string>
+								<string key="NSFrame">{{45, 27}, {245, 21}}</string>
 								<reference key="NSSuperview" ref="791998264"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="398197688"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
@@ -114,6 +117,7 @@
 								<string key="NSFrame">{{304, 21}, {9, 13}}</string>
 								<reference key="NSSuperview" ref="791998264"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							</object>
@@ -208,9 +212,9 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="82250548"/>
-							<reference ref="408727373"/>
 							<reference ref="944518472"/>
 							<reference ref="398197688"/>
+							<reference ref="408727373"/>
 						</object>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Course Table Cell</string>

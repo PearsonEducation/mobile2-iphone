@@ -7,7 +7,7 @@
 //
 
 #import "ECClientConfiguration.h"
-
+#import "ECStyles.h"
 
 @implementation ECClientConfiguration
 static ECClientConfiguration *currentConfiguration = nil;
@@ -56,12 +56,32 @@ static ECClientConfiguration *currentConfiguration = nil;
 	//TODO: add real implementation here
 	// return @"sandbox";
     return @"ctstate";
-    
 }
 
 - (void) dealloc {
 	[super dealloc];
 }
 
+// ---------------------------------------------------------------------------
+//
+// STYLES
+// 
+// ---------------------------------------------------------------------------
+
+- (NSUInteger)primaryColor {
+    return PRIMARY_COLOR;
+}
+
+- (NSUInteger)secondaryColor {
+    return SECONDARY_COLOR;
+}
+
+- (NSUInteger)tertiaryColor {
+    return TERTIARY_COLOR;
+}
+
+- (NSString*)schoolName {
+    return SCHOOL_NAME;
+}
 
 @end

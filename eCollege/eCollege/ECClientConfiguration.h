@@ -15,7 +15,11 @@
 
 + (ECClientConfiguration *) currentConfiguration;
 
-- (NSString *) clientId;
-- (NSString *) clientString;
+- (NSString*)clientId;
+- (NSString*)clientString;
+- (NSUInteger)primaryColor;
+- (NSUInteger)secondaryColor;
+- (NSUInteger)tertiaryColor;
+- (NSString*)schoolName;
 
 @end

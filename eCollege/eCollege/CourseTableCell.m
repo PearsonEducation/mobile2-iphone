@@ -21,8 +21,8 @@
 - (void)setData:(Course*)courseValue {
     if (courseValue) {
         self.course = courseValue;
-        courseNameLabel.text = courseValue.displayCourseCode;
-        courseDescriptionLabel.text = courseValue.title;
+        courseNameLabel.text = courseValue.title;
+        courseDescriptionLabel.text = courseValue.displayCourseCode;
     }
 }
 
