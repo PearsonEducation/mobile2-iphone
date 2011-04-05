@@ -11,6 +11,8 @@
 #import "UIColor+Boost.h"
 #import "eCollegeAppDelegate.h"
 #import "User.h"
+#import "Course.h"
+#import "CourseTableCell.h"
 
 @implementation ProfileViewController
 
@@ -30,6 +32,8 @@
     [super didReceiveMemoryWarning];
 }
 
+#pragma mark - Actions
+
 - (void)infoButtonTapped:(id)sender {
     InfoTableViewController* infoTableViewController = [[InfoTableViewController alloc] initWithNibName:@"InfoTableViewController" bundle:nil];
     infoTableViewController.cancelDelegate = self;
@@ -47,6 +51,40 @@
 	[[eCollegeAppDelegate delegate] signOut];
 }
 
+#pragma mark - Table View
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 55.0;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	return [[eCollegeAppDelegate delegate].coursesArray count];
+}
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	return nil;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    Course *c = [[eCollegeAppDelegate delegate].coursesArray objectAtIndex:indexPath.row];
+    UITableViewCell* cell = nil;
+    if (c) {
+        static NSString *CellIdentifier = @"CourseTableCell";
+        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+										  reuseIdentifier:CellIdentifier];
+        }
+    } else {
+        NSLog(@"ERROR: Could not find a course at row %d", indexPath.row);
+    }
+	
+	cell.textLabel.text = c.title;
+	cell.detailTextLabel.text = c.displayCourseCode;
+	
+    return cell;
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad {
@@ -59,6 +97,7 @@
 	
 	[signOutButton setTitle:NSLocalizedString(@"Sign Out", @"Sign Out label")
 				   forState:UIControlStateNormal];
+	tableTitleLable.text = NSLocalizedString(@"My Courses", @"Profile courses table title");
 }
 
 - (void) viewWillAppear:(BOOL)animated {
