@@ -47,19 +47,26 @@
 }
 
 - (void) viewDidLoad {
-	scrollView.contentSize = self.view.frame.size;
-    
+	//scrollView.contentSize = self.view.frame.size;
     blockingActivityView = [[BlockingActivityView alloc] initWithWithView:self.view];
+    backgroundImageView.image = [UIImage imageNamed:[[ECClientConfiguration currentConfiguration] splashFileName]];
+    userNameLabel.font = [[ECClientConfiguration currentConfiguration] mediumBoldFont];
+    userNameLabel.textColor = [[ECClientConfiguration currentConfiguration] primaryColor];
+    passwordLabel.font = [[ECClientConfiguration currentConfiguration] mediumBoldFont];
+    passwordLabel.textColor = [[ECClientConfiguration currentConfiguration] primaryColor];
+    keepMeLoggedInLabel.font = [[ECClientConfiguration currentConfiguration] mediumFont];
+    keepMeLoggedInLabel.textColor = [[ECClientConfiguration currentConfiguration] greyColor];
+    
 }
 
 - (void) viewDidAppear:(BOOL)animated {
 	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector (keyboardDidShow:)
-												 name: UIKeyboardDidShowNotification object:nil];
+											 selector:@selector (keyboardWillShow:)
+												 name: UIKeyboardWillShowNotification object:nil];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self 
-											 selector:@selector (keyboardDidHide:)
-												 name: UIKeyboardDidHideNotification object:nil];
+											 selector:@selector (keyboardWillHide:)
+												 name: UIKeyboardWillHideNotification object:nil];
     
 }
 
@@ -97,32 +104,32 @@
 
 #pragma mark - Control callbacks and view logic
 
-- (void) keyboardDidShow:(NSNotification *)notification {
+- (void) keyboardWillShow:(NSNotification *)notification {
 	if (keyboardIsShowing) {
 		return; //apparently we can sometimes get too many notifications
 	}
 	
-	NSDictionary *info = [notification userInfo];
-	NSValue *keyboardBoundsEndValue = [info objectForKey:UIKeyboardFrameEndUserInfoKey];
-	CGSize keyboardSize = [keyboardBoundsEndValue CGRectValue].size;
-	scrollViewOffsetWhenKeyboardIsHidden = scrollView.contentOffset;
-	scrollViewSizeWhenKeyboardIsHidden = scrollView.frame.size;
+    // If we want to use keyboard size for something in the future,
+    // here's how to do it...
+    //
+	// NSDictionary *info = [notification userInfo];
+	// NSValue *keyboardBoundsEndValue = [info objectForKey:UIKeyboardFrameEndUserInfoKey];
+	// keyboardSize = [keyboardBoundsEndValue CGRectValue].size;
 	
 	[UIView beginAnimations:nil context:NULL];
 		[UIView setAnimationDuration:0.25];
 		[UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-		CGRect viewFrame = scrollView.frame;
-		viewFrame.size.height -= keyboardSize.height;
-		scrollView.frame = viewFrame;
-		
-		//TODO: some magic numbers here... clean them up
-		scrollView.contentOffset = CGPointMake(0, usernameText.frame.origin.y - 40);
+        CGRect f = formView.frame;
+        formViewOrigY = f.origin.y;
+        // move it to the top of the window, right underneath the status bar
+        f.origin.y = 25;
+        formView.frame = f;
 	[UIView commitAnimations];
 
 	keyboardIsShowing = YES;
 }
 
-- (void) keyboardDidHide:(NSNotification *)notification {
+- (void) keyboardWillHide:(NSNotification *)notification {
 	if (!keyboardIsShowing) {
 		return; //apparently we can sometimes get too many notifications
 	}
@@ -132,8 +139,11 @@
 	[UIView beginAnimations:nil context:NULL];
 		[UIView setAnimationDuration:0.25];
 		[UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-		scrollView.frame = CGRectMake(0, 0, scrollViewSizeWhenKeyboardIsHidden.width, scrollViewSizeWhenKeyboardIsHidden.height);
-		scrollView.contentOffset = scrollViewOffsetWhenKeyboardIsHidden;
+        CGRect f = formView.frame;
+        f.origin.y = formViewOrigY;
+        formView.frame = f;
+		//scrollView.frame = CGRectMake(0, 0, scrollViewSizeWhenKeyboardIsHidden.width, scrollViewSizeWhenKeyboardIsHidden.height);
+		//scrollView.contentOffset = scrollViewOffsetWhenKeyboardIsHidden;
 	[UIView commitAnimations];
 
 	keyboardIsShowing = NO;

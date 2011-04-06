@@ -15,9 +15,14 @@
 @interface LogInViewController : UIViewController<UITextFieldDelegate> {
 	IBOutlet UITextField *usernameText;
 	IBOutlet UITextField *passwordText;
+    IBOutlet UILabel* userNameLabel;
+    IBOutlet UILabel* passwordLabel;
+    IBOutlet UILabel* keepMeLoggedInLabel;
+    IBOutlet UIButton* signInButton;
 	IBOutlet UISwitch *keepLoggedInSwitch;
 	IBOutlet UIButton *logInButton;
-	IBOutlet UIScrollView *scrollView;
+    IBOutlet UIImageView *backgroundImageView;
+    IBOutlet UIView* formView;
 	
 	BOOL keyboardIsShowing;
     
@@ -27,6 +32,7 @@
     BlockingActivityView* blockingActivityView;
     
     UserFetcher* userFetcher;
+    float formViewOrigY;
 }
 
 @property (nonatomic, retain) IBOutlet UITextField* usernameText;

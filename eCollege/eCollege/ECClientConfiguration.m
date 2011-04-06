@@ -8,6 +8,7 @@
 
 #import "ECClientConfiguration.h"
 #import "ECStyles.h"
+#import "UIColor+Boost.h"
 
 @implementation ECClientConfiguration
 static ECClientConfiguration *currentConfiguration = nil;
@@ -68,20 +69,41 @@ static ECClientConfiguration *currentConfiguration = nil;
 // 
 // ---------------------------------------------------------------------------
 
-- (NSUInteger)primaryColor {
-    return PRIMARY_COLOR;
+- (UIColor*)primaryColor {
+    return HEXCOLOR(PRIMARY_COLOR);
 }
 
-- (NSUInteger)secondaryColor {
-    return SECONDARY_COLOR;
+- (UIColor*)secondaryColor {
+    return HEXCOLOR(SECONDARY_COLOR);
 }
 
-- (NSUInteger)tertiaryColor {
-    return TERTIARY_COLOR;
+- (UIColor*)tertiaryColor {
+    return HEXCOLOR(TERTIARY_COLOR);
 }
 
 - (NSString*)schoolName {
     return SCHOOL_NAME;
 }
+
+- (UIColor*)greyColor {
+    return [UIColor darkGrayColor];
+}
+
+- (UIColor*)whitecolor {
+    return [UIColor whiteColor];
+}
+
+- (NSString*)splashFileName {
+    return @"splash.png";
+}
+
+- (UIFont*)mediumBoldFont {
+    return [UIFont fontWithName:@"Helvetica-Bold" size:17.0];
+}
+
+- (UIFont*)mediumFont {
+    return [UIFont fontWithName:@"Helvetica" size:17.0];    
+}
+
 
 @end

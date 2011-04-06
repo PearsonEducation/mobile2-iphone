@@ -17,9 +17,26 @@
 
 - (NSString*)clientId;
 - (NSString*)clientString;
-- (NSUInteger)primaryColor;
-- (NSUInteger)secondaryColor;
-- (NSUInteger)tertiaryColor;
+
+// ------------------------------------- STYLES
+
+// COLORS
+- (UIColor*)primaryColor;
+- (UIColor*)secondaryColor;
+- (UIColor*)tertiaryColor;
+- (UIColor*)greyColor;
+- (UIColor*)whiteColor;
+
+// STRINGS
 - (NSString*)schoolName;
+
+// FONTS
+- (UIFont*)mediumBoldFont;
+- (UIFont*)mediumFont;
+
+// FILE NAMES
+- (NSString*)splashFileName;
+
+
 
 @end
