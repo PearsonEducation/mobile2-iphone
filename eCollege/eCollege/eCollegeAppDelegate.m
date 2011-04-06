@@ -59,9 +59,19 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
 }
 
 - (void)generalServiceCallback:(id)obj {    
+    
     if ([obj isKindOfClass:[NSError class]]) {
+        
         NSError* error = (NSError*)obj;
         NSDictionary* dict = error.userInfo;
+        
+        // for some reason ASIHTTPRequest throws an NSError when you manually cancel
+        // a request.  make sure not to respond to these errors.
+        NSString* desc = [dict objectForKey:@"NSLocalizedDescription"];
+        if ([desc isEqualToString:@"The request was cancelled"]) {
+            return;
+        }
+    
         NSString* message = [dict objectForKey:@"message"];
 
         UIAlertView* alert = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:[error.userInfo objectForKey:@"error"] delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", nil), nil] autorelease];
@@ -98,7 +108,7 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
 		[self showGlobalLoader];
 	} else {
 		logInViewController = [[LogInViewController alloc] initWithNibName:@"LogInView" bundle:nil];
-		[self.window addSubview:self.logInViewController.view];
+        self.window.rootViewController = self.logInViewController;
         loginShowing = YES;
 	}
 	[self.window makeKeyAndVisible];
@@ -143,14 +153,15 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
 }
 
 - (void) dismissLoginView {
-	[UIView transitionWithView:self.window
-					  duration:0.75
-					   options:UIViewAnimationOptionTransitionFlipFromRight // wheeee!!!
-					animations:^{
-						[self.logInViewController.view removeFromSuperview];
-					}
-					completion:nil];
-	[self showTabBar];
+//	[UIView transitionWithView:self.window
+//					  duration:0.75
+//					   options:UIViewAnimationOptionTransitionFlipFromRight // wheeee!!!
+//					animations:^{
+//                        [self showTabBar];
+//					}
+//					completion:NULL];
+	
+    [self showTabBar];
     loginShowing = NO;
 }
 
@@ -159,25 +170,24 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
     self.logInViewController.passwordText.text = @"";
     self.logInViewController.usernameText.text = @"";
     
-    // transition to the login controller
-	[UIView transitionWithView:self.window
-					  duration:0.75
-					   options:UIViewAnimationOptionTransitionFlipFromLeft // wheeee!!!
-					animations:^{
-                        [self.tabBarController.view removeFromSuperview];
-                        self.tabBarController = nil;
-					}
-					completion:nil];
+//    // transition to the login controller
+//	[UIView transitionWithView:self.window
+//					  duration:0.75
+//					   options:UIViewAnimationOptionTransitionFlipFromLeft // wheeee!!!
+//					animations:^{
+//                        self.window.rootViewController = self.logInViewController;
+//                        self.tabBarController = nil;
+//					}
+//					completion:NULL];
     
-    // get rid of the old tab bar
-    [window addSubview:self.logInViewController.view];
-    
+    self.window.rootViewController = self.logInViewController;
     loginShowing = YES;
 }
 
 - (void) signOut {
 	[[ECSession sharedSession] forgetCredentials];
 	[self showLoginView];
+    
 }
 
 - (void)showTabBar {
@@ -239,7 +249,7 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
     self.tabBarController.viewControllers = allTabs;
     
     // Add the tab bar controller to the window
-    [window addSubview:self.tabBarController.view];
+    self.window.rootViewController = self.tabBarController;
 }
 
 - (void)showGlobalLoader {
@@ -273,6 +283,7 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
 
 - (void)coursesLoaded:(id)courses {
     NSString* notificationName;
+    [blockingActivityView hide];
     if ([courses isKindOfClass:[NSError class]]) {
         NSLog(@"ERROR: Unable to fetch courses");
         notificationName = courseLoadFailure;

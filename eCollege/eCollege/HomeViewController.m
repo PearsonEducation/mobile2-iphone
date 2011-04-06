@@ -189,6 +189,11 @@
     }
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [activityStreamFetcher cancel];
+    [blockingActivityView hide];
+}
+
 - (void)handleCoursesRefreshFailure:(NSNotification*)notification {
     courseRefreshInProgress = NO;
     NSLog(@"ERROR loading courses; can't move past login screen.");

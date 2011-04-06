@@ -117,12 +117,12 @@
 	// keyboardSize = [keyboardBoundsEndValue CGRectValue].size;
 	
 	[UIView beginAnimations:nil context:NULL];
-		[UIView setAnimationDuration:0.25];
+		[UIView setAnimationDuration:0.3];
 		[UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
         CGRect f = formView.frame;
         formViewOrigY = f.origin.y;
         // move it to the top of the window, right underneath the status bar
-        f.origin.y = 25;
+        f.origin.y = 9;
         formView.frame = f;
 	[UIView commitAnimations];
 
@@ -137,7 +137,7 @@
     [self authenticate];
     
 	[UIView beginAnimations:nil context:NULL];
-		[UIView setAnimationDuration:0.25];
+		[UIView setAnimationDuration:0.3];
 		[UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
         CGRect f = formView.frame;
         f.origin.y = formViewOrigY;
