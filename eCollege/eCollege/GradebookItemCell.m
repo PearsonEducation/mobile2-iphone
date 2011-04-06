@@ -30,8 +30,8 @@
 }
 
 - (void)dealloc {
-    [super dealloc];
 	self.gradeLabel = nil;
+    [super dealloc];
 }
 
 @end
