@@ -207,35 +207,30 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
     [self.homeViewController.tabBarItem initWithTitle:NSLocalizedString(@"Home", @"Label on the tab bar for the 'home' section") image:img tag:0];
     UINavigationController* homeNav = [clientConfiguration newPrimaryNavigationControllerWithRootViewController:self.homeViewController];
     [allTabs addObject:homeNav];
-    [img release];
 
     self.discussionsViewController = [[DiscussionsViewController alloc] initWithNibName:@"DiscussionsViewController" bundle:nil];
     img = [UIImage imageNamed:@"discussions_icon.png"];
     [self.discussionsViewController.tabBarItem initWithTitle:NSLocalizedString(@"Discussions", @"Label on the tab bar for the 'discussions' section") image:img tag:0];
     UINavigationController* discussionsNav = [clientConfiguration newPrimaryNavigationControllerWithRootViewController:self.discussionsViewController];
     [allTabs addObject:discussionsNav];
-    [img release];
 
     self.coursesViewController = [[CoursesViewController alloc] initWithNibName:@"CoursesViewController" bundle:nil];
     img = [UIImage imageNamed:@"courses_icon.png"];
     [self.coursesViewController.tabBarItem initWithTitle:NSLocalizedString(@"Courses", @"Label on the tab bar for the 'courses' section") image:img tag:0];
     UINavigationController* coursesNav = [clientConfiguration newPrimaryNavigationControllerWithRootViewController:self.coursesViewController];
     [allTabs addObject:coursesNav];
-    [img release];
 
 //    self.peopleViewController = [[PeopleViewController alloc] initWithNibName:@"PeopleViewController" bundle:nil];
 //    img = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"112-group" ofType:@"png"]];
 //    [self.peopleViewController.tabBarItem initWithTitle:NSLocalizedString(@"People", @"Label on the tab bar for the 'people' section") image:img tag:0];
 //    UINavigationController* peopleNav = [clientConfiguration newPrimaryNavigationControllerWithRootViewController:self.peopleViewController];
 //    [allTabs addObject:peopleNav];
-//    [img release];
 //
     self.profileViewController = [[ProfileViewController alloc] initWithNibName:@"ProfileViewController" bundle:nil];
     img = [UIImage imageNamed:@"my_profile_icon.png"];
     [self.profileViewController.tabBarItem initWithTitle:NSLocalizedString(@"Profile", @"Label on the tab bar for the 'profile' section") image:img tag:0];
     UINavigationController* profileNav = [clientConfiguration newPrimaryNavigationControllerWithRootViewController:self.profileViewController];
     [allTabs addObject:profileNav];
-    [img release];
 
     // Add the view controllers as children of the tab bar controller
     self.tabBarController.viewControllers = allTabs;
