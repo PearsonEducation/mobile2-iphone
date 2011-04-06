@@ -55,19 +55,15 @@ static ECClientConfiguration *currentConfiguration = nil;
 
 - (NSString *) clientString {
 	//TODO: add real implementation here
-	return @"sandbox";
-    // return @"ctstate";
+	//return @"sandbox";
+    return @"ctstate";
 }
 
 - (void) dealloc {
 	[super dealloc];
 }
 
-// ---------------------------------------------------------------------------
-//
-// STYLES
-// 
-// ---------------------------------------------------------------------------
+#pragma mark - Styles
 
 - (UIColor*)primaryColor {
     return HEXCOLOR(PRIMARY_COLOR);
@@ -79,6 +75,10 @@ static ECClientConfiguration *currentConfiguration = nil;
 
 - (UIColor*)tertiaryColor {
     return HEXCOLOR(TERTIARY_COLOR);
+}
+
+- (UIColor *) texturedBackgroundColor {
+	return [UIColor colorWithPatternImage:[UIImage imageNamed:@"noise_bg.png"]];	
 }
 
 - (NSString*)schoolName {
@@ -101,8 +101,13 @@ static ECClientConfiguration *currentConfiguration = nil;
     return @"splash.png";
 }
 
+<<<<<<< HEAD
 - (NSString*)listArrowFileName {
     return @"list_arrow_icon_white.png";
+=======
+- (UIFont*)headerFont {
+    return [UIFont fontWithName:@"Helvetica-Bold" size:22.0];
+>>>>>>> 526bc493853014f8bf95fabc4890161d2c067ded
 }
 
 - (UIFont*)mediumBoldFont {
@@ -111,6 +116,10 @@ static ECClientConfiguration *currentConfiguration = nil;
 
 - (UIFont*)mediumFont {
     return [UIFont fontWithName:@"Helvetica" size:17.0];    
+}
+
+- (UIFont *)secondaryButtonFont {
+	return [UIFont fontWithName:@"Helvetica" size:13.0];
 }
 
 - (UIFont*)cellHeaderFont {
@@ -127,6 +136,15 @@ static ECClientConfiguration *currentConfiguration = nil;
 
 - (UIFont*)cellDateFont {
     return [UIFont fontWithName:@"Helvetica" size:13.0];
+}
+
+
+#pragma mark - View Helpers and useful factory methods
+
+- (UINavigationController *) newPrimaryNavigationControllerWithRootViewController:(UIViewController *)viewController {
+	UINavigationController *nc = [[[UINavigationController alloc] initWithRootViewController:viewController] autorelease];
+	nc.navigationBar.tintColor = [self primaryColor];
+	return nc;
 }
 
 @end

@@ -13,39 +13,12 @@
 #import "User.h"
 #import "Course.h"
 #import "CourseTableCell.h"
+#import "ECClientConfiguration.h"
+#import "IBButton.h"
 
 @implementation ProfileViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-		
-    }
-    return self;
-}
-
-- (void)dealloc {
-    [super dealloc];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
 #pragma mark - Actions
-
-- (void)infoButtonTapped:(id)sender {
-    InfoTableViewController* infoTableViewController = [[InfoTableViewController alloc] initWithNibName:@"InfoTableViewController" bundle:nil];
-    infoTableViewController.cancelDelegate = self;
-    UINavigationController *infoNavController = [[UINavigationController alloc] initWithRootViewController:infoTableViewController];
-    [self presentModalViewController:infoNavController animated:YES];
-    [infoNavController release];
-    [infoTableViewController release];
-}
-
-- (void)cancelButtonClicked:(id)sender {
-    [self dismissModalViewControllerAnimated:YES];
-}
 
 - (IBAction) signOutPressed:(id)sender {
 	[[eCollegeAppDelegate delegate] signOut];
@@ -74,6 +47,12 @@
         if (cell == nil) {
 			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
 										  reuseIdentifier:CellIdentifier];
+			
+			cell.selectionStyle = UITableViewCellSelectionStyleNone;
+			ECClientConfiguration *config = [ECClientConfiguration currentConfiguration];
+			cell.textLabel.font = [config cellHeaderFont];
+			cell.textLabel.textColor = [config secondaryColor];
+			cell.detailTextLabel.font = [config cellFont];
         }
     } else {
         NSLog(@"ERROR: Could not find a course at row %d", indexPath.row);
@@ -90,28 +69,29 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeInfoLight];
-    [btn addTarget:self action:@selector(infoButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-    [btn release];
+	ECClientConfiguration *config = [ECClientConfiguration currentConfiguration];
+	IBButton *signOutButton = [IBButton glossButtonWithTitle:NSLocalizedString(@"Sign Out", @"Sign Out label") color:[config secondaryColor]];
+	signOutButton.titleLabel.font = [config secondaryButtonFont];
+	signOutButton.titleLabel.shadowColor = [config greyColor];
+	signOutButton.titleLabel.shadowOffset = CGSizeMake(0, -1);
+    signOutButton.frame = CGRectMake(self.view.frame.size.width - 85, studentNameLabel.frame.origin.y, 75, 30);
+    [signOutButton addTarget:self action:@selector(signOutPressed:) forControlEvents:UIControlEventTouchUpInside];
 	
-	[signOutButton setTitle:NSLocalizedString(@"Sign Out", @"Sign Out label")
-				   forState:UIControlStateNormal];
+    [self.view addSubview:signOutButton];
+	
+	studentNameLabel.font = [config headerFont];
+	studentNameLabel.textColor = [config primaryColor];
+
 	tableTitleLable.text = NSLocalizedString(@"My Courses", @"Profile courses table title");
+	textureImageView.backgroundColor = [[ECClientConfiguration currentConfiguration] texturedBackgroundColor];
+	textureImageView.opaque = NO;
+	self.view.backgroundColor = [[ECClientConfiguration currentConfiguration] tertiaryColor];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	User *currentUser = [eCollegeAppDelegate delegate].currentUser;
 	studentNameLabel.text = [currentUser fullName];
-}
-
-- (void)viewDidUnload {
-    [super viewDidUnload];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 @end

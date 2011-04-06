@@ -8,7 +8,6 @@
 
 #import "DiscussionsViewController.h"
 #import "UIColor+Boost.h"
-#import "InfoTableViewController.h"
 #import "UserDiscussionTopic.h"
 #import "eCollegeAppDelegate.h"
 #import "NSDateUtilities.h"
@@ -28,8 +27,6 @@
 
 - (void)loadData;
 - (void)prepareData;
-- (void)infoButtonTapped:(id)sender;
-- (void)cancelButtonClicked:(id)sender;
 - (UserDiscussionTopic*)getTopicForIndexPath:(NSIndexPath*)indexPath;
 - (void)registerForCoursesNotifications;
 - (void)unregisterForCoursesNotifications;
@@ -169,15 +166,6 @@
 }
 
 
-- (void)infoButtonTapped:(id)sender {
-    InfoTableViewController* infoTableViewController = [[InfoTableViewController alloc] initWithNibName:@"InfoTableViewController" bundle:nil];
-    infoTableViewController.cancelDelegate = self;
-    UINavigationController *infoNavController = [[UINavigationController alloc] initWithRootViewController:infoTableViewController];
-    [self presentModalViewController:infoNavController animated:YES];
-    [infoNavController release];
-    [infoTableViewController release];
-}
-
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (buttonIndex != [actionSheet cancelButtonIndex]) {
         NSLog(@"Apply");
@@ -228,11 +216,6 @@
     [self loadData];
 }
 
-- (void)cancelButtonClicked:(id)sender {
-    [self dismissModalViewControllerAnimated:YES];
-}
-
-
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
@@ -282,8 +265,7 @@
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     blockingModalView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
@@ -310,12 +292,6 @@
 
     // Do any additional setup after loading the view from its nib.
     blockingActivityView = [[BlockingActivityView alloc] initWithWithView:self.view];
-
-    // add the info button, give it a tap handler
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeInfoLight];
-    [btn addTarget:self action:@selector(infoButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-    [btn release];    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -424,12 +400,6 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - Table view data source

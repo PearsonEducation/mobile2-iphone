@@ -13,6 +13,7 @@
 #import "Grade.h"
 #import "GradebookItemCell.h"
 #import "GradebookItemGradeDetailViewController.h"
+#import "NSDateUtilities.h"
 
 @implementation CourseGradebookViewController
 @synthesize gradebookItems, courseId;
@@ -84,6 +85,7 @@
 	Grade *grade = userGradebookItem.grade;
 	NSString *gradeDate = ([grade isGraded]) ? [grade.updatedDate friendlyString] : NSLocalizedString(@"Not Graded", nil);
 	
+	cell.selectionStyle = ([grade isGraded]) ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
     cell.textLabel.text = gradebookItem.title;
 	cell.detailTextLabel.text = gradeDate;
 	if ([grade isGraded]) {

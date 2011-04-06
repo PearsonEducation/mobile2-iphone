@@ -27,13 +27,16 @@
 - (UIColor*)greyColor;
 - (UIColor*)whiteColor;
 - (UIColor*)blackColor;
+- (UIColor *) texturedBackgroundColor;
 
 // STRINGS
 - (NSString*)schoolName;
 
 // FONTS
+- (UIFont*)headerFont;
 - (UIFont*)mediumBoldFont;
 - (UIFont*)mediumFont;
+- (UIFont *)secondaryButtonFont;
 - (UIFont*)cellHeaderFont;
 - (UIFont*)cellFont;
 - (UIFont*)cellItalicsFont;
@@ -42,6 +45,9 @@
 // FILE NAMES
 - (NSString*)splashFileName;
 - (NSString*)listArrowFileName;
+
+// View helpers
+- (UINavigationController *) newPrimaryNavigationControllerWithRootViewController:(UIViewController *)viewController;
 
 
 

@@ -9,7 +9,6 @@
 #import "HomeViewController.h"
 #import "NSDateUtilities.h"
 #import "ActivityStreamItem.h"
-#import "InfoTableViewController.h"
 #import "UIColor+Boost.h"
 #import "ActivityTableCell.h"
 #import "ActivityStreamItem.h"
@@ -29,8 +28,6 @@
 
 - (void)loadData;
 - (void)prepareData;
-- (void)infoButtonTapped:(id)sender;
-- (void)cancelButtonClicked:(id)sender;
 - (ActivityStreamItem*)getItemForIndexPath:(NSIndexPath*)indexPath;
 - (void)registerForCoursesNotifications;
 - (void)unregisterForCoursesNotifications;
@@ -80,22 +77,6 @@
     [super dealloc];
 }
 
-- (void)infoButtonTapped:(id)sender {
-    InfoTableViewController* infoTableViewController = [[InfoTableViewController alloc] initWithNibName:@"InfoTableViewController" bundle:nil];
-    infoTableViewController.cancelDelegate = self;
-    UINavigationController *infoNavController = [[UINavigationController alloc] initWithRootViewController:infoTableViewController];
-    [self presentModalViewController:infoNavController animated:YES];
-    [infoNavController release];
-    [infoTableViewController release];
-
-//  DEBUG CODE: deletes credentials (just a handy place to put it)    
-//    ECSession* ecs = [ECSession sharedSession];
-//    NSLog(@"Forgetting grant token...");
-//    [ecs forgetGrantToken];
-//    NSLog(@"Forgetting access token...");
-//    [ecs forgetAccessToken];        
-}
-
 // overriding parent method
 - (void)refresh {
     [self loadData];
@@ -143,10 +124,6 @@
 - (IBAction)refreshWithModalSpinner {
     [blockingActivityView show];    
     [self loadData];
-}
-
-- (void)cancelButtonClicked:(id)sender {
-    [self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -211,17 +188,6 @@
 }
 
 #pragma mark - View lifecycle
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    // add the info button, give it a tap handler
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeInfoLight];
-    [btn addTarget:self action:@selector(infoButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-    [btn release];    
-}
 
 - (void)viewWillAppear:(BOOL)animated {
     // if activities have never been updated or the last update was more than an hour ago,
@@ -319,12 +285,6 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - Table view data source
