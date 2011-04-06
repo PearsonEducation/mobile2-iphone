@@ -101,13 +101,12 @@ static ECClientConfiguration *currentConfiguration = nil;
     return @"splash.png";
 }
 
-<<<<<<< HEAD
 - (NSString*)listArrowFileName {
     return @"list_arrow_icon_white.png";
-=======
+}
+
 - (UIFont*)headerFont {
     return [UIFont fontWithName:@"Helvetica-Bold" size:22.0];
->>>>>>> 526bc493853014f8bf95fabc4890161d2c067ded
 }
 
 - (UIFont*)mediumBoldFont {
