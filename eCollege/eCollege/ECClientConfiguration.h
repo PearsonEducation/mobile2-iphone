@@ -37,6 +37,9 @@
 // FILE NAMES
 - (NSString*)splashFileName;
 
+// View helpers
+- (UINavigationController *) newPrimaryNavigationControllerWithRootViewController:(UIViewController *)viewController;
+
 
 
 @end

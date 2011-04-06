@@ -63,11 +63,7 @@ static ECClientConfiguration *currentConfiguration = nil;
 	[super dealloc];
 }
 
-// ---------------------------------------------------------------------------
-//
-// STYLES
-// 
-// ---------------------------------------------------------------------------
+#pragma mark - Styles
 
 - (UIColor*)primaryColor {
     return HEXCOLOR(PRIMARY_COLOR);
@@ -105,5 +101,12 @@ static ECClientConfiguration *currentConfiguration = nil;
     return [UIFont fontWithName:@"Helvetica" size:17.0];    
 }
 
+#pragma mark - View Helpers and useful factory methods
+
+- (UINavigationController *) newPrimaryNavigationControllerWithRootViewController:(UIViewController *)viewController {
+	UINavigationController *nc = [[[UINavigationController alloc] initWithRootViewController:viewController] autorelease];
+	nc.navigationBar.tintColor = [self primaryColor];
+	return nc;
+}
 
 @end
