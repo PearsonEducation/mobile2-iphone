@@ -101,12 +101,20 @@ static ECClientConfiguration *currentConfiguration = nil;
     return @"splash.png";
 }
 
+- (UIFont*)headerFont {
+    return [UIFont fontWithName:@"Helvetica-Bold" size:22.0];
+}
+
 - (UIFont*)mediumBoldFont {
     return [UIFont fontWithName:@"Helvetica-Bold" size:17.0];
 }
 
 - (UIFont*)mediumFont {
     return [UIFont fontWithName:@"Helvetica" size:17.0];    
+}
+
+- (UIFont *)secondaryButtonFont {
+	return [UIFont fontWithName:@"Helvetica" size:13.0];
 }
 
 - (UIFont*)cellHeaderFont {

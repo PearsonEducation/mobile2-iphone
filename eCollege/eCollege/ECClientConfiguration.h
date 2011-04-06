@@ -33,8 +33,10 @@
 - (NSString*)schoolName;
 
 // FONTS
+- (UIFont*)headerFont;
 - (UIFont*)mediumBoldFont;
 - (UIFont*)mediumFont;
+- (UIFont *)secondaryButtonFont;
 - (UIFont*)cellHeaderFont;
 - (UIFont*)cellFont;
 - (UIFont*)cellItalicsFont;
