@@ -47,11 +47,11 @@
         if (cell == nil) {
 			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
 										  reuseIdentifier:CellIdentifier];
-			ECClientConfiguration *config = [ECClientConfiguration currentConfiguration];
 			
+			cell.selectionStyle = UITableViewCellSelectionStyleNone;
+			ECClientConfiguration *config = [ECClientConfiguration currentConfiguration];
 			cell.textLabel.font = [config cellHeaderFont];
 			cell.textLabel.textColor = [config secondaryColor];
-			
 			cell.detailTextLabel.font = [config cellFont];
         }
     } else {
