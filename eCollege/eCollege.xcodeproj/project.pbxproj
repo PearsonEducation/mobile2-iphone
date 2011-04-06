@@ -134,6 +134,8 @@
 		EAD48D59134A6AC700B33ACD /* you_banner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD48D57134A6AC700B33ACD /* you_banner@2x.png */; };
 		EAFFA3C5134CE7D7003E9503 /* ic_grade.png in Resources */ = {isa = PBXBuildFile; fileRef = A2B0D27B1326FA87008801E2 /* ic_grade.png */; };
 		EAFFA3C7134CEE72003E9503 /* image_logo_small.png in Resources */ = {isa = PBXBuildFile; fileRef = EAFFA3C6134CEE72003E9503 /* image_logo_small.png */; };
+		EAFFA3CA134CF351003E9503 /* ECPrimaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAFFA3C9134CF350003E9503 /* ECPrimaryViewController.m */; };
+		EAFFA3D0134CF744003E9503 /* ECPullRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAFFA3CF134CF743003E9503 /* ECPullRefreshTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -341,6 +343,10 @@
 		EAD48D56134A6AC700B33ACD /* you_banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = you_banner.png; path = Images/you_banner.png; sourceTree = "<group>"; };
 		EAD48D57134A6AC700B33ACD /* you_banner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "you_banner@2x.png"; path = "Images/you_banner@2x.png"; sourceTree = "<group>"; };
 		EAFFA3C6134CEE72003E9503 /* image_logo_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = image_logo_small.png; path = Images/image_logo_small.png; sourceTree = "<group>"; };
+		EAFFA3C8134CF350003E9503 /* ECPrimaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECPrimaryViewController.h; sourceTree = "<group>"; };
+		EAFFA3C9134CF350003E9503 /* ECPrimaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECPrimaryViewController.m; sourceTree = "<group>"; };
+		EAFFA3CE134CF743003E9503 /* ECPullRefreshTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = ECPullRefreshTableViewController.h; sourceTree = "<group>"; };
+		EAFFA3CF134CF743003E9503 /* ECPullRefreshTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECPullRefreshTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -588,6 +594,10 @@
 				A2EE3ECE132034B700745C1C /* Discussions */,
 				A2EE3ECD132034B100745C1C /* Home */,
 				EA7707331318141F0011FFCB /* Log In */,
+				EAFFA3C8134CF350003E9503 /* ECPrimaryViewController.h */,
+				EAFFA3C9134CF350003E9503 /* ECPrimaryViewController.m */,
+				EAFFA3CE134CF743003E9503 /* ECPullRefreshTableViewController.h */,
+				EAFFA3CF134CF743003E9503 /* ECPullRefreshTableViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -994,6 +1004,8 @@
 				A2B85610134CE9430007E3F7 /* FourColorGradientView.m in Sources */,
 				A2B85615134CEF800007E3F7 /* CGContext+Boost.m in Sources */,
 				A2B85616134CEF800007E3F7 /* IBButton.m in Sources */,
+				EAFFA3CA134CF351003E9503 /* ECPrimaryViewController.m in Sources */,
+				EAFFA3D0134CF744003E9503 /* ECPullRefreshTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
