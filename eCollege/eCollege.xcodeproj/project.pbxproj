@@ -357,7 +357,7 @@
 		EAFFA3C6134CEE72003E9503 /* image_logo_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = image_logo_small.png; path = Images/image_logo_small.png; sourceTree = "<group>"; };
 		EAFFA3C8134CF350003E9503 /* ECPrimaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECPrimaryViewController.h; sourceTree = "<group>"; };
 		EAFFA3C9134CF350003E9503 /* ECPrimaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECPrimaryViewController.m; sourceTree = "<group>"; };
-		EAFFA3CE134CF743003E9503 /* ECPullRefreshTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = ECPullRefreshTableViewController.h; sourceTree = "<group>"; };
+		EAFFA3CE134CF743003E9503 /* ECPullRefreshTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECPullRefreshTableViewController.h; sourceTree = "<group>"; };
 		EAFFA3CF134CF743003E9503 /* ECPullRefreshTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECPullRefreshTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -964,7 +964,6 @@
 				A2A347F5134BBA9700405FE8 /* login_background@2x.png in Resources */,
 				A2A347FE134BCC8A00405FE8 /* splash.png in Resources */,
 				EAFFA3C7134CEE72003E9503 /* image_logo_small.png in Resources */,
-				EA396F8C134C1C800066E4C4 /* ic_grade.png in Resources */,
 				A2B85619134CFBB60007E3F7 /* home_icon.png in Resources */,
 				A2B8561A134CFBB60007E3F7 /* home_icon@2x.png in Resources */,
 				A2B8561D134CFBC60007E3F7 /* discussions_icon.png in Resources */,
