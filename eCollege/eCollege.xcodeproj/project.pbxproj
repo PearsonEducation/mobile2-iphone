@@ -133,6 +133,7 @@
 		EAD48D58134A6AC700B33ACD /* you_banner.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD48D56134A6AC700B33ACD /* you_banner.png */; };
 		EAD48D59134A6AC700B33ACD /* you_banner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD48D57134A6AC700B33ACD /* you_banner@2x.png */; };
 		EAFFA3C5134CE7D7003E9503 /* ic_grade.png in Resources */ = {isa = PBXBuildFile; fileRef = A2B0D27B1326FA87008801E2 /* ic_grade.png */; };
+		EAFFA3C7134CEE72003E9503 /* image_logo_small.png in Resources */ = {isa = PBXBuildFile; fileRef = EAFFA3C6134CEE72003E9503 /* image_logo_small.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -339,6 +340,7 @@
 		EAD48D53134A688F00B33ACD /* person_male_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "person_male_icon@2x.png"; path = "Images/person_male_icon@2x.png"; sourceTree = "<group>"; };
 		EAD48D56134A6AC700B33ACD /* you_banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = you_banner.png; path = Images/you_banner.png; sourceTree = "<group>"; };
 		EAD48D57134A6AC700B33ACD /* you_banner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "you_banner@2x.png"; path = "Images/you_banner@2x.png"; sourceTree = "<group>"; };
+		EAFFA3C6134CEE72003E9503 /* image_logo_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = image_logo_small.png; path = Images/image_logo_small.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -497,6 +499,7 @@
 				A26A6420133AD60900BE5465 /* background_main.png */,
 				A27D702F133943C600B0BBD8 /* count_bubble.png */,
 				A27D7030133943C600B0BBD8 /* count_bubble@2x.png */,
+				EAFFA3C6134CEE72003E9503 /* image_logo_small.png */,
 				A27D7023133935A300B0BBD8 /* list_arrow_icon.png */,
 				A27D7024133935A300B0BBD8 /* list_arrow_icon@2x.png */,
 				A27D701F1339350F00B0BBD8 /* no_responses_icon.png */,
@@ -932,6 +935,7 @@
 				A2A347F4134BBA9700405FE8 /* login_background.png in Resources */,
 				A2A347F5134BBA9700405FE8 /* login_background@2x.png in Resources */,
 				A2A347FE134BCC8A00405FE8 /* splash.png in Resources */,
+				EAFFA3C7134CEE72003E9503 /* image_logo_small.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
