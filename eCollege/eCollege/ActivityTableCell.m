@@ -10,6 +10,7 @@
 #import "ActivityStreamItem.h"
 #import "eCollegeAppDelegate.h"
 #import "Course.h"
+#import "ECClientConfiguration.h"
 
 @implementation ActivityTableCell
 
@@ -24,6 +25,18 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
     // Configure the view for the selected state
+}
+
+- (void)awakeFromNib {
+    ECClientConfiguration *client = [ECClientConfiguration currentConfiguration];
+    title.font = [client cellHeaderFont];
+    title.textColor = [client secondaryColor];
+    description.font = [client cellFont];
+    description.textColor = [client blackColor];
+    courseName.font = [client cellItalicsFont];
+    courseName.textColor = [client blackColor];
+    friendlyDate.font = [client cellDateFont];
+    friendlyDate.textColor = [client greyColor];
 }
 
 -(void)setData:(ActivityStreamItem*)item {
