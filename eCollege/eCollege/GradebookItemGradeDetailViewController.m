@@ -30,8 +30,26 @@
 
 - (id)initWithItem:(ActivityStreamItem*)value {
     if ((self = [super init]) != nil) {
-        self.item = value;
+        self.item = [value retain];
+		assignmentName = [item.target.title copy];
+		points = [self.item.object.pointsAchieved copy];
+		pointsPossible = [self.item.target.pointsPossible copy];
+		postedTime = [self.item.postedTime retain];
+        courseId = item.target.courseId;
         self.gradebookItemGradeFetcher = [[GradebookItemGradeFetcher alloc] initWithDelegate:self responseSelector:@selector(gradebookItemGradeLoaded:)];
+    }
+    return self;
+}
+
+- (id)initWithCourseId:(NSInteger)cid gradebookItem:(GradebookItem *)gi grade:(Grade *)g {
+    if ((self = [super init]) != nil) {
+		assignmentName = [gi.title copy];
+		grade = [g retain];
+		points = [g.points copy];
+		pointsPossible = [gi.pointsPossible copy];
+		postedTime = [[grade updatedDate] retain];
+        courseId = cid;
+		[self setupView];
     }
     return self;
 }
@@ -42,15 +60,12 @@
     } if (!item.target) {
         NSLog(@"ERROR: ActivityStreamItem has no target object; cannot load grade.");
     } else {
-        NSInteger courseId = item.target.courseId;
         NSString* guid = item.target.referenceId;
-        //[blockingActivityView show];
         [gradebookItemGradeFetcher loadGradebookItemGradeForCourseId:courseId andGradebookGuid:guid];
     }
 }
 
 - (void)gradebookItemGradeLoaded:(id)gradebookItemGrade {
-    //[blockingActivityView hide];
     if ([gradebookItemGrade isKindOfClass:[NSError class]]) {
         NSLog(@"ERROR: Received an error when looking up a grade: %@",(NSError*)gradebookItemGrade);
     } else if([gradebookItemGrade isKindOfClass:[Grade class]]) {
@@ -78,7 +93,7 @@
     UIFont* buttonFont = [UIFont fontWithName:@"Helvetica-Bold" size:12];
     
     // set up the course name label
-    Course* course = [[eCollegeAppDelegate delegate] getCourseHavingId:item.object.courseId];
+    Course* course = [[eCollegeAppDelegate delegate] getCourseHavingId:courseId];
     NSString *courseName = course.title;    
     CGSize maximumSize = CGSizeMake(284.0, 1000.0);
     CGSize courseNameSize = [courseName sizeWithFont:courseNameFont constrainedToSize:maximumSize lineBreakMode:UILineBreakModeWordWrap]; // 18px left, right margins, so 284.0 width
@@ -92,7 +107,6 @@
     [self.view addSubview:courseNameLabel];
     
     // set up the assignment title label
-    NSString* assignmentName = item.target.title;
     CGSize assignmentNameSize = [assignmentName sizeWithFont:titleFont constrainedToSize:maximumSize lineBreakMode:UILineBreakModeWordWrap];
     UILabel* assignmentLabel = [[UILabel alloc] initWithFrame:CGRectMake(18, courseNameLabel.frame.origin.y + courseNameLabel.frame.size.height + 5, assignmentNameSize.width, assignmentNameSize.height)];
     assignmentLabel.font = titleFont;
@@ -115,11 +129,10 @@
     
     // set up the image
     UIImageView* img = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 25, 25)];
-    img.image = [UIImage imageNamed:@"clock.png"];
+    img.image = [UIImage imageNamed:@"ic_grade.png"];
     [whiteBox addSubview:img];
     
-    // set up the 'grade' label
-    NSString* gradeText = [NSString stringWithFormat:@"%@: %@/%@", NSLocalizedString(@"Grade", @"The word for 'Grade'"), item.object.pointsAchieved, item.target.pointsPossible];
+    NSString* gradeText = [NSString stringWithFormat:@"%@: %@/%@", NSLocalizedString(@"Grade", @"The word for 'Grade'"), points, pointsPossible];
     UILabel* gradeLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, 16, 243, 16)];
     gradeLabel.font = subheaderFont;
     gradeLabel.textColor = subheaderFontColor;
@@ -144,8 +157,8 @@
     [gregorian setTimeZone:[NSTimeZone defaultTimeZone]];
     DateCalculator* dateCalculator = [[DateCalculator alloc] initWithCalendar:gregorian];
     [gregorian release];
-    int numDays = [dateCalculator datesFrom:[NSDate date] to:item.postedTime];
-    NSString* dateString = [item.postedTime friendlyDateWithTimeFor:numDays];
+    int numDays = [dateCalculator datesFrom:[NSDate date] to:postedTime];
+    NSString* dateString = [postedTime friendlyDateWithTimeFor:numDays];
     CGSize dateSize = [dateString sizeWithFont:dateFont constrainedToSize:maximumSize lineBreakMode:UILineBreakModeWordWrap];
     UILabel* dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, commentsLabel.frame.origin.y + commentsLabel.frame.size.height + 5, dateSize.width, dateSize.height)];
     dateLabel.font = dateFont;
@@ -155,21 +168,27 @@
     dateLabel.numberOfLines = 0;
     [whiteBox addSubview:dateLabel];
     
-    // set up the "view all grades for this course" button
-    UIButton* button = [[UIButton alloc] initWithFrame:CGRectMake(45, dateLabel.frame.origin.y + dateLabel.frame.size.height + 20, 242, 30)];
-    button.titleLabel.font = buttonFont;
-    [button setTitle:NSLocalizedString(@"View all grades for this course", @"View all grades for this course") forState:UIControlStateNormal];
-    [button setTitleColor:buttonTextColor forState:UIControlStateNormal];
-    button.backgroundColor = HEXCOLOR(0xE9E9E9);
-    button.layer.cornerRadius = 3.0;
-    button.layer.borderWidth = 1.0;
-    button.layer.borderColor = [HEXCOLOR(0xC0C0C0) CGColor];
-    [whiteBox addSubview:button];
-    
-    // set the height of the white box
-    CGRect boxFrame = whiteBox.frame;
-    boxFrame.size.height = button.frame.origin.y + button.frame.size.height + 16; 
-    whiteBox.frame = boxFrame;
+	if (item) { // Only show "view all button if viewed as detail from activity stream.
+		// set up the "view all grades for this course" button
+		UIButton* button = [[UIButton alloc] initWithFrame:CGRectMake(45, dateLabel.frame.origin.y + dateLabel.frame.size.height + 20, 242, 30)];
+		button.titleLabel.font = buttonFont;
+		[button setTitle:NSLocalizedString(@"View all grades for this course", @"View all grades for this course") forState:UIControlStateNormal];
+		[button setTitleColor:buttonTextColor forState:UIControlStateNormal];
+		button.backgroundColor = HEXCOLOR(0xE9E9E9);
+		button.layer.cornerRadius = 3.0;
+		button.layer.borderWidth = 1.0;
+		button.layer.borderColor = [HEXCOLOR(0xC0C0C0) CGColor];
+		[whiteBox addSubview:button];
+		// set the height of the white box
+		CGRect boxFrame = whiteBox.frame;
+		boxFrame.size.height = button.frame.origin.y + button.frame.size.height + 16; 
+		whiteBox.frame = boxFrame;
+		[button release];
+	} else {
+		CGRect boxFrame = whiteBox.frame;
+		boxFrame.size.height = dateLabel.frame.origin.y + dateLabel.frame.size.height + 16; 
+		whiteBox.frame = boxFrame;
+	}
     
     [img release];
     [courseNameLabel release];
@@ -179,7 +198,6 @@
     [dateLabel release];
     [whiteBox release];
     [dateCalculator release];
-    [button release];
 
 }
 
@@ -192,53 +210,38 @@
     blockingActivityView = [[BlockingActivityView alloc] initWithWithView:self.view];    
 }
 
-- (void)dealloc
-{
-    if (grade) {
-        [grade release];
-        grade = nil;
-    }
-    if (blockingActivityView) {
-        [blockingActivityView release];
-        blockingActivityView = nil;
-    }
-    if (self.gradebookItemGradeFetcher) {
-        [self.gradebookItemGradeFetcher cancel];
-    }
-    self.gradebookItemGradeFetcher = nil;
-    self.item = nil;
-    [super dealloc];
+- (void)dealloc {
+	[grade release]; grade = nil;
+	[assignmentName release]; assignmentName = nil;
+	[points release];
+	[pointsPossible release];
+	[postedTime release]; postedTime = nil;
+	[blockingActivityView release]; blockingActivityView = nil;
+	self.item = nil;
+	
+	[super dealloc];
 }
 
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
 }
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-    if (item && item.object.id && ![item.object.id  isEqualToString:@""]) {
+    if (item && item.object.id && ![item.object.id isEqualToString:@""]) {
         [self loadGradebookItemGrade];                
     }
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+	[self.gradebookItemGradeFetcher cancel];
+	self.gradebookItemGradeFetcher = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 

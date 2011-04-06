@@ -9,18 +9,24 @@
 #import <UIKit/UIKit.h>
 #import "ActivityStreamItem.h"
 #import "GradebookItemGradeFetcher.h"
-#import "GradebookItemGrade.h"
+#import "Grade.h"
+#import "GradebookItem.h"
 #import "BlockingActivityView.h"
 
 @interface GradebookItemGradeDetailViewController : UIViewController {
     ActivityStreamItem* item;
     GradebookItemGradeFetcher* gradebookItemGradeFetcher;
-    GradebookItemGrade* grade;
+    Grade* grade;
+	NSInteger courseId;
+	NSString *assignmentName;
+	NSNumber *points;
+	NSNumber *pointsPossible;
+	NSDate *postedTime;
     BlockingActivityView* blockingActivityView;
-    
 }
 
 - (id)initWithItem:(ActivityStreamItem*)value;
+- (id)initWithCourseId:(NSInteger)courseId gradebookItem:(GradebookItem *)gradebookItem grade:(Grade *)grade;
 
 @property (nonatomic, retain) ActivityStreamItem* item;
 

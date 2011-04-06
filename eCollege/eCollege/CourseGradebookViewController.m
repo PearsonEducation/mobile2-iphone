@@ -108,7 +108,8 @@
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	UserGradebookItem *userGradebookItem = (UserGradebookItem *)[gradebookItems objectAtIndex:indexPath.row];
 	GradebookItem *gradebookItem = userGradebookItem.gradebookItem;
-	GradebookItemGradeDetailViewController* gradebookItemGradeDetailViewController = [[GradebookItemGradeDetailViewController alloc] initWithItem:gradebookItem];
+	Grade *grade = [userGradebookItem grade];
+	GradebookItemGradeDetailViewController* gradebookItemGradeDetailViewController = [[GradebookItemGradeDetailViewController alloc] initWithCourseId:courseId gradebookItem:gradebookItem grade:grade];
 	[self.navigationController pushViewController:gradebookItemGradeDetailViewController animated:YES];
 	[gradebookItemGradeDetailViewController release];        
 }
