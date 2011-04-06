@@ -11,6 +11,7 @@
 #import "UIColor+Boost.h"
 #import "User.h"
 #import "GradientCellBackground.h"
+#import "ECClientConfiguration.h"
 
 @interface HighlightedAnnouncementTableCell ()
 @end
@@ -55,7 +56,9 @@
         
         // set up the gradient backgrounds
         self.backgroundView = [[[GradientCellBackground alloc] init] autorelease];
+		((GradientCellBackground *)self.backgroundView).midColor = [[ECClientConfiguration currentConfiguration] secondaryColor];
         self.selectedBackgroundView = [[[GradientCellBackground alloc] init] autorelease];
+		((GradientCellBackground *)self.selectedBackgroundView).midColor = [[ECClientConfiguration currentConfiguration] primaryColor];
     
     }
     return self;
