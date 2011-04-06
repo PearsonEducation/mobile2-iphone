@@ -14,21 +14,20 @@
 #import "GradebookItemCell.h"
 #import "GradebookItemGradeDetailViewController.h"
 #import "NSDateUtilities.h"
+#import "eCollegeAppDelegate.h"
+
+@interface CourseGradebookViewController (Private)
+- (void) loadData;
+- (void) loadingComplete;
+@end
 
 @implementation CourseGradebookViewController
 @synthesize gradebookItems, courseId;
 
-- (id)initWithStyle:(UITableViewStyle)style {
-    self = [super initWithStyle:style];
-    if (self) {
-		
-    }
-    return self;
-}
-
 - (void)dealloc {
+	self.gradebookItems = nil;
+	[lastUpdateTime release]; lastUpdateTime = nil;
     [super dealloc];
-	
 }
 
 - (void)didReceiveMemoryWarning {
@@ -36,9 +35,54 @@
 }
 
 - (void) gradebookItemsFetched:(NSArray *)items {
-	self.gradebookItems = items;
-	[self.tableView reloadData];
+	if ([items class] != [NSError class]) {
+		self.gradebookItems = items;
+	}
+	[self loadingComplete];
 }
+
+- (void)refresh {
+    [self loadData];
+}
+
+- (void)loadData {
+    
+    if (currentlyLoading) {
+        return;
+    }
+    
+    currentlyLoading = YES;
+    
+    [fetcher cancel];
+	[fetcher fetchMyUserGradebookItemsForCourseId:courseId];
+}
+
+- (void)executeAfterHeaderClose {
+    lastUpdateTime = [[NSDate date] retain];
+	[self updateLastUpdatedLabel];
+}
+
+- (void)updateLastUpdatedLabel {
+    if (lastUpdateTime) {
+        NSString* prettyTime = [lastUpdateTime friendlyString];
+        if (![prettyTime isEqualToString:@""] || [self.lastUpdatedLabel.text isEqualToString:@""]) {
+            self.lastUpdatedLabel.text = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Last update", @"Last update"), prettyTime];
+        }
+    } else {
+        self.lastUpdatedLabel.text = @"";
+    }
+}
+
+- (void)loadingComplete {
+    [self.table reloadData];
+    
+    // tell the "pull to refresh" loading header to go away (if it's present)
+    [self stopLoading];
+    
+    // no longer loading
+    currentlyLoading = NO;
+}
+
 
 #pragma mark - View lifecycle
 
@@ -47,7 +91,12 @@
 	self.title = NSLocalizedString(@"Gradebook", @"Gradebook title");
 	fetcher = [[GradebookItemFetcher alloc] initWithDelegate:self
 											responseSelector:@selector(gradebookItemsFetched:)];
-	[fetcher fetchMyUserGradebookItemsForCourseId:courseId];
+	[self forcePullDownRefresh];
+	//	[self loadData];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [fetcher cancel];
 }
 
 - (void)viewDidUnload {

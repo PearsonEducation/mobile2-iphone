@@ -40,7 +40,7 @@
 		A2642077134B94D000B3048E /* PersonDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2642075134B94D000B3048E /* PersonDetailViewController.m */; };
 		A2642078134B94D000B3048E /* PersonDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2642076134B94D000B3048E /* PersonDetailViewController.xib */; };
 		A2651D41134A29CE00490400 /* AnnouncementsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2651D3F134A29CE00490400 /* AnnouncementsViewController.m */; };
-		A2651D42134A29CE00490400 /* AnnouncementsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2651D40134A29CE00490400 /* AnnouncementsViewController.xib */; };
+		A2651D42134A29CE00490400 /* CourseGradebookViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2651D40134A29CE00490400 /* CourseGradebookViewController.xib */; };
 		A2651D47134A49B100490400 /* AnnouncementDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2651D45134A49B100490400 /* AnnouncementDetailViewController.m */; };
 		A26A63FE133A9DF700BE5465 /* TopicHeaderTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A26A63FC133A9DF500BE5465 /* TopicHeaderTableCell.m */; };
 		A26A6401133A9EF700BE5465 /* TopicHeaderTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26A6400133A9EF600BE5465 /* TopicHeaderTableCell.xib */; };
@@ -120,6 +120,7 @@
 		EA014E84134BA78100353897 /* CourseGradebookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA014E83134BA78100353897 /* CourseGradebookViewController.m */; };
 		EA014E87134BB82F00353897 /* GradebookItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA014E86134BB82F00353897 /* GradebookItemCell.m */; };
 		EA1340F8134D0E1A003F9687 /* noise_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = EA1340F7134D0E1A003F9687 /* noise_bg.png */; };
+		EA5CA73B134D2B7200788F7D /* AnnouncementsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA5CA73A134D2B7200788F7D /* AnnouncementsViewController.xib */; };
 		EA7A9F5A13146E3400D9EC6A /* libECAPI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA7A9F5913146E3400D9EC6A /* libECAPI.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		EA7A9FBA1314738300D9EC6A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA7A9FB91314738300D9EC6A /* SystemConfiguration.framework */; };
 		EA7A9FBC1314738F00D9EC6A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA7A9FBB1314738F00D9EC6A /* MobileCoreServices.framework */; };
@@ -217,7 +218,7 @@
 		A2642076134B94D000B3048E /* PersonDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonDetailViewController.xib; sourceTree = "<group>"; };
 		A2651D3E134A29CE00490400 /* AnnouncementsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementsViewController.h; sourceTree = "<group>"; };
 		A2651D3F134A29CE00490400 /* AnnouncementsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementsViewController.m; sourceTree = "<group>"; };
-		A2651D40134A29CE00490400 /* AnnouncementsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnnouncementsViewController.xib; sourceTree = "<group>"; };
+		A2651D40134A29CE00490400 /* CourseGradebookViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CourseGradebookViewController.xib; sourceTree = "<group>"; };
 		A2651D44134A49B100490400 /* AnnouncementDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementDetailViewController.h; sourceTree = "<group>"; };
 		A2651D45134A49B100490400 /* AnnouncementDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementDetailViewController.m; sourceTree = "<group>"; };
 		A26A63FB133A9DF500BE5465 /* TopicHeaderTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicHeaderTableCell.h; sourceTree = "<group>"; };
@@ -330,6 +331,7 @@
 		EA014E86134BB82F00353897 /* GradebookItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradebookItemCell.m; sourceTree = "<group>"; };
 		EA1340F7134D0E1A003F9687 /* noise_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = noise_bg.png; path = Images/noise_bg.png; sourceTree = "<group>"; };
 		EA396F8B134C1C800066E4C4 /* ic_grade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_grade.png; path = Images/ic_grade.png; sourceTree = "<group>"; };
+		EA5CA73A134D2B7200788F7D /* AnnouncementsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnnouncementsViewController.xib; sourceTree = "<group>"; };
 		EA7A9F4A13146C9D00D9EC6A /* ECAPI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ECAPI.xcodeproj; path = ../ecollegeiosapi/ECAPI/ECAPI.xcodeproj; sourceTree = "<group>"; };
 		EA7A9F5913146E3400D9EC6A /* libECAPI.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libECAPI.a; sourceTree = SOURCE_ROOT; };
 		EA7A9FB91314738300D9EC6A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -456,7 +458,7 @@
 				A2651D43134A497A00490400 /* Announcement Detail View Controller */,
 				A2651D3E134A29CE00490400 /* AnnouncementsViewController.h */,
 				A2651D3F134A29CE00490400 /* AnnouncementsViewController.m */,
-				A2651D40134A29CE00490400 /* AnnouncementsViewController.xib */,
+				EA5CA73A134D2B7200788F7D /* AnnouncementsViewController.xib */,
 				A25FC79D134A5A8D0031D2C2 /* AnnouncementTableCell.h */,
 				A25FC79E134A5A8D0031D2C2 /* AnnouncementTableCell.m */,
 			);
@@ -718,6 +720,7 @@
 			children = (
 				EA014E82134BA78100353897 /* CourseGradebookViewController.h */,
 				EA014E83134BA78100353897 /* CourseGradebookViewController.m */,
+				A2651D40134A29CE00490400 /* CourseGradebookViewController.xib */,
 				EA014E85134BB82F00353897 /* GradebookItemCell.h */,
 				EA014E86134BB82F00353897 /* GradebookItemCell.m */,
 			);
@@ -961,7 +964,7 @@
 				EAD48D55134A688F00B33ACD /* person_male_icon@2x.png in Resources */,
 				EAD48D58134A6AC700B33ACD /* you_banner.png in Resources */,
 				EAD48D59134A6AC700B33ACD /* you_banner@2x.png in Resources */,
-				A2651D42134A29CE00490400 /* AnnouncementsViewController.xib in Resources */,
+				A2651D42134A29CE00490400 /* CourseGradebookViewController.xib in Resources */,
 				A2642078134B94D000B3048E /* PersonDetailViewController.xib in Resources */,
 				A2A347F4134BBA9700405FE8 /* login_background.png in Resources */,
 				A2A347F5134BBA9700405FE8 /* login_background@2x.png in Resources */,
@@ -974,6 +977,7 @@
 				A2B85621134CFC060007E3F7 /* my_profile_icon.png in Resources */,
 				A2B85622134CFC060007E3F7 /* my_profile_icon@2x.png in Resources */,
 				EA1340F8134D0E1A003F9687 /* noise_bg.png in Resources */,
+				EA5CA73B134D2B7200788F7D /* AnnouncementsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -272,7 +272,7 @@
         [self.navigationController pushViewController:pvc animated:YES];
         [pvc release];
     } else if ([self isGradebookCell:indexPath]) {
-        CourseGradebookViewController *cgvc = [[CourseGradebookViewController alloc] initWithStyle:UITableViewStylePlain];
+        CourseGradebookViewController *cgvc = [[CourseGradebookViewController alloc] initWithNibName:@"CourseGradebookViewController" bundle:nil];
 		cgvc.courseId = self.course.courseId;
         cgvc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:cgvc animated:YES];
