@@ -11,9 +11,9 @@
 
 @interface ProfileViewController : ECPrimaryViewController<UITableViewDataSource, UITableViewDelegate> {
     IBOutlet UILabel *studentNameLabel;
-	IBOutlet UIButton *signOutButton;
 	IBOutlet UILabel *tableTitleLable;
 	IBOutlet UITableView *tableView;
+	IBOutlet UIImageView *textureImageView;
 }
 
 - (IBAction) signOutPressed:(id)sender;
