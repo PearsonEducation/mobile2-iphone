@@ -10,13 +10,14 @@
 #import "ActivityStreamItem.h"
 
 @interface ActivityTableCell : UITableViewCell {
+    IBOutlet UIImageView* arrowView;
     IBOutlet UIImageView* imageView;
     IBOutlet UILabel* friendlyDate;
     IBOutlet UILabel* title;
     IBOutlet UILabel* courseName;
     IBOutlet UILabel* description;
 }
-
+ 
 -(void)setData:(ActivityStreamItem*)item;
 
 @end

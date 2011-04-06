@@ -2,6 +2,7 @@
 
 // This function taken from:
 //  http://www.raywenderlich.com/2033/core-graphics-101-lines-rectangles-and-gradients
+
 void drawLinearGradient(CGContextRef context, CGRect rect, CGColorRef startColor, 
                         CGColorRef  endColor) {
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();

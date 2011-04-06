@@ -12,7 +12,6 @@
 #import "eCollegeAppDelegate.h"
 #import "CourseFetcher.h"
 #import "GradientCellBackground.h"
-#import "FourColorGradientView.h"
 #import "IBButton.h"
 #import <QuartzCore/CoreAnimation.h>
 

@@ -11,6 +11,11 @@
 #import "eCollegeAppDelegate.h"
 #import "Course.h"
 #import "ECClientConfiguration.h"
+#import "UIImageUtilities.h"
+
+@interface ActivityTableCell ()
+
+@end
 
 @implementation ActivityTableCell
 
@@ -28,15 +33,16 @@
 }
 
 - (void)awakeFromNib {
-    ECClientConfiguration *client = [ECClientConfiguration currentConfiguration];
-    title.font = [client cellHeaderFont];
-    title.textColor = [client secondaryColor];
-    description.font = [client cellFont];
-    description.textColor = [client blackColor];
-    courseName.font = [client cellItalicsFont];
-    courseName.textColor = [client blackColor];
-    friendlyDate.font = [client cellDateFont];
-    friendlyDate.textColor = [client greyColor];
+    ECClientConfiguration *config = [ECClientConfiguration currentConfiguration];
+    title.font = [config cellHeaderFont];
+    title.textColor = [config secondaryColor];
+    description.font = [config cellFont];
+    description.textColor = [config blackColor];
+    courseName.font = [config cellItalicsFont];
+    courseName.textColor = [config blackColor];
+    friendlyDate.font = [config cellDateFont];
+    friendlyDate.textColor = [config greyColor];
+    arrowView.image = [[UIImage imageNamed:[config listArrowFileName]] imageWithOverlayColor:[config secondaryColor]];
 }
 
 -(void)setData:(ActivityStreamItem*)item {
