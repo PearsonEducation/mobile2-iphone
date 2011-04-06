@@ -140,7 +140,7 @@ static ECClientConfiguration *currentConfiguration = nil;
 
 #pragma mark - View Helpers and useful factory methods
 
-- (UINavigationController *) newPrimaryNavigationControllerWithRootViewController:(UIViewController *)viewController {
+- (UINavigationController *) primaryNavigationControllerWithRootViewController:(UIViewController *)viewController {
 	UINavigationController *nc = [[[UINavigationController alloc] initWithRootViewController:viewController] autorelease];
 	nc.navigationBar.tintColor = [self primaryColor];
 	return nc;
