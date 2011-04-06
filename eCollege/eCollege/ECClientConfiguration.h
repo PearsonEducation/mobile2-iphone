@@ -26,6 +26,7 @@
 - (UIColor*)tertiaryColor;
 - (UIColor*)greyColor;
 - (UIColor*)whiteColor;
+- (UIColor*)blackColor;
 
 // STRINGS
 - (NSString*)schoolName;
@@ -33,6 +34,10 @@
 // FONTS
 - (UIFont*)mediumBoldFont;
 - (UIFont*)mediumFont;
+- (UIFont*)cellHeaderFont;
+- (UIFont*)cellFont;
+- (UIFont*)cellItalicsFont;
+- (UIFont*)cellDateFont;
 
 // FILE NAMES
 - (NSString*)splashFileName;

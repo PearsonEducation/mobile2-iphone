@@ -55,8 +55,8 @@ static ECClientConfiguration *currentConfiguration = nil;
 
 - (NSString *) clientString {
 	//TODO: add real implementation here
-	// return @"sandbox";
-    return @"ctstate";
+	return @"sandbox";
+    // return @"ctstate";
 }
 
 - (void) dealloc {
@@ -89,6 +89,10 @@ static ECClientConfiguration *currentConfiguration = nil;
     return [UIColor darkGrayColor];
 }
 
+- (UIColor*)blackColor {
+    return [UIColor blackColor];
+}
+
 - (UIColor*)whiteColor {
     return [UIColor whiteColor];
 }
@@ -105,5 +109,20 @@ static ECClientConfiguration *currentConfiguration = nil;
     return [UIFont fontWithName:@"Helvetica" size:17.0];    
 }
 
+- (UIFont*)cellHeaderFont {
+    return [UIFont fontWithName:@"Helvetica-Bold" size:14.0];
+}
+
+- (UIFont*)cellFont {
+    return [UIFont fontWithName:@"Helvetica" size:13.0];
+}
+
+- (UIFont*)cellItalicsFont {
+    return [UIFont fontWithName:@"Helvetica-Oblique" size:13.0];
+}
+
+- (UIFont*)cellDateFont {
+    return [UIFont fontWithName:@"Helvetica" size:13.0];
+}
 
 @end
