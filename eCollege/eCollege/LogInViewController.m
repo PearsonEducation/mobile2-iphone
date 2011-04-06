@@ -73,7 +73,7 @@
     keepMeLoggedInLabel.textColor = [config greyColor];
     
     signInButton = [IBButton glossButtonWithTitle:@"Sign In" color:[config primaryColor]];
-    signInButton.frame = CGRectMake(formBackgroundImageView.frame.origin.x, formBackgroundImageView.frame.origin.y + formBackgroundImageView.frame.size.height + 15, formBackgroundImageView.frame.size.width, 37);
+    signInButton.frame = CGRectMake(formBackgroundImageView.frame.origin.x, formBackgroundImageView.frame.origin.y + formBackgroundImageView.frame.size.height + 8, formBackgroundImageView.frame.size.width, 37);
     [signInButton addTarget:self action:@selector(logInClicked:) forControlEvents:UIControlEventTouchUpInside];
 
     [self.view addSubview:signInButton];
@@ -142,7 +142,7 @@
 		[UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
         CGRect f = self.view.frame;
         // move it to the top of the window, right underneath the status bar
-        f.origin.y = -115;
+        f.origin.y = -160;
         self.view.frame = f;
 	[UIView commitAnimations];
 
