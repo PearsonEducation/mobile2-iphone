@@ -243,7 +243,6 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
     UINavigationController* profileNav = [[UINavigationController alloc] initWithRootViewController:self.profileViewController];
     [allTabs addObject:profileNav];
     [profileNav release];
-    [img release];
 
     // Add the view controllers as children of the tab bar controller
     self.tabBarController.viewControllers = allTabs;
