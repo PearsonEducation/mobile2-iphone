@@ -86,7 +86,6 @@
 		A2A96751132E826D00554238 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = A2A96750132E826D00554238 /* GTMNSString+HTML.m */; };
 		A2B0D27F1326FA87008801E2 /* ic_dropbox_submission.png in Resources */ = {isa = PBXBuildFile; fileRef = A2B0D2791326FA87008801E2 /* ic_dropbox_submission.png */; };
 		A2B0D2801326FA87008801E2 /* ic_exam_submission.png in Resources */ = {isa = PBXBuildFile; fileRef = A2B0D27A1326FA87008801E2 /* ic_exam_submission.png */; };
-		A2B0D2811326FA87008801E2 /* ic_grade.png in Resources */ = {isa = PBXBuildFile; fileRef = A2B0D27B1326FA87008801E2 /* ic_grade.png */; };
 		A2B0D2821326FA87008801E2 /* ic_remark.png in Resources */ = {isa = PBXBuildFile; fileRef = A2B0D27C1326FA87008801E2 /* ic_remark.png */; };
 		A2B0D2831326FA87008801E2 /* ic_thread_post.png in Resources */ = {isa = PBXBuildFile; fileRef = A2B0D27D1326FA87008801E2 /* ic_thread_post.png */; };
 		A2B0D2841326FA87008801E2 /* ic_thread_topic.png in Resources */ = {isa = PBXBuildFile; fileRef = A2B0D27E1326FA87008801E2 /* ic_thread_topic.png */; };
@@ -114,7 +113,6 @@
 		A2FA6E8013206E3B0063268C /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2FA6E8213206E3B0063268C /* HomeViewController.xib */; };
 		EA014E84134BA78100353897 /* CourseGradebookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA014E83134BA78100353897 /* CourseGradebookViewController.m */; };
 		EA014E87134BB82F00353897 /* GradebookItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA014E86134BB82F00353897 /* GradebookItemCell.m */; };
-		EA396F8C134C1C800066E4C4 /* ic_grade.png in Resources */ = {isa = PBXBuildFile; fileRef = EA396F8B134C1C800066E4C4 /* ic_grade.png */; };
 		EA7A9F5A13146E3400D9EC6A /* libECAPI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA7A9F5913146E3400D9EC6A /* libECAPI.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		EA7A9FBA1314738300D9EC6A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA7A9FB91314738300D9EC6A /* SystemConfiguration.framework */; };
 		EA7A9FBC1314738F00D9EC6A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA7A9FBB1314738F00D9EC6A /* MobileCoreServices.framework */; };
@@ -134,6 +132,7 @@
 		EAD48D55134A688F00B33ACD /* person_male_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD48D53134A688F00B33ACD /* person_male_icon@2x.png */; };
 		EAD48D58134A6AC700B33ACD /* you_banner.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD48D56134A6AC700B33ACD /* you_banner.png */; };
 		EAD48D59134A6AC700B33ACD /* you_banner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD48D57134A6AC700B33ACD /* you_banner@2x.png */; };
+		EAFFA3C5134CE7D7003E9503 /* ic_grade.png in Resources */ = {isa = PBXBuildFile; fileRef = A2B0D27B1326FA87008801E2 /* ic_grade.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -885,9 +884,9 @@
 				A21401401326D186007C9207 /* ActivityTableCell.xib in Resources */,
 				A2B0D27F1326FA87008801E2 /* ic_dropbox_submission.png in Resources */,
 				A2B0D2801326FA87008801E2 /* ic_exam_submission.png in Resources */,
-				A2B0D2811326FA87008801E2 /* ic_grade.png in Resources */,
 				A2B0D2821326FA87008801E2 /* ic_remark.png in Resources */,
 				A2B0D2831326FA87008801E2 /* ic_thread_post.png in Resources */,
+				EAFFA3C5134CE7D7003E9503 /* ic_grade.png in Resources */,
 				A2B0D2841326FA87008801E2 /* ic_thread_topic.png in Resources */,
 				A27B88AA132EB3B600740C83 /* refresh.png in Resources */,
 				A28CB600132ECD95000B669D /* GradebookItemGradeDetailViewController.xib in Resources */,
@@ -933,7 +932,6 @@
 				A2A347F4134BBA9700405FE8 /* login_background.png in Resources */,
 				A2A347F5134BBA9700405FE8 /* login_background@2x.png in Resources */,
 				A2A347FE134BCC8A00405FE8 /* splash.png in Resources */,
-				EA396F8C134C1C800066E4C4 /* ic_grade.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
