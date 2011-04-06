@@ -13,6 +13,7 @@
 #import "Grade.h"
 #import "GradebookItemCell.h"
 #import "GradebookItemGradeDetailViewController.h"
+#import "NSDateUtilities.h"
 
 @implementation CourseGradebookViewController
 @synthesize gradebookItems, courseId;
