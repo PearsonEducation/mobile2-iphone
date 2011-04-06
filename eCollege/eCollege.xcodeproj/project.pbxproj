@@ -90,6 +90,9 @@
 		A2B0D2821326FA87008801E2 /* ic_remark.png in Resources */ = {isa = PBXBuildFile; fileRef = A2B0D27C1326FA87008801E2 /* ic_remark.png */; };
 		A2B0D2831326FA87008801E2 /* ic_thread_post.png in Resources */ = {isa = PBXBuildFile; fileRef = A2B0D27D1326FA87008801E2 /* ic_thread_post.png */; };
 		A2B0D2841326FA87008801E2 /* ic_thread_topic.png in Resources */ = {isa = PBXBuildFile; fileRef = A2B0D27E1326FA87008801E2 /* ic_thread_topic.png */; };
+		A2B85610134CE9430007E3F7 /* FourColorGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = A2B8560F134CE9430007E3F7 /* FourColorGradientView.m */; };
+		A2B85615134CEF800007E3F7 /* CGContext+Boost.m in Sources */ = {isa = PBXBuildFile; fileRef = A2B85612134CEF800007E3F7 /* CGContext+Boost.m */; };
+		A2B85616134CEF800007E3F7 /* IBButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A2B85614134CEF800007E3F7 /* IBButton.m */; };
 		A2BD370C134693D300792EE1 /* CourseDetailHeaderTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A2BD370B134693D300792EE1 /* CourseDetailHeaderTableCell.m */; };
 		A2D182781330079600AAC152 /* PullRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2D182761330079600AAC152 /* PullRefreshTableViewController.m */; };
 		A2D1827A133009BE00AAC152 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = A2D18279133009BE00AAC152 /* arrow.png */; };
@@ -271,6 +274,12 @@
 		A2B0D27C1326FA87008801E2 /* ic_remark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_remark.png; sourceTree = "<group>"; };
 		A2B0D27D1326FA87008801E2 /* ic_thread_post.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_thread_post.png; sourceTree = "<group>"; };
 		A2B0D27E1326FA87008801E2 /* ic_thread_topic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_thread_topic.png; sourceTree = "<group>"; };
+		A2B8560E134CE9430007E3F7 /* FourColorGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FourColorGradientView.h; sourceTree = "<group>"; };
+		A2B8560F134CE9430007E3F7 /* FourColorGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FourColorGradientView.m; sourceTree = "<group>"; };
+		A2B85611134CEF7F0007E3F7 /* CGContext+Boost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CGContext+Boost.h"; sourceTree = "<group>"; };
+		A2B85612134CEF800007E3F7 /* CGContext+Boost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CGContext+Boost.m"; sourceTree = "<group>"; };
+		A2B85613134CEF800007E3F7 /* IBButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBButton.h; sourceTree = "<group>"; };
+		A2B85614134CEF800007E3F7 /* IBButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IBButton.m; sourceTree = "<group>"; };
 		A2BD370A134693D200792EE1 /* CourseDetailHeaderTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseDetailHeaderTableCell.h; sourceTree = "<group>"; };
 		A2BD370B134693D300792EE1 /* CourseDetailHeaderTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseDetailHeaderTableCell.m; sourceTree = "<group>"; };
 		A2D182761330079600AAC152 /* PullRefreshTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullRefreshTableViewController.m; sourceTree = "<group>"; };
@@ -364,8 +373,6 @@
 				A2BD370B134693D300792EE1 /* CourseDetailHeaderTableCell.m */,
 				A271629F1346E0D2006FEE26 /* HighlightedAnnouncementTableCell.h */,
 				A27162A01346E0D3006FEE26 /* HighlightedAnnouncementTableCell.m */,
-				A27162AD1346E895006FEE26 /* GradientCellBackground.h */,
-				A27162AE1346E895006FEE26 /* GradientCellBackground.m */,
 				A27162B11346F405006FEE26 /* CourseDetailTableCell.h */,
 				A27162B21346F406006FEE26 /* CourseDetailTableCell.m */,
 			);
@@ -447,6 +454,12 @@
 		A27289931326BCD2001A588D /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				A2B85611134CEF7F0007E3F7 /* CGContext+Boost.h */,
+				A2B85612134CEF800007E3F7 /* CGContext+Boost.m */,
+				A2B85613134CEF800007E3F7 /* IBButton.h */,
+				A2B85614134CEF800007E3F7 /* IBButton.m */,
+				A27162AD1346E895006FEE26 /* GradientCellBackground.h */,
+				A27162AE1346E895006FEE26 /* GradientCellBackground.m */,
 				A2D182761330079600AAC152 /* PullRefreshTableViewController.m */,
 				A2D182771330079600AAC152 /* PullRefreshTableViewController.h */,
 				A2A9674F132E826D00554238 /* GTMNSString+HTML.h */,
@@ -457,6 +470,8 @@
 				A2791F81132ABF0800D900C9 /* BlockingActivityView.m */,
 				A27162AA1346E722006FEE26 /* DrawGradient.h */,
 				A27162AB1346E722006FEE26 /* DrawGradient.m */,
+				A2B8560E134CE9430007E3F7 /* FourColorGradientView.h */,
+				A2B8560F134CE9430007E3F7 /* FourColorGradientView.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -974,6 +989,9 @@
 				A2642077134B94D000B3048E /* PersonDetailViewController.m in Sources */,
 				EA014E84134BA78100353897 /* CourseGradebookViewController.m in Sources */,
 				EA014E87134BB82F00353897 /* GradebookItemCell.m in Sources */,
+				A2B85610134CE9430007E3F7 /* FourColorGradientView.m in Sources */,
+				A2B85615134CEF800007E3F7 /* CGContext+Boost.m in Sources */,
+				A2B85616134CEF800007E3F7 /* IBButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

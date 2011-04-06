@@ -20,9 +20,8 @@
     IBOutlet UILabel* keepMeLoggedInLabel;
     IBOutlet UIButton* signInButton;
 	IBOutlet UISwitch *keepLoggedInSwitch;
-	IBOutlet UIButton *logInButton;
     IBOutlet UIImageView *backgroundImageView;
-    IBOutlet UIView* formView;
+    IBOutlet UIImageView* formBackgroundImageView;
 	
 	BOOL keyboardIsShowing;
     
@@ -32,7 +31,6 @@
     BlockingActivityView* blockingActivityView;
     
     UserFetcher* userFetcher;
-    float formViewOrigY;
 }
 
 @property (nonatomic, retain) IBOutlet UITextField* usernameText;

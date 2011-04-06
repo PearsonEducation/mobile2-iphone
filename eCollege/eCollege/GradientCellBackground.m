@@ -9,15 +9,19 @@
 #import "GradientCellBackground.h"
 #import "UIColor+Boost.h"
 #import "DrawGradient.h"
+#import "UIColor+Boost.h"
 
 
 @implementation GradientCellBackground
+
+@synthesize midColor;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
+        // set a default (make it obvious)
+        self.midColor = [UIColor yellowColor];
     }
     return self;
 }
@@ -28,17 +32,17 @@
 - (void)drawRect:(CGRect)rect
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    CGColorRef darkColor = [HEXCOLOR(0x00244C) CGColor];
-    CGColorRef lightColor = [HEXCOLOR(0x00629D) CGColor];
-    
+    CGColorRef darkColor = [[midColor colorDarkerByPercent:25] CGColor];
+    CGColorRef lightColor = [[midColor colorBrighterByPercent:25] CGColor];
     CGRect paperRect = self.bounds;
-    
+    //    CGColorRef darkColor = [HEXCOLOR(0x00244C) CGColor];
+    //    CGColorRef lightColor = [HEXCOLOR(0x00629D) CGColor];
     drawLinearGradient(context, paperRect, lightColor, darkColor);
 }
 
 - (void)dealloc
 {
+    self.midColor = nil;
     [super dealloc];
 }
 

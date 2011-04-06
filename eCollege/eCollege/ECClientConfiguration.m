@@ -89,7 +89,7 @@ static ECClientConfiguration *currentConfiguration = nil;
     return [UIColor darkGrayColor];
 }
 
-- (UIColor*)whitecolor {
+- (UIColor*)whiteColor {
     return [UIColor whiteColor];
 }
 

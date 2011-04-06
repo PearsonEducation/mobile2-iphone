@@ -11,6 +11,10 @@
 #import "ECClientConfiguration.h"
 #import "eCollegeAppDelegate.h"
 #import "CourseFetcher.h"
+#import "GradientCellBackground.h"
+#import "FourColorGradientView.h"
+#import "IBButton.h"
+#import <QuartzCore/CoreAnimation.h>
 
 @interface LogInViewController ()
 
@@ -47,16 +51,34 @@
 }
 
 - (void) viewDidLoad {
+    
+    ECClientConfiguration* config = [ECClientConfiguration currentConfiguration];
+    
 	//scrollView.contentSize = self.view.frame.size;
     blockingActivityView = [[BlockingActivityView alloc] initWithWithView:self.view];
-    backgroundImageView.image = [UIImage imageNamed:[[ECClientConfiguration currentConfiguration] splashFileName]];
-    userNameLabel.font = [[ECClientConfiguration currentConfiguration] mediumBoldFont];
-    userNameLabel.textColor = [[ECClientConfiguration currentConfiguration] primaryColor];
-    passwordLabel.font = [[ECClientConfiguration currentConfiguration] mediumBoldFont];
-    passwordLabel.textColor = [[ECClientConfiguration currentConfiguration] primaryColor];
-    keepMeLoggedInLabel.font = [[ECClientConfiguration currentConfiguration] mediumFont];
-    keepMeLoggedInLabel.textColor = [[ECClientConfiguration currentConfiguration] greyColor];
+    backgroundImageView.image = [UIImage imageNamed:[config splashFileName]];
+
+    userNameLabel.font = [config mediumBoldFont];
+    userNameLabel.textColor = [config primaryColor];
     
+    usernameText.font = [config mediumFont];
+    usernameText.textColor = [config greyColor];
+    
+    passwordLabel.font = [config mediumBoldFont];
+    passwordLabel.textColor = [config primaryColor];
+    
+    passwordText.font = [config mediumFont];
+    passwordText.textColor = [config greyColor];
+    
+    keepMeLoggedInLabel.font = [config mediumFont];
+    keepMeLoggedInLabel.textColor = [config greyColor];
+    
+    signInButton = [IBButton glossButtonWithTitle:@"Sign In" color:[config primaryColor]];
+    signInButton.frame = CGRectMake(formBackgroundImageView.frame.origin.x, formBackgroundImageView.frame.origin.y + formBackgroundImageView.frame.size.height + 15, formBackgroundImageView.frame.size.width, 37);
+    [signInButton addTarget:self action:@selector(logInClicked:) forControlEvents:UIControlEventTouchUpInside];
+
+    [self.view addSubview:signInButton];
+
 }
 
 - (void) viewDidAppear:(BOOL)animated {
@@ -119,11 +141,10 @@
 	[UIView beginAnimations:nil context:NULL];
 		[UIView setAnimationDuration:0.3];
 		[UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-        CGRect f = formView.frame;
-        formViewOrigY = f.origin.y;
+        CGRect f = self.view.frame;
         // move it to the top of the window, right underneath the status bar
-        f.origin.y = 9;
-        formView.frame = f;
+        f.origin.y = -115;
+        self.view.frame = f;
 	[UIView commitAnimations];
 
 	keyboardIsShowing = YES;
@@ -139,9 +160,9 @@
 	[UIView beginAnimations:nil context:NULL];
 		[UIView setAnimationDuration:0.3];
 		[UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-        CGRect f = formView.frame;
-        f.origin.y = formViewOrigY;
-        formView.frame = f;
+        CGRect f = self.view.frame;
+        f.origin.y = 20;
+        self.view.frame = f;
 		//scrollView.frame = CGRectMake(0, 0, scrollViewSizeWhenKeyboardIsHidden.width, scrollViewSizeWhenKeyboardIsHidden.height);
 		//scrollView.contentOffset = scrollViewOffsetWhenKeyboardIsHidden;
 	[UIView commitAnimations];

@@ -1,5 +1,5 @@
 //
-//  GradientCellBackground.h
+//  FourColorGradientView.h
 //  eCollege
 //
 //  Created by Brad Umbaugh on 4/1/11.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface GradientCellBackground : UIView {
+@interface FourColorGradientView : UIView {
     UIColor* midColor;
 }
 
