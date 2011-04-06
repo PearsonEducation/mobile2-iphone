@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ECPrimaryViewController.h"
 
-
-@interface CoursesViewController : UIViewController <UITableViewDelegate, UITableViewDelegate> {
+@interface CoursesViewController : ECPrimaryViewController <UITableViewDelegate, UITableViewDelegate> {
     IBOutlet UITableView* table;
 }
 

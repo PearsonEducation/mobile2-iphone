@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "UserDiscussionTopicFetcher.h"
 #import "BlockingActivityView.h"
-#import "PullRefreshTableViewController.h"
+#import "ECPullRefreshTableViewController.h"
 #import "DateCalculator.h"
 
-@interface DiscussionsViewController : PullRefreshTableViewController <UITableViewDelegate, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate> {
+@interface DiscussionsViewController : ECPullRefreshTableViewController <UITableViewDelegate, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate> {
     NSArray* topics;
     UserDiscussionTopicFetcher* userDiscussionTopicFetcher;
     BlockingActivityView* blockingActivityView;

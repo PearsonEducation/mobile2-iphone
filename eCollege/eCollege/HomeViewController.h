@@ -11,9 +11,9 @@
 #import "ActivityStreamFetcher.h"
 #import "DateCalculator.h"
 #import "BlockingActivityView.h"
-#import "PullRefreshTableViewController.h"
+#import "ECPullRefreshTableViewController.h"
 
-@interface HomeViewController : PullRefreshTableViewController <UITableViewDelegate, UITableViewDataSource> {
+@interface HomeViewController : ECPullRefreshTableViewController <UITableViewDelegate, UITableViewDataSource> {
     ActivityStream* activityStream;
     ActivityStreamFetcher* activityStreamFetcher;
     NSMutableArray* todayActivityItems;

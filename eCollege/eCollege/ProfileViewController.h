@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ECPrimaryViewController.h"
 
-
-@interface ProfileViewController : UIViewController<UITableViewDataSource, UITableViewDelegate> {
+@interface ProfileViewController : ECPrimaryViewController<UITableViewDataSource, UITableViewDelegate> {
     IBOutlet UILabel *studentNameLabel;
 	IBOutlet UIButton *signOutButton;
 	IBOutlet UILabel *tableTitleLable;

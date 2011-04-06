@@ -7,7 +7,6 @@
 //
 
 #import "CoursesViewController.h"
-#import "InfoTableViewController.h"
 #import "UIColor+Boost.h"
 #import "eCollegeAppDelegate.h"
 #import "CourseTableCell.h"
@@ -37,51 +36,13 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
-- (void)infoButtonTapped:(id)sender {
-    InfoTableViewController* infoTableViewController = [[InfoTableViewController alloc] initWithNibName:@"InfoTableViewController" bundle:nil];
-    infoTableViewController.cancelDelegate = self;
-    UINavigationController *infoNavController = [[UINavigationController alloc] initWithRootViewController:infoTableViewController];
-    [self presentModalViewController:infoNavController animated:YES];
-    [infoNavController release];
-    [infoTableViewController release];
-}
-
-- (void)cancelButtonClicked:(id)sender {
-    [self dismissModalViewControllerAnimated:YES];
-}
-
 #pragma mark - View lifecycle
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-
-    // Do any additional setup after loading the view from its nib.
-    // add the info button, give it a tap handler
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeInfoLight];
-    [btn addTarget:self action:@selector(infoButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-    [btn release];    
-}
 
 - (void)viewDidAppear:(BOOL)animated {
     [table reloadData];
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-# pragma mark UITableViewDataSource / UITableViewDelegate methods
+# pragma mark - UITableViewDataSource / UITableViewDelegate methods
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 55.0;

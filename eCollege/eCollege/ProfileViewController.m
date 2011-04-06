@@ -34,19 +34,6 @@
 
 #pragma mark - Actions
 
-- (void)infoButtonTapped:(id)sender {
-    InfoTableViewController* infoTableViewController = [[InfoTableViewController alloc] initWithNibName:@"InfoTableViewController" bundle:nil];
-    infoTableViewController.cancelDelegate = self;
-    UINavigationController *infoNavController = [[UINavigationController alloc] initWithRootViewController:infoTableViewController];
-    [self presentModalViewController:infoNavController animated:YES];
-    [infoNavController release];
-    [infoTableViewController release];
-}
-
-- (void)cancelButtonClicked:(id)sender {
-    [self dismissModalViewControllerAnimated:YES];
-}
-
 - (IBAction) signOutPressed:(id)sender {
 	[[eCollegeAppDelegate delegate] signOut];
 }
@@ -90,11 +77,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeInfoLight];
-    [btn addTarget:self action:@selector(infoButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-    [btn release];
-	
 	[signOutButton setTitle:NSLocalizedString(@"Sign Out", @"Sign Out label")
 				   forState:UIControlStateNormal];
 	tableTitleLable.text = NSLocalizedString(@"My Courses", @"Profile courses table title");
@@ -108,10 +90,6 @@
 
 - (void)viewDidUnload {
     [super viewDidUnload];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 @end
