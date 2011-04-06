@@ -44,6 +44,7 @@
 
 // FILE NAMES
 - (NSString*)splashFileName;
+- (NSString*)listArrowFileName;
 
 // View helpers
 - (UINavigationController *) newPrimaryNavigationControllerWithRootViewController:(UIViewController *)viewController;
