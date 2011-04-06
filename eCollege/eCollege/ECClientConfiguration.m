@@ -77,6 +77,10 @@ static ECClientConfiguration *currentConfiguration = nil;
     return HEXCOLOR(TERTIARY_COLOR);
 }
 
+- (UIColor *) texturedBackgroundColor {
+	return [UIColor colorWithPatternImage:[UIImage imageNamed:@"noise_bg.png"]];	
+}
+
 - (NSString*)schoolName {
     return SCHOOL_NAME;
 }
@@ -120,6 +124,7 @@ static ECClientConfiguration *currentConfiguration = nil;
 - (UIFont*)cellDateFont {
     return [UIFont fontWithName:@"Helvetica" size:13.0];
 }
+
 
 #pragma mark - View Helpers and useful factory methods
 

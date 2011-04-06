@@ -27,6 +27,7 @@
 - (UIColor*)greyColor;
 - (UIColor*)whiteColor;
 - (UIColor*)blackColor;
+- (UIColor *) texturedBackgroundColor;
 
 // STRINGS
 - (NSString*)schoolName;

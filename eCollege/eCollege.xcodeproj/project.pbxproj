@@ -119,6 +119,7 @@
 		A2FA6E8013206E3B0063268C /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2FA6E8213206E3B0063268C /* HomeViewController.xib */; };
 		EA014E84134BA78100353897 /* CourseGradebookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA014E83134BA78100353897 /* CourseGradebookViewController.m */; };
 		EA014E87134BB82F00353897 /* GradebookItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA014E86134BB82F00353897 /* GradebookItemCell.m */; };
+		EA1340F8134D0E1A003F9687 /* noise_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = EA1340F7134D0E1A003F9687 /* noise_bg.png */; };
 		EA7A9F5A13146E3400D9EC6A /* libECAPI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA7A9F5913146E3400D9EC6A /* libECAPI.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		EA7A9FBA1314738300D9EC6A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA7A9FB91314738300D9EC6A /* SystemConfiguration.framework */; };
 		EA7A9FBC1314738F00D9EC6A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA7A9FBB1314738F00D9EC6A /* MobileCoreServices.framework */; };
@@ -327,6 +328,7 @@
 		EA014E83134BA78100353897 /* CourseGradebookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseGradebookViewController.m; sourceTree = "<group>"; };
 		EA014E85134BB82F00353897 /* GradebookItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradebookItemCell.h; sourceTree = "<group>"; };
 		EA014E86134BB82F00353897 /* GradebookItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradebookItemCell.m; sourceTree = "<group>"; };
+		EA1340F7134D0E1A003F9687 /* noise_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = noise_bg.png; path = Images/noise_bg.png; sourceTree = "<group>"; };
 		EA396F8B134C1C800066E4C4 /* ic_grade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_grade.png; path = Images/ic_grade.png; sourceTree = "<group>"; };
 		EA7A9F4A13146C9D00D9EC6A /* ECAPI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ECAPI.xcodeproj; path = ../ecollegeiosapi/ECAPI/ECAPI.xcodeproj; sourceTree = "<group>"; };
 		EA7A9F5913146E3400D9EC6A /* libECAPI.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libECAPI.a; sourceTree = SOURCE_ROOT; };
@@ -498,6 +500,7 @@
 		A27289971326C045001A588D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				EA1340F7134D0E1A003F9687 /* noise_bg.png */,
 				A2B8561F134CFC060007E3F7 /* my_profile_icon.png */,
 				A2B85620134CFC060007E3F7 /* my_profile_icon@2x.png */,
 				A2B8561B134CFBC60007E3F7 /* discussions_icon.png */,
@@ -970,6 +973,7 @@
 				A2B8561E134CFBC60007E3F7 /* discussions_icon@2x.png in Resources */,
 				A2B85621134CFC060007E3F7 /* my_profile_icon.png in Resources */,
 				A2B85622134CFC060007E3F7 /* my_profile_icon@2x.png in Resources */,
+				EA1340F8134D0E1A003F9687 /* noise_bg.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
