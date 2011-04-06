@@ -8,6 +8,7 @@
 
 #import "ECPrimaryViewController.h"
 #import "InfoTableViewController.h"
+#import "ECClientConfiguration.h"
 
 @implementation ECPrimaryViewController
 
@@ -33,6 +34,7 @@
     InfoTableViewController* infoTableViewController = [[InfoTableViewController alloc] initWithNibName:@"InfoTableViewController" bundle:nil];
     infoTableViewController.cancelDelegate = self;
     UINavigationController *infoNavController = [[UINavigationController alloc] initWithRootViewController:infoTableViewController];
+	infoNavController.navigationBar.tintColor = [[ECClientConfiguration currentConfiguration] primaryColor];
     [self presentModalViewController:infoNavController animated:YES];
     [infoNavController release];
     [infoTableViewController release];
