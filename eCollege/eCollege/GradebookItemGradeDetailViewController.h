@@ -23,6 +23,7 @@
 	NSNumber *pointsPossible;
 	NSDate *postedTime;
     BlockingActivityView* blockingActivityView;
+    UIScrollView* scrollView;
 }
 
 - (id)initWithItem:(ActivityStreamItem*)value;

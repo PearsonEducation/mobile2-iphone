@@ -124,7 +124,7 @@ static ECClientConfiguration *currentConfiguration = nil;
 }
 
 - (NSString*)gradeIconFileName {
-    return @"grade.png";
+    return @"grade_icon.png";
 }
 
 - (NSString*)topicIconFileName {

@@ -18,6 +18,7 @@
 @interface GradebookItemGradeDetailViewController ()
 
 @property (nonatomic, retain) GradebookItemGradeFetcher* gradebookItemGradeFetcher;
+@property (nonatomic, retain) UIScrollView* scrollView;
 
 - (void)gradebookItemGradeLoaded:(id)gradebookItemGrade;
 - (void)setupView;
@@ -28,6 +29,7 @@
 
 @synthesize item;
 @synthesize gradebookItemGradeFetcher;
+@synthesize scrollView;
 
 - (id)initWithItem:(ActivityStreamItem*)value {
     if ((self = [super init]) != nil) {
@@ -80,6 +82,10 @@
 
 - (void)setupView {
     
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    scrollView.scrollEnabled = YES;
+    [self.view addSubview:scrollView];
+    
     ECClientConfiguration* config = [ECClientConfiguration currentConfiguration];
     
     // set up some colors
@@ -108,7 +114,7 @@
     courseNameLabel.text = courseName;
     courseNameLabel.backgroundColor = [UIColor clearColor];
     courseNameLabel.numberOfLines = 0;
-    [self.view addSubview:courseNameLabel];
+    [scrollView addSubview:courseNameLabel];
     
     // set up the assignment title label
     CGSize assignmentNameSize = [assignmentName sizeWithFont:titleFont constrainedToSize:maximumSize lineBreakMode:UILineBreakModeWordWrap];
@@ -119,7 +125,7 @@
     assignmentLabel.text = assignmentName;
     assignmentLabel.backgroundColor =  [UIColor clearColor];
     assignmentLabel.numberOfLines = 0;
-    [self.view addSubview:assignmentLabel];
+    [scrollView addSubview:assignmentLabel];
     
     // set up the white box in the background, with rounded corners and drop shadow (arbitrary initial height, will change that later)
     UIView* whiteBox = [[UIView alloc] initWithFrame:CGRectMake(9, assignmentLabel.frame.origin.y + assignmentLabel.frame.size.height + 10, 303, 500)];
@@ -129,7 +135,7 @@
     whiteBox.layer.shadowRadius = 1.0;
     whiteBox.layer.shadowOpacity = 0.8;
     whiteBox.layer.shadowOffset = CGSizeMake(0, 2);
-    [self.view addSubview:whiteBox];
+    [scrollView addSubview:whiteBox];
     
     // set up the image
     UIImageView* img = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 25, 25)];
@@ -194,6 +200,8 @@
 		whiteBox.frame = boxFrame;
 	}
     
+    scrollView.contentSize = CGSizeMake(320, whiteBox.frame.origin.y + whiteBox.frame.size.height + 100);
+    
     [img release];
     [courseNameLabel release];
     [assignmentLabel release];
@@ -215,6 +223,7 @@
 }
 
 - (void)dealloc {
+    self.scrollView = nil;
 	[grade release]; grade = nil;
 	[assignmentName release]; assignmentName = nil;
 	[points release];
