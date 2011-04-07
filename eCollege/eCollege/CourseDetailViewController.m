@@ -112,7 +112,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    self.title = self.course.title;
+    self.title = self.course.displayCourseCode;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
