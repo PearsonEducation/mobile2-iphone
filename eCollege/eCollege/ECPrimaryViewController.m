@@ -27,7 +27,6 @@
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeInfoLight];
     [btn addTarget:self action:@selector(infoButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-    [btn release];
 }
 
 - (void)infoButtonTapped:(id)sender {
