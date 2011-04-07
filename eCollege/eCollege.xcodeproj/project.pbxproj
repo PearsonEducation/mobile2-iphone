@@ -134,6 +134,7 @@
 		EA014E84134BA78100353897 /* CourseGradebookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA014E83134BA78100353897 /* CourseGradebookViewController.m */; };
 		EA014E87134BB82F00353897 /* GradebookItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA014E86134BB82F00353897 /* GradebookItemCell.m */; };
 		EA1340F8134D0E1A003F9687 /* noise_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = EA1340F7134D0E1A003F9687 /* noise_bg.png */; };
+		EA427AC0134E664A00043CC6 /* NSString+stripHTML.m in Sources */ = {isa = PBXBuildFile; fileRef = EA427ABF134E664A00043CC6 /* NSString+stripHTML.m */; };
 		EA4E2558134D3869009E2965 /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = EA4E2556134D3869009E2965 /* gear.png */; };
 		EA4E2559134D3869009E2965 /* gear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA4E2557134D3869009E2965 /* gear@2x.png */; };
 		EA5CA73B134D2B7200788F7D /* AnnouncementsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA5CA73A134D2B7200788F7D /* AnnouncementsViewController.xib */; };
@@ -359,6 +360,8 @@
 		EA014E85134BB82F00353897 /* GradebookItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradebookItemCell.h; sourceTree = "<group>"; };
 		EA014E86134BB82F00353897 /* GradebookItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradebookItemCell.m; sourceTree = "<group>"; };
 		EA1340F7134D0E1A003F9687 /* noise_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = noise_bg.png; path = Images/noise_bg.png; sourceTree = "<group>"; };
+		EA427ABE134E664A00043CC6 /* NSString+stripHTML.h */ = {isa = PBXFileReference; fileEncoding = 4; path = "NSString+stripHTML.h"; sourceTree = "<group>"; };
+		EA427ABF134E664A00043CC6 /* NSString+stripHTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+stripHTML.m"; sourceTree = "<group>"; };
 		EA4E2556134D3869009E2965 /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gear.png; path = Images/gear.png; sourceTree = "<group>"; };
 		EA4E2557134D3869009E2965 /* gear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "gear@2x.png"; path = "Images/gear@2x.png"; sourceTree = "<group>"; };
 		EA5CA73A134D2B7200788F7D /* AnnouncementsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnnouncementsViewController.xib; sourceTree = "<group>"; };
@@ -527,6 +530,8 @@
 				A2B85634134D1A800007E3F7 /* UIImageUtilities.m */,
 				A27E86D9134DAB7E009A027B /* GreyTableHeader.h */,
 				A27E86DA134DAB7F009A027B /* GreyTableHeader.m */,
+				EA427ABE134E664A00043CC6 /* NSString+stripHTML.h */,
+				EA427ABF134E664A00043CC6 /* NSString+stripHTML.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -1098,6 +1103,7 @@
 				EAFFA3CA134CF351003E9503 /* ECPrimaryViewController.m in Sources */,
 				EAFFA3D0134CF744003E9503 /* ECPullRefreshTableViewController.m in Sources */,
 				A27E86DB134DAB7F009A027B /* GreyTableHeader.m in Sources */,
+				EA427AC0134E664A00043CC6 /* NSString+stripHTML.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
