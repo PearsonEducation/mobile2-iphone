@@ -17,6 +17,7 @@
     IBOutlet UIView* whiteBox;
     IBOutlet UIImageView* iconView;
     RosterUser* user;
+	IBOutlet UIImageView *textureImageView;
 }
 
 @property (nonatomic, assign) NSInteger courseId;

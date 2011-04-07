@@ -11,6 +11,7 @@
 #import "UIColor+Boost.h"
 #import "eCollegeAppDelegate.h"
 #import "Course.h"
+#import "ECClientConfiguration.h"
 
 @interface PersonDetailViewController ()
 @end
@@ -31,6 +32,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+	
+	ECClientConfiguration *config = [ECClientConfiguration currentConfiguration];
+	
+	self.view.backgroundColor = [config tertiaryColor];
+	textureImageView.backgroundColor = [config texturedBackgroundColor];
+	textureImageView.opaque = NO;
     
     // set up the icon and its bounding box
     iconView.image = [UIImage imageNamed:@"person_male_icon.png"];
