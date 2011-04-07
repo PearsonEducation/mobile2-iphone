@@ -12,6 +12,7 @@
 #import "User.h"
 #import "GradientCellBackground.h"
 #import "ECClientConfiguration.h"
+#import "NSDateUtilities.h"
 
 @interface HighlightedAnnouncementTableCell ()
 @end
@@ -39,7 +40,7 @@
         UIColor* textColor = [UIColor whiteColor];
         
         // add the title label
-        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(13, 9, 294, 13)];
+        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(13, 11, 294, 13)];
         titleLabel.lineBreakMode = UILineBreakModeTailTruncation;
         titleLabel.font = titleFont;
         titleLabel.textColor = titleColor;
@@ -69,6 +70,9 @@
     if (announcement) {
         titleLabel.text = announcement.subject;
         textLabel.text = announcement.text;
+    } else {
+        titleLabel.text = NSLocalizedString(@"No recent announcements", nil);
+        textLabel.text = [NSString stringWithFormat:@"%@: %@",NSLocalizedString(@"As of",nil), [[NSDate date] friendlyString]];
     }
 }
 

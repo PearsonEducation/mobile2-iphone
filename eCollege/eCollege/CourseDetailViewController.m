@@ -140,11 +140,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if ([self haveAnnouncements]) {
-        return 5;
-    } else {
-        return 4;
-    }
+    return 5;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -182,31 +178,19 @@
 }
 
 - (BOOL)isHighlightedAnnouncementCell:(NSIndexPath*)indexPath {
-    return (indexPath.row == 1 && [self haveAnnouncements]);
+    return indexPath.row == 1;
 }
 
 - (BOOL)isAnnouncementsCell:(NSIndexPath*)indexPath {
-    if ([self haveAnnouncements]) {
-        return indexPath.row == 2;
-    } else {
-        return indexPath.row == 1;
-    }
+    return indexPath.row == 2;
 }
 
 - (BOOL)isGradebookCell:(NSIndexPath*)indexPath {
-    if ([self haveAnnouncements]) {
-        return indexPath.row == 3;
-    } else {
-        return indexPath.row == 2;
-    }
+    return indexPath.row == 3;
 }
 
 - (BOOL)isPeopleCell:(NSIndexPath*)indexPath {
-    if ([self haveAnnouncements]) {
-        return indexPath.row == 4;
-    } else {
-        return indexPath.row == 3;
-    }
+    return indexPath.row == 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -226,7 +210,11 @@
         if (cell == nil) {
             cell = [[[HighlightedAnnouncementTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"HighlightedAnnouncementTableCell"] autorelease];
         }
-        ((HighlightedAnnouncementTableCell*)cell).announcement = [self.announcements objectAtIndex:0];
+        if ([self haveAnnouncements]) {
+            ((HighlightedAnnouncementTableCell*)cell).announcement = [self.announcements objectAtIndex:0];
+        } else {
+            ((HighlightedAnnouncementTableCell*)cell).announcement = nil;
+        }
         return cell;
     }
     
