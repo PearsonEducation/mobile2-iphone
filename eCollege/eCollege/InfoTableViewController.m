@@ -12,32 +12,17 @@
 #import "AboutViewController.h"
 #import "SettingsViewController.h"
 #import "ProfileViewController.h"
+#import "ECClientConfiguration.h"
+#import "IBButton.h"
+#import "eCollegeAppDelegate.h"
 
 @implementation InfoTableViewController
 
 @synthesize cancelDelegate;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)dealloc
-{
+- (void)dealloc {
     self.cancelDelegate = nil;
     [super dealloc];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
 }
 
 - (void)cancelButtonClicked:(id)sender {
@@ -46,51 +31,54 @@
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    
-    // add the "Cancel" button to the navigation bar
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonClicked:)];
+	ECClientConfiguration *config = [ECClientConfiguration currentConfiguration];
+	
+	IBButton *signOutButton = [IBButton glossButtonWithTitle:NSLocalizedString(@"Sign Out", @"Sign Out") color:[config primaryColor]];
+    signOutButton.frame = CGRectMake(9, 115, 302, 37);
+    [signOutButton addTarget:self action:@selector(signOutTapped:) forControlEvents:UIControlEventTouchUpInside];
+	
+	[self.view addSubview:signOutButton];
+	
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Close", @"Close")
+																	 style:UIBarButtonSystemItemCancel
+																	target:self action:@selector(cancelButtonClicked:)];
     self.navigationItem.leftBarButtonItem = cancelButton;
+	self.title = NSLocalizedString(@"Settings", @"Settings");
+
+	table.backgroundView.backgroundColor = [UIColor clearColor];
+	table.backgroundView.opaque = NO;
+	table.backgroundColor = [UIColor clearColor];
+	table.opaque = NO;
+	texturedBackground.backgroundColor = [config texturedBackgroundColor];	
+	texturedBackground.opaque = NO;
+	self.view.backgroundColor = [config tertiaryColor];
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+- (void) signOutTapped:(id)sender {
+	[[eCollegeAppDelegate delegate] signOut];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    // Return the number of sections.
-    return 1;
-}
-
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    // Return the number of rows in the section.
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 2;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
+	ECClientConfiguration *config = [ECClientConfiguration currentConfiguration];
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+		cell.textLabel.font = [config cellFontBold];
+		cell.textLabel.textColor = [config secondaryColor];
     }
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -110,49 +98,10 @@
     return cell;
 }
 
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
-
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
- {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
- }   
- else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }   
- }
- */
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
-
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	[table deselectRowAtIndexPath:indexPath animated:YES];
     UIViewController* newView;
     switch (indexPath.row) {
         case 0:
