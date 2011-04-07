@@ -53,6 +53,7 @@
     if (user) {
         roleLabel.text = [user friendlyRole];
         nameLabel.text = [user fullName];
+		self.title = [user fullName];
     }
 }
 
