@@ -50,18 +50,10 @@
     [bv addSubview:gcb];
     [bv addSubview:texturedView];
     self.backgroundView = bv;
-    
+        
     [bv release];
     [gcb release];
     [texturedView release];
-    
-
-
-    
-    
-//    self.backgroundView = [[[GradientCellBackground alloc] init] autorelease];
-//    ((GradientCellBackground *)self.backgroundView).lightColor = [[ECClientConfiguration currentConfiguration] tertiaryColor];
-//    ((GradientCellBackground *)self.backgroundView).darkColor = [[ECClientConfiguration currentConfiguration] lightGrayColor];
     
     self.titleBackground.image = [UIImage imageNamed:@"text_input_background.png"];
     self.contentBackground.image = [[UIImage imageNamed:@"text_input_background.png"] stretchableImageWithLeftCapWidth:147.0 topCapHeight:15.0];

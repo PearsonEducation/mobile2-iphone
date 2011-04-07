@@ -8,6 +8,7 @@
 
 #import "ResponseContentTableCell.h"
 #import "ECClientConfiguration.h"
+#import "Math.h"
 
 @interface ResponseContentTableCell ()
 
@@ -23,16 +24,44 @@
 
 - (void)dealloc
 {
+    self.button = nil;
+    self.webView = nil;
     self.texturedBackgroundView = nil;
     [super dealloc];
 }
 
 #pragma mark - View lifecycle
 
+- (void)rotateButton {
+
+    degrees = (degrees == 0) ? 180 : 0;
+    
+    // Setup the animation
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.25];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    
+    // The transform matrix
+    CGAffineTransform transform = CGAffineTransformMakeRotation((degrees/180.0)*M_PI);
+    button.transform = transform;
+    
+    // Commit the changes
+    [UIView commitAnimations];
+}
+
 - (void)awakeFromNib {
+    
+    degrees = 0.0;
     
     self.clipsToBounds = YES;
     
+    [button setBackgroundImage:[UIImage imageNamed:@"expand_text_icon.png"] forState:UIControlStateNormal];
+    CGRect f = button.frame;
+    f.size = CGSizeMake(16, 17);
+    f.origin = CGPointMake(288, 10);
+    button.frame = f;
+        
     ECClientConfiguration* config = [ECClientConfiguration currentConfiguration];
 
     self.texturedBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.frame.size.width, self.contentView.frame.size.height)];

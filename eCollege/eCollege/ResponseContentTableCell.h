@@ -13,6 +13,7 @@
     IBOutlet UIWebView* webView;
     IBOutlet UIButton* button;
     UIView* texturedBackground;
+    float degrees;
 }
 
 @property (nonatomic, retain) UIWebView* webView;
@@ -20,5 +21,6 @@
 
 - (void)loadHtmlString:(NSString*)htmlString;
 - (void)setHeight:(float)value;
+- (void)rotateButton;
 
 @end

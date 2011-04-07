@@ -506,6 +506,8 @@
     if (!contentIsMinimized) {
         [responseContentTableCell setHeight:actualContentHeight];
     }
+
+    [responseContentTableCell rotateButton];
     
     [self animateTableCellHeightChanges];
 }
