@@ -95,7 +95,7 @@
     CGRect filterViewFrame = filterView.frame;
     filterViewFrame.origin.y = 0;
     filterView.frame = filterViewFrame;
-    blockingModalView.alpha = 0.25;
+    blockingModalView.alpha = 0.45;
     [UIView commitAnimations];
 }
 
