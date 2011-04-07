@@ -178,7 +178,6 @@
     
     // capture how big the web view actually is with the data
     actualContentHeight = w.frame.size.height;
-    NSLog(@"Actual content height: %f", actualContentHeight);
     
     // reduce the minimum if necessary
     if (actualContentHeight <= minimizedContentHeight) {
@@ -196,7 +195,6 @@
 
 - (void)rootItemFetchedHandler:(id)result {
     if ([self isValidRootItemObject:result]) {
-        NSLog(@"Got a user discussion topic");
         self.rootItem = result;
         errorFetchingRootItem = NO;
         [self fetchResponses];
@@ -536,7 +534,6 @@
         rctc.webView.opaque = NO;
         rctc.clipsToBounds = YES;
         collapseButton = rctc.button;
-        [rctc.button addTarget:self action:@selector(contentButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [rctc loadHtmlString:[self getHtmlContentString]];
         return cell;        
     }
@@ -597,6 +594,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if ([self isRootItemContentCell:indexPath]) {
+        [self contentButtonTapped:nil];
+    }
+    
     if ([self isResponseCell:indexPath]) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         ResponseResponsesViewController* rrvc = [[ResponseResponsesViewController alloc] initWithNibName:@"ResponsesViewController" bundle:nil];

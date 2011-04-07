@@ -174,7 +174,7 @@
 }
 
 - (BOOL)haveAnnouncements {
-    return self.announcements && [self.announcements count] > 0;
+    return self.announcements && [self.announcements isKindOfClass:[NSArray class]] && [self.announcements count] > 0;
 }
 
 - (BOOL)isHeaderCell:(NSIndexPath*)indexPath {
