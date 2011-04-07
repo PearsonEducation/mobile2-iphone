@@ -72,10 +72,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
+	ECClientConfiguration *config = [ECClientConfiguration currentConfiguration];
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+		cell.textLabel.font = [config cellFontBold];
+		cell.textLabel.textColor = [config secondaryColor];
     }
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -98,6 +101,7 @@
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	[table deselectRowAtIndexPath:indexPath animated:YES];
     UIViewController* newView;
     switch (indexPath.row) {
         case 0:
