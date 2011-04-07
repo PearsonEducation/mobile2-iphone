@@ -38,7 +38,7 @@
 - (void)applyFilter;
 - (void)filterAppearAnimationStopped:(NSString*)animationId finished:(NSNumber*)finished context:(void*)context;
 - (void)filterDisappearAnimationStopped:(NSString*)animationId finished:(NSNumber*)finished context:(void*)context;
-
+- (IBAction)refreshWithModalSpinner;
 
 @end
 
@@ -295,7 +295,7 @@
     // if activities have never been updated or the last update was more than an hour ago,
     // fetch the topics again.
     if (!self.lastUpdateTime || [self.lastUpdateTime timeIntervalSinceNow] < -3600 || forceUpdateOnViewWillAppear) {
-        [self forcePullDownRefresh];
+        [self refreshWithModalSpinner];
         forceUpdateOnViewWillAppear = NO;
     }    
 }

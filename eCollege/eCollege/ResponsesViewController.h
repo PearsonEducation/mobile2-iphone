@@ -11,6 +11,7 @@
 #import "PullRefreshTableViewController.h"
 #import "UserDiscussionResponseFetcher.h"
 #import "ResponseContentTableCell.h"
+#import "BlockingActivityView.h"
 
 @interface ResponsesViewController : PullRefreshTableViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UIWebViewDelegate, UITextViewDelegate> {
     ECAuthenticatedFetcher* rootItemFetcher;
@@ -51,6 +52,8 @@
     UILabel* responsePromptLabel;
     
     id parent;
+    
+    BlockingActivityView* blockingActivityView;
 }
 
 // The only reason these things are public properties is so they're accessible
@@ -65,6 +68,7 @@
 @property (nonatomic, retain) id responses;
 @property (nonatomic, retain) id parent;
 @property (nonatomic, retain) ResponseContentTableCell* responseContentTableCell;
+@property (nonatomic, retain) BlockingActivityView* blockingActivityView;
 
 - (void)rootItemFetchedHandler:(id)result;
 - (void)responsesFetchedHandler:(id)result;

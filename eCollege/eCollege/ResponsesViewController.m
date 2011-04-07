@@ -22,6 +22,9 @@
 #import "eCollegeAppDelegate.h"
 
 @interface ResponsesViewController () 
+
+- (void)refreshWithModalSpinner;
+
 @end
 
 @implementation ResponsesViewController
@@ -36,6 +39,7 @@
 @synthesize parent;
 @synthesize markAsReadFetcher;
 @synthesize responseContentTableCell;
+@synthesize blockingActivityView;
 
 # pragma mark Methods to override in child classes
 
@@ -79,7 +83,7 @@
         [self hideCancelButton];
         self.table.scrollEnabled = YES;
         [self toggleViewOfFullDataEntryCell];
-        [self forcePullDownRefresh];
+        [self refreshWithModalSpinner];
     }
 }
 
@@ -99,6 +103,11 @@
 }
 
 # pragma mark PullRefreshTableViewController methods
+
+- (void)refreshWithModalSpinner {
+    [blockingActivityView show];
+    [self refresh];
+}
 
 - (void)refresh {
     [self fetchData];
@@ -142,6 +151,7 @@
 
 - (void)dealloc
 {
+    self.blockingActivityView = nil;
     self.responseContentTableCell = nil;
     self.parent = nil;
     self.rootItemId = nil;
@@ -237,6 +247,9 @@
         // since we've updated the buckets of data, we must now reload the table
         [self.table reloadData];
     }
+    
+    // if this was being used, hide it
+    [blockingActivityView hide];
     
     // tell the "pull to refresh" loading header to go away (if it's present)
     [self stopLoading];
@@ -378,6 +391,7 @@
 
 - (void)viewDidLoad
 {
+    self.blockingActivityView = [[BlockingActivityView alloc] initWithWithView:self.view];
     [super viewDidLoad];    
 }
 
@@ -394,7 +408,7 @@
     // if activities have never been updated or the last update was more than an hour ago,
     // fetch the topics again.
     if (!self.lastUpdateTime || [self.lastUpdateTime timeIntervalSinceNow] < -3600 || forceUpdateOnViewWillAppear) {
-        [self forcePullDownRefresh];
+        [self refreshWithModalSpinner];
         forceUpdateOnViewWillAppear = NO;
     }    
 }
