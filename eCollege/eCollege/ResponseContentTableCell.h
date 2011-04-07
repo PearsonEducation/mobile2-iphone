@@ -12,11 +12,13 @@
 @interface ResponseContentTableCell : UITableViewCell {
     IBOutlet UIWebView* webView;
     IBOutlet UIButton* button;
+    UIView* texturedBackground;
 }
 
 @property (nonatomic, retain) UIWebView* webView;
 @property (nonatomic, retain) UIButton* button;
 
 - (void)loadHtmlString:(NSString*)htmlString;
+- (void)setHeight:(float)value;
 
 @end

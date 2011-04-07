@@ -22,8 +22,6 @@
 #import "eCollegeAppDelegate.h"
 
 @interface ResponsesViewController () 
-
-
 @end
 
 @implementation ResponsesViewController
@@ -37,6 +35,7 @@
 @synthesize responses;
 @synthesize parent;
 @synthesize markAsReadFetcher;
+@synthesize responseContentTableCell;
 
 # pragma mark Methods to override in child classes
 
@@ -141,13 +140,13 @@
 
 - (void)dealloc
 {
+    self.responseContentTableCell = nil;
     self.parent = nil;
     self.rootItemId = nil;
     self.rootItemFetcher = nil;
     self.responsesFetcher = nil;
     self.postFetcher = nil;
     self.markAsReadFetcher = nil;
-    
     [super dealloc];
 }
 
@@ -487,6 +486,11 @@
     NSLog(@"Button tapped");
     [webView sizeToFit];
     contentIsMinimized = !contentIsMinimized;
+    
+    if (!contentIsMinimized) {
+        [responseContentTableCell setHeight:actualContentHeight];
+    }
+    
     [self animateTableCellHeightChanges];
 }
 
@@ -510,6 +514,7 @@
             cell = [nib objectAtIndex:0];
         }
         ResponseContentTableCell* rctc = (ResponseContentTableCell*)cell;
+        self.responseContentTableCell = rctc;
         webView = rctc.webView;
         webView.delegate = self;
         rctc.webView.backgroundColor = [UIColor clearColor];

@@ -10,12 +10,15 @@
 #import "ECAuthenticatedFetcher.h"
 #import "PullRefreshTableViewController.h"
 #import "UserDiscussionResponseFetcher.h"
+#import "ResponseContentTableCell.h"
 
 @interface ResponsesViewController : PullRefreshTableViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UIWebViewDelegate, UITextViewDelegate> {
     ECAuthenticatedFetcher* rootItemFetcher;
     ECAuthenticatedFetcher* responsesFetcher;
     UserDiscussionResponseFetcher* postFetcher;
     UserDiscussionResponseFetcher* markAsReadFetcher;
+    
+    ResponseContentTableCell* responseContentTableCell;
     
     // rootItem will either be a UserDiscussionTopic or a UserDiscussionResponse,
     // depending on which subclass is being used
@@ -61,6 +64,7 @@
 @property (nonatomic, retain) id rootItem;
 @property (nonatomic, retain) id responses;
 @property (nonatomic, retain) id parent;
+@property (nonatomic, retain) ResponseContentTableCell* responseContentTableCell;
 
 - (void)rootItemFetchedHandler:(id)result;
 - (void)responsesFetchedHandler:(id)result;
