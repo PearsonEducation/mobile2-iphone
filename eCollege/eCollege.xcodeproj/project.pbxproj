@@ -131,6 +131,8 @@
 		EA1340F8134D0E1A003F9687 /* noise_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = EA1340F7134D0E1A003F9687 /* noise_bg.png */; };
 		EA4E2558134D3869009E2965 /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = EA4E2556134D3869009E2965 /* gear.png */; };
 		EA4E2559134D3869009E2965 /* gear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA4E2557134D3869009E2965 /* gear@2x.png */; };
+		EA4FAD22134D4D2C0032AD8C /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = EA4FAD21134D4D2C0032AD8C /* icon.png */; };
+		EA4FAD24134D4D3D0032AD8C /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA4FAD23134D4D3D0032AD8C /* icon@2x.png */; };
 		EA5CA73B134D2B7200788F7D /* AnnouncementsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA5CA73A134D2B7200788F7D /* AnnouncementsViewController.xib */; };
 		EA7A9F5A13146E3400D9EC6A /* libECAPI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA7A9F5913146E3400D9EC6A /* libECAPI.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		EA7A9FBA1314738300D9EC6A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA7A9FB91314738300D9EC6A /* SystemConfiguration.framework */; };
@@ -350,6 +352,8 @@
 		EA1340F7134D0E1A003F9687 /* noise_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = noise_bg.png; path = Images/noise_bg.png; sourceTree = "<group>"; };
 		EA4E2556134D3869009E2965 /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gear.png; path = Images/gear.png; sourceTree = "<group>"; };
 		EA4E2557134D3869009E2965 /* gear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "gear@2x.png"; path = "Images/gear@2x.png"; sourceTree = "<group>"; };
+		EA4FAD21134D4D2C0032AD8C /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		EA4FAD23134D4D3D0032AD8C /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		EA5CA73A134D2B7200788F7D /* AnnouncementsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnnouncementsViewController.xib; sourceTree = "<group>"; };
 		EA7A9F4A13146C9D00D9EC6A /* ECAPI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ECAPI.xcodeproj; path = ../ecollegeiosapi/ECAPI/ECAPI.xcodeproj; sourceTree = "<group>"; };
 		EA7A9F5913146E3400D9EC6A /* libECAPI.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libECAPI.a; sourceTree = SOURCE_ROOT; };
@@ -777,6 +781,8 @@
 		EAAE7D7313142B7A0051B2A9 = {
 			isa = PBXGroup;
 			children = (
+				EA4FAD23134D4D3D0032AD8C /* icon@2x.png */,
+				EA4FAD21134D4D2C0032AD8C /* icon.png */,
 				EAAE7D8813142B7A0051B2A9 /* eCollege */,
 				EAAE7D8113142B7A0051B2A9 /* Frameworks */,
 				EAB6022F131431EA00F62ACF /* Dependent Projects */,
@@ -1016,6 +1022,8 @@
 				A2E0CE4B134D262300B78821 /* discussions_with_responses_icon@2x.png in Resources */,
 				EA4E2558134D3869009E2965 /* gear.png in Resources */,
 				EA4E2559134D3869009E2965 /* gear@2x.png in Resources */,
+				EA4FAD22134D4D2C0032AD8C /* icon.png in Resources */,
+				EA4FAD24134D4D3D0032AD8C /* icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

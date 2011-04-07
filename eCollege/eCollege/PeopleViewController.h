@@ -10,6 +10,7 @@
 #import "UserFetcher.h"
 #import "BlockingActivityView.h"
 #import "PullRefreshTableViewController.h"
+#import "GradientCellBackground.h"
 
 @interface PeopleViewController : PullRefreshTableViewController <UITableViewDelegate, UITableViewDataSource> {
     NSInteger courseId;
@@ -23,6 +24,7 @@
     NSMutableDictionary* namesByLetter;
     NSMutableArray* sortedKeys;
     IBOutlet UISegmentedControl* filterControl;
+	IBOutlet GradientCellBackground *filterBackground;
 }
 
 - (IBAction)refreshWithModalSpinner;

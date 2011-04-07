@@ -132,7 +132,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-	self.view.backgroundColor = [[ECClientConfiguration currentConfiguration] secondaryColor];
+	filterBackground.midColor = [[ECClientConfiguration currentConfiguration] secondaryColor];
 	self.filterControl.tintColor = [[ECClientConfiguration currentConfiguration] secondaryColor];
 	
     // Do any additional setup after loading the view from its nib.
