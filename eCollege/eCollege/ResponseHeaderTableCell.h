@@ -20,6 +20,7 @@
     IBOutlet UILabel* dateLabel;
     IBOutlet UIImageView* personIcon;
     IBOutlet UILabel* nameLabel;
+    IBOutlet UIImageView* texturedImage;
 }
 
 @property (nonatomic, retain) UserDiscussionResponse* response;

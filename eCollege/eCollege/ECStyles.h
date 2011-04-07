@@ -7,6 +7,6 @@
 //
 
 #define PRIMARY_COLOR 0x343984
-#define SECONDARY_COLOR 0x368384
+#define SECONDARY_COLOR 0x006EA4
 #define TERTIARY_COLOR 0xEFEBDE	
 #define SCHOOL_NAME @"Strata University"

@@ -41,10 +41,23 @@
 - (UIFont*)cellFont;
 - (UIFont*)cellItalicsFont;
 - (UIFont*)cellDateFont;
+- (UIFont*)cellSmallFont;
+- (UIFont*)cellSmallBoldFont;
 
 // FILE NAMES
 - (NSString*)splashFileName;
 - (NSString*)listArrowFileName;
+- (NSString*)dropboxIconFileName;
+- (NSString*)examIconFileName;
+- (NSString*)gradeIconFileName;
+- (NSString*)topicIconFileName;
+- (NSString*)responseIconFileName;
+- (NSString*)responseWithResponsesIconFileName;
+- (NSString*)onFireIconFileName;
+- (NSString*)smallResponsesIconFileName;
+- (NSString*)smallPersonIconFileName;
+- (NSString*)countBubbleImageFileName;
+
 
 // View helpers
 - (UINavigationController *) newPrimaryNavigationControllerWithRootViewController:(UIViewController *)viewController;

@@ -65,6 +65,14 @@ static ECClientConfiguration *currentConfiguration = nil;
 
 #pragma mark - Styles
 
+// ---------------------------------------------------------- STRINGS
+
+- (NSString*)schoolName {
+    return SCHOOL_NAME;
+}
+
+// ---------------------------------------------------------- COLORS
+
 - (UIColor*)primaryColor {
     return HEXCOLOR(PRIMARY_COLOR);
 }
@@ -81,10 +89,6 @@ static ECClientConfiguration *currentConfiguration = nil;
 	return [UIColor colorWithPatternImage:[UIImage imageNamed:@"noise_bg.png"]];	
 }
 
-- (NSString*)schoolName {
-    return SCHOOL_NAME;
-}
-
 - (UIColor*)greyColor {
     return [UIColor darkGrayColor];
 }
@@ -97,6 +101,8 @@ static ECClientConfiguration *currentConfiguration = nil;
     return [UIColor whiteColor];
 }
 
+// ---------------------------------------------------------- FILE NAMES
+
 - (NSString*)splashFileName {
     return @"splash.png";
 }
@@ -104,6 +110,48 @@ static ECClientConfiguration *currentConfiguration = nil;
 - (NSString*)listArrowFileName {
     return @"list_arrow_icon_white.png";
 }
+
+- (NSString*)dropboxIconFileName {
+    return @"dropbox_icon.png";
+}
+
+- (NSString*)examIconFileName {
+    return @"exam_icon.png";
+}
+
+- (NSString*)gradeIconFileName {
+    return @"grade.png";
+}
+
+- (NSString*)topicIconFileName {
+    return @"discussions_with_responses_icon.png";
+}
+
+- (NSString*)responseIconFileName {
+    return @"discussions_no_response_icon.png";
+}
+
+- (NSString*)responseWithResponsesIconFileName {
+    return @"discussions_with_responses_icon.png";
+}
+
+- (NSString*)onFireIconFileName {
+    return @"icon_discussions_hot_topic.png";
+}
+
+- (NSString*)smallResponsesIconFileName {
+    return @"response_icon_small.png";
+}
+
+- (NSString*)smallPersonIconFileName {
+    return @"person_small_icon.png";
+}
+
+- (NSString*)countBubbleImageFileName {
+    return @"count_bubble.png";
+}
+
+// ---------------------------------------------------------- FONTS
 
 - (UIFont*)headerFont {
     return [UIFont fontWithName:@"Helvetica-Bold" size:22.0];
@@ -136,6 +184,15 @@ static ECClientConfiguration *currentConfiguration = nil;
 - (UIFont*)cellDateFont {
     return [UIFont fontWithName:@"Helvetica" size:13.0];
 }
+
+- (UIFont*)cellSmallFont {
+    return [UIFont fontWithName:@"Helvetica" size:12.0];
+}
+
+- (UIFont*)cellSmallBoldFont {
+    return [UIFont fontWithName:@"Helvetica-Bold" size:12.0];
+}
+
 
 
 #pragma mark - View Helpers and useful factory methods

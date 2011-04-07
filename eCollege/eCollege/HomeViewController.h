@@ -9,19 +9,20 @@
 #import <UIKit/UIKit.h>
 #import "ActivityStream.h"
 #import "ActivityStreamFetcher.h"
-#import "DateCalculator.h"
 #import "BlockingActivityView.h"
 #import "ECPullRefreshTableViewController.h"
+#import "GradientCellBackground.h"
 
 @interface HomeViewController : ECPullRefreshTableViewController <UITableViewDelegate, UITableViewDataSource> {
     ActivityStream* activityStream;
     ActivityStreamFetcher* activityStreamFetcher;
     NSMutableArray* todayActivityItems;
     NSMutableArray* earlierActivityItems;
-    DateCalculator* dateCalculator;
     NSDate* today;
     BlockingActivityView* blockingActivityView;
     NSDate* lastUpdateTime;
+    IBOutlet GradientCellBackground* segmentedControlBackground;
+    IBOutlet UISegmentedControl* filter;
     
     BOOL currentlyLoading;
     BOOL activitiesLoadFailure;

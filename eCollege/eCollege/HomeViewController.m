@@ -13,7 +13,6 @@
 #import "ActivityTableCell.h"
 #import "ActivityStreamItem.h"
 #import "ActivityStreamObject.h"
-#import "DateCalculator.h"
 #import "eCollegeAppDelegate.h"
 #import "GradebookItemGradeDetailViewController.h"
 #import "NSDateUtilities.h"
@@ -21,6 +20,7 @@
 #import "ResponseResponsesViewController.h"
 #import "TopicResponsesViewController.h"
 #import "ECSession.h"
+#import "ECClientConfiguration.h"
 
 @interface HomeViewController ()
 
@@ -51,11 +51,6 @@
     if (self) {
         // activity view
         blockingActivityView = [[BlockingActivityView alloc] initWithWithView:self.view];
-        // date calculator
-        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-        [gregorian setTimeZone:[NSTimeZone defaultTimeZone]];
-        dateCalculator = [[DateCalculator alloc] initWithCalendar:gregorian];
-        [gregorian release];
         [self registerForCoursesNotifications];
 
     }
@@ -72,7 +67,6 @@
     [self.activityStreamFetcher cancel];
     self.activityStreamFetcher = nil;
     [blockingActivityView release];
-    [dateCalculator release];
     [today release];
     [super dealloc];
 }
@@ -190,6 +184,10 @@
 #pragma mark - View lifecycle
 
 - (void)viewWillAppear:(BOOL)animated {
+
+    segmentedControlBackground.midColor = [[ECClientConfiguration currentConfiguration] secondaryColor];
+    filter.tintColor = [[ECClientConfiguration currentConfiguration] secondaryColor];
+
     // if activities have never been updated or the last update was more than an hour ago,
     // fetch the activities again.
     if (!self.lastUpdateTime || [self.lastUpdateTime timeIntervalSinceNow] < -3600 || forceUpdateOnViewWillAppear) {

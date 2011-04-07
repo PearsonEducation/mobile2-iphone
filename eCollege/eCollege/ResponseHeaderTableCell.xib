@@ -48,6 +48,16 @@
 						<int key="NSvFlags">256</int>
 						<object class="NSMutableArray" key="NSSubviews">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBUIImageView" id="270930440">
+								<reference key="NSNextResponder" ref="321072846"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrameSize">{320, 71}</string>
+								<reference key="NSSuperview" ref="321072846"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="505678063"/>
+								<bool key="IBUIUserInteractionEnabled">NO</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+							</object>
 							<object class="IBUIImageView" id="582049659">
 								<reference key="NSNextResponder" ref="321072846"/>
 								<int key="NSvFlags">292</int>
@@ -157,7 +167,7 @@
 							<object class="IBUIImageView" id="505678063">
 								<reference key="NSNextResponder" ref="321072846"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{13, 14}, {26, 26}}</string>
+								<string key="NSFrame">{{8, 8}, {26, 26}}</string>
 								<reference key="NSSuperview" ref="321072846"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="613375004"/>
@@ -215,7 +225,7 @@
 						<string key="NSFrameSize">{320, 71}</string>
 						<reference key="NSSuperview" ref="719383200"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="505678063"/>
+						<reference key="NSNextKeyView" ref="270930440"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MCAwAA</bytes>
@@ -315,6 +325,14 @@
 					</object>
 					<int key="connectionID">22</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">texturedImage</string>
+						<reference key="source" ref="719383200"/>
+						<reference key="destination" ref="270930440"/>
+					</object>
+					<int key="connectionID">24</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -347,9 +365,10 @@
 							<reference ref="505678063"/>
 							<reference ref="680112219"/>
 							<reference ref="984378365"/>
-							<reference ref="620486490"/>
 							<reference ref="613375004"/>
 							<reference ref="437596257"/>
+							<reference ref="620486490"/>
+							<reference ref="270930440"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -398,6 +417,11 @@
 						<reference key="object" ref="620486490"/>
 						<reference key="parent" ref="719383200"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">23</int>
+						<reference key="object" ref="270930440"/>
+						<reference key="parent" ref="719383200"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -409,6 +433,7 @@
 					<string>17.IBPluginDependency</string>
 					<string>19.IBPluginDependency</string>
 					<string>20.IBPluginDependency</string>
+					<string>23.IBPluginDependency</string>
 					<string>4.CustomClassName</string>
 					<string>4.IBPluginDependency</string>
 					<string>5.IBPluginDependency</string>
@@ -420,6 +445,7 @@
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>UIResponder</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -445,7 +471,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">22</int>
+			<int key="maxID">24</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -463,6 +489,7 @@
 							<string>nameLabel</string>
 							<string>personIcon</string>
 							<string>smallResponsesImage</string>
+							<string>texturedImage</string>
 							<string>titleLabel</string>
 							<string>totalResponsesLabel</string>
 							<string>unreadResponsesLabel</string>
@@ -473,6 +500,7 @@
 							<string>UIImageView</string>
 							<string>UILabel</string>
 							<string>UILabel</string>
+							<string>UIImageView</string>
 							<string>UIImageView</string>
 							<string>UIImageView</string>
 							<string>UILabel</string>
@@ -490,6 +518,7 @@
 							<string>nameLabel</string>
 							<string>personIcon</string>
 							<string>smallResponsesImage</string>
+							<string>texturedImage</string>
 							<string>titleLabel</string>
 							<string>totalResponsesLabel</string>
 							<string>unreadResponsesLabel</string>
@@ -518,6 +547,10 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">smallResponsesImage</string>
+								<string key="candidateClassName">UIImageView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">texturedImage</string>
 								<string key="candidateClassName">UIImageView</string>
 							</object>
 							<object class="IBToOneOutletInfo">

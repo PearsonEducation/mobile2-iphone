@@ -15,9 +15,13 @@
 
 @interface ActivityTableCell ()
 
+@property (nonatomic, retain) UIImageView* imageView;
+
 @end
 
 @implementation ActivityTableCell
+
+@synthesize imageView;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
@@ -52,38 +56,41 @@
         Course* course = [[eCollegeAppDelegate delegate] getCourseHavingId:item.object.courseId];
         courseName.text = course.title;
         description.text = item.object.summary;
-        if (!imageView) {
-            imageView = [[UIImageView alloc] initWithFrame:CGRectMake(4, 4, 25, 25)];
-            [imageView setContentMode:UIViewContentModeScaleAspectFit];           
-        }
         if (item.object) {
             NSString* imgName;
             NSString* objType = item.object.objectType;
+            
+            ECClientConfiguration* config = [ECClientConfiguration currentConfiguration];
             if ([objType isEqualToString:@"dropbox-submission"]) {
-                imgName = @"ic_dropbox_submission.png";
+                imgName = [config dropboxIconFileName];
             } else if ([objType isEqualToString:@"exam-submission"]) {
-                imgName = @"ic_exam_submission.png";
+                imgName = [config examIconFileName];
             } else if ([objType isEqualToString:@"grade"]) {
-                imgName = @"ic_grade.png";
+                imgName = [config gradeIconFileName];
             } else if ([objType isEqualToString:@"thread-post"]) {
-                imgName = @"ic_thread_post.png";
+                imgName = [config responseIconFileName];
             } else if ([objType isEqualToString:@"thread-topic"]) {
-                imgName = @"ic_thread_topic.png";
+                imgName = [config topicIconFileName];
             }
             
             // it's important to use the imageNamed: method because it
             // loads cached images.  on a table cell, we definitely don't
             // want to be loading and reloading images all the time.
-            imageView.image = [UIImage imageNamed:imgName];;
+            self.imageView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:imgName]] autorelease];
+            [self.imageView setContentMode:UIViewContentModeScaleAspectFit];      
+            CGRect f = imageView.frame;
+            f.origin.x = 8;
+            f.origin.y = 8;
+            f.size.height = 25;
+            f.size.width = 25;
+            imageView.frame = f;
             [self addSubview:imageView];            
         }
     }
 }
 
 - (void)dealloc {
-    if (imageView) {
-        [imageView release];
-    }
+    self.imageView = nil;
     [super dealloc];
 }
 

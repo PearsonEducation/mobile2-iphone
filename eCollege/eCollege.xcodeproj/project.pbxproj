@@ -85,11 +85,7 @@
 		A2A347F4134BBA9700405FE8 /* login_background.png in Resources */ = {isa = PBXBuildFile; fileRef = A2A347F2134BBA9700405FE8 /* login_background.png */; };
 		A2A347F5134BBA9700405FE8 /* login_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A2A347F3134BBA9700405FE8 /* login_background@2x.png */; };
 		A2A96751132E826D00554238 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = A2A96750132E826D00554238 /* GTMNSString+HTML.m */; };
-		A2B0D27F1326FA87008801E2 /* ic_dropbox_submission.png in Resources */ = {isa = PBXBuildFile; fileRef = A2B0D2791326FA87008801E2 /* ic_dropbox_submission.png */; };
-		A2B0D2801326FA87008801E2 /* ic_exam_submission.png in Resources */ = {isa = PBXBuildFile; fileRef = A2B0D27A1326FA87008801E2 /* ic_exam_submission.png */; };
 		A2B0D2821326FA87008801E2 /* ic_remark.png in Resources */ = {isa = PBXBuildFile; fileRef = A2B0D27C1326FA87008801E2 /* ic_remark.png */; };
-		A2B0D2831326FA87008801E2 /* ic_thread_post.png in Resources */ = {isa = PBXBuildFile; fileRef = A2B0D27D1326FA87008801E2 /* ic_thread_post.png */; };
-		A2B0D2841326FA87008801E2 /* ic_thread_topic.png in Resources */ = {isa = PBXBuildFile; fileRef = A2B0D27E1326FA87008801E2 /* ic_thread_topic.png */; };
 		A2B85615134CEF800007E3F7 /* CGContext+Boost.m in Sources */ = {isa = PBXBuildFile; fileRef = A2B85612134CEF800007E3F7 /* CGContext+Boost.m */; };
 		A2B85616134CEF800007E3F7 /* IBButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A2B85614134CEF800007E3F7 /* IBButton.m */; };
 		A2B85619134CFBB60007E3F7 /* home_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A2B85617134CFBB60007E3F7 /* home_icon.png */; };
@@ -104,6 +100,16 @@
 		A2BD370C134693D300792EE1 /* CourseDetailHeaderTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A2BD370B134693D300792EE1 /* CourseDetailHeaderTableCell.m */; };
 		A2D182781330079600AAC152 /* PullRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2D182761330079600AAC152 /* PullRefreshTableViewController.m */; };
 		A2D1827A133009BE00AAC152 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = A2D18279133009BE00AAC152 /* arrow.png */; };
+		A2E0CE3A134D25D600B78821 /* dropbox_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A2E0CE38134D25D600B78821 /* dropbox_icon.png */; };
+		A2E0CE3B134D25D600B78821 /* dropbox_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A2E0CE39134D25D600B78821 /* dropbox_icon@2x.png */; };
+		A2E0CE3E134D25E600B78821 /* exam_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A2E0CE3C134D25E600B78821 /* exam_icon.png */; };
+		A2E0CE3F134D25E600B78821 /* exam_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A2E0CE3D134D25E600B78821 /* exam_icon@2x.png */; };
+		A2E0CE42134D25FB00B78821 /* grade_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A2E0CE40134D25FB00B78821 /* grade_icon.png */; };
+		A2E0CE43134D25FB00B78821 /* grade_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A2E0CE41134D25FB00B78821 /* grade_icon@2x.png */; };
+		A2E0CE48134D262300B78821 /* discussions_no_response_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A2E0CE44134D262300B78821 /* discussions_no_response_icon.png */; };
+		A2E0CE49134D262300B78821 /* discussions_no_response_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A2E0CE45134D262300B78821 /* discussions_no_response_icon@2x.png */; };
+		A2E0CE4A134D262300B78821 /* discussions_with_responses_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A2E0CE46134D262300B78821 /* discussions_with_responses_icon.png */; };
+		A2E0CE4B134D262300B78821 /* discussions_with_responses_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A2E0CE47134D262300B78821 /* discussions_with_responses_icon@2x.png */; };
 		A2EE2B871332A5290059DFAD /* DropboxMessageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2EE2B851332A5290059DFAD /* DropboxMessageDetailViewController.m */; };
 		A2EE2B881332A5290059DFAD /* DropboxMessageDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2EE2B861332A5290059DFAD /* DropboxMessageDetailViewController.xib */; };
 		A2EE2B8A13330F450059DFAD /* clock.png in Resources */ = {isa = PBXBuildFile; fileRef = A2EE2B8913330F450059DFAD /* clock.png */; };
@@ -142,7 +148,6 @@
 		EAD48D55134A688F00B33ACD /* person_male_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD48D53134A688F00B33ACD /* person_male_icon@2x.png */; };
 		EAD48D58134A6AC700B33ACD /* you_banner.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD48D56134A6AC700B33ACD /* you_banner.png */; };
 		EAD48D59134A6AC700B33ACD /* you_banner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD48D57134A6AC700B33ACD /* you_banner@2x.png */; };
-		EAFFA3C5134CE7D7003E9503 /* ic_grade.png in Resources */ = {isa = PBXBuildFile; fileRef = A2B0D27B1326FA87008801E2 /* ic_grade.png */; };
 		EAFFA3C7134CEE72003E9503 /* image_logo_small.png in Resources */ = {isa = PBXBuildFile; fileRef = EAFFA3C6134CEE72003E9503 /* image_logo_small.png */; };
 		EAFFA3CA134CF351003E9503 /* ECPrimaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAFFA3C9134CF350003E9503 /* ECPrimaryViewController.m */; };
 		EAFFA3D0134CF744003E9503 /* ECPullRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAFFA3CF134CF743003E9503 /* ECPullRefreshTableViewController.m */; };
@@ -281,12 +286,7 @@
 		A2A347FA134BBFFF00405FE8 /* ECStyles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECStyles.h; sourceTree = "<group>"; };
 		A2A9674F132E826D00554238 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GTMNSString+HTML.h"; path = "../../ecollegeiosapi/ECAPI/GTMNSString+HTML.h"; sourceTree = "<group>"; };
 		A2A96750132E826D00554238 /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GTMNSString+HTML.m"; path = "../../ecollegeiosapi/ECAPI/GTMNSString+HTML.m"; sourceTree = "<group>"; };
-		A2B0D2791326FA87008801E2 /* ic_dropbox_submission.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_dropbox_submission.png; sourceTree = "<group>"; };
-		A2B0D27A1326FA87008801E2 /* ic_exam_submission.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_exam_submission.png; sourceTree = "<group>"; };
-		A2B0D27B1326FA87008801E2 /* ic_grade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_grade.png; path = Images/ic_grade.png; sourceTree = "<group>"; };
 		A2B0D27C1326FA87008801E2 /* ic_remark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_remark.png; sourceTree = "<group>"; };
-		A2B0D27D1326FA87008801E2 /* ic_thread_post.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_thread_post.png; sourceTree = "<group>"; };
-		A2B0D27E1326FA87008801E2 /* ic_thread_topic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_thread_topic.png; sourceTree = "<group>"; };
 		A2B85611134CEF7F0007E3F7 /* CGContext+Boost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CGContext+Boost.h"; sourceTree = "<group>"; };
 		A2B85612134CEF800007E3F7 /* CGContext+Boost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CGContext+Boost.m"; sourceTree = "<group>"; };
 		A2B85613134CEF800007E3F7 /* IBButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBButton.h; sourceTree = "<group>"; };
@@ -306,6 +306,16 @@
 		A2D182761330079600AAC152 /* PullRefreshTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullRefreshTableViewController.m; sourceTree = "<group>"; };
 		A2D182771330079600AAC152 /* PullRefreshTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullRefreshTableViewController.h; sourceTree = "<group>"; };
 		A2D18279133009BE00AAC152 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
+		A2E0CE38134D25D600B78821 /* dropbox_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dropbox_icon.png; sourceTree = "<group>"; };
+		A2E0CE39134D25D600B78821 /* dropbox_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropbox_icon@2x.png"; sourceTree = "<group>"; };
+		A2E0CE3C134D25E600B78821 /* exam_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = exam_icon.png; sourceTree = "<group>"; };
+		A2E0CE3D134D25E600B78821 /* exam_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "exam_icon@2x.png"; sourceTree = "<group>"; };
+		A2E0CE40134D25FB00B78821 /* grade_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grade_icon.png; sourceTree = "<group>"; };
+		A2E0CE41134D25FB00B78821 /* grade_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grade_icon@2x.png"; sourceTree = "<group>"; };
+		A2E0CE44134D262300B78821 /* discussions_no_response_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = discussions_no_response_icon.png; sourceTree = "<group>"; };
+		A2E0CE45134D262300B78821 /* discussions_no_response_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "discussions_no_response_icon@2x.png"; sourceTree = "<group>"; };
+		A2E0CE46134D262300B78821 /* discussions_with_responses_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = discussions_with_responses_icon.png; sourceTree = "<group>"; };
+		A2E0CE47134D262300B78821 /* discussions_with_responses_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "discussions_with_responses_icon@2x.png"; sourceTree = "<group>"; };
 		A2EE2B841332A5290059DFAD /* DropboxMessageDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropboxMessageDetailViewController.h; sourceTree = "<group>"; };
 		A2EE2B851332A5290059DFAD /* DropboxMessageDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropboxMessageDetailViewController.m; sourceTree = "<group>"; };
 		A2EE2B861332A5290059DFAD /* DropboxMessageDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DropboxMessageDetailViewController.xib; sourceTree = "<group>"; };
@@ -335,7 +345,6 @@
 		EA014E85134BB82F00353897 /* GradebookItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradebookItemCell.h; sourceTree = "<group>"; };
 		EA014E86134BB82F00353897 /* GradebookItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradebookItemCell.m; sourceTree = "<group>"; };
 		EA1340F7134D0E1A003F9687 /* noise_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = noise_bg.png; path = Images/noise_bg.png; sourceTree = "<group>"; };
-		EA396F8B134C1C800066E4C4 /* ic_grade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_grade.png; path = Images/ic_grade.png; sourceTree = "<group>"; };
 		EA7A9F4A13146C9D00D9EC6A /* ECAPI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ECAPI.xcodeproj; path = ../ecollegeiosapi/ECAPI/ECAPI.xcodeproj; sourceTree = "<group>"; };
 		EA7A9F5913146E3400D9EC6A /* libECAPI.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libECAPI.a; sourceTree = SOURCE_ROOT; };
 		EA7A9FB91314738300D9EC6A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -506,6 +515,16 @@
 		A27289971326C045001A588D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A2E0CE44134D262300B78821 /* discussions_no_response_icon.png */,
+				A2E0CE45134D262300B78821 /* discussions_no_response_icon@2x.png */,
+				A2E0CE46134D262300B78821 /* discussions_with_responses_icon.png */,
+				A2E0CE47134D262300B78821 /* discussions_with_responses_icon@2x.png */,
+				A2E0CE40134D25FB00B78821 /* grade_icon.png */,
+				A2E0CE41134D25FB00B78821 /* grade_icon@2x.png */,
+				A2E0CE3C134D25E600B78821 /* exam_icon.png */,
+				A2E0CE3D134D25E600B78821 /* exam_icon@2x.png */,
+				A2E0CE38134D25D600B78821 /* dropbox_icon.png */,
+				A2E0CE39134D25D600B78821 /* dropbox_icon@2x.png */,
 				A2051D34134D20D6003CED2A /* splash.png */,
 				A2051D35134D20D6003CED2A /* splash@2x.png */,
 				A2B8562F134D14530007E3F7 /* list_arrow_icon_white.png */,
@@ -517,7 +536,6 @@
 				A2B8561C134CFBC60007E3F7 /* discussions_icon@2x.png */,
 				A2B85617134CFBB60007E3F7 /* home_icon.png */,
 				A2B85618134CFBB60007E3F7 /* home_icon@2x.png */,
-				EA396F8B134C1C800066E4C4 /* ic_grade.png */,
 				A2A347F2134BBA9700405FE8 /* login_background.png */,
 				A2A347F3134BBA9700405FE8 /* login_background@2x.png */,
 				EAD48D56134A6AC700B33ACD /* you_banner.png */,
@@ -548,12 +566,7 @@
 				A2EE2B8913330F450059DFAD /* clock.png */,
 				A2D18279133009BE00AAC152 /* arrow.png */,
 				A27B88A9132EB3B600740C83 /* refresh.png */,
-				A2B0D2791326FA87008801E2 /* ic_dropbox_submission.png */,
-				A2B0D27A1326FA87008801E2 /* ic_exam_submission.png */,
-				A2B0D27B1326FA87008801E2 /* ic_grade.png */,
 				A2B0D27C1326FA87008801E2 /* ic_remark.png */,
-				A2B0D27D1326FA87008801E2 /* ic_thread_post.png */,
-				A2B0D27E1326FA87008801E2 /* ic_thread_topic.png */,
 				A27289A21326C191001A588D /* 123-id-card.png */,
 				A27289A01326C180001A588D /* 112-group.png */,
 				A272899E1326C11F001A588D /* 96-book.png */,
@@ -925,12 +938,7 @@
 				A27289A11326C180001A588D /* 112-group.png in Resources */,
 				A27289A31326C191001A588D /* 123-id-card.png in Resources */,
 				A21401401326D186007C9207 /* ActivityTableCell.xib in Resources */,
-				A2B0D27F1326FA87008801E2 /* ic_dropbox_submission.png in Resources */,
-				A2B0D2801326FA87008801E2 /* ic_exam_submission.png in Resources */,
 				A2B0D2821326FA87008801E2 /* ic_remark.png in Resources */,
-				A2B0D2831326FA87008801E2 /* ic_thread_post.png in Resources */,
-				EAFFA3C5134CE7D7003E9503 /* ic_grade.png in Resources */,
-				A2B0D2841326FA87008801E2 /* ic_thread_topic.png in Resources */,
 				A27B88AA132EB3B600740C83 /* refresh.png in Resources */,
 				A28CB600132ECD95000B669D /* GradebookItemGradeDetailViewController.xib in Resources */,
 				A2D1827A133009BE00AAC152 /* arrow.png in Resources */,
@@ -986,6 +994,16 @@
 				EA1340F8134D0E1A003F9687 /* noise_bg.png in Resources */,
 				A2051D36134D20D6003CED2A /* splash.png in Resources */,
 				A2051D37134D20D6003CED2A /* splash@2x.png in Resources */,
+				A2E0CE3A134D25D600B78821 /* dropbox_icon.png in Resources */,
+				A2E0CE3B134D25D600B78821 /* dropbox_icon@2x.png in Resources */,
+				A2E0CE3E134D25E600B78821 /* exam_icon.png in Resources */,
+				A2E0CE3F134D25E600B78821 /* exam_icon@2x.png in Resources */,
+				A2E0CE42134D25FB00B78821 /* grade_icon.png in Resources */,
+				A2E0CE43134D25FB00B78821 /* grade_icon@2x.png in Resources */,
+				A2E0CE48134D262300B78821 /* discussions_no_response_icon.png in Resources */,
+				A2E0CE49134D262300B78821 /* discussions_no_response_icon@2x.png in Resources */,
+				A2E0CE4A134D262300B78821 /* discussions_with_responses_icon.png in Resources */,
+				A2E0CE4B134D262300B78821 /* discussions_with_responses_icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
