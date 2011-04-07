@@ -96,7 +96,12 @@
     // set the size of the cell
     CGRect cellFrame = cell.frame;
     if ([allNames isEqualToString:@""]) {
-        cellFrame.size.height = cell.courseTitleLabel.frame.origin.y + cell.courseTitleLabel.frame.size.height + 20;
+        CGFloat value = cell.courseTitleLabel.frame.origin.y + cell.courseTitleLabel.frame.size.height + 20;
+        CGFloat h2 = cell.courseIconBackground.frame.origin.y + cell.courseIconBackground.frame.size.height;
+        if (value - h2 < 20) {
+            value = h2 + 20;
+        }
+        cellFrame.size.height = value;
     } else {
         cellFrame.size.height = cell.professorNameLabel.frame.origin.y + cell.professorNameLabel.frame.size.height + 20;        
     }
