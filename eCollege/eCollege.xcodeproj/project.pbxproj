@@ -123,6 +123,8 @@
 		EA014E84134BA78100353897 /* CourseGradebookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA014E83134BA78100353897 /* CourseGradebookViewController.m */; };
 		EA014E87134BB82F00353897 /* GradebookItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA014E86134BB82F00353897 /* GradebookItemCell.m */; };
 		EA1340F8134D0E1A003F9687 /* noise_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = EA1340F7134D0E1A003F9687 /* noise_bg.png */; };
+		EA4E2558134D3869009E2965 /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = EA4E2556134D3869009E2965 /* gear.png */; };
+		EA4E2559134D3869009E2965 /* gear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA4E2557134D3869009E2965 /* gear@2x.png */; };
 		EA5CA73B134D2B7200788F7D /* AnnouncementsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA5CA73A134D2B7200788F7D /* AnnouncementsViewController.xib */; };
 		EA7A9F5A13146E3400D9EC6A /* libECAPI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA7A9F5913146E3400D9EC6A /* libECAPI.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		EA7A9FBA1314738300D9EC6A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA7A9FB91314738300D9EC6A /* SystemConfiguration.framework */; };
@@ -337,6 +339,8 @@
 		EA014E86134BB82F00353897 /* GradebookItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradebookItemCell.m; sourceTree = "<group>"; };
 		EA1340F7134D0E1A003F9687 /* noise_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = noise_bg.png; path = Images/noise_bg.png; sourceTree = "<group>"; };
 		EA396F8B134C1C800066E4C4 /* ic_grade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_grade.png; path = Images/ic_grade.png; sourceTree = "<group>"; };
+		EA4E2556134D3869009E2965 /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gear.png; path = Images/gear.png; sourceTree = "<group>"; };
+		EA4E2557134D3869009E2965 /* gear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "gear@2x.png"; path = "Images/gear@2x.png"; sourceTree = "<group>"; };
 		EA5CA73A134D2B7200788F7D /* AnnouncementsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnnouncementsViewController.xib; sourceTree = "<group>"; };
 		EA7A9F4A13146C9D00D9EC6A /* ECAPI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ECAPI.xcodeproj; path = ../ecollegeiosapi/ECAPI/ECAPI.xcodeproj; sourceTree = "<group>"; };
 		EA7A9F5913146E3400D9EC6A /* libECAPI.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libECAPI.a; sourceTree = SOURCE_ROOT; };
@@ -508,6 +512,8 @@
 		A27289971326C045001A588D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				EA4E2556134D3869009E2965 /* gear.png */,
+				EA4E2557134D3869009E2965 /* gear@2x.png */,
 				A2051D34134D20D6003CED2A /* splash.png */,
 				A2051D35134D20D6003CED2A /* splash@2x.png */,
 				A2B8562F134D14530007E3F7 /* list_arrow_icon_white.png */,
@@ -990,6 +996,8 @@
 				EA5CA73B134D2B7200788F7D /* AnnouncementsViewController.xib in Resources */,
 				A2051D36134D20D6003CED2A /* splash.png in Resources */,
 				A2051D37134D20D6003CED2A /* splash@2x.png in Resources */,
+				EA4E2558134D3869009E2965 /* gear.png in Resources */,
+				EA4E2559134D3869009E2965 /* gear@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
