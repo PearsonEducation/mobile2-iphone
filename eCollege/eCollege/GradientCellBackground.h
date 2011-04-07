@@ -11,8 +11,12 @@
 
 @interface GradientCellBackground : UIView {
     UIColor* midColor;
+    UIColor* lightColor;
+    UIColor* darkColor;
 }
 
 @property (nonatomic, retain) UIColor* midColor;
+@property (nonatomic, retain) UIColor* lightColor;
+@property (nonatomic, retain) UIColor* darkColor;
 
 @end

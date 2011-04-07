@@ -14,7 +14,9 @@
 
 @implementation GradientCellBackground
 
+@synthesize lightColor;
 @synthesize midColor;
+@synthesize darkColor;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -32,17 +34,31 @@
 - (void)drawRect:(CGRect)rect
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
-    CGColorRef darkColor = [[midColor colorDarkerByPercent:25] CGColor];
-    CGColorRef lightColor = [[midColor colorBrighterByPercent:25] CGColor];
+
+    CGColorRef cgDarkColor;
+    CGColorRef cgLightColor;
+
+    if (!lightColor) {
+        cgLightColor = [[midColor colorBrighterByPercent:25] CGColor];        
+    } else {
+        cgLightColor = [lightColor CGColor];
+    }
+    
+    if (!darkColor) {
+        cgDarkColor = [[midColor colorDarkerByPercent:25] CGColor];
+    } else {
+        cgDarkColor = [darkColor CGColor];
+    }
+    
     CGRect paperRect = self.bounds;
-    //    CGColorRef darkColor = [HEXCOLOR(0x00244C) CGColor];
-    //    CGColorRef lightColor = [HEXCOLOR(0x00629D) CGColor];
-    drawLinearGradient(context, paperRect, lightColor, darkColor);
+    drawLinearGradient(context, paperRect, cgLightColor, cgDarkColor);
 }
 
 - (void)dealloc
 {
+    self.lightColor = nil;
     self.midColor = nil;
+    self.darkColor = nil;
     [super dealloc];
 }
 

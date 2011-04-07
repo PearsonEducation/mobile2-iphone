@@ -25,9 +25,10 @@
 - (UIColor*)secondaryColor;
 - (UIColor*)tertiaryColor;
 - (UIColor*)greyColor;
+- (UIColor*)lightGrayColor;
 - (UIColor*)whiteColor;
 - (UIColor*)blackColor;
-- (UIColor *) texturedBackgroundColor;
+- (UIColor*)texturedBackgroundColor;
 
 // STRINGS
 - (NSString*)schoolName;
@@ -36,7 +37,7 @@
 - (UIFont*)headerFont;
 - (UIFont*)mediumBoldFont;
 - (UIFont*)mediumFont;
-- (UIFont *)secondaryButtonFont;
+- (UIFont*)secondaryButtonFont;
 - (UIFont*)cellHeaderFont;
 - (UIFont*)cellFont;
 - (UIFont*)cellFontBold;
