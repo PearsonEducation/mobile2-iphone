@@ -45,8 +45,8 @@
         static NSString *CellIdentifier = @"CourseTableCell";
         cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
-			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
-										  reuseIdentifier:CellIdentifier];
+			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+										  reuseIdentifier:CellIdentifier] autorelease];
 			
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
 			ECClientConfiguration *config = [ECClientConfiguration currentConfiguration];

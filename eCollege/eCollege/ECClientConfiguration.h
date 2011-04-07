@@ -60,7 +60,7 @@
 
 
 // View helpers
-- (UINavigationController *) newPrimaryNavigationControllerWithRootViewController:(UIViewController *)viewController;
+- (UINavigationController *) primaryNavigationControllerWithRootViewController:(UIViewController *)viewController;
 
 
 

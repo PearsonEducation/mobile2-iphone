@@ -21,12 +21,15 @@
     [super viewDidLoad];
 	UIImage *navBarLogoImage = [UIImage imageNamed:@"image_logo_small"];
 	UIImageView *navBarLogoView = [[[UIImageView alloc] initWithImage:navBarLogoImage] autorelease];
+	navBarLogoView.frame = CGRectMake(0, 0, 164, 25);
 	self.navigationItem.titleView = navBarLogoView;
 	
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeInfoLight];
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+	UIImage *image = [UIImage imageNamed:@"gear.png"];
+	[btn setImage:image forState:UIControlStateNormal];
+	btn.frame = CGRectMake(0.0, 0.0, image.size.width, image.size.height);
     [btn addTarget:self action:@selector(infoButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-    [btn release];
+    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:btn] autorelease];
 }
 
 - (void)infoButtonTapped:(id)sender {

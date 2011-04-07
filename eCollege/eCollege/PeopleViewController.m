@@ -13,6 +13,7 @@
 #import "RosterUser.h"
 #import "eCollegeAppDelegate.h"
 #import "NSDateUtilities.h"
+#import "ECClientConfiguration.h"
 
 #define EVERYONE 0
 #define CLASSMATES 1
@@ -128,10 +129,12 @@
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     
+	self.view.backgroundColor = [[ECClientConfiguration currentConfiguration] secondaryColor];
+	self.filterControl.tintColor = [[ECClientConfiguration currentConfiguration] secondaryColor];
+	
     // Do any additional setup after loading the view from its nib.
     blockingActivityView = [[BlockingActivityView alloc] initWithWithView:self.view];
     [filterControl setTitle:NSLocalizedString(@"Everyone", nil) forSegmentAtIndex:EVERYONE];
