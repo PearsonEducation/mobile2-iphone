@@ -380,7 +380,6 @@
     for (NSString* key in [dict allKeys]) {
         Course* course = [[eCollegeAppDelegate delegate] getCourseHavingId:[key integerValue]];
         if (course) {
-            NSLog(@"Adding course: %@", course.title);
             [courseNames addObject:course.title];
         } else {
             NSLog(@"ERROR: no course for id %d",[key integerValue]);
@@ -404,7 +403,6 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     if (selectedFilterRow == -1) {
-        NSLog(@"NUMBER OF SECTIONS: %d",[self.courseIdsAndTopicArrays count]);
         return [self.courseIdsAndTopicArrays count];
     } else {
         return 1;
