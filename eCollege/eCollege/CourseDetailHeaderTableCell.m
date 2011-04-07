@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIColor+Boost.h"
 #import "User.h"
+#import "ECClientConfiguration.h"
 
 @interface CourseDetailHeaderTableCell ()
 
@@ -27,6 +28,9 @@
 @synthesize courseIconBackground;
 
 + (CourseDetailHeaderTableCell*)cellForCourse:(Course*)course andInstructors:(NSArray*)instructors {
+    
+    ECClientConfiguration* config = [ECClientConfiguration currentConfiguration];
+    
     CourseDetailHeaderTableCell* cell = [[[CourseDetailHeaderTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CourseDetailHeaderTableCell"] autorelease];
     cell.instructors = instructors;
     cell.course = course;
@@ -42,7 +46,7 @@
 
     // SIZES
     CGSize maximumCourseTitleLabelSize = CGSizeMake(260, 1000);
-    CGSize maximumProfessorNameLabelSize = CGSizeMake(234, 1000);
+    CGSize maximumProfessorNameLabelSize = CGSizeMake(220, 1000);
     CGSize actualLabelSize;
     
     // FRAMES
@@ -58,6 +62,11 @@
     cell.courseTitleLabel.text = course.title;
     cell.courseTitleLabel.numberOfLines = 0;
     cell.courseTitleLabel.backgroundColor = [UIColor clearColor];
+    
+    // place the professor icon
+    cell.professorIcon.image = [UIImage imageNamed:[config smallPersonIconFileName]];
+    CGRect iconFrame = CGRectMake(cell.courseTitleLabel.frame.origin.x, cell.courseTitleLabel.frame.origin.y + cell.courseTitleLabel.frame.size.height + 5, 12, 12);
+    cell.professorIcon.frame = iconFrame;
     
     // professorNameLabel setup
     cell.professorNameLabel.font = professorNameLabelFont;
@@ -75,15 +84,12 @@
     }
     cell.professorNameLabel.textColor = professorNameLabelColor;
     actualLabelSize = [allNames sizeWithFont:professorNameLabelFont constrainedToSize:maximumProfessorNameLabelSize lineBreakMode:UILineBreakModeWordWrap];
-    labelFrame = CGRectMake(78, cell.courseTitleLabel.frame.origin.y + cell.courseTitleLabel.frame.size.height + 13, actualLabelSize.width, actualLabelSize.height);
+    labelFrame = CGRectMake(cell.professorIcon.frame.origin.x + cell.professorIcon.frame.size.width + 5, cell.professorIcon.frame.origin.y - 1, actualLabelSize.width, actualLabelSize.height);
     cell.professorNameLabel.frame = labelFrame;
     cell.professorNameLabel.text = allNames;
     cell.professorNameLabel.backgroundColor = [UIColor clearColor];
     
-    // place the professor icon
-    cell.professorIcon.image = [UIImage imageNamed:@"person_small_icon.png"];
-    CGRect iconFrame = CGRectMake(cell.professorNameLabel.frame.origin.x - 17, cell.professorNameLabel.frame.origin.y + 2, 12, 12);
-    cell.professorIcon.frame = iconFrame;
+    // hide the icon if there's no names
     cell.professorIcon.hidden = [allNames isEqualToString:@""];
     
     // set the size of the cell

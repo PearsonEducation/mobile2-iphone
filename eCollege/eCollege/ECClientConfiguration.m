@@ -161,6 +161,14 @@ static ECClientConfiguration *currentConfiguration = nil;
     return [UIFont fontWithName:@"Helvetica-Bold" size:22.0];
 }
 
+- (UIFont*)smallBoldFont {
+    return [UIFont fontWithName:@"Helvetica-Bold" size:11.0];    
+}
+
+- (UIFont*)smallFont {
+    return [UIFont fontWithName:@"Helvetica" size:11.0];    
+}
+
 - (UIFont*)mediumBoldFont {
     return [UIFont fontWithName:@"Helvetica-Bold" size:17.0];
 }

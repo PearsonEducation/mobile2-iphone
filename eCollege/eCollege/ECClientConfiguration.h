@@ -45,6 +45,8 @@
 - (UIFont*)cellDateFont;
 - (UIFont*)cellSmallFont;
 - (UIFont*)cellSmallBoldFont;
+- (UIFont*)smallFont;
+- (UIFont*)smallBoldFont;
 
 // FILE NAMES
 - (NSString*)splashFileName;

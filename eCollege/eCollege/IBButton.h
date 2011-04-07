@@ -40,6 +40,7 @@ typedef enum {
 @property(nonatomic, assign) IBButtonType type;
 @property(nonatomic, assign) float cornerRadius;
 
++(IBButton*) glossButtonWithTitle:(NSString*)title color:(UIColor*)color cornerRadius:(CGFloat)cornerRadius andFont:(UIFont*)font andTextColor:(UIColor*)textColor; 
 +(IBButton*) glossButtonWithTitle:(NSString*)title color:(UIColor*)color;
 +(IBButton*) softButtonWithTitle:(NSString*)title color:(UIColor*)color;
 +(IBButton*) flatButtonWithTitle:(NSString*)title color:(UIColor*)color;

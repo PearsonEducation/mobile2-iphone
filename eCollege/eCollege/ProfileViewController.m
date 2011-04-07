@@ -70,8 +70,7 @@
     [super viewDidLoad];
 
 	ECClientConfiguration *config = [ECClientConfiguration currentConfiguration];
-	IBButton *signOutButton = [IBButton glossButtonWithTitle:NSLocalizedString(@"Sign Out", @"Sign Out label") color:[config secondaryColor]];
-	signOutButton.titleLabel.font = [config secondaryButtonFont];
+	IBButton *signOutButton = [IBButton glossButtonWithTitle:NSLocalizedString(@"Sign Out", @"Sign Out label") color:[config secondaryColor] cornerRadius:5.0 andFont:[config smallBoldFont] andTextColor:[config whiteColor]];
 	signOutButton.titleLabel.shadowColor = [config greyColor];
 	signOutButton.titleLabel.shadowOffset = CGSizeMake(0, -1);
     signOutButton.frame = CGRectMake(self.view.frame.size.width - 85, studentNameLabel.frame.origin.y, 75, 30);

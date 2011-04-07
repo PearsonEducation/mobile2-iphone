@@ -29,6 +29,15 @@
 @synthesize borderColor = _borderColor;
 @synthesize borderSize = _borderSize;
 
++(IBButton*) glossButtonWithTitle:(NSString*)title color:(UIColor*)color cornerRadius:(CGFloat)cornerRadius andFont:(UIFont*)font andTextColor:(UIColor*)textColor {
+    IBButton* btn = [IBButton glossButtonWithTitle:title color:color];
+    btn.cornerRadius = cornerRadius;
+    btn.titleLabel.font = font;
+    btn.titleLabel.textColor = textColor;
+    return btn;
+}
+
+
 +(IBButton*) glossButtonWithTitle:(NSString*)title color:(UIColor*)color {
 	IBButton *button = [[[IBButton alloc] init] autorelease];
 	[button setTitle:title forState:UIControlStateNormal];
