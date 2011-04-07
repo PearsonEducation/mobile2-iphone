@@ -13,11 +13,11 @@
 #import "NSDateUtilities.h"
 #import "TopicTableCell.h"
 #import "TopicResponsesViewController.h"
+#import "ECClientConfiguration.h"
 
 @interface DiscussionsViewController ()
 
 @property (nonatomic, retain) UserDiscussionTopicFetcher* userDiscussionTopicFetcher;
-@property (nonatomic, retain) NSDate* today;
 @property (nonatomic, retain) NSMutableArray* courseIdsAndTopicArrays;
 @property (nonatomic, retain) NSMutableArray* courseNames;
 @property (nonatomic, retain) UIPickerView* picker;
@@ -47,7 +47,6 @@
 @synthesize userDiscussionTopicFetcher;
 @synthesize topics;
 @synthesize lastUpdateTime;
-@synthesize today;
 @synthesize courseIdsAndTopicArrays;
 @synthesize courseNames;
 @synthesize picker;
@@ -61,11 +60,6 @@
     if (self) {
         selectedFilterRow = -1;
         self.userDiscussionTopicFetcher = [[UserDiscussionTopicFetcher alloc] initWithDelegate:self responseSelector:@selector(loadedMyTopicsHandler:)];    
-        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-        [gregorian setTimeZone:[NSTimeZone defaultTimeZone]];
-        dateCalculator = [[DateCalculator alloc] initWithCalendar:gregorian];
-        [gregorian release];
-        self.today = [dateCalculator midnight:0 fromDate:[NSDate date]];
         [self registerForCoursesNotifications];
     }
     return self;
@@ -85,8 +79,6 @@
     self.courseIdsAndTopicArrays = nil;
     self.picker = nil;
     [blockingActivityView release];
-    [dateCalculator release];
-    [today release];
     [super dealloc];
 }
 
@@ -267,6 +259,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    // get the configuration
+    ECClientConfiguration* config = [ECClientConfiguration currentConfiguration];
     
     blockingModalView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
     blockingModalView.backgroundColor = [UIColor blackColor];
@@ -281,6 +276,7 @@
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(filterDoneButtonTapped:)];    
     NSArray* buttons = [[NSArray alloc] initWithObjects:flexibleSpace, doneButton, nil];
     [toolBar setItems:buttons];
+    toolBar.tintColor = [config secondaryColor];
     [filterView addSubview:toolBar];
     
     picker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 264, 320, 216)];
@@ -450,6 +446,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UserDiscussionTopic* topic = [self getTopicForIndexPath:indexPath];
+    ECClientConfiguration* config = [ECClientConfiguration currentConfiguration];
+    
     UITableViewCell *cell;
     if (topic) {
         static NSString *CellIdentifier = @"TopicTableCell";
@@ -465,8 +463,8 @@
         if (cell == nil) {
             cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
         }
-        cell.textLabel.font = [UIFont fontWithName:@"Helvetica-Oblique" size:13.0];
-        cell.textLabel.textColor = [UIColor lightGrayColor];
+        cell.textLabel.font = [config cellItalicsFont];
+        cell.textLabel.textColor = [config greyColor];        
         cell.textLabel.text = NSLocalizedString(@"No recent topics for this course",nil);
     }
     return cell;

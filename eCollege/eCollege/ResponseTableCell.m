@@ -9,6 +9,7 @@
 #import "ResponseTableCell.h"
 #import "NSDateUtilities.h"
 #import "ECClientConfiguration.h"
+#import "UIImageUtilities.h"
 
 @interface ResponseTableCell () 
 
@@ -111,11 +112,12 @@
 }
 
 - (void)awakeFromNib {
-    disclosureArrowImage.image = [UIImage imageNamed:@"list_arrow_icon.png"];
-    smallPosterIcon.image = [UIImage imageNamed:@"person_small_icon.png"];
-    smallResponsesIcon.image = [UIImage imageNamed:@"response_icon_small.png"];
-    
     ECClientConfiguration* config = [ECClientConfiguration currentConfiguration];
+    
+    disclosureArrowImage.image = [[UIImage imageNamed:[config listArrowFileName]] imageWithOverlayColor:[config secondaryColor]];
+
+    smallPosterIcon.image = [UIImage imageNamed:[config smallPersonIconFileName]];
+    smallResponsesIcon.image = [UIImage imageNamed:[config smallResponsesIconFileName]];
     
     dateLabel.font = [config cellDateFont];
     dateLabel.textColor = [config greyColor];

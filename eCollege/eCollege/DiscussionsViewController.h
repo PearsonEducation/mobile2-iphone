@@ -10,15 +10,12 @@
 #import "UserDiscussionTopicFetcher.h"
 #import "BlockingActivityView.h"
 #import "ECPullRefreshTableViewController.h"
-#import "DateCalculator.h"
 
 @interface DiscussionsViewController : ECPullRefreshTableViewController <UITableViewDelegate, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate> {
     NSArray* topics;
     UserDiscussionTopicFetcher* userDiscussionTopicFetcher;
     BlockingActivityView* blockingActivityView;
     NSDate* lastUpdateTime;
-    DateCalculator* dateCalculator;
-    NSDate* today;
     BOOL currentlyLoading;
     BOOL topicsLoadFailure;
     BOOL coursesLoadFailure;
