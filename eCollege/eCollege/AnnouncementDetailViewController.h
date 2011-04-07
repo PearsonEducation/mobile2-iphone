@@ -17,6 +17,7 @@
     NSInteger announcementId;
     BlockingActivityView* blockingActivityView;
     NSString* courseName;
+    UIScrollView* scrollView;
 }
 
 - (void)setAnnouncementId:(NSInteger)announcementIdValue andCourseId:(NSInteger)courseIdValue andCourseName:(NSString*)courseName;

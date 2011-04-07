@@ -24,6 +24,7 @@
 @property (nonatomic, assign) NSInteger announcementId;
 @property (nonatomic, assign) NSInteger courseId;
 @property (nonatomic, retain) NSString* courseName;
+@property (nonatomic, retain) UIScrollView* scrollView;;
 
 - (void)announcementLoaded:(id)announcementValue;
 - (void)setupView;
@@ -40,6 +41,7 @@
 @synthesize announcementId;
 @synthesize courseId;
 @synthesize courseName;
+@synthesize scrollView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nil];
@@ -97,6 +99,10 @@
 - (void)setupView {
     Announcement* a = (Announcement*)self.announcement;
     
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    scrollView.scrollEnabled = YES;
+    [self.view addSubview:scrollView];
+ 
     // set up some colors
     UIColor *headerFontColor = HEXCOLOR(0x151848);
     UIColor *normalTextColor = HEXCOLOR(0x262626);
@@ -116,7 +122,7 @@
     courseNameLabel.text = courseName;
     courseNameLabel.backgroundColor = [UIColor clearColor];
     courseNameLabel.numberOfLines = 0;
-    [self.view addSubview:courseNameLabel];
+    [scrollView addSubview:courseNameLabel];
     
     // set up the assignment title label
     NSString* subject = a.subject;
@@ -128,7 +134,7 @@
     subjectLabel.text = subject;
     subjectLabel.backgroundColor =  [UIColor clearColor];
     subjectLabel.numberOfLines = 0;
-    [self.view addSubview:subjectLabel];
+    [scrollView addSubview:subjectLabel];
     
     // set up the white box in the background, with rounded corners and drop shadow (arbitrary initial height, will change that later)
     UIView* whiteBox = [[UIView alloc] initWithFrame:CGRectMake(9, subjectLabel.frame.origin.y + subjectLabel.frame.size.height + 10, 303, 500)];
@@ -138,7 +144,7 @@
     whiteBox.layer.shadowRadius = 1.0;
     whiteBox.layer.shadowOpacity = 0.8;
     whiteBox.layer.shadowOffset = CGSizeMake(0, 2);
-    [self.view addSubview:whiteBox];
+    [scrollView addSubview:whiteBox];
     
     // set up the image
     UIImageView* img = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 25, 25)];
@@ -173,6 +179,9 @@
     boxFrame.size.height = commentsLabel.frame.origin.y + commentsLabel.frame.size.height + 16;
     whiteBox.frame = boxFrame;
     
+    
+    scrollView.contentSize = CGSizeMake(320, whiteBox.frame.origin.y + whiteBox.frame.size.height + 100);
+
     // memory management
     [img release];
     [commentsLabel release];
@@ -194,6 +203,7 @@
 
 - (void)dealloc
 {
+    self.scrollView = nil;
     [self.announcementFetcher cancel];
     self.courseName = nil;
     self.announcementFetcher = nil;
