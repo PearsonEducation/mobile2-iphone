@@ -9,6 +9,8 @@
 #import "TopicHeaderTableCell.h"
 #import <QuartzCore/CoreAnimation.h>
 #import "UIColor+Boost.h"
+#import "ECClientConfiguration.h"
+#import "UIImageUtilities.h"
 
 @implementation TopicHeaderTableCell
 
@@ -30,20 +32,20 @@
         last24HourResponseCount = topic.childResponseCounts.last24HourResponseCount;
     }
     
+    // get the configuration
+    ECClientConfiguration* config = [ECClientConfiguration currentConfiguration];
+    
     // set the title
     titleLabel.text = topic.topic.title;
     
     // set the big icon
     if (last24HourResponseCount >= 10) {
-        activityImage.image = [UIImage imageNamed:@"icon_discussions_hot_topic.png"];                
+        activityImage.image = [UIImage imageNamed:[config onFireIconFileName]];                
     } else if (totalResponses > 0) {
-        activityImage.image = [UIImage imageNamed:@"icon_discussions_responses.png"];                
+        activityImage.image = [UIImage imageNamed:[config responseWithResponsesIconFileName]];                
     } else {
-        activityImage.image = [UIImage imageNamed:@"icon_discussions_no_responses.png"];
+        activityImage.image = [UIImage imageNamed:[config responseIconFileName]];
     }
-    
-    // set the tiny little icon
-    smallResponsesImage.image = [UIImage imageNamed:@"response_icon_small.png"];
     
     // set the number of total responses
     NSString* pluralizedResponses;
@@ -57,13 +59,14 @@
     // set the unread responses label (and give it a dark blue background with rounded corners, and a white text color)
     unreadResponsesLabel.hidden = (unreadResponses == 0);
     countBubbleImage.hidden = (unreadResponses == 0);
-    UIFont* font = [UIFont fontWithName:@"Helvetica-Bold" size:17.0];
+    
+    
     NSString* unreadText = [NSString stringWithFormat:@"%d",unreadResponses];
     CGSize maximumSize = CGSizeMake(1000, 20);
-    CGSize labelSize = [unreadText sizeWithFont:font constrainedToSize:maximumSize lineBreakMode:UILineBreakModeTailTruncation];
+    CGSize labelSize = [unreadText sizeWithFont:unreadResponsesLabel.font constrainedToSize:maximumSize lineBreakMode:UILineBreakModeTailTruncation];
     // 5px padding on each side
     labelSize.width += 10;
-    
+
     // minimum width of the size of the graphic, 29
     if (labelSize.width < 29) {
         labelSize.width = 29;
@@ -72,9 +75,7 @@
     // put the right edge of the label at x=310 inside the cell, 5px padding on each side of the label
     CGRect labelFrame = CGRectMake(310-labelSize.width, 26, labelSize.width, 20);        
     unreadResponsesLabel.frame = labelFrame;
-    unreadResponsesLabel.textAlignment = UITextAlignmentCenter;
     unreadResponsesLabel.text = unreadText;
-    unreadResponsesLabel.textColor = [UIColor whiteColor];
     
     // put the count bubble image behind the number
     // NOTE: tried to do this in code, but when you set a background color on a label, when the table cell
@@ -82,13 +83,37 @@
     //      unreadResponsesLabel.layer.cornerRadius = 10.0;
     //      unreadResponsesLabel.backgroundColor = HEXCOLOR(0x1D2372);
     countBubbleImage.frame = labelFrame;
-    countBubbleImage.image = [[UIImage imageNamed:@"count_bubble.png"] stretchableImageWithLeftCapWidth:14.0 topCapHeight:10];
 }
 
 - (void)awakeFromNib {
-    self.contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background_main.png"]];    
-    disclosureArrowImage.image = [UIImage imageNamed:@"list_arrow_icon.png"];
     self.selectionStyle = UITableViewCellEditingStyleNone;
+    
+    ECClientConfiguration* config = [ECClientConfiguration currentConfiguration];
+    
+    texturedImage.backgroundColor = [config texturedBackgroundColor];
+    texturedImage.opaque = NO;
+    
+    self.contentView.backgroundColor = [config tertiaryColor];
+    
+    activityImage.contentMode = UIViewContentModeScaleAspectFit;
+    CGRect f = activityImage.frame;
+    f.size.width = 25;
+    f.size.height = 25;
+    activityImage.frame = f;
+    
+    titleLabel.font = [config cellHeaderFont];
+    titleLabel.textColor = [config secondaryColor];
+    
+    smallResponsesImage.image = [UIImage imageNamed:[config smallResponsesIconFileName]];
+    
+    totalResponsesLabel.font = [config cellSmallBoldFont];
+    totalResponsesLabel.textColor = [config blackColor];
+    
+    unreadResponsesLabel.font = [config mediumBoldFont];
+    unreadResponsesLabel.textColor = [config whiteColor];
+    unreadResponsesLabel.textAlignment = UITextAlignmentCenter;
+    
+    countBubbleImage.image = [[UIImage imageNamed:[config countBubbleImageFileName]] stretchableImageWithLeftCapWidth:14.0 topCapHeight:10];
 }
 
 - (void)dealloc

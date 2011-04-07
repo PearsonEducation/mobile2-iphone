@@ -18,6 +18,7 @@
     IBOutlet UILabel* unreadResponsesLabel;
     IBOutlet UIImageView* disclosureArrowImage;
     IBOutlet UIImageView* countBubbleImage;
+    IBOutlet UIView* texturedImage;
 }
 
 @property (nonatomic, retain) UserDiscussionTopic* topic;
