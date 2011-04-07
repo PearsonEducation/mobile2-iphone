@@ -11,7 +11,8 @@
 
 @interface InfoTableViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
     id cancelDelegate;
-    IBOutlet UITableView* table;
+    IBOutlet UITableView *table;
+	IBOutlet UIImageView *texturedBackground;
 }
 
 @property (nonatomic, retain) id cancelDelegate;
