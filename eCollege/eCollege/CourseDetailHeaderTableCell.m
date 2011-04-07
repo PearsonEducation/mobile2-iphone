@@ -24,8 +24,8 @@
 @synthesize courseTitleLabel;
 @synthesize professorNameLabel;
 @synthesize professorIcon;
-@synthesize courseIcon;
 @synthesize courseIconBackground;
+@synthesize courseIcon;
 
 + (CourseDetailHeaderTableCell*)cellForCourse:(Course*)course andInstructors:(NSArray*)instructors {
     
@@ -55,7 +55,8 @@
     // courseTitleLabel setup
     cell.courseTitleLabel.textColor = courseTitleLabelColor;
     actualLabelSize = [course.title sizeWithFont:courseTitleLabelFont constrainedToSize:maximumCourseTitleLabelSize lineBreakMode:UILineBreakModeWordWrap];
-    labelFrame = CGRectMake(53, 8, actualLabelSize.width, actualLabelSize.height);
+    
+    labelFrame = CGRectMake(cell.courseIconBackground.frame.origin.x + cell.courseIconBackground.frame.size.width + 5, cell.courseIcon.frame.origin.y, actualLabelSize.width, actualLabelSize.height);
     cell.courseTitleLabel.font = courseTitleLabelFont;
     cell.courseTitleLabel.lineBreakMode = UILineBreakModeWordWrap;
     cell.courseTitleLabel.frame = labelFrame;

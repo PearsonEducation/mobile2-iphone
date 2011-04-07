@@ -13,10 +13,10 @@
 @interface CourseDetailHeaderTableCell : UITableViewCell {
     NSArray *instructors;
     Course *course;
+    UIImageView *courseIcon;
     UILabel *courseTitleLabel;
     UIImageView *professorIcon;
     UILabel *professorNameLabel;
-    UIImageView *courseIcon;
     UIView* courseIconBackground;
 }
 
@@ -27,8 +27,8 @@
 @property (nonatomic, retain) UILabel *courseTitleLabel;
 @property (nonatomic, retain) UILabel *professorNameLabel;
 @property (nonatomic, retain) UIImageView *professorIcon;
-@property (nonatomic, retain) UIImageView *courseIcon;
 @property (nonatomic, retain) UIView* courseIconBackground;
+@property (nonatomic, retain) UIImageView *courseIcon;
 
 
 @end
