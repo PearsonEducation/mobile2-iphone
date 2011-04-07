@@ -160,14 +160,6 @@
 }
 
 
-- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    if (buttonIndex != [actionSheet cancelButtonIndex]) {
-        NSLog(@"Apply");
-    } else {
-        NSLog(@"Cancel");
-    }
-}
-
 // overriding parent method
 - (void)refresh {
     [self loadData];
