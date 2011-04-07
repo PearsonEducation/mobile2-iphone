@@ -364,9 +364,7 @@
 # pragma mark Methods to use when posting / cancelling
 
 - (void)cancelButtonClicked:(id)sender {
-    NSLog(@"Cancel button clicked");
     textView.text = @"";
-    NSLog(@"TEXT IS: %@", textView.text);
     textField.text = @"";
     [textView resignFirstResponder];
     [textField resignFirstResponder];
@@ -499,7 +497,6 @@
 }
 
 - (void)contentButtonTapped:(id)sender {
-    NSLog(@"Button tapped");
     [webView sizeToFit];
     contentIsMinimized = !contentIsMinimized;
     

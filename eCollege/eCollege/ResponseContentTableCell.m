@@ -32,6 +32,8 @@
 
 #pragma mark - View lifecycle
 
+// a little help on the animation from: http://iphonedevelopertips.com/user-interface/rotate-an-image-with-animation.html
+
 - (void)rotateButton {
 
     degrees = (degrees == 0) ? 180 : 0;
