@@ -29,7 +29,7 @@
     NSArray* responses;
     BOOL errorFetchingResponses;
 
-    NSDate* lastUpdated;
+    NSDate* lastUpdateTime;
     
     BOOL currentlyRefreshing;
     
@@ -60,7 +60,7 @@
 @property (nonatomic, retain) ECAuthenticatedFetcher* responsesFetcher;
 @property (nonatomic, retain) UserDiscussionResponseFetcher* postFetcher;
 @property (nonatomic, retain) UserDiscussionResponseFetcher* markAsReadFetcher;
-@property (nonatomic, retain) NSDate* lastUpdated;
+@property (nonatomic, retain) NSDate* lastUpdateTime;
 @property (nonatomic, retain) id rootItem;
 @property (nonatomic, retain) id responses;
 @property (nonatomic, retain) id parent;

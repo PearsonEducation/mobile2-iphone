@@ -30,7 +30,7 @@
 @synthesize rootItemFetcher;
 @synthesize responsesFetcher;
 @synthesize postFetcher;
-@synthesize lastUpdated;
+@synthesize lastUpdateTime;
 @synthesize rootItem;
 @synthesize responses;
 @synthesize parent;
@@ -105,19 +105,21 @@
 }
 
 - (void)executeAfterHeaderClose {
-    self.lastUpdated = [NSDate date];
+    self.lastUpdateTime = [NSDate date];
 }
 
 - (void)updateLastUpdatedLabel {
-    if (self.lastUpdated) {
-        NSString* prettyTime = [self.lastUpdated niceAndConcise];
+    if (self.lastUpdateTime) {
+        NSString* prettyTime = [self.lastUpdateTime friendlyString];
         if (![prettyTime isEqualToString:@""] || [self.lastUpdatedLabel.text isEqualToString:@""]) {
-            self.lastUpdatedLabel.text = [NSString stringWithFormat:@"Last update: %@", prettyTime];
+            self.lastUpdatedLabel.text = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Last update",nil), prettyTime];
         }
     } else {
-        self.lastUpdatedLabel.text = @"";
+        self.lastUpdatedLabel.text = NSLocalizedString(@"Last update: unknown",nil);
     }
 }
+
+
 
 # pragma mark Construction, destruction, memory
 
@@ -391,7 +393,7 @@
     [super viewWillAppear:animated];
     // if activities have never been updated or the last update was more than an hour ago,
     // fetch the topics again.
-    if (!self.lastUpdated || [self.lastUpdated timeIntervalSinceNow] < -3600 || forceUpdateOnViewWillAppear) {
+    if (!self.lastUpdateTime || [self.lastUpdateTime timeIntervalSinceNow] < -3600 || forceUpdateOnViewWillAppear) {
         [self forcePullDownRefresh];
         forceUpdateOnViewWillAppear = NO;
     }    

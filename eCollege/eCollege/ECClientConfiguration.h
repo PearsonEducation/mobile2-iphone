@@ -39,6 +39,7 @@
 - (UIFont *)secondaryButtonFont;
 - (UIFont*)cellHeaderFont;
 - (UIFont*)cellFont;
+- (UIFont*)cellFontBold;
 - (UIFont*)cellItalicsFont;
 - (UIFont*)cellDateFont;
 - (UIFont*)cellSmallFont;

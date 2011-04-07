@@ -52,17 +52,17 @@
     refreshHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0 - REFRESH_HEADER_HEIGHT, 320, REFRESH_HEADER_HEIGHT)];
     refreshHeaderView.backgroundColor = [config tertiaryColor];
     
-    refreshLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, REFRESH_HEADER_HEIGHT/2)];
-    refreshLabel.backgroundColor = [UIColor clearColor];
-    refreshLabel.font = [UIFont boldSystemFontOfSize:12.0];
-	refreshLabel.textColor = [config greyColor];
+    refreshLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 11, 320, 15)];
     refreshLabel.textAlignment = UITextAlignmentCenter;
+    refreshLabel.backgroundColor = [UIColor clearColor];
+    refreshLabel.font = [config cellFontBold];
+	refreshLabel.textColor = [config greyColor];
     
-    lastUpdatedLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, REFRESH_HEADER_HEIGHT/2, 320, REFRESH_HEADER_HEIGHT/2)];
-    lastUpdatedLabel.backgroundColor = [UIColor clearColor];
-    lastUpdatedLabel.font = [UIFont systemFontOfSize:10.0];
-	lastUpdatedLabel.textColor = [config greyColor];
+    lastUpdatedLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, refreshLabel.frame.origin.y + refreshLabel.frame.size.height, 320, 15)];
     lastUpdatedLabel.textAlignment = UITextAlignmentCenter;
+    lastUpdatedLabel.backgroundColor = [UIColor clearColor];
+    lastUpdatedLabel.font = [config cellFont];
+	lastUpdatedLabel.textColor = [config greyColor];
     
     refreshArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow.png"]];
     refreshArrow.frame = CGRectMake((REFRESH_HEADER_HEIGHT - 27) / 2,

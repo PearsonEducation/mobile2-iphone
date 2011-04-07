@@ -69,7 +69,7 @@
             self.lastUpdatedLabel.text = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Last update", @"Last update"), prettyTime];
         }
     } else {
-        self.lastUpdatedLabel.text = @"";
+        self.lastUpdatedLabel.text = NSLocalizedString(@"Last update: unknown",nil);
     }
 }
 

@@ -106,12 +106,12 @@
 
 - (void)updateLastUpdatedLabel {
     if (self.lastUpdateTime) {
-        NSString* prettyTime = [self.lastUpdateTime niceAndConcise];
+        NSString* prettyTime = [self.lastUpdateTime friendlyString];
         if (![prettyTime isEqualToString:@""] || [self.lastUpdatedLabel.text isEqualToString:@""]) {
-            self.lastUpdatedLabel.text = [NSString stringWithFormat:@"Last update: %@", prettyTime];
+            self.lastUpdatedLabel.text = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Last update",nil), prettyTime];
         }
     } else {
-        self.lastUpdatedLabel.text = @"";
+        self.lastUpdatedLabel.text = NSLocalizedString(@"Last update: unknown",nil);
     }
 }
 
