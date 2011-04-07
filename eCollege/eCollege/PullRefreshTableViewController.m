@@ -29,6 +29,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import "PullRefreshTableViewController.h"
+#import "ECClientConfiguration.h"
 
 #define REFRESH_HEADER_HEIGHT 52.0f
 
@@ -37,26 +38,30 @@
 @synthesize textPull, textRelease, textLoading, refreshHeaderView, refreshLabel, refreshArrow, refreshSpinner, table, lastUpdatedLabel;
 
 - (void)viewDidLoad {
-    textPull = [[NSString alloc] initWithString:@"Pull down to refresh..."];
-    textRelease = [[NSString alloc] initWithString:@"Release to refresh..."];
-    textLoading = [[NSString alloc] initWithString:@"Loading..."];
+    textPull = [[NSString alloc] initWithString:NSLocalizedString(@"Pull down to refresh...", nil)];
+    textRelease = [[NSString alloc] initWithString:NSLocalizedString(@"Release to refresh...", nil)];
+    textLoading = [[NSString alloc] initWithString:NSLocalizedString(@"Loading...", nil)];
 
     [super viewDidLoad];
     [self addPullToRefreshHeader];
 }
 
 - (void)addPullToRefreshHeader {
+	ECClientConfiguration *config = [ECClientConfiguration currentConfiguration];
+	
     refreshHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0 - REFRESH_HEADER_HEIGHT, 320, REFRESH_HEADER_HEIGHT)];
-    refreshHeaderView.backgroundColor = [UIColor clearColor];
+    refreshHeaderView.backgroundColor = [config tertiaryColor];
     
     refreshLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, REFRESH_HEADER_HEIGHT/2)];
     refreshLabel.backgroundColor = [UIColor clearColor];
     refreshLabel.font = [UIFont boldSystemFontOfSize:12.0];
+	refreshLabel.textColor = [config greyColor];
     refreshLabel.textAlignment = UITextAlignmentCenter;
     
     lastUpdatedLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, REFRESH_HEADER_HEIGHT/2, 320, REFRESH_HEADER_HEIGHT/2)];
     lastUpdatedLabel.backgroundColor = [UIColor clearColor];
     lastUpdatedLabel.font = [UIFont systemFontOfSize:10.0];
+	lastUpdatedLabel.textColor = [config greyColor];
     lastUpdatedLabel.textAlignment = UITextAlignmentCenter;
     
     refreshArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow.png"]];
