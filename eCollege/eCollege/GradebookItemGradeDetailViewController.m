@@ -13,6 +13,7 @@
 #import <QuartzCore/CoreAnimation.h>
 #import "NSDateUtilities.h"
 #import "DateCalculator.h"
+#import "ECClientConfiguration.h"
 
 @interface GradebookItemGradeDetailViewController ()
 
@@ -78,6 +79,9 @@
 }
 
 - (void)setupView {
+    
+    ECClientConfiguration* config = [ECClientConfiguration currentConfiguration];
+    
     // set up some colors
     UIColor *headerFontColor = HEXCOLOR(0x151848);
     UIColor *subheaderFontColor = HEXCOLOR(0x005B92);
@@ -129,7 +133,7 @@
     
     // set up the image
     UIImageView* img = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 25, 25)];
-    img.image = [UIImage imageNamed:@"ic_grade.png"];
+    img.image = [UIImage imageNamed:[config gradeIconFileName]];
     [whiteBox addSubview:img];
     
     NSString* gradeText = [NSString stringWithFormat:@"%@: %@/%@", NSLocalizedString(@"Grade", @"The word for 'Grade'"), points, pointsPossible];

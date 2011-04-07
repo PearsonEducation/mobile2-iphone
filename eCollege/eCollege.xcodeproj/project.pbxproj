@@ -79,6 +79,7 @@
 		A27E86D4134D7DDD009A027B /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A27E86D2134D7DDD009A027B /* icon@2x.png */; };
 		A27E86D7134D99C2009A027B /* expand_text_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A27E86D5134D99C2009A027B /* expand_text_icon.png */; };
 		A27E86D8134D99C2009A027B /* expand_text_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A27E86D6134D99C2009A027B /* expand_text_icon@2x.png */; };
+		A27E86DB134DAB7F009A027B /* GreyTableHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = A27E86DA134DAB7F009A027B /* GreyTableHeader.m */; };
 		A283D63F133A53F600F46054 /* ResponsesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A283D63D133A53F500F46054 /* ResponsesViewController.m */; };
 		A283D640133A53F600F46054 /* ResponsesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A283D63E133A53F500F46054 /* ResponsesViewController.xib */; };
 		A28CB5FF132ECD95000B669D /* GradebookItemGradeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A28CB5FD132ECD95000B669D /* GradebookItemGradeDetailViewController.m */; };
@@ -282,6 +283,8 @@
 		A27E86D2134D7DDD009A027B /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		A27E86D5134D99C2009A027B /* expand_text_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = expand_text_icon.png; sourceTree = "<group>"; };
 		A27E86D6134D99C2009A027B /* expand_text_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "expand_text_icon@2x.png"; sourceTree = "<group>"; };
+		A27E86D9134DAB7E009A027B /* GreyTableHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GreyTableHeader.h; sourceTree = "<group>"; };
+		A27E86DA134DAB7F009A027B /* GreyTableHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GreyTableHeader.m; sourceTree = "<group>"; };
 		A283D63C133A53F500F46054 /* ResponsesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResponsesViewController.h; sourceTree = "<group>"; };
 		A283D63D133A53F500F46054 /* ResponsesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResponsesViewController.m; sourceTree = "<group>"; };
 		A283D63E133A53F500F46054 /* ResponsesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResponsesViewController.xib; sourceTree = "<group>"; };
@@ -522,6 +525,8 @@
 				A27162AB1346E722006FEE26 /* DrawGradient.m */,
 				A2B85633134D1A7F0007E3F7 /* UIImageUtilities.h */,
 				A2B85634134D1A800007E3F7 /* UIImageUtilities.m */,
+				A27E86D9134DAB7E009A027B /* GreyTableHeader.h */,
+				A27E86DA134DAB7F009A027B /* GreyTableHeader.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -1092,6 +1097,7 @@
 				A2B85635134D1A820007E3F7 /* UIImageUtilities.m in Sources */,
 				EAFFA3CA134CF351003E9503 /* ECPrimaryViewController.m in Sources */,
 				EAFFA3D0134CF744003E9503 /* ECPullRefreshTableViewController.m in Sources */,
+				A27E86DB134DAB7F009A027B /* GreyTableHeader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

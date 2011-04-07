@@ -14,6 +14,8 @@
 #import "TopicTableCell.h"
 #import "TopicResponsesViewController.h"
 #import "ECClientConfiguration.h"
+#import "GreyTableHeader.h"
+#import <QuartzCore/CoreAnimation.h>
 
 @interface DiscussionsViewController ()
 
@@ -260,6 +262,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    tableTitle.layer.shadowColor = [[UIColor blackColor] CGColor];
+    tableTitle.layer.shadowRadius = 1.0;
+    tableTitle.layer.shadowOpacity = 0.9;
+    tableTitle.layer.shadowOffset = CGSizeMake(0, -1);    
 
     // get the configuration
     ECClientConfiguration* config = [ECClientConfiguration currentConfiguration];
@@ -513,21 +520,24 @@
     }
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    
+- (UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
     if (selectedFilterRow != -1) {
 		return nil; // will hide the section header when the table is filtered
     }
-    
+
     NSDictionary* dict = [self.courseIdsAndTopicArrays objectAtIndex:section];
     NSString* courseId = [dict objectForKey:@"courseId"];
     Course* course = [[eCollegeAppDelegate delegate] getCourseHavingId:[courseId integerValue]];
     if (course) {
-        return course.title;
+        return [[GreyTableHeader alloc] initWithText:course.title];
     } else {
         NSLog(@"Error: no course returned for id %@",courseId);
-        return @"";
+        return nil;
     }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {    
+    return 30.0;
 }
 
 @end

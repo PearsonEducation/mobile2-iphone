@@ -14,6 +14,7 @@
 #import "eCollegeAppDelegate.h"
 #import "NSDateUtilities.h"
 #import "ECClientConfiguration.h"
+#import "GreyTableHeader.h"
 
 #define EVERYONE 0
 #define CLASSMATES 1
@@ -289,13 +290,18 @@
     return cell;
 }
 
-- (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+- (UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
     if (sortedKeys) {
-        return [sortedKeys objectAtIndex:section];
+        return [[GreyTableHeader alloc] initWithText:(NSString*)[sortedKeys objectAtIndex:section]];    
     } else {
         return nil;
     }
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {    
+    return 30.0;
+}
+
 
 - (RosterUser*)getUserForIndexPath:(NSIndexPath *)indexPath {
     if (sortedKeys) {
@@ -333,5 +339,7 @@
         [pdvc release];
     }
 }
+
+
 
 @end

@@ -15,6 +15,7 @@
 #import "NSDateUtilities.h"
 #import "DateCalculator.h"
 #import "DropboxAttachment.h"
+#import "ECClientConfiguration.h"
 
 
 @interface DropboxMessageDetailViewController ()
@@ -27,6 +28,7 @@
 @property (nonatomic, retain) id dropboxBasket;
 @property (nonatomic, retain) BlockingActivityView* blockingActivityView;
 @property (nonatomic, assign) NSInteger courseId;
+@property (nonatomic, retain) UIScrollView* scrollView;
 
 - (void)dropboxMessageLoaded:(id)dropboxMsg;
 - (void)setupView;
@@ -37,6 +39,7 @@
 
 @implementation DropboxMessageDetailViewController
 
+@synthesize scrollView;
 @synthesize dropboxMessageFetcher;
 @synthesize dropboxBasketFetcher;
 @synthesize courseId;
@@ -127,6 +130,11 @@
 }
 
 - (void)setupView {
+    ECClientConfiguration* config = [ECClientConfiguration currentConfiguration];
+    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    scrollView.scrollEnabled = YES;
+    [self.view addSubview:scrollView];
+    
     DropboxBasket* basket = (DropboxBasket*)self.dropboxBasket;
     DropboxMessage* message = (DropboxMessage*)self.dropboxMessage;
     
@@ -152,7 +160,7 @@
     courseNameLabel.text = courseName;
     courseNameLabel.backgroundColor = [UIColor clearColor];
     courseNameLabel.numberOfLines = 0;
-    [self.view addSubview:courseNameLabel];
+    [self.scrollView addSubview:courseNameLabel];
     
     // set up the assignment title label
     NSString* assignmentName = basket.title;
@@ -164,7 +172,7 @@
     assignmentLabel.text = assignmentName;
     assignmentLabel.backgroundColor =  [UIColor clearColor];
     assignmentLabel.numberOfLines = 0;
-    [self.view addSubview:assignmentLabel];
+    [self.scrollView addSubview:assignmentLabel];
     
     // set up the white box in the background, with rounded corners and drop shadow (arbitrary initial height, will change that later)
     UIView* whiteBox = [[UIView alloc] initWithFrame:CGRectMake(9, assignmentLabel.frame.origin.y + assignmentLabel.frame.size.height + 10, 303, 500)];
@@ -174,11 +182,11 @@
     whiteBox.layer.shadowRadius = 1.0;
     whiteBox.layer.shadowOpacity = 0.8;
     whiteBox.layer.shadowOffset = CGSizeMake(0, 2);
-    [self.view addSubview:whiteBox];
+    [self.scrollView addSubview:whiteBox];
     
     // set up the image
     UIImageView* img = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 25, 25)];
-    img.image = [UIImage imageNamed:@"clock.png"];
+    img.image = [UIImage imageNamed:[config dropboxIconFileName]];
     [whiteBox addSubview:img];    
     
     // set up the 'Posted By' label
@@ -268,6 +276,8 @@
 //    }
     whiteBox.frame = boxFrame;
     
+    scrollView.contentSize = CGSizeMake(320,whiteBox.frame.origin.y + whiteBox.frame.size.height + 100);
+    
     // memory management
 //    [btn release];
     [img release];
@@ -291,6 +301,7 @@
 
 - (void)dealloc
 {
+    self.scrollView = nil;
     self.dropboxBasket = nil;
     self.dropboxMessage = nil;
     self.blockingActivityView = nil;

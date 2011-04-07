@@ -21,6 +21,7 @@
 #import "TopicResponsesViewController.h"
 #import "ECSession.h"
 #import "ECClientConfiguration.h"
+#import "GreyTableHeader.h"
 
 @interface HomeViewController ()
 
@@ -423,14 +424,23 @@
     }
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section  {
+    NSString* str;
     if (section == 0 && [self hasTodayItems]) {
-        return NSLocalizedString(@"Today",@"The word meaning 'today'");
+        str = NSLocalizedString(@"Today",@"The word meaning 'today'");
     } else if ([self hasEarlierItems]) {
-        return NSLocalizedString(@"Earlier",@"The word meaning 'earlier'");
+        str = NSLocalizedString(@"Earlier",@"The word meaning 'earlier'");
     } else {
-        return @"";
+        str = @"";
     }
+    return [[GreyTableHeader alloc] initWithText:str];    
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {    
+    return 30.0;
+}
+
+
+
 
 @end

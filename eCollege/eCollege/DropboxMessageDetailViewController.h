@@ -20,6 +20,7 @@
     NSInteger courseId;
     NSString* basketId;
     NSString* messageId;
+    UIScrollView* scrollView;
 }
 
 - (id)initWithCourseId:(NSInteger)courseId basketId:(NSString*)basketId messageId:(NSString*)messageId;
