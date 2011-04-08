@@ -13,6 +13,7 @@
 #import "GradientCellBackground.h"
 #import "ECClientConfiguration.h"
 #import "NSDateUtilities.h"
+#import "NSString+stripHTML.h"
 
 @interface HighlightedAnnouncementTableCell ()
 @end
@@ -68,8 +69,8 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     if (announcement) {
-        titleLabel.text = announcement.subject;
-        textLabel.text = announcement.text;
+        titleLabel.text = [announcement.subject stripHTML];;
+        textLabel.text = [announcement.text stripHTML];
     } else {
         titleLabel.text = NSLocalizedString(@"No recent announcements", nil);
         textLabel.text = [NSString stringWithFormat:@"%@: %@",NSLocalizedString(@"As of",nil), [[NSDate date] friendlyString]];

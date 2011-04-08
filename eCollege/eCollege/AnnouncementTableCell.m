@@ -8,6 +8,7 @@
 
 #import "AnnouncementTableCell.h"
 #import "UIColor+Boost.h"
+#import "NSString+stripHTML.h"
 
 @interface AnnouncementTableCell ()
 
@@ -26,8 +27,8 @@
 - (void)setData:(Announcement*)announcementValue {
     if (announcementValue) {
         self.announcement = announcementValue;
-        self.subjectLabel.text = announcementValue.subject;
-        self.descLabel.text = announcementValue.text;
+        self.subjectLabel.text = [announcementValue.subject stripHTML];
+        self.descLabel.text = [announcementValue.text stripHTML];
     }
 }
 
