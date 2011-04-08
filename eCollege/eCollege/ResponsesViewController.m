@@ -24,6 +24,7 @@
 @interface ResponsesViewController () 
 
 - (void)refreshWithModalSpinner;
+- (void)setPrompts;
 
 @end
 
@@ -311,11 +312,7 @@
 - (void)toggleViewOfFullDataEntryCell {
     dataEntryIsMinimized = !dataEntryIsMinimized;
     [self animateTableCellHeightChanges];
-    if (dataEntryIsMinimized) {
-        textField.placeholder = NSLocalizedString(@"Enter a response",nil);
-    } else {
-        textField.placeholder = NSLocalizedString(@"Enter a response: subject",nil); 
-    }
+    [self setPrompts];
 }
 
 
@@ -494,6 +491,27 @@
     }
 }
 
+- (void)setPrompts {
+    if (textField && responsePromptLabel) {        
+        
+        // placeholder text for the body field is always the same
+        responsePromptLabel.text = NSLocalizedString(@"Message",nil);
+        
+        // placeholder text for the subject field changes depending on minimized state
+        if (dataEntryIsMinimized) {
+            textField.placeholder = NSLocalizedString(@"Subject", nil);
+        } else {
+            NSString* tmp = NSLocalizedString(@"Post a response",nil);
+            NSString* title = [self getTitleOfRootItem];
+            if (title && ![title isEqualToString:@""]) {
+                tmp = [NSString stringWithFormat:@"%@ '%@'", NSLocalizedString(@"Post a response to", nil), title];
+            }
+            textField.placeholder = tmp;            
+        }
+        
+    }
+}
+
 - (void)contentButtonTapped:(id)sender {
     [webView sizeToFit];
     contentIsMinimized = !contentIsMinimized;
@@ -555,11 +573,24 @@
             f.size.height = actualDataEntryHeight;
             cell.frame = f;
         }
+        
         textField = ((DataEntryTableCell*)cell).titleTextField;
         textField.delegate = self;
         textView = ((DataEntryTableCell*)cell).contentTextView;
         textView.delegate = self;
         responsePromptLabel = ((DataEntryTableCell*)cell).contentPromptLabel;
+        
+        if (dataEntryIsMinimized) {
+            CGRect f = cell.frame;
+            f.size.height = minimizedDataEntryHeight;
+            cell.frame = f;
+        } else {
+            CGRect f = cell.frame;
+            f.size.height = actualDataEntryHeight;
+            cell.frame = f;
+        }
+        
+        [self setPrompts];
     } 
     
     // response cells
