@@ -12,6 +12,7 @@
 #import "UserDiscussionResponseFetcher.h"
 #import "ResponseContentTableCell.h"
 #import "BlockingActivityView.h"
+#import "DataEntryTableCell.h"
 
 @interface ResponsesViewController : PullRefreshTableViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UIWebViewDelegate, UITextViewDelegate> {
     ECAuthenticatedFetcher* rootItemFetcher;
@@ -53,6 +54,8 @@
     
     id parent;
     
+    DataEntryTableCell* dataEntryCell;
+    
     BlockingActivityView* blockingActivityView;
 }
 
@@ -68,6 +71,7 @@
 @property (nonatomic, retain) id responses;
 @property (nonatomic, retain) id parent;
 @property (nonatomic, retain) ResponseContentTableCell* responseContentTableCell;
+@property (nonatomic, retain) DataEntryTableCell* dataEntryTableCell;
 @property (nonatomic, retain) BlockingActivityView* blockingActivityView;
 
 - (void)rootItemFetchedHandler:(id)result;

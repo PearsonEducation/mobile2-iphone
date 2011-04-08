@@ -41,6 +41,7 @@
 @synthesize markAsReadFetcher;
 @synthesize responseContentTableCell;
 @synthesize blockingActivityView;
+@synthesize dataEntryTableCell;
 
 # pragma mark Methods to override in child classes
 
@@ -152,6 +153,7 @@
 
 - (void)dealloc
 {
+    self.dataEntryTableCell = nil;
     self.blockingActivityView = nil;
     self.responseContentTableCell = nil;
     self.parent = nil;
@@ -564,12 +566,24 @@
     
     // post box
     else if ([self isDataEntryCell:indexPath]) {
-        CellIdentifier = @"DataEntryTableCell";
-        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-            NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"DataEntryTableCell" owner:self options:nil];
-            cell = [nib objectAtIndex:0];
+        
+        if (self.dataEntryTableCell) {
+            cell = self.dataEntryTableCell;
+        } else {
+            CellIdentifier = @"DataEntryTableCell";
+            cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            if (cell == nil) {
+                NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"DataEntryTableCell" owner:self options:nil];
+                cell = [nib objectAtIndex:0];
+            }
+            self.dataEntryTableCell = (DataEntryTableCell*)cell;
+            textField = ((DataEntryTableCell*)cell).titleTextField;
+            textField.delegate = self;
+            textView = ((DataEntryTableCell*)cell).contentTextView;
+            textView.delegate = self;
+            responsePromptLabel = ((DataEntryTableCell*)cell).contentPromptLabel;
         }
+        
         if (dataEntryIsMinimized) {
             CGRect f = cell.frame;
             f.size.height = minimizedDataEntryHeight;
@@ -579,23 +593,7 @@
             f.size.height = actualDataEntryHeight;
             cell.frame = f;
         }
-        
-        textField = ((DataEntryTableCell*)cell).titleTextField;
-        textField.delegate = self;
-        textView = ((DataEntryTableCell*)cell).contentTextView;
-        textView.delegate = self;
-        responsePromptLabel = ((DataEntryTableCell*)cell).contentPromptLabel;
-        
-        if (dataEntryIsMinimized) {
-            CGRect f = cell.frame;
-            f.size.height = minimizedDataEntryHeight;
-            cell.frame = f;
-        } else {
-            CGRect f = cell.frame;
-            f.size.height = actualDataEntryHeight;
-            cell.frame = f;
-        }
-        
+                
         [self setPrompts];
     } 
     
