@@ -15,6 +15,7 @@
 #import "NSDateUtilities.h"
 #import "DateCalculator.h"
 #import "DropboxAttachment.h"
+#import "NSString+stripHTML.h"
 
 @interface AnnouncementDetailViewController ()
 
@@ -163,7 +164,7 @@
     [whiteBox addSubview:postedByLabel];
     
     // set up the comments label
-    NSString* comments = a.text;
+    NSString* comments = [a.text stripHTML];
     maximumSize = CGSizeMake(243, 2000);
     CGSize commentsSize = [comments sizeWithFont:commentsFont constrainedToSize:maximumSize lineBreakMode:UILineBreakModeWordWrap];
     UILabel* commentsLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, postedByLabel.frame.origin.y + postedByLabel.frame.size.height + 5, commentsSize.width, commentsSize.height)];

@@ -12,6 +12,7 @@
 #import "Course.h"
 #import "ECClientConfiguration.h"
 #import "UIImageUtilities.h"
+#import "NSString+stripHTML.h"
 
 @interface ActivityTableCell ()
 
@@ -52,10 +53,10 @@
 -(void)setData:(ActivityStreamItem*)item {
 	if(item) { 
         friendlyDate.text = item.friendlyDate;
-        title.text = item.object.title;
+        title.text = [[item getTitle] stripHTML];
         Course* course = [[eCollegeAppDelegate delegate] getCourseHavingId:item.object.courseId];
         courseName.text = course.title;
-        description.text = item.object.summary;
+        description.text = [[item getDescription] stripHTML];
         if (item.object) {
             NSString* imgName;
             NSString* objType = item.object.objectType;
