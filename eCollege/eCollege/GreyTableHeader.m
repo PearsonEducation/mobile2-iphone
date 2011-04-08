@@ -10,48 +10,56 @@
 #import "ECClientConfiguration.h"
 #import "GradientCellBackground.h"
 #import "UIColor+Boost.h"
+#import "DrawGradient.h"
 #import <QuartzCore/CoreAnimation.h>
 
 @implementation GreyTableHeader
 
 - (id)initWithText:(NSString*)text {
-    self = [super initWithFrame:CGRectMake(0, 0, 320, 30)];
+    self = [super init];
     if (self) {
-        // Initialization code
         ECClientConfiguration* config = [ECClientConfiguration currentConfiguration];
-        
-        GradientCellBackground* headerView = [[[GradientCellBackground alloc] initWithFrame:CGRectMake(0, 0, 320, 30)] autorelease];
-        headerView.darkColor = HEXCOLOR(0x838383);
-        headerView.lightColor = HEXCOLOR(0x555555);
-
-        UIView* bottomStroke = [[[UIView alloc] initWithFrame:CGRectMake(0, 30, 320, 1)] autorelease];
-        bottomStroke.backgroundColor = HEXCOLOR(0x656565);
-        [headerView addSubview:bottomStroke];
-        
-        UIView* topStroke = [[[UIView alloc] initWithFrame:CGRectMake(0, 1, 320, 1)] autorelease];
-        topStroke.backgroundColor = HEXCOLOR(0x838383);
-        [headerView addSubview:topStroke];
 
         UILabel* label = [[[UILabel alloc] initWithFrame:CGRectMake(13, 0, 297, 30)] autorelease];
         label.textAlignment = UITextAlignmentLeft;
         label.font = [config mediumBoldFont];
         label.textColor = [config whiteColor];
         label.backgroundColor = [UIColor clearColor];        
-        label.layer.shadowColor = [[UIColor blackColor] CGColor];
-        label.layer.shadowRadius = 1.0;
-        label.layer.shadowOpacity = 0.9;
-        label.layer.shadowOffset = CGSizeMake(0, -1);    
+        label.shadowColor = [UIColor blackColor];
+        label.shadowOffset = CGSizeMake(0, -1);    
         label.text = text;
-        [headerView addSubview:label];
+        [self addSubview:label];
                 
-        [self addSubview:headerView];
     }
     return self;
 }
 
-- (void)dealloc
-{
-    [super dealloc];
+- (void) drawRect:(CGRect)rect {
+	[super drawRect:rect];
+	CGContextRef context = UIGraphicsGetCurrentContext();
+	drawLinearGradient(
+					   context,
+					   self.bounds,
+					   [HEXCOLOR(0x555555) CGColor],
+					   [HEXCOLOR(0x838383) CGColor]);
+	
+	CGContextSaveGState(context);
+    CGContextSetLineCap(context, kCGLineCapSquare);
+    CGContextSetStrokeColorWithColor(context, [HEXCOLOR(0x838383) CGColor]);
+    CGContextSetLineWidth(context, 2);
+    CGContextMoveToPoint(context, CGRectGetMinX(rect), CGRectGetMinY(rect));
+    CGContextAddLineToPoint(context, CGRectGetMaxX(rect), CGRectGetMinY(rect));
+    CGContextStrokePath(context);
+	CGContextRestoreGState(context);
+
+	CGContextSaveGState(context);
+    CGContextSetLineCap(context, kCGLineCapSquare);
+    CGContextSetStrokeColorWithColor(context, [HEXCOLOR(0x656565) CGColor]);
+    CGContextSetLineWidth(context, 2);
+    CGContextMoveToPoint(context, CGRectGetMinX(rect), CGRectGetMaxY(rect));
+    CGContextAddLineToPoint(context, CGRectGetMaxX(rect), CGRectGetMaxY(rect));
+    CGContextStrokePath(context);
+	CGContextRestoreGState(context);
 }
 
 @end

@@ -27,7 +27,7 @@
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
 	UIImage *image = [UIImage imageNamed:@"gear.png"];
 	[btn setImage:image forState:UIControlStateNormal];
-	btn.frame = CGRectMake(0.0, 0.0, image.size.width, image.size.height);
+	btn.frame = CGRectMake(0.0, 0.0, image.size.width + 20, image.size.height);
     [btn addTarget:self action:@selector(infoButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:btn] autorelease];
 }

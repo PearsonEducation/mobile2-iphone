@@ -138,11 +138,7 @@
     cell.textLabel.text = gradebookItem.title;
 	cell.detailTextLabel.text = gradeDate;
 	if ([grade isGraded]) {
-		if (grade.points) {
-			cell.gradeLabel.text = [NSString stringWithFormat:@"%@/%@", [formatter stringFromNumber:grade.points], [formatter stringFromNumber:gradebookItem.pointsPossible]];
-		} else {
-			cell.gradeLabel.text = grade.letterGrade;
-		}
+		cell.gradeLabel.text = [userGradebookItem displayedGrade];
 		cell.accessoryView.hidden = NO;
 	} else {
 		cell.gradeLabel.text = nil;
@@ -158,9 +154,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	UserGradebookItem *userGradebookItem = (UserGradebookItem *)[gradebookItems objectAtIndex:indexPath.row];
-	GradebookItem *gradebookItem = userGradebookItem.gradebookItem;
-	Grade *grade = [userGradebookItem grade];
-	GradebookItemGradeDetailViewController* gradebookItemGradeDetailViewController = [[GradebookItemGradeDetailViewController alloc] initWithCourseId:courseId gradebookItem:gradebookItem grade:grade];
+	GradebookItemGradeDetailViewController* gradebookItemGradeDetailViewController = [[GradebookItemGradeDetailViewController alloc] initWithCourseId:courseId userGradebookItem:userGradebookItem];
 	[self.navigationController pushViewController:gradebookItemGradeDetailViewController animated:YES];
 	[gradebookItemGradeDetailViewController release];        
 }
