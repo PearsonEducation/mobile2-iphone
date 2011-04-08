@@ -16,6 +16,7 @@
 #import "ECClientConfiguration.h"
 #import "GradebookItem.h"
 #import "UserGradebookItem.h"
+#import "NSString+stripHTML.h"
 
 @interface GradebookItemGradeDetailViewController ()
 
@@ -37,7 +38,7 @@
     if ((self = [super init]) != nil) {
         self.item = [value retain];
 		assignmentName = [item.target.title copy];
-		displayedGrade = [NSString stringWithFormat:@"%@/%@", self.item.object.pointsAchieved, self.item.target.pointsPossible];
+		displayedGrade = [[NSString stringWithFormat:@"%@/%@", self.item.object.pointsAchieved, self.item.target.pointsPossible] retain];
 		postedTime = [self.item.postedTime retain];
         courseId = item.target.courseId;
         self.gradebookItemGradeFetcher = [[GradebookItemGradeFetcher alloc] initWithDelegate:self responseSelector:@selector(gradebookItemGradeLoaded:)];
@@ -153,7 +154,7 @@
     [whiteBox addSubview:gradeLabel];
     
     // set up the comments label
-    NSString* comments = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Comments", @"The word meaning 'Comments'"), grade.comments];
+    NSString* comments = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Comments", @"The word meaning 'Comments'"), [grade.comments stripHTML]];
     maximumSize = CGSizeMake(243, 2000);
     CGSize commentsSize = [comments sizeWithFont:commentsFont constrainedToSize:maximumSize lineBreakMode:UILineBreakModeWordWrap];
     UILabel* commentsLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, 37, commentsSize.width, commentsSize.height)];

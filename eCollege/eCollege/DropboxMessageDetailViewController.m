@@ -16,6 +16,7 @@
 #import "DateCalculator.h"
 #import "DropboxAttachment.h"
 #import "ECClientConfiguration.h"
+#import "NSString+stripHTML.h"
 
 
 @interface DropboxMessageDetailViewController ()
@@ -217,7 +218,7 @@
     [whiteBox addSubview:dateLabel];
     
     // set up the comments label
-    NSString* comments = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Comments",nil), message.comments];
+    NSString* comments = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Comments",nil), [message.comments stripHTML]];
     maximumSize = CGSizeMake(243, 2000);
     CGSize commentsSize = [comments sizeWithFont:commentsFont constrainedToSize:maximumSize lineBreakMode:UILineBreakModeWordWrap];
     UILabel* commentsLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, dateLabel.frame.origin.y + dateLabel.frame.size.height + 5, commentsSize.width, commentsSize.height)];
