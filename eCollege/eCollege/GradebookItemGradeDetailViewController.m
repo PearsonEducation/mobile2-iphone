@@ -14,6 +14,8 @@
 #import "NSDateUtilities.h"
 #import "DateCalculator.h"
 #import "ECClientConfiguration.h"
+#import "GradebookItem.h"
+#import "UserGradebookItem.h"
 
 @interface GradebookItemGradeDetailViewController ()
 
@@ -35,8 +37,7 @@
     if ((self = [super init]) != nil) {
         self.item = [value retain];
 		assignmentName = [item.target.title copy];
-		points = [self.item.object.pointsAchieved copy];
-		pointsPossible = [self.item.target.pointsPossible copy];
+		displayedGrade = [NSString stringWithFormat:@"%@/%@", self.item.object.pointsAchieved, self.item.target.pointsPossible];
 		postedTime = [self.item.postedTime retain];
         courseId = item.target.courseId;
         self.gradebookItemGradeFetcher = [[GradebookItemGradeFetcher alloc] initWithDelegate:self responseSelector:@selector(gradebookItemGradeLoaded:)];
@@ -44,12 +45,13 @@
     return self;
 }
 
-- (id)initWithCourseId:(NSInteger)cid gradebookItem:(GradebookItem *)gi grade:(Grade *)g {
+- (id)initWithCourseId:(NSInteger)cid userGradebookItem:(UserGradebookItem *)ugi {
     if ((self = [super init]) != nil) {
+		GradebookItem *gi = ugi.gradebookItem;
+		Grade *g = [ugi grade];
 		assignmentName = [gi.title copy];
 		grade = [g retain];
-		points = [g.points copy];
-		pointsPossible = [gi.pointsPossible copy];
+		displayedGrade = [[ugi displayedGrade] retain];
 		postedTime = [[grade updatedDate] retain];
         courseId = cid;
 		[self setupView];
@@ -142,7 +144,7 @@
     img.image = [UIImage imageNamed:[config gradeIconFileName]];
     [whiteBox addSubview:img];
     
-    NSString* gradeText = [NSString stringWithFormat:@"%@: %@/%@", NSLocalizedString(@"Grade", @"The word for 'Grade'"), points, pointsPossible];
+    NSString* gradeText = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Grade", @"The word for 'Grade'"), displayedGrade];
     UILabel* gradeLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, 16, 243, 16)];
     gradeLabel.font = subheaderFont;
     gradeLabel.textColor = subheaderFontColor;
@@ -226,8 +228,7 @@
     self.scrollView = nil;
 	[grade release]; grade = nil;
 	[assignmentName release]; assignmentName = nil;
-	[points release];
-	[pointsPossible release];
+	[displayedGrade release];
 	[postedTime release]; postedTime = nil;
 	[blockingActivityView release]; blockingActivityView = nil;
 	self.item = nil;
