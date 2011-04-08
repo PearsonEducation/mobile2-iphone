@@ -137,6 +137,7 @@
 		EA427AC0134E664A00043CC6 /* NSString+stripHTML.m in Sources */ = {isa = PBXBuildFile; fileRef = EA427ABF134E664A00043CC6 /* NSString+stripHTML.m */; };
 		EA427AC7134E753000043CC6 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = EA427AC5134E753000043CC6 /* Default.png */; };
 		EA427AC8134E753000043CC6 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA427AC6134E753000043CC6 /* Default@2x.png */; };
+		EA427ACB134EC1CB00043CC6 /* SplashScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA427ACA134EC1CA00043CC6 /* SplashScreenViewController.m */; };
 		EA4E2558134D3869009E2965 /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = EA4E2556134D3869009E2965 /* gear.png */; };
 		EA4E2559134D3869009E2965 /* gear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA4E2557134D3869009E2965 /* gear@2x.png */; };
 		EA5CA73B134D2B7200788F7D /* AnnouncementsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA5CA73A134D2B7200788F7D /* AnnouncementsViewController.xib */; };
@@ -366,6 +367,9 @@
 		EA427ABF134E664A00043CC6 /* NSString+stripHTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+stripHTML.m"; sourceTree = "<group>"; };
 		EA427AC5134E753000043CC6 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Images/Default.png; sourceTree = "<group>"; };
 		EA427AC6134E753000043CC6 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "Images/Default@2x.png"; sourceTree = "<group>"; };
+		EA427AC9134EC1C900043CC6 /* SplashScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashScreenViewController.h; sourceTree = "<group>"; };
+		EA427ACA134EC1CA00043CC6 /* SplashScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashScreenViewController.m; sourceTree = "<group>"; };
+		EA427ACC134EC2C500043CC6 /* SplashScreenDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashScreenDelegate.h; sourceTree = "<group>"; };
 		EA4E2556134D3869009E2965 /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gear.png; path = Images/gear.png; sourceTree = "<group>"; };
 		EA4E2557134D3869009E2965 /* gear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "gear@2x.png"; path = "Images/gear@2x.png"; sourceTree = "<group>"; };
 		EA5CA73A134D2B7200788F7D /* AnnouncementsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnnouncementsViewController.xib; sourceTree = "<group>"; };
@@ -677,6 +681,9 @@
 				EAFFA3C9134CF350003E9503 /* ECPrimaryViewController.m */,
 				EAFFA3CE134CF743003E9503 /* ECPullRefreshTableViewController.h */,
 				EAFFA3CF134CF743003E9503 /* ECPullRefreshTableViewController.m */,
+				EA427AC9134EC1C900043CC6 /* SplashScreenViewController.h */,
+				EA427ACA134EC1CA00043CC6 /* SplashScreenViewController.m */,
+				EA427ACC134EC2C500043CC6 /* SplashScreenDelegate.h */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -1112,6 +1119,7 @@
 				EAFFA3D0134CF744003E9503 /* ECPullRefreshTableViewController.m in Sources */,
 				A27E86DB134DAB7F009A027B /* GreyTableHeader.m in Sources */,
 				EA427AC0134E664A00043CC6 /* NSString+stripHTML.m in Sources */,
+				EA427ACB134EC1CB00043CC6 /* SplashScreenViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
