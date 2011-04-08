@@ -95,16 +95,19 @@
     
     // set the size of the cell
     CGRect cellFrame = cell.frame;
-    if ([allNames isEqualToString:@""]) {
-        CGFloat value = cell.courseTitleLabel.frame.origin.y + cell.courseTitleLabel.frame.size.height + 20;
-        CGFloat h2 = cell.courseIconBackground.frame.origin.y + cell.courseIconBackground.frame.size.height;
-        if (value - h2 < 20) {
-            value = h2 + 20;
-        }
-        cellFrame.size.height = value;
+    
+    float textToBottom = 0;
+    if( [allNames isEqualToString:@""] ) {
+        textToBottom = cell.courseTitleLabel.frame.origin.y + cell.courseTitleLabel.frame.size.height + 8;
     } else {
-        cellFrame.size.height = cell.professorNameLabel.frame.origin.y + cell.professorNameLabel.frame.size.height + 20;        
+        textToBottom = cell.professorNameLabel.frame.origin.y + cell.professorNameLabel.frame.size.height + 8;
     }
+    
+    float imageBackgroundToBottom = cell.courseIconBackground.frame.origin.y + cell.courseIconBackground.frame.size.height + 8;
+    
+    float value = (textToBottom > imageBackgroundToBottom) ? textToBottom : imageBackgroundToBottom;
+    
+    cellFrame.size.height = value;
     cell.frame = cellFrame;
     cell.contentView.frame = cellFrame;
     
