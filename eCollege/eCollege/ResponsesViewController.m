@@ -336,7 +336,7 @@
             [self showDoneButton];
             [self toggleViewOfFullDataEntryCell];
             [self moveTableViewTo:-1*[self tableOffsetForDataEntryView]];
-            self.table.scrollEnabled = NO;
+            self.table.scrollEnabled = YES;
         }
         return YES;
     } else {
