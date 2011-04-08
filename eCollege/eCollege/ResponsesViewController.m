@@ -319,6 +319,11 @@
 #pragma mark - UITextField delegate methods
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textFieldValue {
+    
+    if (currentlyRefreshing) {
+        return NO;
+    }
+    
     // for some reason, when using the simulator and pressing tab to
     // move OUT of the title field and IN to the body field,
     // this method fires again, which is weird.  So, wrapping

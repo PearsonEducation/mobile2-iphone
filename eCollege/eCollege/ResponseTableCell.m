@@ -10,6 +10,7 @@
 #import "NSDateUtilities.h"
 #import "ECClientConfiguration.h"
 #import "UIImageUtilities.h"
+#import "UIColor+Boost.h"
 
 @interface ResponseTableCell () 
 
@@ -28,12 +29,18 @@
 }
 
 -(void)setData:(UserDiscussionResponse*)responseValue {
+    
+    ECClientConfiguration* config = [ECClientConfiguration currentConfiguration];
+    
     self.userDiscussionResponse = responseValue;
     
     if (responseValue.markedAsRead) {
         activityImage.alpha = 0.35;
+        self.contentView.backgroundColor = [config whiteColor];
     } else {
         activityImage.alpha = 1.0;
+        // TODO: shouldn't be setting the color by using an alpha, so we should get new values...
+        self.contentView.backgroundColor = [[config secondaryColor] colorWithAlphaComponent:0.35];
     }
 
     // set the date
@@ -56,9 +63,6 @@
         last24HourResponseCount = userDiscussionResponse.childResponseCounts.last24HourResponseCount;
         
     }
-    
-    // get the configuration
-    ECClientConfiguration* config = [ECClientConfiguration currentConfiguration];
     
     // set the title
     titleLabel.text = userDiscussionResponse.response.title;
