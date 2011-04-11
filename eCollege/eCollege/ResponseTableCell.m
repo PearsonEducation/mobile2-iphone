@@ -11,6 +11,7 @@
 #import "ECClientConfiguration.h"
 #import "UIImageUtilities.h"
 #import "UIColor+Boost.h"
+#import "NSString+stripHTML.h"
 
 @interface ResponseTableCell () 
 
@@ -111,7 +112,7 @@
     countBubbleImage.frame = labelFrame;
 
     // set the content text
-    contentLabel.text = userDiscussionResponse.response.description;
+    contentLabel.text = [userDiscussionResponse.response.description stripHTML];
     
 }
 
