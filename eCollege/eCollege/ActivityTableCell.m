@@ -58,7 +58,7 @@
         courseName.text = course.title;
         description.text = [[item getDescription] stripHTML];
         if (item.object) {
-            NSString* imgName;
+            NSString* imgName = nil;
             NSString* objType = item.object.objectType;
             
             ECClientConfiguration* config = [ECClientConfiguration currentConfiguration];
