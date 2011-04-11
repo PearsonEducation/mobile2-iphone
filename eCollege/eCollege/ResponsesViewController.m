@@ -81,6 +81,8 @@
         [textView becomeFirstResponder];
         [self moveTableViewTo:-1*[self tableOffsetForDataEntryView]];
     } else {
+		textView.text = @"";
+		textField.text = @"";
         [self hideDoneButton];
         [self hideCancelButton];
         self.table.scrollEnabled = YES;
