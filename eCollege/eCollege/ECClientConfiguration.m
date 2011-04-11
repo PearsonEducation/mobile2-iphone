@@ -56,6 +56,7 @@ static ECClientConfiguration *currentConfiguration = nil;
 - (NSString *) clientString {
 	//TODO: add real implementation here
 	return @"sandbox";
+    //return @"ctstate";
 }
 
 - (void) dealloc {
