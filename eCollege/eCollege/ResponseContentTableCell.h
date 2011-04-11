@@ -20,7 +20,6 @@
 @property (nonatomic, retain) UIButton* button;
 
 - (void)loadHtmlString:(NSString*)htmlString;
-- (void)setHeight:(float)value;
 - (void)rotateButton;
 
 @end

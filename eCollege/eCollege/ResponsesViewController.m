@@ -522,13 +522,7 @@
 - (void)contentButtonTapped:(id)sender {
     [webView sizeToFit];
     contentIsMinimized = !contentIsMinimized;
-    
-    if (!contentIsMinimized) {
-        [responseContentTableCell setHeight:actualContentHeight];
-    }
-
     [responseContentTableCell rotateButton];
-    
     [self animateTableCellHeightChanges];
 }
 
