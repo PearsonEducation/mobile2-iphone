@@ -549,9 +549,6 @@
         self.responseContentTableCell = rctc;
         webView = rctc.webView;
         webView.delegate = self;
-        rctc.webView.backgroundColor = [UIColor clearColor];
-        rctc.webView.opaque = NO;
-        rctc.clipsToBounds = YES;
         collapseButton = rctc.button;
         [collapseButton addTarget:self action:@selector(contentButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [rctc loadHtmlString:[self getHtmlContentString]];

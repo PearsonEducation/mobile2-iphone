@@ -76,6 +76,10 @@
     
     self.selectionStyle = UITableViewCellEditingStyleNone;
     [self.webView setUserInteractionEnabled:NO];
+	self.webView.backgroundColor = [UIColor clearColor];
+	self.webView.opaque = NO;
+	self.clipsToBounds = YES;
+
 }
 
 - (void)loadHtmlString:(NSString*)htmlString {
