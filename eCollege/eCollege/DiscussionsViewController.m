@@ -272,12 +272,13 @@
     
     // put a toolbar on top of the filter view
     UIToolbar* toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 220, 320, 44)];
-    UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(filterDoneButtonTapped:)];    
-    NSArray* buttons = [[NSArray alloc] initWithObjects:flexibleSpace, doneButton, nil];
+    UIBarButtonItem *flexibleSpace = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease];
+    UIBarButtonItem *doneButton = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(filterDoneButtonTapped:)] autorelease];    
+    NSArray* buttons = [NSArray arrayWithObjects:flexibleSpace, doneButton, nil];
     [toolBar setItems:buttons];
     toolBar.tintColor = [config secondaryColor];
     [filterView addSubview:toolBar];
+	[toolBar release];
     
     picker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 264, 320, 216)];
     picker.showsSelectionIndicator = YES;
@@ -339,7 +340,7 @@
     }
     
     NSArray* courseIds = [[eCollegeAppDelegate delegate] getAllCourseIds];
-    NSMutableDictionary* dict = [[NSMutableDictionary alloc] initWithCapacity:[courseIds count]];
+    NSMutableDictionary* dict = [NSMutableDictionary dictionaryWithCapacity:[courseIds count]];
     
     // make an array for each courseID, to hold its topics; store that array in a dictionary
     for (NSNumber* courseIdNumber in courseIds) {
@@ -521,7 +522,7 @@
     NSString* courseId = [dict objectForKey:@"courseId"];
     Course* course = [[eCollegeAppDelegate delegate] getCourseHavingId:[courseId integerValue]];
     if (course) {
-        return [[GreyTableHeader alloc] initWithText:course.title];
+        return [[[GreyTableHeader alloc] initWithText:course.title] autorelease];
     } else {
         NSLog(@"Error: no course returned for id %@",courseId);
         return nil;
