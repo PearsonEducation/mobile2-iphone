@@ -363,6 +363,10 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
 
 - (NSMutableDictionary*)createInfoForCourseId:(NSString*)courseId {
     Course* c = [[eCollegeAppDelegate delegate] getCourseHavingId:[courseId integerValue]];
+    if (!c) {
+        NSLog(@"ERROR: Cannot create info object for nonexistent course (id: %@)", courseId);
+        return nil;
+    }
     
     // it wasn't found, so create it
     NSMutableDictionary* tmp = [[[NSMutableDictionary alloc] initWithCapacity:3] autorelease];
@@ -370,7 +374,7 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
     [tmp setValue:[[[NSMutableArray alloc] init] autorelease] forKey:@"active_topics"];
     [tmp setValue:[[[NSMutableArray alloc] init] autorelease] forKey:@"inactive_topics"];
     [orderedCourseInfo addObject:tmp];
-    [courseInfoByCourseId setValue:tmp forKey:[NSString stringWithFormat:@"%@",c.courseId]];
+    [courseInfoByCourseId setValue:tmp forKey:[NSString stringWithFormat:@"%@",courseId]];
     
     return tmp;
 }
@@ -390,6 +394,9 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
     NSMutableDictionary* dict = [self getInfoForCourseId:courseId];
     if (!dict) {
         dict = [self createInfoForCourseId:courseId];
+        if (!dict) {
+            NSLog(@"ERROR: Unable to store topic %@",topic);
+        }
     }
     
     if ([topic isActive]) {
@@ -457,6 +464,8 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
     // sort the course info
     self.orderedCourseInfo = [[self.orderedCourseInfo sortedArrayUsingFunction:topicInfoSort context:NULL] mutableCopy];
     
+    [self setupCourseNamesArray];
+    
 
 }
 
@@ -513,26 +522,31 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
 }
 
 - (BOOL)hasInactiveTopicsForSection:(NSInteger)section {
-    NSDictionary* dict = [self.orderedCourseInfo objectAtIndex:section];
-    NSString* courseId = [dict objectForKey:@"courseId"];
-    NSMutableDictionary* d = [self getInfoForCourseId:courseId];
+    NSMutableDictionary* d = [orderedCourseInfo objectAtIndex:section];
     id ary = [d objectForKey:@"inactive_topics"];
     return (ary && [ary isKindOfClass:[NSArray class]] && [ary count] > 0);
 }
 
 - (BOOL)hasActiveTopicsForSection:(NSInteger)section {
-    NSDictionary* dict = [self.orderedCourseInfo objectAtIndex:section];
-    NSString* courseId = [dict objectForKey:@"courseId"];
-    NSMutableDictionary* d = [self getInfoForCourseId:courseId];
+    NSMutableDictionary* d = [orderedCourseInfo objectAtIndex:section];
     id ary = [d objectForKey:@"active_topics"];
     return (ary && [ary isKindOfClass:[NSArray class]] && [ary count] > 0);
 }
 
-- (Course*)courseForSection:(NSInteger)section {
-    NSDictionary* dict = [self.orderedCourseInfo objectAtIndex:section];
-    NSString* courseId = [dict objectForKey:@"courseId"];
-    if (courseId && ![courseId isEqualToString:@""]) {
-        return [[eCollegeAppDelegate delegate] getCourseHavingId:[courseId integerValue]];
+- (Course*)courseForSection:(NSInteger)section {  
+    
+    int sectionToUse;
+    // if there's a filter applied, then indexPath isn't accurate...
+    if (selectedFilterRow != -1) {
+        sectionToUse = selectedFilterRow;
+    } else {
+        sectionToUse = section;
+    }
+    
+    NSDictionary* dict = [orderedCourseInfo objectAtIndex:sectionToUse];
+    if (dict) {
+        Course* c = [dict objectForKey:@"course"];
+        return c;
     }
     return nil;
 }
@@ -625,13 +639,11 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
 		return nil; // will hide the section header when the table is filtered
     }
 
-    NSDictionary* dict = [self.orderedCourseInfo objectAtIndex:section];
-    NSString* courseId = [dict objectForKey:@"courseId"];
-    Course* course = [[eCollegeAppDelegate delegate] getCourseHavingId:[courseId integerValue]];
+    Course* course = [self courseForSection:section];
     if (course) {
         return [[[GreyTableHeader alloc] initWithText:course.title] autorelease];
     } else {
-        NSLog(@"Error: no course returned for id %@",courseId);
+        NSLog(@"Error: no course returned for section: %d", section);
         return nil;
     }
 }
