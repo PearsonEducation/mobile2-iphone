@@ -102,7 +102,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[table deselectRowAtIndexPath:indexPath animated:YES];
-    UIViewController* newView;
+    UIViewController* newView = nil;
     switch (indexPath.row) {
         case 0:
             newView = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
