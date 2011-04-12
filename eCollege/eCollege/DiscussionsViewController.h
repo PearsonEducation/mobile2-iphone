@@ -20,7 +20,8 @@
     BOOL topicsLoadFailure;
     BOOL coursesLoadFailure;
     BOOL forceUpdateOnViewWillAppear;
-    NSMutableArray* courseIdsAndTopicArrays;
+    NSMutableArray* orderedCourseInfo;
+    NSMutableDictionary* courseInfoByCourseId;
     NSMutableArray* courseNames;
     UIPickerView* picker;
     UIView* filterView;

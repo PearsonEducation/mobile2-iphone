@@ -20,7 +20,8 @@
 @interface DiscussionsViewController ()
 
 @property (nonatomic, retain) UserDiscussionTopicFetcher* userDiscussionTopicFetcher;
-@property (nonatomic, retain) NSMutableArray* courseIdsAndTopicArrays;
+@property (nonatomic, retain) NSMutableArray* orderedCourseInfo;
+@property (nonatomic, retain) NSMutableDictionary* courseInfoByCourseId;
 @property (nonatomic, retain) NSMutableArray* courseNames;
 @property (nonatomic, retain) UIPickerView* picker;
 @property (nonatomic, retain) UIView* filterView;
@@ -49,7 +50,8 @@
 @synthesize userDiscussionTopicFetcher;
 @synthesize topics;
 @synthesize lastUpdateTime;
-@synthesize courseIdsAndTopicArrays;
+@synthesize orderedCourseInfo;
+@synthesize courseInfoByCourseId;
 @synthesize courseNames;
 @synthesize picker;
 @synthesize filterView;
@@ -78,7 +80,8 @@
     self.courseNames = nil;
     [self.userDiscussionTopicFetcher cancel];
     self.userDiscussionTopicFetcher = nil;
-    self.courseIdsAndTopicArrays = nil;
+    self.orderedCourseInfo = nil;
+    self.courseInfoByCourseId = nil;
     self.picker = nil;
     [blockingActivityView release];
     [super dealloc];
@@ -333,62 +336,111 @@
     coursesLoadFailure = NO;
 }
 
-- (void)prepareData {
+- (NSMutableDictionary*)getInfoForCourseId:(NSString*)courseId {
+    return [courseInfoByCourseId objectForKey:courseId];
+}
+
+- (NSMutableDictionary*)createInfoForCourseId:(NSString*)courseId {
+    Course* c = [[eCollegeAppDelegate delegate] getCourseHavingId:[courseId integerValue]];
     
-    if (!self.topics || ([self.topics count] == 0)) {
+    // it wasn't found, so create it
+    NSMutableDictionary* tmp = [[[NSMutableDictionary alloc] initWithCapacity:3] autorelease];
+    [tmp setValue:c forKey:@"course"];
+    [tmp setValue:[[[NSMutableArray alloc] init] autorelease] forKey:@"active_topics"];
+    [tmp setValue:[[[NSMutableArray alloc] init] autorelease] forKey:@"inactive_topics"];
+    [orderedCourseInfo addObject:tmp];
+    [courseInfoByCourseId setValue:tmp forKey:[NSString stringWithFormat:@"%@",c.courseId]];
+    
+    return tmp;
+}
+
+- (void)storeTopic:(UserDiscussionTopic*)topic {
+    
+    NSString* courseId = nil;
+    if (topic && topic.topic && topic.topic.containerInfo) {
+        courseId = [NSString stringWithFormat:@"%d",topic.topic.containerInfo.courseId];
+    }
+
+    if (!courseId) {
+        NSLog(@"ERROR: cannot store topic %@; has an invalid courseId", topic);
         return;
     }
-    
-    NSArray* courseIds = [[eCollegeAppDelegate delegate] getAllCourseIds];
-    NSMutableDictionary* dict = [NSMutableDictionary dictionaryWithCapacity:[courseIds count]];
-    
-    // make an array for each courseID, to hold its topics; store that array in a dictionary
-    for (NSNumber* courseIdNumber in courseIds) {
-        NSMutableArray* arrayOfTopics = [[[NSMutableArray alloc] init] autorelease];
-        [dict setValue:arrayOfTopics forKey:[courseIdNumber stringValue]];
+
+    NSMutableDictionary* dict = [self getInfoForCourseId:courseId];
+    if (!dict) {
+        dict = [self createInfoForCourseId:courseId];
     }
     
-    // add all topics to the appropriate array
-    for (UserDiscussionTopic* topic in self.topics) {
-        // get the course ID
-        int cid;
-        if (topic && topic.topic && topic.topic.containerInfo) {
-            cid = topic.topic.containerInfo.courseId;
-        } else {
-            NSLog(@"ERROR: topic %@ does not have a courseId",topic);
-            continue;
-        }
-        NSString* scid = [NSString stringWithFormat:@"%d",cid];
-        
-        // get the array associated with that course id from dict
-        NSMutableArray* topicsForCourseId = [dict objectForKey:scid];
-        if (!topicsForCourseId) {
-            NSLog(@"ERROR: shouldn't have a new courseID at this point...");
-            continue;
-        }
-        
-        // add the topic to that array
-        [topicsForCourseId addObject:topic];
+    if ([topic isActive]) {
+        NSMutableArray* activeTopics = [dict objectForKey:@"active_topics"];
+        [activeTopics addObject:topic];
+        return;
+    } else {
+        NSMutableArray* inactiveTopics = [dict objectForKey:@"inactive_topics"];
+        [inactiveTopics addObject:topic];
+        return;
+    } 
+}
+
+- (NSMutableArray*)getActiveTopicsForCourseId:(NSString*)courseId {
+    NSDictionary* tmp = [self getInfoForCourseId:courseId];
+    if (tmp) {
+        return [tmp objectForKey:@"active_topics"];
+    } else {
+        return nil;
     }
+}
+
+- (NSMutableArray*)getInactiveTopicsForCourseId:(NSString*)courseId {
+    NSDictionary* tmp = [self getInfoForCourseId:courseId];
+    if (tmp) {
+        return [tmp objectForKey:@"inactive_topics"];
+    } else {
+        return nil;
+    }
+}
+
+- (NSArray*)setupCourseNamesArray {
     
-    // make an array, one slot per course.  each slot will contain a dictionary with two
-    // tuples: courseId -> value, topics -> value
-    self.courseIdsAndTopicArrays = nil;
-    self.courseNames = [[[NSMutableArray alloc] initWithCapacity:[courseIds count]+1] autorelease];
-    [self.courseNames addObject:NSLocalizedString(@"All Courses", nil)];
-    courseIdsAndTopicArrays = [[NSMutableArray alloc] initWithCapacity:[courseIds count]];
-    for (NSString* key in [dict allKeys]) {
-        Course* course = [[eCollegeAppDelegate delegate] getCourseHavingId:[key integerValue]];
+    // Create a new array...
+    self.courseNames = [[[NSMutableArray alloc] initWithCapacity:[self.orderedCourseInfo count]+1] autorelease];
+    
+    // Add an "All Courses" element...
+    [courseNames addObject:NSLocalizedString(@"All Courses", nil)];
+    
+    // Populate the array with course names, in the same order as in the ordered course info box
+    for (NSDictionary* tmp in self.orderedCourseInfo) {
+        Course* course = [tmp objectForKey:@"course"];
         if (course) {
             [courseNames addObject:course.title];
-        } else {
-            NSLog(@"ERROR: no course for id %d",[key integerValue]);
         }
-        NSMutableDictionary* tmp = [[[NSMutableDictionary alloc] initWithCapacity:2] autorelease];
-        [tmp setValue:key forKey:@"courseId"];
-        [tmp setValue:[dict valueForKey:key] forKey:@"topics"];
-        [self.courseIdsAndTopicArrays addObject:tmp];
     }
+}
+
+- (void)sortCourseInfoByCourseTitle {
+    NSSortDescriptor* sd = [[NSSortDescriptor alloc] initWithKey:@"postedTime" ascending:NO selector:@selector(caseInsensitiveCompare:)];
+    NSArray* descriptors = [[NSArray alloc] initWithObjects:sd,nil];
+    self.activityStream.items = [self.activityStream.items sortedArrayUsingDescriptors:descriptors];
+
+}
+
+- (void)prepareData {
+    
+    NSInteger numCourses = [[[eCollegeAppDelegate delegate] getAllCourseIds] count];
+    
+    // hold a dictionary of information for each course
+    self.orderedCourseInfo = [[[NSMutableArray alloc] initWithCapacity:numCourses] autorelease];
+    
+    // create a dictionary linking course ID -> course info
+    self.courseInfoByCourseId = [[[NSMutableDictionary alloc] initWithCapacity:numCourses] autorelease];
+    
+    // store the topics appropriately
+    for (UserDiscussionTopic* topic in self.topics) {        
+        [self storeTopic:topic];
+    }
+    
+    // Sort ordered course information by course title
+    [self sortCourseInfoByCourseTitle];
 }
 
 - (void)viewDidUnload
@@ -403,7 +455,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     if (selectedFilterRow == -1) {
-        return [self.courseIdsAndTopicArrays count];
+        return [self.orderedCourseInfo count];
     } else {
         return 1;
     }
@@ -417,15 +469,16 @@
         section = selectedFilterRow;
     }
         
-    NSDictionary* dict = [self.courseIdsAndTopicArrays objectAtIndex:section];
-    NSArray* array = [dict objectForKey:@"topics"];
+    NSDictionary* dict = [self.orderedCourseInfo objectAtIndex:section];
+    NSArray* array = [dict objectForKey:@"active_topics"];
     if (array) {
         int cnt = [array count];
         if (cnt == 0) {
-            // no data row
+            // no data row / tap-to-see-inactive cell
             return 1;
         } else {
-            return cnt;
+            // all active cells + the tap-to-see-inactive cell
+            return cnt + 1;
         }
     } else {
         NSLog(@"ERROR: No array for section %d",section);
@@ -438,8 +491,33 @@
     if ([self getTopicForIndexPath:indexPath]) {
         return 71.0;
     } else {
-        return 30.0;        
+        return 50.0;
     }
+}
+
+- (BOOL)hasInactiveTopicsForSection:(NSInteger)section {
+    NSDictionary* dict = [self.orderedCourseInfo objectAtIndex:section];
+    NSString* courseId = [dict objectForKey:@"courseId"];
+    NSMutableDictionary* d = [self getInfoForCourseId:courseId];
+    id ary = [d objectForKey:@"inactive_topics"];
+    return (ary && [ary isKindOfClass:[NSArray class]] && [ary count] > 0);
+}
+
+- (BOOL)hasActiveTopicsForSection:(NSInteger)section {
+    NSDictionary* dict = [self.orderedCourseInfo objectAtIndex:section];
+    NSString* courseId = [dict objectForKey:@"courseId"];
+    NSMutableDictionary* d = [self getInfoForCourseId:courseId];
+    id ary = [d objectForKey:@"active_topics"];
+    return (ary && [ary isKindOfClass:[NSArray class]] && [ary count] > 0);
+}
+
+- (Course*)courseForSection:(NSInteger)section {
+    NSDictionary* dict = [self.orderedCourseInfo objectAtIndex:section];
+    NSString* courseId = [dict objectForKey:@"courseId"];
+    if (courseId && ![courseId isEqualToString:@""]) {
+        return [[eCollegeAppDelegate delegate] getCourseHavingId:[courseId integerValue]];
+    }
+    return nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -462,9 +540,21 @@
         if (cell == nil) {
             cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
         }
+
         cell.textLabel.font = [config cellItalicsFont];
-        cell.textLabel.textColor = [config greyColor];        
-        cell.textLabel.text = NSLocalizedString(@"No recent topics for this course",nil);
+        cell.textLabel.textColor = [config greyColor];
+
+        Course* c = [self courseForSection:indexPath.section];
+        NSString* title = c ? c.title : @"error";
+        if ([self hasInactiveTopicsForSection:indexPath.section]) {
+            cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"All topics for",nil), title];
+        } else {
+            if (indexPath.row == 0) {
+                cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"No active or inactive topics for",nil), title];
+            } else {
+                cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"No inactive topics for",nil), title];
+            }
+        }
     }
     return cell;
 }
@@ -480,10 +570,10 @@
     }
     
     UserDiscussionTopic* returnValue = nil;
-    if (indexPath.section < [self.courseIdsAndTopicArrays count]) {
-        NSDictionary* dict = [self.courseIdsAndTopicArrays objectAtIndex:sectionToUse];
+    if (sectionToUse < [self.orderedCourseInfo count]) {
+        NSDictionary* dict = [self.orderedCourseInfo objectAtIndex:sectionToUse];
         if (dict) {
-            NSArray* ary = [dict objectForKey:@"topics"];
+            NSArray* ary = [dict objectForKey:@"active_topics"];
             if (ary && (indexPath.row < [ary count])) {
                 returnValue = [ary objectAtIndex:indexPath.row];
             }
@@ -518,7 +608,7 @@
 		return nil; // will hide the section header when the table is filtered
     }
 
-    NSDictionary* dict = [self.courseIdsAndTopicArrays objectAtIndex:section];
+    NSDictionary* dict = [self.orderedCourseInfo objectAtIndex:section];
     NSString* courseId = [dict objectForKey:@"courseId"];
     Course* course = [[eCollegeAppDelegate delegate] getCourseHavingId:[courseId integerValue]];
     if (course) {
