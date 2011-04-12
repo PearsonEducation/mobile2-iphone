@@ -223,7 +223,7 @@
         if (namesForLetter) {
             [namesForLetter addObject:ru];
         } else {
-            namesForLetter = [[NSMutableArray alloc] initWithObjects:ru, nil];
+            namesForLetter = [NSMutableArray arrayWithObjects:ru, nil];
             [namesByLetter setValue:namesForLetter forKey:firstLetter];
             [sortedKeys addObject:firstLetter];
         }
@@ -292,7 +292,7 @@
 
 - (UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
     if (sortedKeys) {
-        return [[GreyTableHeader alloc] initWithText:(NSString*)[sortedKeys objectAtIndex:section]];    
+        return [[[GreyTableHeader alloc] initWithText:(NSString*)[sortedKeys objectAtIndex:section]] autorelease];    
     } else {
         return nil;
     }
