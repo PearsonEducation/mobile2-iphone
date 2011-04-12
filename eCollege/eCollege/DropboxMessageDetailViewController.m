@@ -207,6 +207,7 @@
     DateCalculator* dateCalculator = [[DateCalculator alloc] initWithCalendar:gregorian];
     [gregorian release];
     int numDays = [dateCalculator datesFrom:[NSDate date] to:message.date];
+	[dateCalculator release];
     NSString* dateString = [message.date friendlyDateWithTimeFor:numDays];
     CGSize dateSize = [dateString sizeWithFont:dateFont constrainedToSize:maximumSize lineBreakMode:UILineBreakModeWordWrap];
     UILabel* dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, postedByLabel.frame.origin.y + postedByLabel.frame.size.height + 5, dateSize.width, dateSize.height)];
