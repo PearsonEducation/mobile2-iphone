@@ -410,6 +410,17 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
     } 
 }
 
+- (NSInteger)filteredSection:(NSInteger)section {
+    int sectionToUse;
+    // if there's a filter applied, then indexPath isn't accurate...
+    if (selectedFilterRow != -1) {
+        sectionToUse = selectedFilterRow;
+    } else {
+        sectionToUse = section;
+    }    
+    return sectionToUse;
+}
+
 - (NSMutableArray*)getActiveTopicsForCourseId:(NSString*)courseId {
     NSDictionary* tmp = [self getInfoForCourseId:courseId];
     if (tmp) {
@@ -429,13 +440,10 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
 }
 
 - (void)setupCourseNamesArray {
-    
     // Create a new array...
     self.courseNames = [[[NSMutableArray alloc] initWithCapacity:[self.orderedCourseInfo count]+1] autorelease];
-    
     // Add an "All Courses" element...
     [courseNames addObject:NSLocalizedString(@"All Courses", nil)];
-    
     // Populate the array with course names, in the same order as in the ordered course info box
     for (NSDictionary* tmp in self.orderedCourseInfo) {
         Course* course = [tmp objectForKey:@"course"];
@@ -443,37 +451,26 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
             [courseNames addObject:course.title];
         }
     }
-
 }
 
 - (void)prepareData {
-    
     NSInteger numCourses = [[[eCollegeAppDelegate delegate] getAllCourseIds] count];
-    
     // hold a dictionary of information for each course
     self.orderedCourseInfo = [[[NSMutableArray alloc] initWithCapacity:numCourses] autorelease];
-    
     // create a dictionary linking course ID -> course info
     self.courseInfoByCourseId = [[[NSMutableDictionary alloc] initWithCapacity:numCourses] autorelease];
-    
     // store the topics appropriately
     for (UserDiscussionTopic* topic in self.topics) {        
         [self storeTopic:topic];
     }
-    
     // sort the course info
     self.orderedCourseInfo = [[self.orderedCourseInfo sortedArrayUsingFunction:topicInfoSort context:NULL] mutableCopy];
-    
     [self setupCourseNamesArray];
-    
-
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 #pragma mark - Table view data source
@@ -489,12 +486,7 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // if there's a filter applied, then we need to override which section
-    // we're providing data bout.
-    if (selectedFilterRow != -1) {
-        section = selectedFilterRow;
-    }
-        
+    section = [self filteredSection:section];
     NSDictionary* dict = [self.orderedCourseInfo objectAtIndex:section];
     NSArray* array = [dict objectForKey:@"active_topics"];
     if (array) {
@@ -522,28 +514,26 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
 }
 
 - (BOOL)hasInactiveTopicsForSection:(NSInteger)section {
+    section = [self filteredSection:section];
     NSMutableDictionary* d = [orderedCourseInfo objectAtIndex:section];
     id ary = [d objectForKey:@"inactive_topics"];
     return (ary && [ary isKindOfClass:[NSArray class]] && [ary count] > 0);
 }
 
 - (BOOL)hasActiveTopicsForSection:(NSInteger)section {
+    section = [self filteredSection:section];
     NSMutableDictionary* d = [orderedCourseInfo objectAtIndex:section];
     id ary = [d objectForKey:@"active_topics"];
     return (ary && [ary isKindOfClass:[NSArray class]] && [ary count] > 0);
 }
 
+- (BOOL)shouldDrillInForSection:(NSInteger)section {
+    return [self hasInactiveTopicsForSection:section];
+}
+
 - (Course*)courseForSection:(NSInteger)section {  
-    
-    int sectionToUse;
-    // if there's a filter applied, then indexPath isn't accurate...
-    if (selectedFilterRow != -1) {
-        sectionToUse = selectedFilterRow;
-    } else {
-        sectionToUse = section;
-    }
-    
-    NSDictionary* dict = [orderedCourseInfo objectAtIndex:sectionToUse];
+    section = [self filteredSection:section];
+    NSDictionary* dict = [orderedCourseInfo objectAtIndex:section];
     if (dict) {
         Course* c = [dict objectForKey:@"course"];
         return c;
@@ -555,7 +545,6 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
 {
     UserDiscussionTopic* topic = [self getTopicForIndexPath:indexPath];
     ECClientConfiguration* config = [ECClientConfiguration currentConfiguration];
-    
     UITableViewCell *cell;
     if (topic) {
         static NSString *CellIdentifier = @"TopicTableCell";
@@ -571,10 +560,8 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
         if (cell == nil) {
             cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
         }
-
         cell.textLabel.font = [config cellItalicsFont];
         cell.textLabel.textColor = [config greyColor];
-
         Course* c = [self courseForSection:indexPath.section];
         NSString* title = c ? c.title : @"error";
         if ([self hasInactiveTopicsForSection:indexPath.section]) {
@@ -591,15 +578,7 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
 }
 
 - (UserDiscussionTopic*)getTopicForIndexPath:(NSIndexPath*)indexPath {
-    
-    int sectionToUse;
-    // if there's a filter applied, then indexPath isn't accurate...
-    if (selectedFilterRow != -1) {
-        sectionToUse = selectedFilterRow;
-    } else {
-        sectionToUse = indexPath.section;
-    }
-    
+    int sectionToUse = [self filteredSection:indexPath.section];    
     UserDiscussionTopic* returnValue = nil;
     if (sectionToUse < [self.orderedCourseInfo count]) {
         NSDictionary* dict = [self.orderedCourseInfo objectAtIndex:sectionToUse];
@@ -631,6 +610,10 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
         topicResponsesViewController.parent = self;
         [self.navigationController pushViewController:topicResponsesViewController animated:YES];
         [topicResponsesViewController release];
+    } else {
+        if ([self shouldDrillInForSection:indexPath.section]) {
+            //
+        }
     }
 }
 
