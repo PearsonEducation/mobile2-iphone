@@ -1,3 +1,6 @@
+# the api project, which needs to be soft linked here
+ecollegeiosapi
+
 # Emacs and Vim
 *~
 \#*\#
