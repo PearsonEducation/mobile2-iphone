@@ -21,13 +21,11 @@
     
     // grab the counts
     int totalResponses = 0;
-    int myResponses = 0;
     int unreadResponses = 0;
     int last24HourResponseCount = 0;
     
     if (response.childResponseCounts) {
         totalResponses = response.childResponseCounts.totalResponseCount;
-        myResponses = response.childResponseCounts.personalResponseCount;
         unreadResponses = response.childResponseCounts.unreadResponseCount;
         last24HourResponseCount = response.childResponseCounts.last24HourResponseCount;
     }

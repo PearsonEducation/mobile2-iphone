@@ -54,12 +54,10 @@
     
     // grab the counts
     int totalResponses = 0;
-    int myResponses = 0;
     int unreadResponses = 0;
     int last24HourResponseCount = 0;
     if (self.userDiscussionResponse && self.userDiscussionResponse.childResponseCounts) {
         totalResponses = userDiscussionResponse.childResponseCounts.totalResponseCount;
-        myResponses = userDiscussionResponse.childResponseCounts.personalResponseCount;
         unreadResponses = userDiscussionResponse.childResponseCounts.unreadResponseCount;
         last24HourResponseCount = userDiscussionResponse.childResponseCounts.last24HourResponseCount;
         

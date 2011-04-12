@@ -72,7 +72,7 @@
 - (void)announcementLoaded:(id)announcementValue {
     [blockingActivityView hide];
     if (!announcementValue) {
-        announcementValue = NSLocalizedString(@"Error loading announcement", @"Error loading announcement");
+        announcement = NSLocalizedString(@"Error loading announcement", @"Error loading announcement");
     } else {
         announcement = announcementValue;
     }
