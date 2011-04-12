@@ -11,6 +11,8 @@
 #import "BlockingActivityView.h"
 #import "ECPullRefreshTableViewController.h"
 
+NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context);
+
 @interface DiscussionsViewController : ECPullRefreshTableViewController <UITableViewDelegate, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate> {
     NSArray* topics;
     UserDiscussionTopicFetcher* userDiscussionTopicFetcher;

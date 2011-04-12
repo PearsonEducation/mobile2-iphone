@@ -17,6 +17,27 @@
 #import "GreyTableHeader.h"
 #import <QuartzCore/CoreAnimation.h>
 
+NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
+{
+    Course* c1 = [obj1 objectForKey:@"course"];
+    Course* c2 = [obj1 objectForKey:@"course"];
+    
+    if( !c2 || !c2.title) {
+        if( !c1 || !c1.title ) {
+            return NSOrderedSame;
+        } else {
+            return NSOrderedAscending;
+        }
+    } else if( !c1 || !c1.title ) {
+        return NSOrderedDescending;
+    }
+    
+    NSString* name1 = c1.title;
+    NSString* name2 = c2.title;
+    
+    return [name1 caseInsensitiveCompare:name2];
+}
+
 @interface DiscussionsViewController ()
 
 @property (nonatomic, retain) UserDiscussionTopicFetcher* userDiscussionTopicFetcher;
@@ -400,7 +421,7 @@
     }
 }
 
-- (NSArray*)setupCourseNamesArray {
+- (void)setupCourseNamesArray {
     
     // Create a new array...
     self.courseNames = [[[NSMutableArray alloc] initWithCapacity:[self.orderedCourseInfo count]+1] autorelease];
@@ -415,12 +436,6 @@
             [courseNames addObject:course.title];
         }
     }
-}
-
-- (void)sortCourseInfoByCourseTitle {
-    NSSortDescriptor* sd = [[NSSortDescriptor alloc] initWithKey:@"postedTime" ascending:NO selector:@selector(caseInsensitiveCompare:)];
-    NSArray* descriptors = [[NSArray alloc] initWithObjects:sd,nil];
-    self.activityStream.items = [self.activityStream.items sortedArrayUsingDescriptors:descriptors];
 
 }
 
@@ -439,8 +454,10 @@
         [self storeTopic:topic];
     }
     
-    // Sort ordered course information by course title
-    [self sortCourseInfoByCourseTitle];
+    // sort the course info
+    self.orderedCourseInfo = [[self.orderedCourseInfo sortedArrayUsingFunction:topicInfoSort context:NULL] mutableCopy];
+    
+
 }
 
 - (void)viewDidUnload

@@ -89,7 +89,6 @@
 		A29AD698133AF5B600264A50 /* person_small_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A29AD696133AF5AC00264A50 /* person_small_icon@2x.png */; };
 		A2A347F4134BBA9700405FE8 /* login_background.png in Resources */ = {isa = PBXBuildFile; fileRef = A2A347F2134BBA9700405FE8 /* login_background.png */; };
 		A2A347F5134BBA9700405FE8 /* login_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A2A347F3134BBA9700405FE8 /* login_background@2x.png */; };
-		A2A96751132E826D00554238 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = A2A96750132E826D00554238 /* GTMNSString+HTML.m */; };
 		A2B0D2821326FA87008801E2 /* ic_remark.png in Resources */ = {isa = PBXBuildFile; fileRef = A2B0D27C1326FA87008801E2 /* ic_remark.png */; };
 		A2B85615134CEF800007E3F7 /* CGContext+Boost.m in Sources */ = {isa = PBXBuildFile; fileRef = A2B85612134CEF800007E3F7 /* CGContext+Boost.m */; };
 		A2B85616134CEF800007E3F7 /* IBButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A2B85614134CEF800007E3F7 /* IBButton.m */; };
@@ -302,8 +301,6 @@
 		A2A347F2134BBA9700405FE8 /* login_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_background.png; sourceTree = "<group>"; };
 		A2A347F3134BBA9700405FE8 /* login_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_background@2x.png"; sourceTree = "<group>"; };
 		A2A347FA134BBFFF00405FE8 /* ECStyles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECStyles.h; sourceTree = "<group>"; };
-		A2A9674F132E826D00554238 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GTMNSString+HTML.h"; path = "../../ecollegeiosapi/ECAPI/GTMNSString+HTML.h"; sourceTree = "<group>"; };
-		A2A96750132E826D00554238 /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GTMNSString+HTML.m"; path = "../../ecollegeiosapi/ECAPI/GTMNSString+HTML.m"; sourceTree = "<group>"; };
 		A2B0D27C1326FA87008801E2 /* ic_remark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_remark.png; sourceTree = "<group>"; };
 		A2B85611134CEF7F0007E3F7 /* CGContext+Boost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CGContext+Boost.h"; sourceTree = "<group>"; };
 		A2B85612134CEF800007E3F7 /* CGContext+Boost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CGContext+Boost.m"; sourceTree = "<group>"; };
@@ -526,8 +523,6 @@
 				A27162AE1346E895006FEE26 /* GradientCellBackground.m */,
 				A2D182761330079600AAC152 /* PullRefreshTableViewController.m */,
 				A2D182771330079600AAC152 /* PullRefreshTableViewController.h */,
-				A2A9674F132E826D00554238 /* GTMNSString+HTML.h */,
-				A2A96750132E826D00554238 /* GTMNSString+HTML.m */,
 				A27289941326BCE3001A588D /* UIColor+Boost.h */,
 				A27289951326BCE3001A588D /* UIColor+Boost.m */,
 				A2791F80132ABF0800D900C9 /* BlockingActivityView.h */,
@@ -1084,7 +1079,6 @@
 				A27289961326BCE3001A588D /* UIColor+Boost.m in Sources */,
 				A21401431326DABD007C9207 /* ActivityTableCell.m in Sources */,
 				A2791F82132ABF0800D900C9 /* BlockingActivityView.m in Sources */,
-				A2A96751132E826D00554238 /* GTMNSString+HTML.m in Sources */,
 				A28CB5FF132ECD95000B669D /* GradebookItemGradeDetailViewController.m in Sources */,
 				A2D182781330079600AAC152 /* PullRefreshTableViewController.m in Sources */,
 				A2EE2B871332A5290059DFAD /* DropboxMessageDetailViewController.m in Sources */,
