@@ -25,7 +25,8 @@
 
 - (void)refreshWithModalSpinner;
 - (void)setPrompts;
-
+- (void)reduceTableSizeBy:(CGRect)rect animated:(BOOL)animated;
+- (void)increaseTableSizeBy:(CGRect)rect animated:(BOOL)animated;
 @end
 
 @implementation ResponsesViewController
@@ -42,6 +43,38 @@
 @synthesize responseContentTableCell;
 @synthesize blockingActivityView;
 @synthesize dataEntryTableCell;
+
+# pragma mark - Construction, destruction, memory
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        actualContentHeight = -1;
+        minimizedContentHeight = 100;
+        contentIsMinimized = YES;
+        
+        actualDataEntryHeight = 135.0;
+        minimizedDataEntryHeight = 39.0;
+        dataEntryIsMinimized = YES;
+		
+        [self setupFetchers];
+    }
+    return self;
+}
+
+- (void)dealloc {
+    self.dataEntryTableCell = nil;
+    self.blockingActivityView = nil;
+    self.responseContentTableCell = nil;
+    self.parent = nil;
+    self.rootItemId = nil;
+    self.rootItemFetcher = nil;
+    self.responsesFetcher = nil;
+    self.postFetcher = nil;
+    self.markAsReadFetcher = nil;
+    [super dealloc];
+}
+
 
 # pragma mark Methods to override in child classes
 
@@ -79,7 +112,7 @@
     [[eCollegeAppDelegate delegate] hideGlobalLoader];
     if ([obj isKindOfClass:[NSError class]]) {
         [textView becomeFirstResponder];
-        [self moveTableViewTo:-1*[self tableOffsetForDataEntryView]];
+		//        [self moveTableViewTo:-1*[self tableOffsetForDataEntryView]];
     } else {
 		textView.text = @"";
 		textField.text = @"";
@@ -134,46 +167,6 @@
 
 
 
-# pragma mark Construction, destruction, memory
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        actualContentHeight = -1;
-        minimizedContentHeight = 100;
-        contentIsMinimized = YES;
-        
-        actualDataEntryHeight = 135.0;
-        minimizedDataEntryHeight = 39.0;
-        dataEntryIsMinimized = YES;
-
-        [self setupFetchers];
-    }
-    return self;
-}
-
-- (void)dealloc
-{
-    self.dataEntryTableCell = nil;
-    self.blockingActivityView = nil;
-    self.responseContentTableCell = nil;
-    self.parent = nil;
-    self.rootItemId = nil;
-    self.rootItemFetcher = nil;
-    self.responsesFetcher = nil;
-    self.postFetcher = nil;
-    self.markAsReadFetcher = nil;
-    [super dealloc];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
-}
 
 #pragma mark - Other methods
 
@@ -287,13 +280,34 @@
     self.navigationItem.rightBarButtonItem = nil;
 }
 
-- (void)moveTableViewTo:(float)y {
-    // animate the table
-    [UIView beginAnimations:nil context:nil];
+- (void) keyboardDidShow:(NSNotification *)notification {
+	NSDictionary *info = [notification userInfo];
+	CGRect keyboardRect = [(NSValue *)[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+	[self reduceTableSizeBy:keyboardRect animated:YES];
+}
+
+- (void) keyboardDidHide:(NSNotification *)notification {
+	NSDictionary *info = [notification userInfo];
+	CGRect keyboardRect = [(NSValue *)[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+	[self increaseTableSizeBy:keyboardRect animated:YES];
+}
+
+- (void) increaseTableSizeBy:(CGRect)rect animated:(BOOL)animated {
+	if (animated) [UIView beginAnimations:@"table_increase_size_for_keyboard" context:NULL];
+	CGRect convertedRect = [self.view convertRect:rect fromView:self.view.window];
     CGRect f = self.table.frame;        
-    f.origin.y = y;
+    f.size.height += convertedRect.size.height;
     self.table.frame = f;
-    [UIView commitAnimations];
+    if (animated) [UIView commitAnimations];
+}
+
+- (void) reduceTableSizeBy:(CGRect)rect animated:(BOOL)animated {
+	if (animated) [UIView beginAnimations:@"table_decrease_size_for_keyboard" context:NULL];
+	CGRect convertedRect = [self.view convertRect:rect fromView:self.view.window];
+    CGRect f = self.table.frame;        
+    f.size.height -= convertedRect.size.height;
+    self.table.frame = f;
+    if (animated) [UIView commitAnimations];
 }
 
 - (float)tableOffsetForDataEntryView {
@@ -341,8 +355,9 @@
             [self showCancelButton];
             [self showDoneButton];
             [self toggleViewOfFullDataEntryCell];
-            [self moveTableViewTo:-1*[self tableOffsetForDataEntryView]];
-            self.table.scrollEnabled = YES;
+			[self.table scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]
+							  atScrollPosition:UITableViewScrollPositionTop
+									  animated:YES];
         }
         return YES;
     } else {
@@ -373,7 +388,6 @@
     [textView resignFirstResponder];
     [textField resignFirstResponder];
     [self toggleViewOfFullDataEntryCell];
-    [self moveTableViewTo:0];
     [self hideCancelButton];
     [self hideDoneButton];
     self.table.scrollEnabled = YES;
@@ -384,29 +398,31 @@
     [[eCollegeAppDelegate delegate] showGlobalLoader];
     [textView resignFirstResponder];
     [textField resignFirstResponder];
-    [self moveTableViewTo:0];
     [self postResponse];
 }
 
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     self.blockingActivityView = [[BlockingActivityView alloc] initWithWithView:self.view];
     [super viewDidLoad];    
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector (keyboardDidShow:)
+												 name: UIKeyboardDidShowNotification object:nil];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self 
+											 selector:@selector (keyboardDidHide:)
+												 name: UIKeyboardDidHideNotification object:nil];
     // if activities have never been updated or the last update was more than an hour ago,
     // fetch the topics again.
     if (!self.lastUpdateTime || [self.lastUpdateTime timeIntervalSinceNow] < -3600 || forceUpdateOnViewWillAppear) {
@@ -415,24 +431,21 @@
     }    
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidShowNotification object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidHideNotification object:nil];
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
+- (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 

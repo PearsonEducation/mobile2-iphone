@@ -95,7 +95,6 @@
 - (void)showDoneButton;
 - (void)hideCancelButton;
 - (void)hideDoneButton;
-- (void)moveTableViewTo:(float)y;
 - (float)tableOffsetForDataEntryView;
 - (void)animateTableCellHeightChanges;
 - (void)toggleViewOfFullDataEntryCell;
