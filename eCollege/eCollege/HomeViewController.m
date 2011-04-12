@@ -433,7 +433,7 @@
     } else {
         str = @"";
     }
-    return [[GreyTableHeader alloc] initWithText:str];    
+    return [[[GreyTableHeader alloc] initWithText:str] autorelease];    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {    
