@@ -20,7 +20,7 @@
 NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
 {
     Course* c1 = [obj1 objectForKey:@"course"];
-    Course* c2 = [obj1 objectForKey:@"course"];
+    Course* c2 = [obj2 objectForKey:@"course"];
     
     if( !c2 || !c2.title) {
         if( !c1 || !c1.title ) {
