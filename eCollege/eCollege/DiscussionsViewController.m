@@ -16,6 +16,7 @@
 #import "ECClientConfiguration.h"
 #import "GreyTableHeader.h"
 #import <QuartzCore/CoreAnimation.h>
+#import "CourseDiscussionsViewController.h"
 
 NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
 {
@@ -278,6 +279,8 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.title = NSLocalizedString(@"All Courses", nil);
 
     tableTitle.layer.shadowColor = [[UIColor blackColor] CGColor];
     tableTitle.layer.shadowRadius = 1.0;
@@ -509,7 +512,7 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
     if ([self getTopicForIndexPath:indexPath]) {
         return 71.0;
     } else {
-        return 50.0;
+        return 30.0;
     }
 }
 
@@ -528,6 +531,7 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
 }
 
 - (BOOL)shouldDrillInForSection:(NSInteger)section {
+    section = [self filteredSection:section];
     return [self hasInactiveTopicsForSection:section];
 }
 
@@ -565,7 +569,7 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
         Course* c = [self courseForSection:indexPath.section];
         NSString* title = c ? c.title : @"error";
         if ([self hasInactiveTopicsForSection:indexPath.section]) {
-            cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"All topics for",nil), title];
+            cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"View all topics for",nil), title];
         } else {
             if (indexPath.row == 0) {
                 cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"No active or inactive topics for",nil), title];
@@ -600,8 +604,10 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     UserDiscussionTopic* topic = [self getTopicForIndexPath:indexPath];
     if (topic) {
+        self.title = NSLocalizedString(@"Discussions", nil);
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         TopicResponsesViewController* topicResponsesViewController = [[TopicResponsesViewController alloc] initWithNibName:@"ResponsesViewController" bundle:nil];
         NSLog(@"Initializing Topic Responses view controller with root item ID: %@",topic.userDiscussionTopicId);
@@ -612,7 +618,18 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
         [topicResponsesViewController release];
     } else {
         if ([self shouldDrillInForSection:indexPath.section]) {
-            //
+            self.title = NSLocalizedString(@"All Courses", nil);
+            Course* c = [self courseForSection:indexPath.section];
+            if (c) {
+                CourseDiscussionsViewController* cdvc = [[CourseDiscussionsViewController alloc] initWithNibName:@"CourseDiscussionsViewController" bundle:nil];
+                cdvc.courseId = [NSString stringWithFormat:@"%d",c.courseId];
+                cdvc.courseName = c.title;
+                cdvc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:cdvc animated:YES];
+                [cdvc release];
+            } else {
+                NSLog(@"ERROR: Couldn't find course for indexPath (%@)", indexPath);
+            }
         }
     }
 }

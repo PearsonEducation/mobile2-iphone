@@ -44,6 +44,8 @@
 		A2651D41134A29CE00490400 /* AnnouncementsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2651D3F134A29CE00490400 /* AnnouncementsViewController.m */; };
 		A2651D42134A29CE00490400 /* CourseGradebookViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2651D40134A29CE00490400 /* CourseGradebookViewController.xib */; };
 		A2651D47134A49B100490400 /* AnnouncementDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2651D45134A49B100490400 /* AnnouncementDetailViewController.m */; };
+		A2695952135514A800700D37 /* CourseDiscussionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2695950135514A800700D37 /* CourseDiscussionsViewController.m */; };
+		A2695953135514A800700D37 /* CourseDiscussionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2695951135514A800700D37 /* CourseDiscussionsViewController.xib */; };
 		A26A63FE133A9DF700BE5465 /* TopicHeaderTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A26A63FC133A9DF500BE5465 /* TopicHeaderTableCell.m */; };
 		A26A6401133A9EF700BE5465 /* TopicHeaderTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26A6400133A9EF600BE5465 /* TopicHeaderTableCell.xib */; };
 		A26A6405133AA8E700BE5465 /* DataEntryTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A26A6403133AA8DC00BE5465 /* DataEntryTableCell.m */; };
@@ -242,6 +244,9 @@
 		A2651D40134A29CE00490400 /* CourseGradebookViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CourseGradebookViewController.xib; sourceTree = "<group>"; };
 		A2651D44134A49B100490400 /* AnnouncementDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementDetailViewController.h; sourceTree = "<group>"; };
 		A2651D45134A49B100490400 /* AnnouncementDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementDetailViewController.m; sourceTree = "<group>"; };
+		A269594F135514A800700D37 /* CourseDiscussionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseDiscussionsViewController.h; sourceTree = "<group>"; };
+		A2695950135514A800700D37 /* CourseDiscussionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseDiscussionsViewController.m; sourceTree = "<group>"; };
+		A2695951135514A800700D37 /* CourseDiscussionsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CourseDiscussionsViewController.xib; sourceTree = "<group>"; };
 		A26A63FB133A9DF500BE5465 /* TopicHeaderTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicHeaderTableCell.h; sourceTree = "<group>"; };
 		A26A63FC133A9DF500BE5465 /* TopicHeaderTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicHeaderTableCell.m; sourceTree = "<group>"; };
 		A26A6400133A9EF600BE5465 /* TopicHeaderTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TopicHeaderTableCell.xib; sourceTree = "<group>"; };
@@ -515,6 +520,16 @@
 			name = "Announcement Detail View Controller";
 			sourceTree = "<group>";
 		};
+		A269594E1355143D00700D37 /* CourseDiscussionsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				A269594F135514A800700D37 /* CourseDiscussionsViewController.h */,
+				A2695950135514A800700D37 /* CourseDiscussionsViewController.m */,
+				A2695951135514A800700D37 /* CourseDiscussionsViewController.xib */,
+			);
+			name = CourseDiscussionsViewController;
+			sourceTree = "<group>";
+		};
 		A27289931326BCD2001A588D /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -704,6 +719,7 @@
 		A2EE3ECE132034B700745C1C /* Discussions */ = {
 			isa = PBXGroup;
 			children = (
+				A269594E1355143D00700D37 /* CourseDiscussionsViewController */,
 				A2EE947613384086001CFDDF /* TopicTableCell.xib */,
 				A2EE947C1338456B001CFDDF /* TopicTableCell.h */,
 				A2EE947D1338456C001CFDDF /* TopicTableCell.m */,
@@ -1057,6 +1073,7 @@
 				A27E86D8134D99C2009A027B /* expand_text_icon@2x.png in Resources */,
 				EA427AC7134E753000043CC6 /* Default.png in Resources */,
 				EA427AC8134E753000043CC6 /* Default@2x.png in Resources */,
+				A2695953135514A800700D37 /* CourseDiscussionsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1120,6 +1137,7 @@
 				EA427AC0134E664A00043CC6 /* NSString+stripHTML.m in Sources */,
 				EA427ACB134EC1CB00043CC6 /* SplashScreenViewController.m in Sources */,
 				A2A03B9E1354DB9000CD8DAC /* GTMNSString+HTML.m in Sources */,
+				A2695952135514A800700D37 /* CourseDiscussionsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
