@@ -364,24 +364,6 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
     return [courseInfoByCourseId objectForKey:courseId];
 }
 
-- (NSMutableDictionary*)createInfoForCourseId:(NSString*)courseId {
-    Course* c = [[eCollegeAppDelegate delegate] getCourseHavingId:[courseId integerValue]];
-    if (!c) {
-        NSLog(@"ERROR: Cannot create info object for nonexistent course (id: %@)", courseId);
-        return nil;
-    }
-    
-    // it wasn't found, so create it
-    NSMutableDictionary* tmp = [[[NSMutableDictionary alloc] initWithCapacity:3] autorelease];
-    [tmp setValue:c forKey:@"course"];
-    [tmp setValue:[[[NSMutableArray alloc] init] autorelease] forKey:@"active_topics"];
-    [tmp setValue:[[[NSMutableArray alloc] init] autorelease] forKey:@"inactive_topics"];
-    [orderedCourseInfo addObject:tmp];
-    [courseInfoByCourseId setValue:tmp forKey:[NSString stringWithFormat:@"%@",courseId]];
-    
-    return tmp;
-}
-
 - (void)storeTopic:(UserDiscussionTopic*)topic {
     
     NSString* courseId = nil;
@@ -396,10 +378,8 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
 
     NSMutableDictionary* dict = [self getInfoForCourseId:courseId];
     if (!dict) {
-        dict = [self createInfoForCourseId:courseId];
-        if (!dict) {
-            NSLog(@"ERROR: Unable to store topic %@",topic);
-        }
+        NSLog(@"ERROR: Unable to store topic %@",topic);
+        return;
     }
     
     if ([topic isActive]) {
@@ -442,6 +422,27 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
     }
 }
 
+- (void)setupOrderedCourseInfoArray {
+    NSArray* allCourseIds = [[eCollegeAppDelegate delegate] getAllCourseIds];
+    self.orderedCourseInfo = [[[NSMutableArray alloc] initWithCapacity:[allCourseIds count]] autorelease];
+    self.courseInfoByCourseId = [[[NSMutableDictionary alloc] initWithCapacity:[allCourseIds count]] autorelease];
+    for (NSNumber* courseId in allCourseIds) {
+        Course* course = [[eCollegeAppDelegate delegate] getCourseHavingId:[courseId integerValue]];
+        if (!course) {
+            NSLog(@"ERROR: Cannot create info object for nonexistent course (id: %@)", courseId);
+            return;
+        }        
+        NSMutableDictionary* tmp = [[[NSMutableDictionary alloc] initWithCapacity:3] autorelease];
+        [tmp setValue:course forKey:@"course"];
+        [tmp setValue:[[[NSMutableArray alloc] init] autorelease] forKey:@"active_topics"];
+        [tmp setValue:[[[NSMutableArray alloc] init] autorelease] forKey:@"inactive_topics"];
+        [orderedCourseInfo addObject:tmp];
+        [courseInfoByCourseId setValue:tmp forKey:[NSString stringWithFormat:@"%@",courseId]];    
+    }
+    // sort the course info
+    self.orderedCourseInfo = [[self.orderedCourseInfo sortedArrayUsingFunction:topicInfoSort context:NULL] mutableCopy];
+}
+
 - (void)setupCourseNamesArray {
     // Create a new array...
     self.courseNames = [[[NSMutableArray alloc] initWithCapacity:[self.orderedCourseInfo count]+1] autorelease];
@@ -457,18 +458,17 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
 }
 
 - (void)prepareData {
-    NSInteger numCourses = [[[eCollegeAppDelegate delegate] getAllCourseIds] count];
-    // hold a dictionary of information for each course
-    self.orderedCourseInfo = [[[NSMutableArray alloc] initWithCapacity:numCourses] autorelease];
-    // create a dictionary linking course ID -> course info
-    self.courseInfoByCourseId = [[[NSMutableDictionary alloc] initWithCapacity:numCourses] autorelease];
+    // setup the ordered list of courses
+    [self setupOrderedCourseInfoArray];
+
+    // track all the course names (in the same order they're used in the ordered course info array)
+    // ... this is used by the picker
+    [self setupCourseNamesArray];
+    
     // store the topics appropriately
     for (UserDiscussionTopic* topic in self.topics) {        
         [self storeTopic:topic];
     }
-    // sort the course info
-    self.orderedCourseInfo = [[self.orderedCourseInfo sortedArrayUsingFunction:topicInfoSort context:NULL] mutableCopy];
-    [self setupCourseNamesArray];
 }
 
 - (void)viewDidUnload
@@ -532,7 +532,7 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
 
 - (BOOL)shouldDrillInForSection:(NSInteger)section {
     section = [self filteredSection:section];
-    return [self hasInactiveTopicsForSection:section];
+    return [self hasInactiveTopicsForSection:section] || [self hasActiveTopicsForSection:section];
 }
 
 - (Course*)courseForSection:(NSInteger)section {  
@@ -568,7 +568,7 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
         cell.textLabel.textColor = [config greyColor];
         Course* c = [self courseForSection:indexPath.section];
         NSString* title = c ? c.title : @"error";
-        if ([self hasInactiveTopicsForSection:indexPath.section] || [self hasActiveTopicsForSection:indexPath.section]) {
+        if ([self shouldDrillInForSection:indexPath.section]) {
             cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"All topics for",nil), title];
         } else {
             cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"No discussion topics for",nil), title];
@@ -613,7 +613,7 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
         [self.navigationController pushViewController:topicResponsesViewController animated:YES];
         [topicResponsesViewController release];
     } else {
-//        if ([self shouldDrillInForSection:indexPath.section]) {
+        if ([self shouldDrillInForSection:indexPath.section]) {
             self.title = NSLocalizedString(@"All Courses", nil);
             Course* c = [self courseForSection:indexPath.section];
             if (c) {
@@ -626,7 +626,7 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
             } else {
                 NSLog(@"ERROR: Couldn't find course for indexPath (%@)", indexPath);
             }
-//        }
+        }
     }
 }
 
