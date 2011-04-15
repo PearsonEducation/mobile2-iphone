@@ -469,10 +469,6 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
     }
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    self.navigationItem.title = NSLocalizedString(@"Dicussions", nil);
-}
-
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -605,6 +601,7 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     UserDiscussionTopic* topic = [self getTopicForIndexPath:indexPath];
     if (topic) {
+        self.navigationItem.title = NSLocalizedString(@"Discussions", nil);
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         TopicResponsesViewController* topicResponsesViewController = [[TopicResponsesViewController alloc] initWithNibName:@"ResponsesViewController" bundle:nil];
         NSLog(@"Initializing Topic Responses view controller with root item ID: %@",topic.userDiscussionTopicId);
