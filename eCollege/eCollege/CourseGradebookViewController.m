@@ -25,6 +25,7 @@
 @synthesize gradebookItems, courseId;
 
 - (void)dealloc {
+	[fetcher release]; fetcher = nil;
 	self.gradebookItems = nil;
 	[lastUpdateTime release]; lastUpdateTime = nil;
     [super dealloc];
