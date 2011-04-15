@@ -305,7 +305,7 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
     [toolBar setItems:buttons];
     toolBar.tintColor = [config secondaryColor];
     [filterView addSubview:toolBar];
-	[toolBar release];
+	 [toolBar release];
     
     picker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 264, 320, 216)];
     picker.showsSelectionIndicator = YES;

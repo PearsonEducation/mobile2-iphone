@@ -118,8 +118,12 @@
     detailBox.iconFileName = [config gradeIconFileName];
     detailBox.title = assignmentName;
     detailBox.dateString = [postedTime friendlyString];
-    detailBox.boldText2 = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Numeric Grade", nil), [item getNumericGrade]];
-    detailBox.boldText1 = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Letter Grade", nil), [item getLetterGrade]];
+    if ([item getNumericGrade] != nil) {
+        detailBox.boldText2 = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Numeric Grade", nil), [item getNumericGrade]];
+    }
+    if ([item getLetterGrade] != nil) {
+        detailBox.boldText1 = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Letter Grade", nil), [item getLetterGrade]];
+    }
     detailBox.comments = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Comments", @"The word meaning 'Comments'"), [grade.comments stripHTML]];    
     [scrollView addSubview:detailBox];
     [detailBox layoutIfNeeded]; // force it to set its frame (in layoutSubviews) before we use it to size the scroll view

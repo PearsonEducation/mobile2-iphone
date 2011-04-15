@@ -166,7 +166,7 @@
     }
         
     // letter grade
-    if (boldText1 && ![boldText1 isEqualToString:@""]) {
+    if (boldText1 != nil && ![boldText1 isEqualToString:@""]) {
         boldText1Label.text = boldText1;
         CGSize boldText1LabelSize = [boldText1 sizeWithFont:boldText1Label.font constrainedToSize:maximumSize lineBreakMode:UILineBreakModeWordWrap];
         boldText1Label.frame = CGRectMake(textLeftEdge, nextElementY, boldText1LabelSize.width, boldText1LabelSize.height);
@@ -174,7 +174,7 @@
     }
     
     // numeric grade
-    if (boldText2 && ![boldText2 isEqualToString:@""]) {
+    if (boldText2 != nil && ![boldText2 isEqualToString:@""]) {
         boldText2Label.text = boldText2;
         CGSize boldText2LabelSize = [boldText2 sizeWithFont:boldText2Label.font constrainedToSize:maximumSize lineBreakMode:UILineBreakModeWordWrap];
         boldText2Label.frame = CGRectMake(textLeftEdge, nextElementY, boldText2LabelSize.width, boldText2LabelSize.height);
