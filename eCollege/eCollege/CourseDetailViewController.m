@@ -75,6 +75,9 @@
     [instructorsFetcher cancel];
     [instructorsFetcher release];
     instructorsFetcher = nil;
+	[announcementFetcher cancel];
+	[announcementFetcher release];
+	announcementFetcher = nil;
     
     self.course = nil;
     self.announcements = nil;
