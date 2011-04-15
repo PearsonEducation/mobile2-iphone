@@ -45,8 +45,8 @@
 
 - (void)setupFetchers {    
     [super setupFetchers];
-    self.rootItemFetcher = [[UserDiscussionTopicFetcher alloc] initWithDelegate:self responseSelector:@selector(rootItemFetchedHandler:)];
-    self.responsesFetcher = [[UserDiscussionResponseFetcher alloc] initWithDelegate:self responseSelector:@selector(responsesFetchedHandler:)];
+    self.rootItemFetcher = [[[UserDiscussionTopicFetcher alloc] initWithDelegate:self responseSelector:@selector(rootItemFetchedHandler:)] autorelease];
+    self.responsesFetcher = [[[UserDiscussionResponseFetcher alloc] initWithDelegate:self responseSelector:@selector(responsesFetchedHandler:)] autorelease];
 }
 
 - (UITableViewCell*)getHeaderTableCell {

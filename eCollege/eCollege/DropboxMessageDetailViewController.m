@@ -57,8 +57,8 @@
         self.courseId = cId;
         self.basketId = bId;
         self.messageId = mId;
-        self.dropboxMessageFetcher = [[DropboxMessageFetcher alloc] initWithDelegate:self responseSelector:@selector(dropboxMessageLoaded:)];
-        self.dropboxBasketFetcher = [[DropboxBasketFetcher alloc] initWithDelegate:self responseSelector:@selector(dropboxBasketLoaded:)];
+        self.dropboxMessageFetcher = [[[DropboxMessageFetcher alloc] initWithDelegate:self responseSelector:@selector(dropboxMessageLoaded:)] autorelease];
+        self.dropboxBasketFetcher = [[[DropboxBasketFetcher alloc] initWithDelegate:self responseSelector:@selector(dropboxBasketLoaded:)] autorelease];
     }
     return self;
 }

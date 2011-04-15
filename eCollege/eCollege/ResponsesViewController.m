@@ -72,6 +72,7 @@
     self.responsesFetcher = nil;
     self.postFetcher = nil;
     self.markAsReadFetcher = nil;
+	self.lastUpdateTime = nil;
     [super dealloc];
 }
 
@@ -101,8 +102,8 @@
 }
 
 - (void)setupFetchers { 
-    self.postFetcher = [[UserDiscussionResponseFetcher alloc] initWithDelegate:self responseSelector:@selector(postResponseCompleteHandler:)];
-    self.markAsReadFetcher = [[UserDiscussionResponseFetcher alloc] initWithDelegate:self responseSelector:@selector(markAsReadCompleteHandler:)];
+    self.postFetcher = [[[UserDiscussionResponseFetcher alloc] initWithDelegate:self responseSelector:@selector(postResponseCompleteHandler:)] autorelease];
+    self.markAsReadFetcher = [[[UserDiscussionResponseFetcher alloc] initWithDelegate:self responseSelector:@selector(markAsReadCompleteHandler:)] autorelease];
 }
 
 - (void)postResponse {
@@ -112,7 +113,6 @@
     [[eCollegeAppDelegate delegate] hideGlobalLoader];
     if ([obj isKindOfClass:[NSError class]]) {
         [textView becomeFirstResponder];
-		//        [self moveTableViewTo:-1*[self tableOffsetForDataEntryView]];
     } else {
 		textView.text = @"";
 		textField.text = @"";
@@ -405,7 +405,7 @@
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad {
-    self.blockingActivityView = [[BlockingActivityView alloc] initWithWithView:self.view];
+    self.blockingActivityView = [[[BlockingActivityView alloc] initWithWithView:self.view] autorelease];
     [super viewDidLoad];    
 }
 
