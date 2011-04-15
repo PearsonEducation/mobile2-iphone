@@ -55,8 +55,8 @@ static ECClientConfiguration *currentConfiguration = nil;
 
 - (NSString *) clientString {
 	//TODO: add real implementation here
-	return @"sandbox";
-    //return @"ctstate";
+	//return @"sandbox";
+    return @"ctstate";
 }
 
 - (void) dealloc {
@@ -155,7 +155,27 @@ static ECClientConfiguration *currentConfiguration = nil;
     return @"count_bubble.png";
 }
 
+- (NSString*)announcementIconFileName {
+    return @"announcement_icon.png";
+}
+
 // ---------------------------------------------------------- FONTS
+
+- (UIFont*)detailBoxHeaderFont {
+    return [UIFont fontWithName:@"Helvetica-Bold" size:14.0];
+}
+
+- (UIFont*)detailBoxStandardFont {
+    return [UIFont fontWithName:@"Helvetica" size:13.0];
+}
+
+- (UIFont*)detailBoxBoldFont {
+    return [UIFont fontWithName:@"Helvetica-Bold" size:13.0];
+}
+
+- (UIFont*)detailBoxItalicsFont {
+    return [UIFont fontWithName:@"Helvetica-Oblique" size:13.0];
+}
 
 - (UIFont*)headerFont {
     return [UIFont fontWithName:@"Helvetica-Bold" size:22.0];
@@ -209,7 +229,13 @@ static ECClientConfiguration *currentConfiguration = nil;
     return [UIFont fontWithName:@"Helvetica-Bold" size:12.0];
 }
 
+- (UIFont*)detailHeaderCourseNameFont {
+    return [UIFont fontWithName:@"Helvetica-Bold" size:12.0];
+}
 
+- (UIFont*)detailHeaderItemTypeFont {
+    return [UIFont fontWithName:@"Helvetica-Bold" size:22.0];
+}
 
 #pragma mark - View Helpers and useful factory methods
 

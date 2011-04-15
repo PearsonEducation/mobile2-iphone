@@ -568,14 +568,10 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
         cell.textLabel.textColor = [config greyColor];
         Course* c = [self courseForSection:indexPath.section];
         NSString* title = c ? c.title : @"error";
-        if ([self hasInactiveTopicsForSection:indexPath.section]) {
-            cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"View all topics for",nil), title];
+        if ([self hasInactiveTopicsForSection:indexPath.section] || [self hasActiveTopicsForSection:indexPath.section]) {
+            cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"All topics for",nil), title];
         } else {
-            if (indexPath.row == 0) {
-                cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"No active or inactive topics for",nil), title];
-            } else {
-                cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"No inactive topics for",nil), title];
-            }
+            cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"No discussion topics for",nil), title];
         }
     }
     return cell;
@@ -617,7 +613,7 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
         [self.navigationController pushViewController:topicResponsesViewController animated:YES];
         [topicResponsesViewController release];
     } else {
-        if ([self shouldDrillInForSection:indexPath.section]) {
+//        if ([self shouldDrillInForSection:indexPath.section]) {
             self.title = NSLocalizedString(@"All Courses", nil);
             Course* c = [self courseForSection:indexPath.section];
             if (c) {
@@ -630,7 +626,7 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
             } else {
                 NSLog(@"ERROR: Couldn't find course for indexPath (%@)", indexPath);
             }
-        }
+//        }
     }
 }
 

@@ -47,6 +47,12 @@
 - (UIFont*)cellSmallBoldFont;
 - (UIFont*)smallFont;
 - (UIFont*)smallBoldFont;
+- (UIFont*)detailBoxHeaderFont;
+- (UIFont*)detailBoxStandardFont;
+- (UIFont*)detailBoxBoldFont;
+- (UIFont*)detailBoxItalicsFont;
+- (UIFont*)detailHeaderCourseNameFont;
+- (UIFont*)detailHeaderItemTypeFont;
 
 // FILE NAMES
 - (NSString*)splashFileName;
@@ -61,6 +67,7 @@
 - (NSString*)smallResponsesIconFileName;
 - (NSString*)smallPersonIconFileName;
 - (NSString*)countBubbleImageFileName;
+- (NSString*)announcementIconFileName;
 
 
 // View helpers

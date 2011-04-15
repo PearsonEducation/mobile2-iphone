@@ -17,6 +17,8 @@
 #import "DropboxAttachment.h"
 #import "ECClientConfiguration.h"
 #import "NSString+stripHTML.h"
+#import "DetailHeader.h"
+#import "DetailBox.h"
 
 
 @interface DropboxMessageDetailViewController ()
@@ -131,164 +133,56 @@
 }
 
 - (void)setupView {
+    // Grab some needed values
     ECClientConfiguration* config = [ECClientConfiguration currentConfiguration];
-    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    scrollView.scrollEnabled = YES;
-    [self.view addSubview:scrollView];
+    Course* course = [[eCollegeAppDelegate delegate] getCourseHavingId:courseId];
+    if (!course) {
+        NSLog(@"ERROR: no course for display in detail view");
+        return;
+    }
     
     DropboxBasket* basket = (DropboxBasket*)self.dropboxBasket;
+    if (!basket) {
+        NSLog(@"ERROR: no dropbox basket for display in detail view");
+        return;
+    }
+    
     DropboxMessage* message = (DropboxMessage*)self.dropboxMessage;
-    
-    // set up some colors
-    UIColor *headerFontColor = HEXCOLOR(0x151848);
-    UIColor *normalTextColor = HEXCOLOR(0x262626);
-    
-    // set up some fonts
-    UIFont* courseNameFont = [UIFont fontWithName:@"Helvetica-Bold" size:13];
-    UIFont* titleFont = [UIFont fontWithName:@"Helvetica-Bold" size:19];
-    UIFont* commentsFont = [UIFont fontWithName:@"Helvetica" size:13];
-    UIFont* dateFont = [UIFont fontWithName:@"Helvetica-Oblique" size:12];
-    
-    // set up the course name label
-    Course* course = [[eCollegeAppDelegate delegate] getCourseHavingId:courseId];
-    NSString *courseName = course.title;    
-    CGSize maximumSize = CGSizeMake(284.0, 1000.0);
-    CGSize courseNameSize = [courseName sizeWithFont:courseNameFont constrainedToSize:maximumSize lineBreakMode:UILineBreakModeWordWrap]; // 18px left, right margins, so 284.0 width
-    UILabel* courseNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(18, 16, courseNameSize.width, courseNameSize.height)];
-    courseNameLabel.font = courseNameFont;
-    courseNameLabel.textColor = headerFontColor;
-    courseNameLabel.lineBreakMode = UILineBreakModeWordWrap;
-    courseNameLabel.text = courseName;
-    courseNameLabel.backgroundColor = [UIColor clearColor];
-    courseNameLabel.numberOfLines = 0;
-    [self.scrollView addSubview:courseNameLabel];
-    
-    // set up the assignment title label
-    NSString* assignmentName = basket.title;
-    CGSize assignmentNameSize = [assignmentName sizeWithFont:titleFont constrainedToSize:maximumSize lineBreakMode:UILineBreakModeWordWrap];
-    UILabel* assignmentLabel = [[UILabel alloc] initWithFrame:CGRectMake(18, courseNameLabel.frame.origin.y + courseNameLabel.frame.size.height + 5, assignmentNameSize.width, assignmentNameSize.height)];
-    assignmentLabel.font = titleFont;
-    assignmentLabel.textColor = headerFontColor;
-    assignmentLabel.lineBreakMode = UILineBreakModeWordWrap;
-    assignmentLabel.text = assignmentName;
-    assignmentLabel.backgroundColor =  [UIColor clearColor];
-    assignmentLabel.numberOfLines = 0;
-    [self.scrollView addSubview:assignmentLabel];
-    
-    // set up the white box in the background, with rounded corners and drop shadow (arbitrary initial height, will change that later)
-    UIView* whiteBox = [[UIView alloc] initWithFrame:CGRectMake(9, assignmentLabel.frame.origin.y + assignmentLabel.frame.size.height + 10, 303, 500)];
-    whiteBox.backgroundColor = [UIColor whiteColor];
-    whiteBox.layer.cornerRadius = 10.0;
-    whiteBox.layer.shadowColor = [[UIColor lightGrayColor] CGColor];
-    whiteBox.layer.shadowRadius = 1.0;
-    whiteBox.layer.shadowOpacity = 0.8;
-    whiteBox.layer.shadowOffset = CGSizeMake(0, 2);
-    [self.scrollView addSubview:whiteBox];
-    
-    // set up the image
-    UIImageView* img = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 25, 25)];
-    img.image = [UIImage imageNamed:[config dropboxIconFileName]];
-    [whiteBox addSubview:img];    
-    
-    // set up the 'Posted By' label
-    NSString* postedByText = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Posted by",nil), [message nameOfSubmissionStudent]];
-    CGSize postedBySize = [postedByText sizeWithFont:commentsFont constrainedToSize:maximumSize lineBreakMode:UILineBreakModeWordWrap];
-    UILabel* postedByLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, 16, postedBySize.width, postedBySize.height)];
-    postedByLabel.font = commentsFont;
-    postedByLabel.textColor = normalTextColor;
-    postedByLabel.text = postedByText;
-    postedByLabel.backgroundColor = [UIColor clearColor];
-    postedByLabel.numberOfLines = 0;
-    [whiteBox addSubview:postedByLabel];
-    
-    // set up the date label
-    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    [gregorian setTimeZone:[NSTimeZone defaultTimeZone]];
-    DateCalculator* dateCalculator = [[DateCalculator alloc] initWithCalendar:gregorian];
-    [gregorian release];
-    int numDays = [dateCalculator datesFrom:[NSDate date] to:message.date];
-	[dateCalculator release];
-    NSString* dateString = [message.date friendlyDateWithTimeFor:numDays];
-    CGSize dateSize = [dateString sizeWithFont:dateFont constrainedToSize:maximumSize lineBreakMode:UILineBreakModeWordWrap];
-    UILabel* dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, postedByLabel.frame.origin.y + postedByLabel.frame.size.height + 5, dateSize.width, dateSize.height)];
-    dateLabel.font = dateFont;
-    dateLabel.textColor = normalTextColor;
-    dateLabel.text = dateString;
-    dateLabel.backgroundColor = [UIColor clearColor];
-    dateLabel.numberOfLines = 0;
-    [whiteBox addSubview:dateLabel];
-    
-    // set up the comments label
-    NSString* comments = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Comments",nil), [message.comments stripHTML]];
-    maximumSize = CGSizeMake(243, 2000);
-    CGSize commentsSize = [comments sizeWithFont:commentsFont constrainedToSize:maximumSize lineBreakMode:UILineBreakModeWordWrap];
-    UILabel* commentsLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, dateLabel.frame.origin.y + dateLabel.frame.size.height + 5, commentsSize.width, commentsSize.height)];
-    commentsLabel.font = commentsFont;
-    commentsLabel.textColor = normalTextColor;
-    commentsLabel.text = comments;
-    commentsLabel.backgroundColor = [UIColor clearColor];
-    commentsLabel.numberOfLines = 0;
-    [whiteBox addSubview:commentsLabel];
+    if (!message) {
+        NSLog(@"ERROR: no dropbox message for display in detail view");
+        return;
+    }
 
-// [BSU, 3/29/2011] 
-// Taking this out for now, so that in the future we can add them back in with quick look / preview
-//
-// set up a button for each attachment
-//    int count = 0;
-//    UIButton* btn = nil;
-//    
-//    while (count < [message.attachments count]) {
-//        
-//        // grab the attachment
-//        DropboxAttachment *attachment = [message.attachments objectAtIndex:count];
-//        
-//        // figure out the y coordinate of the new button we're making
-//        int y;
-//        if (count == 0) {
-//            y = commentsLabel.frame.origin.y + commentsLabel.frame.size.height + 20;
-//        } else {
-//            y = btn.frame.origin.y + btn.frame.size.height + 10;
-//        }
-//        
-//        // if this isn't the first iteration through the loop, release the previous button
-//        if (btn) {
-//            [btn release];
-//        }
-//        
-//        // make the new button
-//        btn = [[UIButton alloc] initWithFrame:CGRectMake(45, y, 242, 30)];
-//        btn.titleLabel.font = buttonFont;
-//        [btn setTitle:attachment.name forState:UIControlStateNormal];
-//        [btn setTitleColor:buttonTextColor forState:UIControlStateNormal];
-//        btn.backgroundColor = HEXCOLOR(0xE9E9E9);
-//        btn.layer.cornerRadius = 3.0;
-//        btn.layer.borderWidth = 1.0;
-//        btn.layer.borderColor = [HEXCOLOR(0xC0C0C0) CGColor];
-//        [btn setTag:count];
-//        [whiteBox addSubview:btn];
-//        count += 1;
-//    }
+    // SCROLL VIEW
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    scrollView.scrollEnabled = YES;
+    scrollView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:scrollView];
     
-    // set the height of the white box
-    CGRect boxFrame = whiteBox.frame;
-//    if (btn) {
-//        boxFrame.size.height = btn.frame.origin.y + btn.frame.size.height + 16; 
-//    } else {
-        boxFrame.size.height = commentsLabel.frame.origin.y + commentsLabel.frame.size.height + 16;
-//    }
-    whiteBox.frame = boxFrame;
+    // HEADER
+    DetailHeader* detailHeader = [[DetailHeader alloc] initWithFrame:CGRectMake(20, 10, 280, 500)]; // height is arbitrary; copmonent will change it
+    detailHeader.courseName = course.title;
+    detailHeader.itemType = NSLocalizedString(@"Dropbox", nil);
+    [scrollView addSubview:detailHeader];
+    [detailHeader layoutIfNeeded]; // force it to set its frame (in layoutSubviews) before we position other components relative to it
     
-    scrollView.contentSize = CGSizeMake(320,whiteBox.frame.origin.y + whiteBox.frame.size.height + 100);
+    // WHITE BOX
+    DetailBox* detailBox = [[DetailBox alloc] initWithFrame:CGRectMake(10, detailHeader.frame.origin.y + detailHeader.frame.size.height + 7, 300, 500)]; // height is arbitrary; component will change it
+    detailBox.iconFileName = [config dropboxIconFileName];
+    detailBox.title = basket.title;
+    detailBox.dateString = [message.date friendlyString];
+    NSString* comments = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Comments",nil), [message.comments stripHTML]];
+    detailBox.comments = comments;
+    [scrollView addSubview:detailBox];
+    [detailBox layoutIfNeeded]; // force it to set its frame (in layoutSubviews) before we use it to size the scroll view
     
-    // memory management
-//    [btn release];
-    [img release];
-    [commentsLabel release];
-    [dateLabel release];
-    [postedByLabel release];
-    [assignmentLabel release];
-    [courseNameLabel release];
-    [whiteBox release];
+    // Update the scroll view contentSize
+    CGFloat contentHeight = detailHeader.frame.origin.y + detailBox.frame.size.height + 100;
+    scrollView.contentSize = CGSizeMake(320, contentHeight);
+    
+    // Cleanup
+    [detailBox release];
+    [detailHeader release];
 }
 
 - (void)loadView {
