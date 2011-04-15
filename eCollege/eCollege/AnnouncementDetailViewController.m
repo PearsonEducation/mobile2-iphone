@@ -50,7 +50,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nil];
     if (self) {
-        self.announcementFetcher = [[AnnouncementFetcher alloc] initWithDelegate:self responseSelector:@selector(announcementLoaded:)];
+        self.announcementFetcher = [[[AnnouncementFetcher alloc] initWithDelegate:self responseSelector:@selector(announcementLoaded:)] autorelease];
     }
     return self;
 }
@@ -75,9 +75,9 @@
 - (void)announcementLoaded:(id)announcementValue {
     [blockingActivityView hide];
     if (!announcementValue) {
-        announcement = NSLocalizedString(@"Error loading announcement", @"Error loading announcement");
+        self.announcement = NSLocalizedString(@"Error loading announcement", @"Error loading announcement");
     } else {
-        announcement = announcementValue;
+        self.announcement = announcementValue;
     }
     [self serviceCallComplete];   
 }
@@ -152,7 +152,7 @@
     UIColor *backgroundColor = HEXCOLOR(0xEFE8D8);
     
     // background view
-    self.view = [[UIView alloc] initWithFrame:CGRectMake(0, 65, 320, 415)];
+    self.view = [[[UIView alloc] initWithFrame:CGRectMake(0, 65, 320, 415)] autorelease];
     self.view.backgroundColor = backgroundColor;
     self.blockingActivityView = [[[BlockingActivityView alloc] initWithWithView:self.view] autorelease];
 }
