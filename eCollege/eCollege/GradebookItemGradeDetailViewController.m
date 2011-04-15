@@ -43,7 +43,7 @@
 		displayedGrade = [[NSString stringWithFormat:@"%@/%@", self.item.object.pointsAchieved, self.item.target.pointsPossible] retain];
 		postedTime = [self.item.postedTime retain];
         courseId = item.target.courseId;
-        self.gradebookItemGradeFetcher = [[GradebookItemGradeFetcher alloc] initWithDelegate:self responseSelector:@selector(gradebookItemGradeLoaded:)];
+        self.gradebookItemGradeFetcher = [[[GradebookItemGradeFetcher alloc] initWithDelegate:self responseSelector:@selector(gradebookItemGradeLoaded:)] autorelease];
     }
     return self;
 }
@@ -148,6 +148,7 @@
 
 - (void)dealloc {
     self.scrollView = nil;
+	self.gradebookItemGradeFetcher = nil;
 	[grade release]; grade = nil;
 	[assignmentName release]; assignmentName = nil;
 	[displayedGrade release];
