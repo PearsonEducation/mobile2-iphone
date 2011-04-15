@@ -280,8 +280,6 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = NSLocalizedString(@"All Courses", nil);
-
     tableTitle.layer.shadowColor = [[UIColor blackColor] CGColor];
     tableTitle.layer.shadowRadius = 1.0;
     tableTitle.layer.shadowOpacity = 0.9;
@@ -471,6 +469,10 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
     }
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    self.navigationItem.title = NSLocalizedString(@"Dicussions", nil);
+}
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -603,7 +605,6 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     UserDiscussionTopic* topic = [self getTopicForIndexPath:indexPath];
     if (topic) {
-        self.title = NSLocalizedString(@"Discussions", nil);
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         TopicResponsesViewController* topicResponsesViewController = [[TopicResponsesViewController alloc] initWithNibName:@"ResponsesViewController" bundle:nil];
         NSLog(@"Initializing Topic Responses view controller with root item ID: %@",topic.userDiscussionTopicId);
@@ -614,9 +615,9 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
         [topicResponsesViewController release];
     } else {
         if ([self shouldDrillInForSection:indexPath.section]) {
-            self.title = NSLocalizedString(@"All Courses", nil);
             Course* c = [self courseForSection:indexPath.section];
             if (c) {
+                self.navigationItem.title = NSLocalizedString(@"All Courses", nil);
                 CourseDiscussionsViewController* cdvc = [[CourseDiscussionsViewController alloc] initWithNibName:@"CourseDiscussionsViewController" bundle:nil];
                 cdvc.courseId = [NSString stringWithFormat:@"%d",c.courseId];
                 cdvc.courseName = c.title;

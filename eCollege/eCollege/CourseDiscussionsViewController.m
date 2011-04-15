@@ -205,11 +205,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     // don't want the gear icon on this view, since this view is a "drill-in" and we'll need the
     // navigation button on th left
     self.navigationItem.leftBarButtonItem = nil;
-    
+
     // Don't want the image in the middle here, since this view controller will be drilled into,
     // and should display the course name on top
     self.navigationItem.titleView = nil;
