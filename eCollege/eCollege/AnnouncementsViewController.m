@@ -46,7 +46,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.announcementsFetcher = [[AnnouncementFetcher alloc] initWithDelegate:self responseSelector:@selector(loadedAnnouncementsHandler:)];    
+        self.announcementsFetcher = [[[AnnouncementFetcher alloc] initWithDelegate:self responseSelector:@selector(loadedAnnouncementsHandler:)] autorelease];    
     }
     return self;
 }

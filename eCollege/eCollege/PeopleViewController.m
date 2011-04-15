@@ -59,7 +59,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.userFetcher = [[UserFetcher alloc] initWithDelegate:self responseSelector:@selector(loadedPeopleHandler:)];    
+        self.userFetcher = [[[UserFetcher alloc] initWithDelegate:self responseSelector:@selector(loadedPeopleHandler:)] autorelease];    
     }
     return self;
 }
@@ -209,10 +209,10 @@
 }
 
 - (void)filterData {
-    self.sortedKeys = [[NSMutableArray alloc] init];    
+    self.sortedKeys = [NSMutableArray array];    
 
     // index the names by first letter (they're already sorted; no more sorting required)
-    namesByLetter = [[NSMutableDictionary alloc] init];
+    self.namesByLetter = [NSMutableDictionary dictionary];
     for (RosterUser* ru in people) {
         // filter out users we don't want
         if ([self filterExcludesUser:ru]) {
