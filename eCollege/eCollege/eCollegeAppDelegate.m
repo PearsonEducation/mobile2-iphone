@@ -27,7 +27,6 @@
 @property (nonatomic, retain) CourseFetcher* courseFetcher;
 @property (nonatomic, retain) BlockingActivityView* blockingActivityView;
 
-
 // Private methods
 - (void) showTabBar;
 - (void) showLoginView;
@@ -41,19 +40,8 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
 
 @implementation eCollegeAppDelegate
 
-@synthesize window=window;
-@synthesize logInViewController=logInViewController;
-@synthesize tabBarController=tabBarController;
-@synthesize homeViewController=homeViewController;
-@synthesize profileViewController=profileViewController;
-@synthesize peopleViewController=peopleViewController;
-@synthesize coursesViewController=coursesViewController;
-@synthesize discussionsViewController=discussionsViewController;
-@synthesize coursesArray=coursesArray;
-@synthesize courseFetcher=courseFetcher;
-@synthesize coursesLastUpdated=coursesLastUpdated;
-@synthesize currentUser=currentUser;
-@synthesize blockingActivityView=blockingActivityView;
+@synthesize window, logInViewController, tabBarController, homeViewController, profileViewController, peopleViewController, coursesViewController;
+@synthesize discussionsViewController, coursesArray, courseFetcher, coursesLastUpdated, currentUser, blockingActivityView;
 
 + (eCollegeAppDelegate *) delegate {
 	return (eCollegeAppDelegate *)[[UIApplication sharedApplication] delegate];
