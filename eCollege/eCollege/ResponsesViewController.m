@@ -635,7 +635,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([self isRootItemContentCell:indexPath]) {
+    // twirling down the arrow while content is reloading causes the app to crash
+    if ([self isRootItemContentCell:indexPath] && !currentlyRefreshing) {
         [self contentButtonTapped:nil];
     }
     

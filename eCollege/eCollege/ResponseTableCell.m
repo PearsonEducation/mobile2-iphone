@@ -37,11 +37,11 @@
     
     if (responseValue.markedAsRead) {
         activityImage.alpha = 0.35;
-        self.contentView.backgroundColor = [config whiteColor];
+        //self.contentView.backgroundColor = [config whiteColor];
     } else {
         activityImage.alpha = 1.0;
         // TODO: shouldn't be setting the color by using an alpha, so we should get new values...
-        self.contentView.backgroundColor = [[config secondaryColor] colorWithAlphaComponent:0.35];
+        //self.contentView.backgroundColor = [[config secondaryColor] colorWithAlphaComponent:0.35];
     }
 
     // set the date

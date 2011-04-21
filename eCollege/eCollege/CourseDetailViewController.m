@@ -249,7 +249,7 @@
         avc.courseName = self.course.title;        
         [self.navigationController pushViewController:avc animated:YES];
         [avc release];
-    } else if ([self isHighlightedAnnouncementCell:indexPath]) {
+    } else if ([self isHighlightedAnnouncementCell:indexPath] && [announcements count] > 0) {
         AnnouncementDetailViewController* advc = [[AnnouncementDetailViewController alloc] initWithNibName:@"AnnouncementsDetailViewController" bundle:nil];
         Announcement* announcement = [announcements objectAtIndex:0];
         [advc setAnnouncementId:announcement.announcementId andCourseId:self.course.courseId andCourseName:self.course.title];
