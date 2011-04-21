@@ -47,42 +47,18 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
 	return (eCollegeAppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
-- (void)generalServiceCallback:(id)obj {    
-    
-    if ([obj isKindOfClass:[NSError class]]) {
-        
-        NSError* error = (NSError*)obj;
-        NSDictionary* dict = error.userInfo;
-        
-        // for some reason ASIHTTPRequest throws an NSError when you manually cancel
-        // a request.  make sure not to respond to these errors.
-        NSString* desc = [dict objectForKey:@"NSLocalizedDescription"];
-        if ([desc isEqualToString:@"The request was cancelled"]) {
-            return;
-        }
-    
-        NSString* message = [dict objectForKey:@"message"];
-
-        UIAlertView* alert = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:[error.userInfo objectForKey:@"error"] delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", nil), nil] autorelease];
-
-        if (error.code == AUTHENTICATION_ERROR) {
-            NSLog(@"Authentication error");
-            alert.message = NSLocalizedString(@"Your authentication credentials have expired. Please login again.", nil);
-            [self showLoginView];
-        } else if ([message isEqualToString:@"unauthorized_client"]) {
-            NSLog(@"Invalid username/password");
-            alert.message = NSLocalizedString(@"Invalid username or password. Please try again.", nil);
-            if (!loginShowing) {
-                [self showLoginView];
-            }
-        }
-        
-        [alert show];
-    }
-}
-
-- (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex {
-    NSLog(@"CANCEL");
+- (void)dealloc {
+	[userFetcher cancel]; [userFetcher release]; userFetcher = nil;
+    [coursesDictionary release]; coursesDictionary = nil;
+    [logInViewController release]; logInViewController = nil;
+    [self.courseFetcher cancel]; self.courseFetcher = nil;
+    self.blockingActivityView = nil;
+    self.coursesLastUpdated = nil;
+    self.coursesArray = nil;
+    self.tabBarController = nil;
+    self.homeViewController = nil;
+	[window release];
+    [super dealloc];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -104,41 +80,70 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
     return YES;
 }
 
-- (BOOL)shouldRefreshCourses {
-    if (!coursesLastUpdated) {
-        return YES;
-    } else {
-        int diff = [coursesLastUpdated timeIntervalSinceNow];
-        // diff will be a negative number; if last refresh were
-        // 5 minutes ago, diff will be: -60 * 5 = -300
-        return ((diff + coursesRefreshInterval) < 0);
-    }
-}
+#pragma - Global service callback
 
-- (void) setCoursesArray:(NSArray *)value {
-    if (value != coursesArray) {
-        if (coursesArray) {
-            [coursesArray release];
-            [coursesDictionary release];
+- (void)generalServiceCallback:(id)obj {    
+    
+    if ([obj isKindOfClass:[NSError class]]) {
+        
+        NSError* error = (NSError*)obj;
+        NSDictionary* dict = error.userInfo;
+        
+        // for some reason ASIHTTPRequest throws an NSError when you manually cancel
+        // a request.  make sure not to respond to these errors.
+        NSString* desc = [dict objectForKey:@"NSLocalizedDescription"];
+        if ([desc isEqualToString:@"The request was cancelled"]) {
+            return;
         }
-        coursesArray = [value retain];
-        coursesDictionary = [[NSMutableDictionary alloc] init];
-        for (Course* course in coursesArray) {
-            [coursesDictionary setValue:course forKey:[NSString stringWithFormat:@"%d",course.courseId]];
+		
+        NSString* message = [dict objectForKey:@"message"];
+		
+        UIAlertView* alert = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:[error.userInfo objectForKey:@"error"] delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", nil), nil] autorelease];
+		
+        if (error.code == AUTHENTICATION_ERROR) {
+            NSLog(@"Authentication error");
+            alert.message = NSLocalizedString(@"Your authentication credentials have expired. Please login again.", nil);
+            [self showLoginView];
+        } else if ([message isEqualToString:@"unauthorized_client"]) {
+            NSLog(@"Invalid username/password");
+            alert.message = NSLocalizedString(@"Invalid username or password. Please try again.", nil);
+            if (!loginShowing) {
+                [self showLoginView];
+            }
         }
+        
+        [alert show];
     }
 }
 
-- (Course*) getCourseHavingId:(NSInteger)courseId {
-    return [coursesDictionary objectForKey:[NSString stringWithFormat:@"%d",courseId]];
+#pragma mark - Global Loader
+
+- (void)showGlobalLoader {
+    if (!self.blockingActivityView) {
+        self.blockingActivityView = [[[BlockingActivityView alloc] initWithWithView:[UIApplication sharedApplication].keyWindow] autorelease];
+        UIColor* bgColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.25];
+        self.blockingActivityView.backgroundColor = bgColor;
+    }
+    [self.blockingActivityView show];
 }
 
-- (NSArray*) getAllCourseIds {
-    NSMutableArray* arr = [[NSMutableArray alloc] initWithCapacity:[self.coursesArray count]];
-    for(Course* course in self.coursesArray) {
-        [arr addObject:[NSNumber numberWithInt:[course courseId]]];
-    }
-    return [arr autorelease];
+- (void)hideGlobalLoader {
+    [self.blockingActivityView hide];
+}
+
+#pragma mark - View control
+
+- (void) showTabsIfMeAndCoursesLoaded {
+	if (self.currentUser && self.coursesArray && self.tabBarController == nil) {
+		[self hideGlobalLoader];
+		[self showTabBar];
+	}
+}
+
+- (void) signOut {
+	[[ECSession sharedSession] forgetCredentials];
+	[self showLoginView];
+    
 }
 
 - (void) dismissLoginView {
@@ -171,12 +176,6 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
     
     self.window.rootViewController = self.logInViewController;
     loginShowing = YES;
-}
-
-- (void) signOut {
-	[[ECSession sharedSession] forgetCredentials];
-	[self showLoginView];
-    
 }
 
 - (void)showTabBar {
@@ -227,18 +226,7 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
     self.window.rootViewController = self.tabBarController;
 }
 
-- (void)showGlobalLoader {
-    if (!self.blockingActivityView) {
-        self.blockingActivityView = [[[BlockingActivityView alloc] initWithWithView:[UIApplication sharedApplication].keyWindow] autorelease];
-        UIColor* bgColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.25];
-        self.blockingActivityView.backgroundColor = bgColor;
-    }
-    [self.blockingActivityView show];
-}
-
-- (void)hideGlobalLoader {
-    [self.blockingActivityView hide];
-}
+#pragma mark - Course and User loading
 
 - (void) userLoaded:(id)response {
     if ([response isKindOfClass:[User class]]) {
@@ -273,27 +261,43 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
     self.courseFetcher = nil;
 }
 
-- (void) showTabsIfMeAndCoursesLoaded {
-	if (self.currentUser && self.coursesArray && self.tabBarController == nil) {
-		[self hideGlobalLoader];
-		[self showTabBar];
-	}
+- (BOOL)shouldRefreshCourses {
+    if (!coursesLastUpdated) {
+        return YES;
+    } else {
+        int diff = [coursesLastUpdated timeIntervalSinceNow];
+        // diff will be a negative number; if last refresh were
+        // 5 minutes ago, diff will be: -60 * 5 = -300
+        return ((diff + coursesRefreshInterval) < 0);
+    }
 }
 
+#pragma mark - Course API
 
-- (void)dealloc {
-	[userFetcher release]; userFetcher = nil;
-    [coursesDictionary release]; coursesDictionary = nil;
-    [logInViewController release]; logInViewController = nil;
-    [self.courseFetcher cancel];
-    self.courseFetcher = nil;
-    self.blockingActivityView = nil;
-    self.coursesLastUpdated = nil;
-    self.coursesArray = nil;
-    self.tabBarController = nil;
-    self.homeViewController = nil;
-	[window release];
-    [super dealloc];
+- (void) setCoursesArray:(NSArray *)value {
+    if (value != coursesArray) {
+        if (coursesArray) {
+            [coursesArray release];
+            [coursesDictionary release];
+        }
+        coursesArray = [value retain];
+        coursesDictionary = [[NSMutableDictionary alloc] init];
+        for (Course* course in coursesArray) {
+            [coursesDictionary setValue:course forKey:[NSString stringWithFormat:@"%d",course.courseId]];
+        }
+    }
+}
+
+- (Course*) getCourseHavingId:(NSInteger)courseId {
+    return [coursesDictionary objectForKey:[NSString stringWithFormat:@"%d",courseId]];
+}
+
+- (NSArray*) getAllCourseIds {
+    NSMutableArray* arr = [[NSMutableArray alloc] initWithCapacity:[self.coursesArray count]];
+    for(Course* course in self.coursesArray) {
+        [arr addObject:[NSNumber numberWithInt:[course courseId]]];
+    }
+    return [arr autorelease];
 }
 
 @end
