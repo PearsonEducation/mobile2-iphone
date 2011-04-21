@@ -28,8 +28,7 @@
 
 @implementation LogInViewController
 
-@synthesize usernameText;
-@synthesize passwordText;
+@synthesize usernameText, passwordText;
 
 - (void)dealloc {
     self.usernameText = nil;
@@ -39,21 +38,12 @@
     [super dealloc];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
 #pragma mark - View lifecycle
-
-- (void)viewDidUnload {
-    [super viewDidUnload];
-}
 
 - (void) viewDidLoad {
     
     ECClientConfiguration* config = [ECClientConfiguration currentConfiguration];
     
-	//scrollView.contentSize = self.view.frame.size;
     blockingActivityView = [[BlockingActivityView alloc] initWithWithView:self.view];
     backgroundImageView.image = [UIImage imageNamed:[config splashFileName]];
 
@@ -92,7 +82,8 @@
 }
 
 - (void) viewDidDisappear:(BOOL)animated {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];    
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	[blockingActivityView hide];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -114,7 +105,7 @@
 - (void)handleCoursesRefreshSuccess:(NSNotification*)notification {
     [self unregisterForCoursesNotifications];
     [blockingActivityView hide];
-    [[eCollegeAppDelegate delegate] dismissLoginView];
+    [[eCollegeAppDelegate delegate] authenticationComplete];
 }
 
 - (void)handleCoursesRefreshFailure:(NSNotification*)notification {
@@ -124,6 +115,18 @@
 }
 
 #pragma mark - Control callbacks and view logic
+
+- (void) hideLoginAffordances {
+	usernameText.hidden = YES;
+	passwordText.hidden = YES;
+    userNameLabel.hidden = YES;
+    passwordLabel.hidden = YES;
+    keepMeLoggedInLabel.hidden = YES;
+    signInButton.hidden = YES;
+	keepLoggedInSwitch.hidden = YES;
+    backgroundImageView.hidden = YES;
+    formBackgroundImageView.hidden = YES;
+}
 
 - (void) keyboardWillShow:(NSNotification *)notification {
 	if (keyboardIsShowing) {
@@ -211,10 +214,17 @@
 
 #pragma mark - Authentication Complete
 
+- (void) loadUserAndCourses {
+	[blockingActivityView show];
+	if (userFetcher != nil) { // should only be non-nil if it's already in progress. Should fail silently if called multiple times
+		userFetcher = [[UserFetcher alloc] initWithDelegate:self responseSelector:@selector(userLoaded:)];
+		[userFetcher fetchMe];
+	}
+}
+
 - (void) sessionDidAuthenticate:(id)obj {
     if (![obj isKindOfClass:[NSError class]]) {
-        userFetcher = [[UserFetcher alloc] initWithDelegate:self responseSelector:@selector(userLoaded:)];
-        [userFetcher fetchMe];        
+		[self loadUserAndCourses];
     } else {
         [blockingActivityView hide];
     }

@@ -33,7 +33,6 @@ extern int coursesRefreshInterval;
     DiscussionsViewController* discussionsViewController;
     NSDictionary* coursesDictionary;
     NSArray* coursesArray;
-	UserFetcher *userFetcher;
     CourseFetcher* courseFetcher;
     NSDate* coursesLastUpdated;
     User* currentUser;
@@ -44,7 +43,6 @@ extern int coursesRefreshInterval;
 + (eCollegeAppDelegate *) delegate;
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) LogInViewController *logInViewController;
 @property (nonatomic, retain) NSArray* coursesArray;
 @property (nonatomic, retain) NSDate* coursesLastUpdated;
 @property (nonatomic, retain) User* currentUser;
@@ -56,6 +54,7 @@ extern int coursesRefreshInterval;
 - (NSArray*) getAllCourseIds;
 - (void)showGlobalLoader;
 - (void)hideGlobalLoader;
+- (void) authenticationComplete;
 - (void) signOut;
 
 @end

@@ -37,5 +37,7 @@
 @property (nonatomic, retain) IBOutlet UITextField* passwordText;
 
 - (IBAction) logInClicked:(id)caller;
+- (void) hideLoginAffordances;
+- (void) loadUserAndCourses;
 
 @end
