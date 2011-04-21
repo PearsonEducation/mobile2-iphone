@@ -1,1 +1,1 @@
-To open this project in XCode, first clone the dependent API project, public url: https://github.com/PearsonLearningStudio/mobile2-ios-api.git, and then soft link to this directory (ln -s)
+To open this project in XCode, first clone the dependent API project, public url: https://github.com/PearsonLearningStudio/mobile2-ios-api, and then soft link to this directory (ln -s) with the name ecollegeiosapi, e.g. ln -s ../mobile2-ios-api/ ecollegeiosapi.
