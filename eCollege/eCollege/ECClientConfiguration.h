@@ -15,8 +15,10 @@
 
 + (ECClientConfiguration *) currentConfiguration;
 
-- (NSString*)clientId;
-- (NSString*)clientString;
+- (NSString *) clientId;
+- (NSString *) clientString;
+- (BOOL) usesSSO;
+- (NSString *) ssoURL;
 
 // ------------------------------------- STYLES
 

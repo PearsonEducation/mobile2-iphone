@@ -59,8 +59,12 @@ static ECClientConfiguration *currentConfiguration = nil;
     //return @"ctstate";
 }
 
-- (void) dealloc {
-	[super dealloc];
+- (BOOL) usesSSO {
+	return true;
+}
+
+- (NSString *) ssoURL {
+	return @"http://ecollegessodemo.heroku.com/";
 }
 
 #pragma mark - Styles
