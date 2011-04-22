@@ -112,7 +112,7 @@ static ECClientConfiguration *currentConfiguration = nil;
 // ---------------------------------------------------------- FILE NAMES
 
 - (NSString*)splashFileName {
-    return @"splash.png";
+    return @"Default.png";
 }
 
 - (NSString*)listArrowFileName {
