@@ -18,7 +18,7 @@
 #import "BlockingActivityView.h"
 #import "UserFetcher.h"
 
-@class LogInViewController;
+@class LogInViewController, SingleSignOnViewController;
 
 extern NSString* courseLoadSuccess;
 extern NSString* courseLoadFailure;
@@ -31,6 +31,7 @@ extern int coursesRefreshInterval;
     PeopleViewController* peopleViewController;
     CoursesViewController* coursesViewController;
     DiscussionsViewController* discussionsViewController;
+	SingleSignOnViewController *ssoViewController;
     NSDictionary* coursesDictionary;
     NSArray* coursesArray;
     CourseFetcher* courseFetcher;

@@ -14,6 +14,7 @@
 #import "ECConstants.h"
 #import "BlockingActivityView.h"
 #import "ECClientConfiguration.h"
+#import "SingleSignOnViewController.h"
 
 @interface eCollegeAppDelegate ()
 
@@ -50,6 +51,7 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
 }
 
 - (void)dealloc {
+	[ssoViewController release]; ssoViewController = nil;
     [coursesDictionary release]; coursesDictionary = nil;
     [logInViewController release]; logInViewController = nil;
     [self.courseFetcher cancel]; self.courseFetcher = nil;
@@ -67,13 +69,19 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
     [ECAuthenticatedFetcher setGeneralDelegate:self andSelector:@selector(generalServiceCallback:)];
     
 	ECSession *session = [ECSession sharedSession];
+	ECClientConfiguration *config = [ECClientConfiguration currentConfiguration];
 	if ([session hasActiveAccessToken] || [session hasActiveGrantToken]) {
 		[self showInitialLoadingScreen];
 		[self showGlobalLoader];
 	} else {
-		logInViewController = [[LogInViewController alloc] initWithNibName:@"LogInView" bundle:nil];
-        self.window.rootViewController = self.logInViewController;
-        loginShowing = YES;
+		if ([config usesSSO]) {
+			ssoViewController = [[SingleSignOnViewController alloc] initWithNibName:@"SingleSignOnViewController" bundle:nil];
+			self.window.rootViewController = ssoViewController;
+		} else {
+			logInViewController = [[LogInViewController alloc] initWithNibName:@"LogInView" bundle:nil];
+			self.window.rootViewController = self.logInViewController;
+			loginShowing = YES;
+		} 
 	}
 	[self.window makeKeyAndVisible];
     return YES;
