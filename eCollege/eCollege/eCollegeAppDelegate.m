@@ -148,14 +148,13 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
 		self.logInViewController = [[[LogInViewController alloc] initWithNibName:@"LogInView" bundle:nil] autorelease];
         loginShowing = YES;
 	}
-	[self.logInViewController hideLoginAffordances];
+	self.logInViewController.hidesLoginAffordances = YES;
 	[self.logInViewController loadUserAndCourses];
 	self.window.rootViewController = self.logInViewController;
 }
 
 - (void) dismissInitialLoadingScreen {
 	[self showTabBar];
-	self.logInViewController = nil;
 }
 
 - (void) dismissLoginView {
@@ -186,6 +185,7 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
 //					}
 //					completion:NULL];
     
+	self.logInViewController.hidesLoginAffordances = NO;
     self.window.rootViewController = self.logInViewController;
     loginShowing = YES;
 }

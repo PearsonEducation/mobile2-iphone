@@ -22,6 +22,9 @@
 	IBOutlet UISwitch *keepLoggedInSwitch;
     IBOutlet UIImageView *backgroundImageView;
     IBOutlet UIImageView* formBackgroundImageView;
+	IBOutlet UIActivityIndicatorView* progressIndicator;
+	
+	BOOL hidesLoginAffordances;
 	
 	BOOL keyboardIsShowing;
     
@@ -35,9 +38,9 @@
 
 @property (nonatomic, retain) IBOutlet UITextField* usernameText;
 @property (nonatomic, retain) IBOutlet UITextField* passwordText;
+@property (nonatomic, assign) BOOL hidesLoginAffordances;
 
 - (IBAction) logInClicked:(id)caller;
-- (void) hideLoginAffordances;
 - (void) loadUserAndCourses;
 
 @end
