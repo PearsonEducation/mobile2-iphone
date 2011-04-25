@@ -57,7 +57,10 @@
 @synthesize upcomingEvents;
 @synthesize todayUpcomingEvents;
 @synthesize tomorrowUpcomingEvents;
-@synthesize twoToFiveDaysUpcomingEvents;
+@synthesize twoDaysUpcomingEvents;
+@synthesize threeDaysUpcomingEvents;
+@synthesize fourDaysUpcomingEvents;
+@synthesize fiveDaysUpcomingEvents;
 @synthesize laterUpcomingEvents;
 @synthesize upcomingEventsLastUpdateTime;
 
@@ -88,7 +91,10 @@
     self.upcomingEvents = nil;
     self.todayActivityItems = nil;
     self.tomorrowUpcomingEvents = nil;
-    self.twoToFiveDaysUpcomingEvents = nil;
+    self.twoDaysUpcomingEvents = nil;
+    self.threeDaysUpcomingEvents = nil;
+    self.fourDaysUpcomingEvents = nil;
+    self.fiveDaysUpcomingEvents = nil;
     self.laterUpcomingEvents = nil;
     [upcomingEventItemsFetcher cancel];
     self.upcomingEventItemsFetcher = nil;
@@ -328,7 +334,10 @@
         // initialize buckets to put upcoming events into
         self.todayUpcomingEvents = [[NSMutableArray alloc] init];
         self.tomorrowUpcomingEvents = [[NSMutableArray alloc] init];
-        self.twoToFiveDaysUpcomingEvents = [[NSMutableArray alloc] init];
+        self.twoDaysUpcomingEvents = [[NSMutableArray alloc] init];
+        self.threeDaysUpcomingEvents = [[NSMutableArray alloc] init];
+        self.fourDaysUpcomingEvents = [[NSMutableArray alloc] init];
+        self.fiveDaysUpcomingEvents = [[NSMutableArray alloc] init];
         self.laterUpcomingEvents = [[NSMutableArray alloc] init];
         if (!upcomingEvents || [upcomingEvents count] == 0) {
             return;
@@ -359,10 +368,16 @@
                             [tomorrowUpcomingEvents addObject:eventItem];
                             break;
                         case 2:
+                            [twoDaysUpcomingEvents addObject:eventItem];
+                            break;
                         case 3:
+                            [threeDaysUpcomingEvents addObject:eventItem];
+                            break;
                         case 4:
+                            [fourDaysUpcomingEvents addObject:eventItem];
+                            break;
                         case 5:
-                            [twoToFiveDaysUpcomingEvents addObject:eventItem];
+                            [fiveDaysUpcomingEvents addObject:eventItem];
                             break;
                         default:
                             break;
@@ -398,8 +413,17 @@
         if ([tomorrowUpcomingEvents count] > 0) {
             [tmp addObject:tomorrowUpcomingEvents];
         }
-        if ([twoToFiveDaysUpcomingEvents count] > 0) {
-            [tmp addObject:twoToFiveDaysUpcomingEvents];
+        if ([twoDaysUpcomingEvents count] > 0) {
+            [tmp addObject:twoDaysUpcomingEvents];
+        }
+        if ([threeDaysUpcomingEvents count] > 0) {
+            [tmp addObject:threeDaysUpcomingEvents];
+        }
+        if ([fourDaysUpcomingEvents count] > 0) {
+            [tmp addObject:fourDaysUpcomingEvents];
+        }
+        if ([fiveDaysUpcomingEvents count] > 0) {
+            [tmp addObject:fiveDaysUpcomingEvents];
         }
         if ([laterUpcomingEvents count] > 0) {
             [tmp addObject:laterUpcomingEvents];
@@ -557,8 +581,14 @@
                 str = NSLocalizedString(@"Today",nil);                
             } else if (itemsForSection == tomorrowUpcomingEvents) {
                 str = NSLocalizedString(@"Tomorrow",nil);
-            } else if (itemsForSection == twoToFiveDaysUpcomingEvents) {
-                str = NSLocalizedString(@"Two to five days from now", nil);
+            } else if (itemsForSection == twoDaysUpcomingEvents) {
+                str = NSLocalizedString(@"Two days from now", nil);
+            }  else if (itemsForSection == threeDaysUpcomingEvents) {
+                str = NSLocalizedString(@"Three days from now", nil);
+            }  else if (itemsForSection == fourDaysUpcomingEvents) {
+                str = NSLocalizedString(@"Four days from now", nil);
+            }  else if (itemsForSection == fiveDaysUpcomingEvents) {
+                str = NSLocalizedString(@"Five days from now", nil);
             } else if (itemsForSection == laterUpcomingEvents) {
                 str = NSLocalizedString(@"Later", nil);
             } else {

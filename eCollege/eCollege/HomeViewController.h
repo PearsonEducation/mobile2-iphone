@@ -28,7 +28,10 @@
     NSArray* upcomingEvents;
     NSMutableArray* todayUpcomingEvents;
     NSMutableArray* tomorrowUpcomingEvents;
-    NSMutableArray* twoToFiveDaysUpcomingEvents;
+    NSMutableArray* twoDaysUpcomingEvents;
+    NSMutableArray* threeDaysUpcomingEvents;
+    NSMutableArray* fourDaysUpcomingEvents;
+    NSMutableArray* fiveDaysUpcomingEvents;
     NSMutableArray* laterUpcomingEvents;
     NSDate* upcomingEventsLastUpdateTime;
 
@@ -58,7 +61,10 @@
 @property (nonatomic, retain) NSArray* upcomingEvents;
 @property (nonatomic, retain) NSMutableArray* todayUpcomingEvents;
 @property (nonatomic, retain) NSMutableArray* tomorrowUpcomingEvents;
-@property (nonatomic, retain) NSMutableArray* twoToFiveDaysUpcomingEvents;
+@property (nonatomic, retain) NSMutableArray* twoDaysUpcomingEvents;
+@property (nonatomic, retain) NSMutableArray* threeDaysUpcomingEvents;
+@property (nonatomic, retain) NSMutableArray* fourDaysUpcomingEvents;
+@property (nonatomic, retain) NSMutableArray* fiveDaysUpcomingEvents;
 @property (nonatomic, retain) NSMutableArray* laterUpcomingEvents;
 @property (nonatomic, retain) NSDate* upcomingEventsLastUpdateTime;
 
