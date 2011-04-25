@@ -124,6 +124,8 @@
     }
   
     itemsRefreshInProgress = YES;
+    filter.enabled = NO;
+    
     if (filter.selectedSegmentIndex == ACTIVITY_STREAM) {
         [activityStreamFetcher cancel];        
         [activityStreamFetcher fetchMyActivityStream];    
@@ -275,6 +277,8 @@
     } else {
         [self.table reloadData];
     }
+    
+    filter.enabled = YES;
     
     // tell the "pull to refresh" loading header to go away (if it's present)
     [self stopLoading];
@@ -582,13 +586,13 @@
             } else if (itemsForSection == tomorrowUpcomingEvents) {
                 str = NSLocalizedString(@"Tomorrow",nil);
             } else if (itemsForSection == twoDaysUpcomingEvents) {
-                str = NSLocalizedString(@"Two days from now", nil);
+                str = NSLocalizedString(@"In two days", nil);
             }  else if (itemsForSection == threeDaysUpcomingEvents) {
-                str = NSLocalizedString(@"Three days from now", nil);
+                str = NSLocalizedString(@"In three days", nil);
             }  else if (itemsForSection == fourDaysUpcomingEvents) {
-                str = NSLocalizedString(@"Four days from now", nil);
+                str = NSLocalizedString(@"In four days", nil);
             }  else if (itemsForSection == fiveDaysUpcomingEvents) {
-                str = NSLocalizedString(@"Five days from now", nil);
+                str = NSLocalizedString(@"In five days", nil);
             } else if (itemsForSection == laterUpcomingEvents) {
                 str = NSLocalizedString(@"Later", nil);
             } else {
