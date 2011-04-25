@@ -53,7 +53,7 @@
 		if ([host isEqualToString:SSO_REDIRECT_HOST] && [relativePath isEqualToString:SSO_REDIRECT_RELATIVE_PATH]) {
 			NSString *queryString = [earl query];
 			AccessToken *grantToken = [[[AccessToken alloc] initWithQueryString:queryString] autorelease];
-			[ECSession sharedSession].currentGrantToken = grantToken;
+			[[ECSession sharedSession] setGrantToken:grantToken];
 			
 			[[eCollegeAppDelegate delegate] singleSignOnComplete];
 			return NO;
