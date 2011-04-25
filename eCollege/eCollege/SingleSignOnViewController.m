@@ -8,19 +8,27 @@
 
 #import "SingleSignOnViewController.h"
 #import "ECClientConfiguration.h"
+#import "AccessToken.h"
+#import "ECSession.h"
+#import "eCollegeAppDelegate.h"
 
 #define SSO_REDIRECT_HOST @"localhost"
 #define SSO_REDIRECT_RELATIVE_PATH @"/redirect_and_catch.html"
 
 @implementation SingleSignOnViewController
 
-- (void) viewDidLoad {
-	[super viewDidLoad];
+- (void) dealloc {
+	[blockingActivityView release]; blockingActivityView = nil;
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
 	NSString *ssoURL = [[ECClientConfiguration currentConfiguration] ssoURL];
 	NSString *ssoURLWithRedirect = [NSString stringWithFormat:@"%@?redirect_url=http://%@%@", ssoURL, SSO_REDIRECT_HOST, SSO_REDIRECT_RELATIVE_PATH];
 	NSURL *earl = [NSURL URLWithString:ssoURLWithRedirect];
 	NSURLRequest *ssoRequest = [NSURLRequest requestWithURL:earl];
 	[webView loadRequest:ssoRequest];
+	blockingActivityView = [[BlockingActivityView alloc] initWithWithView:self.view];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -44,23 +52,26 @@
 		NSString *relativePath = [earl relativePath];
 		if ([host isEqualToString:SSO_REDIRECT_HOST] && [relativePath isEqualToString:SSO_REDIRECT_RELATIVE_PATH]) {
 			NSString *queryString = [earl query];
-			NSArray *components = [queryString componentsSeparatedByString:@"="];
-			NSString *token = [components lastObject];
+			AccessToken *grantToken = [[[AccessToken alloc] initWithQueryString:queryString] autorelease];
+			[ECSession sharedSession].currentGrantToken = grantToken;
 			
+			[[eCollegeAppDelegate delegate] singleSignOnComplete];
+			return NO;
 		}
 	}
 	return YES;
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-	[progressIndicator startAnimating];
+	[blockingActivityView show];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-	[progressIndicator stopAnimating];
+	[blockingActivityView hide];
 }
 
 - (void)webView:(UIWebView *)wv didFailLoadWithError:(NSError *)error {
+	[blockingActivityView hide];
 	[webView loadHTMLString:NSLocalizedString(@"Unable to load sign in page. Please make sure you have a network connection and try again later.", @"HTML To load if Single Sign On url fails to load") baseURL:nil];
 }
 

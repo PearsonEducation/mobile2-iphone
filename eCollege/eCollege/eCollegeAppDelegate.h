@@ -49,6 +49,7 @@ extern int coursesRefreshInterval;
 @property (nonatomic, retain) User* currentUser;
 
 - (void)dismissLoginView;
+- (void) singleSignOnComplete;
 - (Course*)getCourseHavingId:(NSInteger)courseId;
 - (void)refreshCourseList;
 - (BOOL)shouldRefreshCourses;

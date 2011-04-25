@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BlockingActivityView.h"
 
 
 @interface SingleSignOnViewController : UIViewController <UIWebViewDelegate> {
     IBOutlet UIWebView *webView;
 	IBOutlet UIBarButtonItem *backButton;
 	IBOutlet UIBarButtonItem *reloadButton;
-	IBOutlet UIActivityIndicatorView *progressIndicator;
+	BlockingActivityView *blockingActivityView;
 }
 
 - (IBAction) backPressed;

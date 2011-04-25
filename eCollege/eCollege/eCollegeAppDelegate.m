@@ -33,6 +33,7 @@
 - (void) showInitialLoadingScreen;
 - (void) dismissInitialLoadingScreen;
 - (void) showTabBar;
+- (void) showAuthenticationView;
 - (void) showLoginView;
 
 @end
@@ -69,19 +70,11 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
     [ECAuthenticatedFetcher setGeneralDelegate:self andSelector:@selector(generalServiceCallback:)];
     
 	ECSession *session = [ECSession sharedSession];
-	ECClientConfiguration *config = [ECClientConfiguration currentConfiguration];
 	if ([session hasActiveAccessToken] || [session hasActiveGrantToken]) {
 		[self showInitialLoadingScreen];
 		[self showGlobalLoader];
 	} else {
-		if ([config usesSSO]) {
-			ssoViewController = [[SingleSignOnViewController alloc] initWithNibName:@"SingleSignOnViewController" bundle:nil];
-			self.window.rootViewController = ssoViewController;
-		} else {
-			logInViewController = [[LogInViewController alloc] initWithNibName:@"LogInView" bundle:nil];
-			self.window.rootViewController = self.logInViewController;
-			loginShowing = YES;
-		} 
+		[self showAuthenticationView];
 	}
 	[self.window makeKeyAndVisible];
     return YES;
@@ -140,6 +133,22 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
 
 #pragma mark - View control
 
+- (void) showAuthenticationView {
+	ECClientConfiguration *config = [ECClientConfiguration currentConfiguration];
+	if ([config usesSSO]) {
+		if (ssoViewController == nil) {
+			ssoViewController = [[SingleSignOnViewController alloc] initWithNibName:@"SingleSignOnViewController" bundle:nil];
+		}		
+		self.window.rootViewController = ssoViewController;
+	} else {
+		[self showLoginView];
+	}
+}
+
+- (void) singleSignOnComplete {
+	[self showInitialLoadingScreen];
+}
+
 - (void) authenticationComplete {
 	[self hideGlobalLoader];
 	[self dismissInitialLoadingScreen];
@@ -147,7 +156,7 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
 
 - (void) signOut {
 	[[ECSession sharedSession] forgetCredentials];
-	[self showLoginView];
+	[self showAuthenticationView];
     
 }
 

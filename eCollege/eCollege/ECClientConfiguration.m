@@ -64,7 +64,7 @@ static ECClientConfiguration *currentConfiguration = nil;
 }
 
 - (NSString *) ssoURL {
-	return @"http://ecollegessodemo.cloudfoundry.com/";
+	return @"http://ecollegessodemo.heroku.com/";
 }
 
 #pragma mark - Styles
