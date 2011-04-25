@@ -18,7 +18,7 @@
 #import "BlockingActivityView.h"
 #import "UserFetcher.h"
 
-@class LogInViewController;
+@class LogInViewController, SingleSignOnViewController;
 
 extern NSString* courseLoadSuccess;
 extern NSString* courseLoadFailure;
@@ -31,9 +31,9 @@ extern int coursesRefreshInterval;
     PeopleViewController* peopleViewController;
     CoursesViewController* coursesViewController;
     DiscussionsViewController* discussionsViewController;
+	SingleSignOnViewController *ssoViewController;
     NSDictionary* coursesDictionary;
     NSArray* coursesArray;
-	UserFetcher *userFetcher;
     CourseFetcher* courseFetcher;
     NSDate* coursesLastUpdated;
     User* currentUser;
@@ -44,18 +44,19 @@ extern int coursesRefreshInterval;
 + (eCollegeAppDelegate *) delegate;
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) LogInViewController *logInViewController;
 @property (nonatomic, retain) NSArray* coursesArray;
 @property (nonatomic, retain) NSDate* coursesLastUpdated;
 @property (nonatomic, retain) User* currentUser;
 
 - (void)dismissLoginView;
+- (void) singleSignOnComplete;
 - (Course*)getCourseHavingId:(NSInteger)courseId;
 - (void)refreshCourseList;
 - (BOOL)shouldRefreshCourses;
 - (NSArray*) getAllCourseIds;
 - (void)showGlobalLoader;
 - (void)hideGlobalLoader;
+- (void) authenticationComplete;
 - (void) signOut;
 
 @end

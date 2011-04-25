@@ -23,13 +23,13 @@
 - (void)unregisterForCoursesNotifications;
 - (void)sessionDidAuthenticate:(id)obj;
 - (void)authenticate;
+- (void) hideLoginAffordances:(BOOL)hide;
 
 @end
 
 @implementation LogInViewController
 
-@synthesize usernameText;
-@synthesize passwordText;
+@synthesize usernameText, passwordText, hidesLoginAffordances;
 
 - (void)dealloc {
     self.usernameText = nil;
@@ -39,21 +39,12 @@
     [super dealloc];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
 #pragma mark - View lifecycle
-
-- (void)viewDidUnload {
-    [super viewDidUnload];
-}
 
 - (void) viewDidLoad {
     
     ECClientConfiguration* config = [ECClientConfiguration currentConfiguration];
     
-	//scrollView.contentSize = self.view.frame.size;
     blockingActivityView = [[BlockingActivityView alloc] initWithWithView:self.view];
     backgroundImageView.image = [UIImage imageNamed:[config splashFileName]];
 
@@ -80,6 +71,16 @@
 
 }
 
+- (void) viewWillAppear:(BOOL)animated {
+	if (hidesLoginAffordances) {
+		[self hideLoginAffordances:YES];
+		progressIndicator.hidden = NO;
+	} else {
+		[self hideLoginAffordances:NO];
+		progressIndicator.hidden = YES;
+	}
+}
+
 - (void) viewDidAppear:(BOOL)animated {
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector (keyboardWillShow:)
@@ -92,7 +93,8 @@
 }
 
 - (void) viewDidDisappear:(BOOL)animated {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];    
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	[blockingActivityView hide];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -114,7 +116,7 @@
 - (void)handleCoursesRefreshSuccess:(NSNotification*)notification {
     [self unregisterForCoursesNotifications];
     [blockingActivityView hide];
-    [[eCollegeAppDelegate delegate] dismissLoginView];
+    [[eCollegeAppDelegate delegate] authenticationComplete];
 }
 
 - (void)handleCoursesRefreshFailure:(NSNotification*)notification {
@@ -125,17 +127,21 @@
 
 #pragma mark - Control callbacks and view logic
 
+- (void) hideLoginAffordances:(BOOL)hide {
+	usernameText.hidden = hide;
+	passwordText.hidden = hide;
+    userNameLabel.hidden = hide;
+    passwordLabel.hidden = hide;
+    keepMeLoggedInLabel.hidden = hide;
+    signInButton.hidden = hide;
+	keepLoggedInSwitch.hidden = hide;
+    formBackgroundImageView.hidden = hide;
+}
+
 - (void) keyboardWillShow:(NSNotification *)notification {
 	if (keyboardIsShowing) {
 		return; //apparently we can sometimes get too many notifications
 	}
-	
-    // If we want to use keyboard size for something in the future,
-    // here's how to do it...
-    //
-	// NSDictionary *info = [notification userInfo];
-	// NSValue *keyboardBoundsEndValue = [info objectForKey:UIKeyboardFrameEndUserInfoKey];
-	// keyboardSize = [keyboardBoundsEndValue CGRectValue].size;
 	
 	[UIView beginAnimations:nil context:NULL];
 		[UIView setAnimationDuration:0.3];
@@ -162,8 +168,6 @@
         CGRect f = self.view.frame;
         f.origin.y = 20;
         self.view.frame = f;
-		//scrollView.frame = CGRectMake(0, 0, scrollViewSizeWhenKeyboardIsHidden.width, scrollViewSizeWhenKeyboardIsHidden.height);
-		//scrollView.contentOffset = scrollViewOffsetWhenKeyboardIsHidden;
 	[UIView commitAnimations];
 
 	keyboardIsShowing = NO;
@@ -211,16 +215,24 @@
 
 #pragma mark - Authentication Complete
 
+- (void) loadUserAndCourses {
+	[blockingActivityView show];
+	if (userFetcher == nil) { // should only be non-nil if it's already in progress. Should fail silently if called multiple times
+		userFetcher = [[UserFetcher alloc] initWithDelegate:self responseSelector:@selector(userLoaded:)];
+		[userFetcher fetchMe];
+	}
+}
+
 - (void) sessionDidAuthenticate:(id)obj {
     if (![obj isKindOfClass:[NSError class]]) {
-        userFetcher = [[UserFetcher alloc] initWithDelegate:self responseSelector:@selector(userLoaded:)];
-        [userFetcher fetchMe];        
+		[self loadUserAndCourses];
     } else {
         [blockingActivityView hide];
     }
 }
 
 - (void) userLoaded:(id)response {
+	[userFetcher release]; userFetcher = nil;
     if ([response isKindOfClass:[User class]]) {
         NSLog(@"User load successful; ID = %d", ((User*)response).userId);
         [eCollegeAppDelegate delegate].currentUser = (User*)response;

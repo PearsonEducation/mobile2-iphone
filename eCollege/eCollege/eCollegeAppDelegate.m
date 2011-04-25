@@ -14,10 +14,12 @@
 #import "ECConstants.h"
 #import "BlockingActivityView.h"
 #import "ECClientConfiguration.h"
+#import "SingleSignOnViewController.h"
 
 @interface eCollegeAppDelegate ()
 
 // Private properties
+@property (nonatomic, retain) LogInViewController *logInViewController;
 @property (nonatomic, retain) UITabBarController* tabBarController;
 @property (nonatomic, retain) HomeViewController* homeViewController;
 @property (nonatomic, retain) ProfileViewController* profileViewController;
@@ -28,9 +30,11 @@
 @property (nonatomic, retain) BlockingActivityView* blockingActivityView;
 
 // Private methods
+- (void) showInitialLoadingScreen;
+- (void) dismissInitialLoadingScreen;
 - (void) showTabBar;
+- (void) showAuthenticationView;
 - (void) showLoginView;
-- (void) showTabsIfMeAndCoursesLoaded;
 
 @end
 
@@ -48,7 +52,7 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
 }
 
 - (void)dealloc {
-	[userFetcher cancel]; [userFetcher release]; userFetcher = nil;
+	[ssoViewController release]; ssoViewController = nil;
     [coursesDictionary release]; coursesDictionary = nil;
     [logInViewController release]; logInViewController = nil;
     [self.courseFetcher cancel]; self.courseFetcher = nil;
@@ -67,14 +71,10 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
     
 	ECSession *session = [ECSession sharedSession];
 	if ([session hasActiveAccessToken] || [session hasActiveGrantToken]) {
-		userFetcher = [[UserFetcher alloc] initWithDelegate:self responseSelector:@selector(userLoaded:)];
-        [userFetcher fetchMe];        
-		[self refreshCourseList];
+		[self showInitialLoadingScreen];
 		[self showGlobalLoader];
 	} else {
-		logInViewController = [[LogInViewController alloc] initWithNibName:@"LogInView" bundle:nil];
-        self.window.rootViewController = self.logInViewController;
-        loginShowing = YES;
+		[self showAuthenticationView];
 	}
 	[self.window makeKeyAndVisible];
     return YES;
@@ -119,7 +119,7 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
 #pragma mark - Global Loader
 
 - (void)showGlobalLoader {
-    if (!self.blockingActivityView) {
+    if (self.blockingActivityView == nil) {
         self.blockingActivityView = [[[BlockingActivityView alloc] initWithWithView:[UIApplication sharedApplication].keyWindow] autorelease];
         UIColor* bgColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.25];
         self.blockingActivityView.backgroundColor = bgColor;
@@ -133,17 +133,45 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
 
 #pragma mark - View control
 
-- (void) showTabsIfMeAndCoursesLoaded {
-	if (self.currentUser && self.coursesArray && self.tabBarController == nil) {
-		[self hideGlobalLoader];
-		[self showTabBar];
+- (void) showAuthenticationView {
+	ECClientConfiguration *config = [ECClientConfiguration currentConfiguration];
+	if ([config usesSSO]) {
+		if (ssoViewController == nil) {
+			ssoViewController = [[SingleSignOnViewController alloc] initWithNibName:@"SingleSignOnViewController" bundle:nil];
+		}		
+		self.window.rootViewController = ssoViewController;
+	} else {
+		[self showLoginView];
 	}
+}
+
+- (void) singleSignOnComplete {
+	[self showInitialLoadingScreen];
+}
+
+- (void) authenticationComplete {
+	[self hideGlobalLoader];
+	[self dismissInitialLoadingScreen];
 }
 
 - (void) signOut {
 	[[ECSession sharedSession] forgetCredentials];
-	[self showLoginView];
+	[self showAuthenticationView];
     
+}
+
+- (void) showInitialLoadingScreen {
+	if (self.logInViewController == nil) {
+		self.logInViewController = [[[LogInViewController alloc] initWithNibName:@"LogInView" bundle:nil] autorelease];
+        loginShowing = YES;
+	}
+	self.logInViewController.hidesLoginAffordances = YES;
+	[self.logInViewController loadUserAndCourses];
+	self.window.rootViewController = self.logInViewController;
+}
+
+- (void) dismissInitialLoadingScreen {
+	[self showTabBar];
 }
 
 - (void) dismissLoginView {
@@ -155,7 +183,7 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
 //					}
 //					completion:NULL];
 	
-    [self showTabBar];
+    [self showInitialLoadingScreen];
     loginShowing = NO;
 }
 
@@ -174,6 +202,7 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
 //					}
 //					completion:NULL];
     
+	self.logInViewController.hidesLoginAffordances = NO;
     self.window.rootViewController = self.logInViewController;
     loginShowing = YES;
 }
@@ -228,14 +257,6 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
 
 #pragma mark - Course and User loading
 
-- (void) userLoaded:(id)response {
-    if ([response isKindOfClass:[User class]]) {
-        NSLog(@"User load successful; ID = %d", ((User*)response).userId);
-        self.currentUser = (User*)response;
-		[self showTabsIfMeAndCoursesLoaded];
-    } // TODO: fail silently? What else should we do?
-}
-
 - (void)refreshCourseList {
     // if courses are already being fetched, don't initiate another call.
     if (!self.courseFetcher) {
@@ -255,7 +276,6 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
         self.coursesLastUpdated = [NSDate date];
         self.coursesArray = (NSArray*)courses;
         notificationName = courseLoadSuccess;
-		[self showTabsIfMeAndCoursesLoaded];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
     self.courseFetcher = nil;

@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		A20275D61358B589007CDA38 /* announcement_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A20275D41358B589007CDA38 /* announcement_icon.png */; };
 		A20275D71358B589007CDA38 /* announcement_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A20275D51358B589007CDA38 /* announcement_icon@2x.png */; };
-		A2051D36134D20D6003CED2A /* splash.png in Resources */ = {isa = PBXBuildFile; fileRef = A2051D34134D20D6003CED2A /* splash.png */; };
-		A2051D37134D20D6003CED2A /* splash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A2051D35134D20D6003CED2A /* splash@2x.png */; };
 		A205A225133AF300000D9262 /* ResponseTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A205A224133AF300000D9262 /* ResponseTableCell.xib */; };
 		A20A35BC133B47470091F584 /* ResponseContentTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A20A35BA133B473D0091F584 /* ResponseContentTableCell.m */; };
 		A20A35BD133B47470091F584 /* ResponseContentTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A20A35BB133B47410091F584 /* ResponseContentTableCell.xib */; };
@@ -149,6 +147,8 @@
 		EA4E2558134D3869009E2965 /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = EA4E2556134D3869009E2965 /* gear.png */; };
 		EA4E2559134D3869009E2965 /* gear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA4E2557134D3869009E2965 /* gear@2x.png */; };
 		EA5CA73B134D2B7200788F7D /* AnnouncementsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA5CA73A134D2B7200788F7D /* AnnouncementsViewController.xib */; };
+		EA6D76A113622789005172F3 /* SingleSignOnViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6D769F13622789005172F3 /* SingleSignOnViewController.m */; };
+		EA6D76A213622789005172F3 /* SingleSignOnViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA6D76A013622789005172F3 /* SingleSignOnViewController.xib */; };
 		EA7A9F5A13146E3400D9EC6A /* libECAPI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA7A9F5913146E3400D9EC6A /* libECAPI.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		EA7A9FBA1314738300D9EC6A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA7A9FB91314738300D9EC6A /* SystemConfiguration.framework */; };
 		EA7A9FBC1314738F00D9EC6A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA7A9FBB1314738F00D9EC6A /* MobileCoreServices.framework */; };
@@ -200,8 +200,6 @@
 /* Begin PBXFileReference section */
 		A20275D41358B589007CDA38 /* announcement_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = announcement_icon.png; sourceTree = "<group>"; };
 		A20275D51358B589007CDA38 /* announcement_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "announcement_icon@2x.png"; sourceTree = "<group>"; };
-		A2051D34134D20D6003CED2A /* splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash.png; sourceTree = "<group>"; };
-		A2051D35134D20D6003CED2A /* splash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash@2x.png"; sourceTree = "<group>"; };
 		A205A224133AF300000D9262 /* ResponseTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResponseTableCell.xib; sourceTree = "<group>"; };
 		A20A35B9133B47370091F584 /* ResponseContentTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResponseContentTableCell.h; sourceTree = "<group>"; };
 		A20A35BA133B473D0091F584 /* ResponseContentTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResponseContentTableCell.m; sourceTree = "<group>"; };
@@ -393,6 +391,9 @@
 		EA4E2556134D3869009E2965 /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gear.png; path = Images/gear.png; sourceTree = "<group>"; };
 		EA4E2557134D3869009E2965 /* gear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "gear@2x.png"; path = "Images/gear@2x.png"; sourceTree = "<group>"; };
 		EA5CA73A134D2B7200788F7D /* AnnouncementsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnnouncementsViewController.xib; sourceTree = "<group>"; };
+		EA6D769E13622789005172F3 /* SingleSignOnViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleSignOnViewController.h; sourceTree = "<group>"; };
+		EA6D769F13622789005172F3 /* SingleSignOnViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleSignOnViewController.m; sourceTree = "<group>"; };
+		EA6D76A013622789005172F3 /* SingleSignOnViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SingleSignOnViewController.xib; sourceTree = "<group>"; };
 		EA7A9F4A13146C9D00D9EC6A /* ECAPI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ECAPI.xcodeproj; path = ../ecollegeiosapi/ECAPI/ECAPI.xcodeproj; sourceTree = "<group>"; };
 		EA7A9F5913146E3400D9EC6A /* libECAPI.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libECAPI.a; sourceTree = SOURCE_ROOT; };
 		EA7A9FB91314738300D9EC6A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -601,8 +602,6 @@
 				A2E0CE39134D25D600B78821 /* dropbox_icon@2x.png */,
 				EA4E2556134D3869009E2965 /* gear.png */,
 				EA4E2557134D3869009E2965 /* gear@2x.png */,
-				A2051D34134D20D6003CED2A /* splash.png */,
-				A2051D35134D20D6003CED2A /* splash@2x.png */,
 				A2B8562F134D14530007E3F7 /* list_arrow_icon_white.png */,
 				A2B85630134D14530007E3F7 /* list_arrow_icon_white@2x.png */,
 				EA1340F7134D0E1A003F9687 /* noise_bg.png */,
@@ -697,6 +696,7 @@
 		A2EE3ECC1320347E00745C1C /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				EA6D769D13622728005172F3 /* Single Sign On */,
 				A2651D3D134A298100490400 /* Announcements */,
 				A28CB5FB132ECD69000B669D /* ReplyDetail */,
 				A28CB5FA132ECD61000B669D /* TopicDetail */,
@@ -844,6 +844,16 @@
 				EA014E86134BB82F00353897 /* GradebookItemCell.m */,
 			);
 			name = "Course Gradebook";
+			sourceTree = "<group>";
+		};
+		EA6D769D13622728005172F3 /* Single Sign On */ = {
+			isa = PBXGroup;
+			children = (
+				EA6D769E13622789005172F3 /* SingleSignOnViewController.h */,
+				EA6D769F13622789005172F3 /* SingleSignOnViewController.m */,
+				EA6D76A013622789005172F3 /* SingleSignOnViewController.xib */,
+			);
+			name = "Single Sign On";
 			sourceTree = "<group>";
 		};
 		EA7707331318141F0011FFCB /* Log In */ = {
@@ -1093,8 +1103,6 @@
 				A2B85632134D14530007E3F7 /* list_arrow_icon_white@2x.png in Resources */,
 				EA1340F8134D0E1A003F9687 /* noise_bg.png in Resources */,
 				EA5CA73B134D2B7200788F7D /* AnnouncementsViewController.xib in Resources */,
-				A2051D36134D20D6003CED2A /* splash.png in Resources */,
-				A2051D37134D20D6003CED2A /* splash@2x.png in Resources */,
 				A2E0CE3A134D25D600B78821 /* dropbox_icon.png in Resources */,
 				A2E0CE3B134D25D600B78821 /* dropbox_icon@2x.png in Resources */,
 				A2E0CE3E134D25E600B78821 /* exam_icon.png in Resources */,
@@ -1117,6 +1125,7 @@
 				A20275D61358B589007CDA38 /* announcement_icon.png in Resources */,
 				A20275D71358B589007CDA38 /* announcement_icon@2x.png in Resources */,
 				A2FA883913660604001CF6CD /* UpcomingEventItemTableCell.xib in Resources */,
+				EA6D76A213622789005172F3 /* SingleSignOnViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1184,6 +1193,7 @@
 				A27C7D6113573CB700BCF6EC /* DetailBox.m in Sources */,
 				A2C6995A135788D400EF5CA3 /* DetailHeader.m in Sources */,
 				A2FA883C13660635001CF6CD /* UpcomingEventItemTableCell.m in Sources */,
+				EA6D76A113622789005172F3 /* SingleSignOnViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
