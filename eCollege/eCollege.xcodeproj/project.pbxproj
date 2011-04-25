@@ -137,6 +137,8 @@
 		A2EE947E1338456C001CFDDF /* TopicTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A2EE947D1338456C001CFDDF /* TopicTableCell.m */; };
 		A2F267C8134AB46F00605AF0 /* PersonTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A2F267C7134AB46F00605AF0 /* PersonTableCell.m */; };
 		A2FA6E8013206E3B0063268C /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2FA6E8213206E3B0063268C /* HomeViewController.xib */; };
+		A2FA883913660604001CF6CD /* UpcomingEventItemTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2FA883813660604001CF6CD /* UpcomingEventItemTableCell.xib */; };
+		A2FA883C13660635001CF6CD /* UpcomingEventItemTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A2FA883B13660635001CF6CD /* UpcomingEventItemTableCell.m */; };
 		EA014E84134BA78100353897 /* CourseGradebookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA014E83134BA78100353897 /* CourseGradebookViewController.m */; };
 		EA014E87134BB82F00353897 /* GradebookItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA014E86134BB82F00353897 /* GradebookItemCell.m */; };
 		EA1340F8134D0E1A003F9687 /* noise_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = EA1340F7134D0E1A003F9687 /* noise_bg.png */; };
@@ -373,6 +375,9 @@
 		A2F267C6134AB46F00605AF0 /* PersonTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonTableCell.h; sourceTree = "<group>"; };
 		A2F267C7134AB46F00605AF0 /* PersonTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonTableCell.m; sourceTree = "<group>"; };
 		A2FA6E8113206E3B0063268C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/HomeViewController.xib; sourceTree = "<group>"; };
+		A2FA883813660604001CF6CD /* UpcomingEventItemTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpcomingEventItemTableCell.xib; sourceTree = "<group>"; };
+		A2FA883A13660635001CF6CD /* UpcomingEventItemTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpcomingEventItemTableCell.h; sourceTree = "<group>"; };
+		A2FA883B13660635001CF6CD /* UpcomingEventItemTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpcomingEventItemTableCell.m; sourceTree = "<group>"; };
 		EA014E82134BA78100353897 /* CourseGradebookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseGradebookViewController.h; sourceTree = "<group>"; };
 		EA014E83134BA78100353897 /* CourseGradebookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseGradebookViewController.m; sourceTree = "<group>"; };
 		EA014E85134BB82F00353897 /* GradebookItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradebookItemCell.h; sourceTree = "<group>"; };
@@ -722,12 +727,11 @@
 		A2EE3ECD132034B100745C1C /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				A21401421326DABD007C9207 /* ActivityTableCell.m */,
+				A2FA882E1366043B001CF6CD /* Upcoming Events */,
+				A2FA882D13660393001CF6CD /* Activity Stream */,
 				A2EE3ED2132037DC00745C1C /* HomeViewController.h */,
 				A2EE3ED3132037DC00745C1C /* HomeViewController.m */,
 				A2FA6E8213206E3B0063268C /* HomeViewController.xib */,
-				A214013F1326D186007C9207 /* ActivityTableCell.xib */,
-				A21401411326DABD007C9207 /* ActivityTableCell.h */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -808,6 +812,26 @@
 				A2EE3EE8132042D800745C1C /* ProfileViewController.xib */,
 			);
 			name = "My Profile";
+			sourceTree = "<group>";
+		};
+		A2FA882D13660393001CF6CD /* Activity Stream */ = {
+			isa = PBXGroup;
+			children = (
+				A21401421326DABD007C9207 /* ActivityTableCell.m */,
+				A214013F1326D186007C9207 /* ActivityTableCell.xib */,
+				A21401411326DABD007C9207 /* ActivityTableCell.h */,
+			);
+			name = "Activity Stream";
+			sourceTree = "<group>";
+		};
+		A2FA882E1366043B001CF6CD /* Upcoming Events */ = {
+			isa = PBXGroup;
+			children = (
+				A2FA883813660604001CF6CD /* UpcomingEventItemTableCell.xib */,
+				A2FA883A13660635001CF6CD /* UpcomingEventItemTableCell.h */,
+				A2FA883B13660635001CF6CD /* UpcomingEventItemTableCell.m */,
+			);
+			name = "Upcoming Events";
 			sourceTree = "<group>";
 		};
 		EA014E66134B92A300353897 /* Course Gradebook */ = {
@@ -1092,6 +1116,7 @@
 				A2695953135514A800700D37 /* CourseDiscussionsViewController.xib in Resources */,
 				A20275D61358B589007CDA38 /* announcement_icon.png in Resources */,
 				A20275D71358B589007CDA38 /* announcement_icon@2x.png in Resources */,
+				A2FA883913660604001CF6CD /* UpcomingEventItemTableCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1158,6 +1183,7 @@
 				A2695952135514A800700D37 /* CourseDiscussionsViewController.m in Sources */,
 				A27C7D6113573CB700BCF6EC /* DetailBox.m in Sources */,
 				A2C6995A135788D400EF5CA3 /* DetailHeader.m in Sources */,
+				A2FA883C13660635001CF6CD /* UpcomingEventItemTableCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,17 +15,22 @@
 #import "ActivityStreamObject.h"
 #import "eCollegeAppDelegate.h"
 #import "GradebookItemGradeDetailViewController.h"
-#import "NSDateUtilities.h"
 #import "DropboxMessageDetailViewController.h"
 #import "ResponseResponsesViewController.h"
 #import "TopicResponsesViewController.h"
 #import "ECSession.h"
 #import "ECClientConfiguration.h"
 #import "GreyTableHeader.h"
+#import "UpcomingEventItem.h"
+#import "UpcomingEventItemTableCell.h"
+
+#define ACTIVITY_STREAM 0
+#define UPCOMING_EVENTS 1
 
 @interface HomeViewController ()
 
 @property (nonatomic, retain) ActivityStreamFetcher* activityStreamFetcher;
+@property (nonatomic, retain) UpcomingEventItemsFetcher* upcomingEventItemsFetcher;
 
 - (void)loadData;
 - (void)prepareData;
@@ -40,17 +45,28 @@
 
 @implementation HomeViewController
 
+// ACTIVITY STREAM
 @synthesize activityStreamFetcher;
 @synthesize activityStream;
 @synthesize earlierActivityItems;
 @synthesize todayActivityItems;
-@synthesize lastUpdateTime;
+@synthesize activityStreamLastUpdateTime;
+
+// UPCOMING EVENTS
+@synthesize upcomingEventItemsFetcher;
+@synthesize upcomingEvents;
+@synthesize todayUpcomingEvents;
+@synthesize tomorrowUpcomingEvents;
+@synthesize twoToFiveDaysUpcomingEvents;
+@synthesize laterUpcomingEvents;
+@synthesize upcomingEventsLastUpdateTime;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // activity view
+        self.activityStreamFetcher = [[ActivityStreamFetcher alloc] initWithDelegate:self responseSelector:@selector(itemsLoadedHandler:)];    
+        self.upcomingEventItemsFetcher = [[UpcomingEventItemsFetcher alloc] initWithDelegate:self responseSelector:@selector(itemsLoadedHandler:)];        
         blockingActivityView = [[BlockingActivityView alloc] initWithWithView:self.view];
         [self registerForCoursesNotifications];
 
@@ -60,15 +76,28 @@
 
 - (void)dealloc
 {
-    [self unregisterForCoursesNotifications];
+    // ACTIVITY STREAM items
     self.earlierActivityItems = nil;
     self.todayActivityItems = nil;
     self.activityStream = nil;
-    self.lastUpdateTime = nil;
-    [self.activityStreamFetcher cancel];
+    [activityStreamFetcher cancel];
     self.activityStreamFetcher = nil;
+    self.activityStreamLastUpdateTime = nil;    
+ 
+    // UPCOMING EVENT items
+    self.upcomingEvents = nil;
+    self.todayActivityItems = nil;
+    self.tomorrowUpcomingEvents = nil;
+    self.twoToFiveDaysUpcomingEvents = nil;
+    self.laterUpcomingEvents = nil;
+    [upcomingEventItemsFetcher cancel];
+    self.upcomingEventItemsFetcher = nil;
+    self.upcomingEventsLastUpdateTime = nil;
+    
+    // OTHER
     [blockingActivityView release];
-    [today release];
+    [self unregisterForCoursesNotifications];
+    
     [super dealloc];
 }
 
@@ -78,36 +107,44 @@
 }
 
 - (void)loadData {
-    
     if (currentlyLoading) {
         return;
     }
-
     currentlyLoading = YES;
-    
-    // if course data is stale, refresh it.
+
     if ([[eCollegeAppDelegate delegate] shouldRefreshCourses]) {
         courseRefreshInProgress = YES;
         [[eCollegeAppDelegate delegate] refreshCourseList];
     }
   
-    // fetch activities
-    if (!self.activityStreamFetcher) {
-        self.activityStreamFetcher = [[ActivityStreamFetcher alloc] initWithDelegate:self responseSelector:@selector(loadedMyActivityStreamHandler:)];    
+    itemsRefreshInProgress = YES;
+    if (filter.selectedSegmentIndex == ACTIVITY_STREAM) {
+        [activityStreamFetcher cancel];        
+        [activityStreamFetcher fetchMyActivityStream];    
     } else {
-        [self.activityStreamFetcher cancel];
+        [upcomingEventItemsFetcher cancel];
+        [upcomingEventItemsFetcher fetchMyUpcomingEventItems];
     }
-    activitiesRefreshInProgress = YES;
-    [activityStreamFetcher fetchMyActivityStream];    
 }
 
 - (void)executeAfterHeaderClose {
-    self.lastUpdateTime = [NSDate date];
+    if (filter.selectedSegmentIndex == ACTIVITY_STREAM) {
+        self.activityStreamLastUpdateTime = [NSDate date];
+    } else {
+        self.upcomingEventsLastUpdateTime = [NSDate date];
+    }
 }
 
 - (void)updateLastUpdatedLabel {
-    if (self.lastUpdateTime) {
-        NSString* prettyTime = [self.lastUpdateTime friendlyString];
+    NSDate* date;
+    if (filter.selectedSegmentIndex == ACTIVITY_STREAM) {
+        date = activityStreamLastUpdateTime;
+    } else {
+        date = upcomingEventsLastUpdateTime;
+    }
+    
+    if (date) {
+        NSString* prettyTime = [date friendlyString];
         if (![prettyTime isEqualToString:@""] || [self.lastUpdatedLabel.text isEqualToString:@""]) {
             self.lastUpdatedLabel.text = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Last update",nil), prettyTime];
         }
@@ -145,8 +182,8 @@
     // we can potentially immediately update the interface.
     if (currentlyLoading) {
         coursesLoadFailure = NO;
-        if (activitiesRefreshInProgress) {
-            // need to wait for activities refresh to finish
+        if (itemsRefreshInProgress) {
+            // need to wait for items refresh to finish
             return;
         } else {
             // everything has been loaded
@@ -163,18 +200,18 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [activityStreamFetcher cancel];
+    [upcomingEventItemsFetcher cancel];
     [blockingActivityView hide];
 }
 
 - (void)handleCoursesRefreshFailure:(NSNotification*)notification {
     courseRefreshInProgress = NO;
-    NSLog(@"ERROR loading courses; can't move past login screen.");
     
     // if the failure happened passively (this view didn't request an
     // update of the courses), then don't do anything.
     if (currentlyLoading) {
         coursesLoadFailure = YES;
-        if (activitiesRefreshInProgress) {
+        if (itemsRefreshInProgress) {
             return;
         } else {
             [self loadingComplete];
@@ -184,32 +221,41 @@
 
 #pragma mark - View lifecycle
 
-- (void)viewWillAppear:(BOOL)animated {
-
+- (void)viewDidLoad {
+    [super viewDidLoad];
     segmentedControlBackground.midColor = [[ECClientConfiguration currentConfiguration] secondaryColor];
     filter.tintColor = [[ECClientConfiguration currentConfiguration] secondaryColor];
+}
 
-    // if activities have never been updated or the last update was more than an hour ago,
-    // fetch the activities again.
-    if (!self.lastUpdateTime || [self.lastUpdateTime timeIntervalSinceNow] < -3600 || forceUpdateOnViewWillAppear) {
+- (void)viewWillAppear:(BOOL)animated {    
+    NSDate* date;
+    if (filter.selectedSegmentIndex == ACTIVITY_STREAM) {
+        date = activityStreamLastUpdateTime;
+    } else {
+        date = upcomingEventsLastUpdateTime;
+    }
+    
+    if (!date || [date timeIntervalSinceNow] < -3600 || forceUpdateOnViewWillAppear) {
         [self forcePullDownRefresh];
         forceUpdateOnViewWillAppear = NO;
     }    
 }
 
-- (void)loadedMyActivityStreamHandler:(ActivityStream*)loadedActivityStream {
-    activitiesRefreshInProgress = NO;
+- (void)itemsLoadedHandler:(id)data {
+    itemsRefreshInProgress = NO;
     
-    // check to see if we received an error; if not, save off the data and prep it.
-    if ([loadedActivityStream isKindOfClass:[NSError class]]) {
-        activitiesLoadFailure = YES;
-    } else {
-        activitiesLoadFailure = NO;
-        self.activityStream = loadedActivityStream;
+    if ([data isKindOfClass:[ActivityStream class]]) {
+        itemsLoadFailure = NO;
+        self.activityStream = data;
         [self prepareData];
+    } else if ([data isKindOfClass:[NSArray class]]) {
+        itemsLoadFailure = NO;
+        self.upcomingEvents = data;
+        [self prepareData];
+    } else {
+        itemsLoadFailure = YES;
     }
-
-    // is there another load in progress?  if so, wait; if not, be done loading.
+    
     if (courseRefreshInProgress) {
         return;
     } else {
@@ -218,10 +264,9 @@
 }
 
 - (void)loadingComplete {
-    if (activitiesLoadFailure || coursesLoadFailure) {
+    if (itemsLoadFailure || coursesLoadFailure) {
         NSLog(@"Load failure");
     } else {
-        // since we've updated the buckets of data, we must now reload the table
         [self.table reloadData];
     }
     
@@ -233,10 +278,15 @@
 
     // no longer loading
     currentlyLoading = NO;
-    activitiesLoadFailure = NO;
+    itemsLoadFailure = NO;
     coursesLoadFailure = NO;
 }
 
+/*
+/ Set up the buckets into which items (ActivityStreamItem, UpcomingEventItem) will be sorted;
+/ These buckets are then used as sections for the table.  Also sort the items so they appear
+/ such that the most recent items are on top of each section.
+*/
 - (void)prepareData {
 
     // debug code to make sure we have some items for today and yesterday
@@ -249,119 +299,182 @@
     //            aitem.postedTime = [dateCalculator addDays:-1 toDate:today];
     //        }
     //    }
-    
-    // create new buckets for items sorted by time
-    self.todayActivityItems = [[NSMutableArray alloc] init];
-    self.earlierActivityItems = [[NSMutableArray alloc] init];
-    
-    // if there's no activity stream, return.
-    if (!self.activityStream || !self.activityStream.items || ([self.activityStream.items count] == 0)) {
-        return;
-    }
-    
-    NSSortDescriptor* sd = [[NSSortDescriptor alloc] initWithKey:@"postedTime" ascending:NO selector:@selector(compare:)];
-    NSArray* descriptors = [[NSArray alloc] initWithObjects:sd,nil];
-    self.activityStream.items = [self.activityStream.items sortedArrayUsingDescriptors:descriptors];
-    
-    [descriptors release];
-    [sd release];
 
-    
-    // sort the activity stream items by date
-    for  (ActivityStreamItem* item in self.activityStream.items) {
-        item.friendlyDate = [item.postedTime friendlyString];
-        if ([item.postedTime isToday]) {
-            [self.todayActivityItems addObject:item];
-        } else {
-            [self.earlierActivityItems addObject:item];            
+    if (filter.selectedSegmentIndex == ACTIVITY_STREAM) {
+        // initialize buckets to put activity stream items into
+        self.todayActivityItems = [[NSMutableArray alloc] init];
+        self.earlierActivityItems = [[NSMutableArray alloc] init];
+        if (!activityStream || !activityStream.items || ([activityStream.items count] == 0)) {
+            return;
+        }
+        
+        // sort all activity stream items
+        NSSortDescriptor* sd = [[NSSortDescriptor alloc] initWithKey:@"postedTime" ascending:NO selector:@selector(compare:)];
+        NSArray* descriptors = [[NSArray alloc] initWithObjects:sd,nil];
+        activityStream.items = [activityStream.items sortedArrayUsingDescriptors:descriptors];        
+        [descriptors release];
+        [sd release];
+        
+        // put sorted activity stream items into buckets
+        for  (ActivityStreamItem* item in self.activityStream.items) {
+            item.friendlyDate = [item.postedTime friendlyString];
+            if ([item.postedTime isToday]) {
+                [self.todayActivityItems addObject:item];
+            } else {
+                [self.earlierActivityItems addObject:item];            
+            }
+        }
+    } else {
+        // initialize buckets to put upcoming events into
+        self.todayUpcomingEvents = [[NSMutableArray alloc] init];
+        self.tomorrowUpcomingEvents = [[NSMutableArray alloc] init];
+        self.twoToFiveDaysUpcomingEvents = [[NSMutableArray alloc] init];
+        self.laterUpcomingEvents = [[NSMutableArray alloc] init];
+        if (!upcomingEvents || [upcomingEvents count] == 0) {
+            return;
+        }
+        
+        // sort all upcoming events
+        NSSortDescriptor* sd = [[NSSortDescriptor alloc] initWithKey:@"when.time" ascending:NO selector:@selector(compare:)];
+        NSArray* descriptors = [[NSArray alloc] initWithObjects:sd,nil];
+        self.upcomingEvents = [upcomingEvents sortedArrayUsingDescriptors:descriptors];        
+        [descriptors release];
+        [sd release];
+        
+        // put sorted upcoming events into buckets
+        NSDate* today = [NSDate date];
+        for (UpcomingEventItem* eventItem in upcomingEvents) {
+            if (eventItem.when && eventItem.when.time) {
+                NSDate* date = eventItem.when.time;
+                eventItem.dateString = [date basicDateTimeString];
+                int numDates = [today datesUntil:date];                
+                if (numDates >= 6) {
+                    [laterUpcomingEvents addObject:eventItem];
+                } else {
+                    switch (numDates) {
+                        case 0:
+                            [todayUpcomingEvents addObject:eventItem];
+                            break;
+                        case 1:
+                            [tomorrowUpcomingEvents addObject:eventItem];
+                            break;
+                        case 2:
+                        case 3:
+                        case 4:
+                        case 5:
+                            [twoToFiveDaysUpcomingEvents addObject:eventItem];
+                            break;
+                        default:
+                            break;
+                    }                    
+                }
+            } else {
+                eventItem.dateString = @"";
+            }
         }
     }
-
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 #pragma mark - Table view data source
 
-- (BOOL)hasTodayItems {
-    return ([self.todayActivityItems count] > 0);     
-}
-
-- (BOOL)hasEarlierItems {
-    return ([self.earlierActivityItems count] > 0);         
+- (NSArray*)getSections {
+    NSMutableArray* tmp = [[[NSMutableArray alloc] init] autorelease];
+    if (filter.selectedSegmentIndex == ACTIVITY_STREAM) {
+        if ([todayActivityItems count] > 0) {
+            [tmp addObject:todayActivityItems];
+        }
+        if ([earlierActivityItems count] > 0) {
+            [tmp addObject:earlierActivityItems];
+        }
+    } else {
+        if ([todayUpcomingEvents count] > 0) {
+            [tmp addObject:todayUpcomingEvents];
+        }
+        if ([tomorrowUpcomingEvents count] > 0) {
+            [tmp addObject:tomorrowUpcomingEvents];
+        }
+        if ([twoToFiveDaysUpcomingEvents count] > 0) {
+            [tmp addObject:twoToFiveDaysUpcomingEvents];
+        }
+        if ([laterUpcomingEvents count] > 0) {
+            [tmp addObject:laterUpcomingEvents];
+        }        
+    }
+    return tmp;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    int cnt = 0;
-    if ([self hasTodayItems]) {
-        cnt++;
-    } 
-    if ([self hasEarlierItems]) {
-        cnt++;
-    } 
-    return cnt;
+    NSArray* tmp = [self getSections];
+    if (tmp) {
+        return [tmp count];
+    } else {
+        return 0;
+    }
 }
-
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0 && [self hasTodayItems]) {
-        return [self.todayActivityItems count];
-    } else if ([self hasEarlierItems]) {
-        return [self.earlierActivityItems count];
+    NSArray* tmp = [self getSections];
+    if (section < [tmp count]) {
+        NSArray* arr = [tmp objectAtIndex:section];
+        return [arr count];
     } else {
         return 0;
     }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 70.0;
+    return  70.0;
+}
+
+- (id)getItemForIndexPath:(NSIndexPath*)indexPath {
+    NSArray* sections = [self getSections];
+    if (indexPath.section < [sections count]) {
+        NSArray* itemsForSection = [sections objectAtIndex:indexPath.section];
+        if (indexPath.row < [itemsForSection count]) {
+            return [itemsForSection objectAtIndex:indexPath.row];
+        }
+    }
+    return nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"ActivityTableCell";
+    id item = [self getItemForIndexPath:indexPath];
+    if (!item) {
+        return nil;
+    }
+
+    UITableViewCell* cell;
+    static NSString *CellIdentifier;
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (filter.selectedSegmentIndex == ACTIVITY_STREAM) {
+        CellIdentifier = @"ActivityTableCell";
+    } else {
+        CellIdentifier = @"UpcomingEventItemTableCell";
+    }
+
+    cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"ActivityTableCell" owner:self options:nil];
+        NSArray* nib = [[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
     
-    // Find the data for the cell...
-    ActivityStreamItem* item = [self getItemForIndexPath:indexPath];
-
-    // set up the cell
-    if (item) {
-        [(ActivityTableCell*)cell setData:item];
-
+    if ([cell isKindOfClass:[ActivityTableCell class]]) {
+        [(ActivityTableCell*)cell setData:(ActivityStreamItem*)item];
+    } else {
+        [(UpcomingEventItemTableCell*)cell setData:(UpcomingEventItem*)item];
     }
+    
     return cell;
 }
 
-- (ActivityStreamItem*)getItemForIndexPath:(NSIndexPath*)indexPath {
-    if (indexPath.section == 0 && [self hasTodayItems]) {
-        if (self.todayActivityItems && [self.todayActivityItems count] > indexPath.row) {
-            return [self.todayActivityItems objectAtIndex:indexPath.row];            
-        } else {
-            return nil;
-        }
-    } else if ([self hasEarlierItems]) {
-        if (self.earlierActivityItems && [self.earlierActivityItems count] > indexPath.row) {
-            return [self.earlierActivityItems objectAtIndex:indexPath.row];            
-        } else {
-            return nil;
-        }
-    } else {
-        return nil;
-    }
-}
 
 
 #pragma mark - Table view delegate
@@ -369,78 +482,95 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
-    // get the activity stream item
-    ActivityStreamItem* item = [self getItemForIndexPath:indexPath];
-    if (!item) {
-        NSLog(@"ERROR: unable to find ActivityStreamItem for selected row.");
+    id obj = [self getItemForIndexPath:indexPath];
+    if (!obj) {
+        NSLog(@"ERROR: unable to find item for selected row.");
         return;
     }
     
-    // determine the type of the activity stream item
-    NSString* itemType = [item getType];
-    if (!itemType) {
-        NSLog(@"ERROR: item for selected row does not have an objectType.");
-        return;
-    }
-
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-
-    // based on the type of the activity stream item, push a view controller.
-    if ([itemType isEqualToString:@"thread-topic"]) {
-        NSInteger userId = [[[eCollegeAppDelegate delegate] currentUser] userId];
-        NSString* refId = item.object.referenceId;
-        TopicResponsesViewController* trvc = [[TopicResponsesViewController alloc] initWithNibName:@"ResponsesViewController" bundle:nil];
-        trvc.rootItemId = [NSString stringWithFormat:@"%d-%@",userId,refId];
-        NSLog(@"Setting ID on TopicResponsesViewController to: %@", trvc.rootItemId);
-        trvc.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:trvc animated:YES];
-        [trvc release];
-    } else if ([itemType isEqualToString:@"thread-post"]) {
-        NSInteger userId = [[[eCollegeAppDelegate delegate] currentUser] userId];
-        NSString* refId = item.object.referenceId;
-        ResponseResponsesViewController* rrvc = [[ResponseResponsesViewController alloc] initWithNibName:@"ResponsesViewController" bundle:nil];
-        rrvc.rootItemId = [NSString stringWithFormat:@"%d-%@",userId,refId];
-        NSLog(@"Setting ID on ResponseResponsesViewController to: %@", rrvc.rootItemId);
-        rrvc.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:rrvc animated:YES];
-        [rrvc release];
-    } else if ([itemType isEqualToString:@"grade"]) {
-        GradebookItemGradeDetailViewController* gradebookItemGradeDetailViewController = [[GradebookItemGradeDetailViewController alloc] initWithItem:item];
-        gradebookItemGradeDetailViewController.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:gradebookItemGradeDetailViewController animated:YES];
-        [gradebookItemGradeDetailViewController release];        
-    } else if ([itemType isEqualToString:@"dropbox-submission"]) {
-        DropboxMessageDetailViewController* dropboxMessageDetailViewController = [[DropboxMessageDetailViewController alloc] initWithCourseId:item.object.courseId basketId:item.target.referenceId messageId:item.object.referenceId];
-        dropboxMessageDetailViewController.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:dropboxMessageDetailViewController animated:YES];
-        [dropboxMessageDetailViewController release];
-    } else if ([itemType isEqualToString:@"exam-submission"]) {
-        return;
-    } else if ([itemType isEqualToString:@"remark"]) {
-        return;
+    if (filter.selectedSegmentIndex == ACTIVITY_STREAM) {
+        ActivityStreamItem* item = (ActivityStreamItem*)obj;        
+        NSString* itemType = [item getType];
+        if (!itemType) {
+            NSLog(@"ERROR: item for selected row does not have an objectType.");
+            return;
+        }
+                
+        // based on the type of the activity stream item, push a view controller.
+        if ([itemType isEqualToString:@"thread-topic"]) {
+            NSInteger userId = [[[eCollegeAppDelegate delegate] currentUser] userId];
+            NSString* refId = item.object.referenceId;
+            TopicResponsesViewController* trvc = [[TopicResponsesViewController alloc] initWithNibName:@"ResponsesViewController" bundle:nil];
+            trvc.rootItemId = [NSString stringWithFormat:@"%d-%@",userId,refId];
+            NSLog(@"Setting ID on TopicResponsesViewController to: %@", trvc.rootItemId);
+            trvc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:trvc animated:YES];
+            [trvc release];
+        } else if ([itemType isEqualToString:@"thread-post"]) {
+            NSInteger userId = [[[eCollegeAppDelegate delegate] currentUser] userId];
+            NSString* refId = item.object.referenceId;
+            ResponseResponsesViewController* rrvc = [[ResponseResponsesViewController alloc] initWithNibName:@"ResponsesViewController" bundle:nil];
+            rrvc.rootItemId = [NSString stringWithFormat:@"%d-%@",userId,refId];
+            NSLog(@"Setting ID on ResponseResponsesViewController to: %@", rrvc.rootItemId);
+            rrvc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:rrvc animated:YES];
+            [rrvc release];
+        } else if ([itemType isEqualToString:@"grade"]) {
+            GradebookItemGradeDetailViewController* gradebookItemGradeDetailViewController = [[GradebookItemGradeDetailViewController alloc] initWithItem:item];
+            gradebookItemGradeDetailViewController.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:gradebookItemGradeDetailViewController animated:YES];
+            [gradebookItemGradeDetailViewController release];        
+        } else if ([itemType isEqualToString:@"dropbox-submission"]) {
+            DropboxMessageDetailViewController* dropboxMessageDetailViewController = [[DropboxMessageDetailViewController alloc] initWithCourseId:item.object.courseId basketId:item.target.referenceId messageId:item.object.referenceId];
+            dropboxMessageDetailViewController.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:dropboxMessageDetailViewController animated:YES];
+            [dropboxMessageDetailViewController release];
+        } else if ([itemType isEqualToString:@"exam-submission"]) {
+            return;
+        } else if ([itemType isEqualToString:@"remark"]) {
+            return;
+        } else {
+            NSLog(@"ERROR: Unknown objectType '%@' on selected ActivityStreamItem", itemType);
+            return;
+        }
     } else {
-        NSLog(@"ERROR: Unknown objectType '%@' on selected ActivityStreamItem", itemType);
-        return;
+        // TODO: handle upcoming events
     }
 }
 
 - (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section  {
-    NSString* str;
-    if (section == 0 && [self hasTodayItems]) {
-        str = NSLocalizedString(@"Today",@"The word meaning 'today'");
-    } else if ([self hasEarlierItems]) {
-        str = NSLocalizedString(@"Earlier",@"The word meaning 'earlier'");
-    } else {
-        str = @"";
+    NSString *str;
+    NSArray *sections = [self getSections];
+    if (section < [sections count]) {
+        NSArray *itemsForSection = [sections objectAtIndex:section];
+        // This if statement isn't strictly necessary; just throwing it in for minor performance savings
+        if (filter.selectedSegmentIndex == ACTIVITY_STREAM) {
+            if (itemsForSection == todayActivityItems) {
+                str = NSLocalizedString(@"Today",nil);
+            } else if (itemsForSection == earlierActivityItems) {
+                str = NSLocalizedString(@"Earlier",nil);
+            } else {
+                str = @"Error: unknown section";
+            }
+        } else {
+            if (itemsForSection == todayUpcomingEvents) {
+                str = NSLocalizedString(@"Today",nil);                
+            } else if (itemsForSection == tomorrowUpcomingEvents) {
+                str = NSLocalizedString(@"Tomorrow",nil);
+            } else if (itemsForSection == twoToFiveDaysUpcomingEvents) {
+                str = NSLocalizedString(@"Two to five days from now", nil);
+            } else if (itemsForSection == laterUpcomingEvents) {
+                str = NSLocalizedString(@"Later", nil);
+            } else {
+                str = @"Error: unknown section";
+            }
+        }
     }
-    return [[[GreyTableHeader alloc] initWithText:str] autorelease];    
+    return [[[GreyTableHeader alloc] initWithText:str] autorelease];        
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {    
     return 30.0;
 }
-
-
-
 
 @end
