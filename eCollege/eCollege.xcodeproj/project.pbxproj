@@ -139,6 +139,8 @@
 		A2FA883C13660635001CF6CD /* UpcomingEventItemTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A2FA883B13660635001CF6CD /* UpcomingEventItemTableCell.m */; };
 		EA014E84134BA78100353897 /* CourseGradebookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA014E83134BA78100353897 /* CourseGradebookViewController.m */; };
 		EA014E87134BB82F00353897 /* GradebookItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA014E86134BB82F00353897 /* GradebookItemCell.m */; };
+		EA0CB111136743DE00C7166E /* ThreadTopicsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0CB10F136743DE00C7166E /* ThreadTopicsViewController.m */; };
+		EA0CB112136743DE00C7166E /* ThreadTopicsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA0CB110136743DE00C7166E /* ThreadTopicsViewController.xib */; };
 		EA1340F8134D0E1A003F9687 /* noise_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = EA1340F7134D0E1A003F9687 /* noise_bg.png */; };
 		EA427AC0134E664A00043CC6 /* NSString+stripHTML.m in Sources */ = {isa = PBXBuildFile; fileRef = EA427ABF134E664A00043CC6 /* NSString+stripHTML.m */; };
 		EA427AC7134E753000043CC6 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = EA427AC5134E753000043CC6 /* Default.png */; };
@@ -380,6 +382,9 @@
 		EA014E83134BA78100353897 /* CourseGradebookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseGradebookViewController.m; sourceTree = "<group>"; };
 		EA014E85134BB82F00353897 /* GradebookItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradebookItemCell.h; sourceTree = "<group>"; };
 		EA014E86134BB82F00353897 /* GradebookItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradebookItemCell.m; sourceTree = "<group>"; };
+		EA0CB10E136743DE00C7166E /* ThreadTopicsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadTopicsViewController.h; sourceTree = "<group>"; };
+		EA0CB10F136743DE00C7166E /* ThreadTopicsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreadTopicsViewController.m; sourceTree = "<group>"; };
+		EA0CB110136743DE00C7166E /* ThreadTopicsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThreadTopicsViewController.xib; sourceTree = "<group>"; };
 		EA1340F7134D0E1A003F9687 /* noise_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = noise_bg.png; path = Images/noise_bg.png; sourceTree = "<group>"; };
 		EA427ABE134E664A00043CC6 /* NSString+stripHTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+stripHTML.h"; sourceTree = "<group>"; };
 		EA427ABF134E664A00043CC6 /* NSString+stripHTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+stripHTML.m"; sourceTree = "<group>"; };
@@ -830,6 +835,9 @@
 				A2FA883813660604001CF6CD /* UpcomingEventItemTableCell.xib */,
 				A2FA883A13660635001CF6CD /* UpcomingEventItemTableCell.h */,
 				A2FA883B13660635001CF6CD /* UpcomingEventItemTableCell.m */,
+				EA0CB10E136743DE00C7166E /* ThreadTopicsViewController.h */,
+				EA0CB10F136743DE00C7166E /* ThreadTopicsViewController.m */,
+				EA0CB110136743DE00C7166E /* ThreadTopicsViewController.xib */,
 			);
 			name = "Upcoming Events";
 			sourceTree = "<group>";
@@ -1126,6 +1134,7 @@
 				A20275D71358B589007CDA38 /* announcement_icon@2x.png in Resources */,
 				A2FA883913660604001CF6CD /* UpcomingEventItemTableCell.xib in Resources */,
 				EA6D76A213622789005172F3 /* SingleSignOnViewController.xib in Resources */,
+				EA0CB112136743DE00C7166E /* ThreadTopicsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1194,6 +1203,7 @@
 				A2C6995A135788D400EF5CA3 /* DetailHeader.m in Sources */,
 				A2FA883C13660635001CF6CD /* UpcomingEventItemTableCell.m in Sources */,
 				EA6D76A113622789005172F3 /* SingleSignOnViewController.m in Sources */,
+				EA0CB111136743DE00C7166E /* ThreadTopicsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

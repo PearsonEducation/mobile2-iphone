@@ -23,6 +23,7 @@
 #import "GreyTableHeader.h"
 #import "UpcomingEventItem.h"
 #import "UpcomingEventItemTableCell.h"
+#import "ThreadTopicsViewController.h"
 
 #define ACTIVITY_STREAM 0
 #define UPCOMING_EVENTS 1
@@ -562,7 +563,28 @@
             return;
         }
     } else {
-        // TODO: handle upcoming events
+        UpcomingEventItem *event = (UpcomingEventItem *)obj;
+		UpcomingEventType eventType = event.eventType;
+		UIViewController *vc = nil;
+		ThreadTopicsViewController *ttvc = nil;
+		switch (eventType) {
+			case Html:
+				NSLog(@"HTML");
+				break;
+			case QuizExamTest:
+				// do nothing - quizzes aren't selectable
+				break;
+			case Thread:
+				ttvc = [[ThreadTopicsViewController alloc] initWithNibName:@"ThreadTopicsViewController" bundle:nil];
+				ttvc.item = event;
+				vc = ttvc;
+				break;
+			case Ignored:
+				// Ignore the Ignored.
+				break;
+		}
+		if (vc) [self.navigationController pushViewController:vc animated:YES];
+		[vc release];
     }
 }
 
