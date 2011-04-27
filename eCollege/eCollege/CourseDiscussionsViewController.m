@@ -410,7 +410,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UserDiscussionTopic* topic = [self getTopicForIndexPath:indexPath];
-    UITableViewCell *cell;
+    UITableViewCell *cell = nil;
     if (topic) {
         static NSString *CellIdentifier = @"TopicTableCell";
         cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];

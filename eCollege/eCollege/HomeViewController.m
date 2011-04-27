@@ -589,7 +589,7 @@
 }
 
 - (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section  {
-    NSString *str;
+    NSString *str = nil;
     NSArray *sections = [self getSections];
     if (section < [sections count]) {
         NSArray *itemsForSection = [sections objectAtIndex:section];
