@@ -7,15 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ThreadTopicFetcher.h"
 
-@class UpcomingEventItem, DetailHeader;
+@class UpcomingEventItem, DetailHeader, BlockingActivityView;
 
 @interface ThreadTopicsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
     IBOutlet UITableView *tableView;
 	DetailHeader *detailHeader;
+	BlockingActivityView *blockingActivityView;
+	ThreadTopicFetcher *threadTopicFetcher;
 }
 
 @property(nonatomic, retain) UpcomingEventItem *item;
+@property(nonatomic, retain) NSArray *threadTopics;
 @property(nonatomic, readonly) NSString *courseName;
 
 @end
