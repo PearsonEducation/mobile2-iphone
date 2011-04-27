@@ -24,6 +24,7 @@
 #import "UpcomingEventItem.h"
 #import "UpcomingEventItemTableCell.h"
 #import "ThreadTopicsViewController.h"
+#import "UpcomingHTMLContentViewController.h"
 
 #define ACTIVITY_STREAM 0
 #define UPCOMING_EVENTS 1
@@ -567,9 +568,12 @@
 		UpcomingEventType eventType = event.eventType;
 		UIViewController *vc = nil;
 		ThreadTopicsViewController *ttvc = nil;
+		UpcomingHTMLContentViewController *htmlvc = nil;
 		switch (eventType) {
 			case Html:
-				NSLog(@"HTML");
+				htmlvc = [[UpcomingHTMLContentViewController alloc] initWithNibName:@"UpcomingHTMLContentViewController" bundle:nil];
+				htmlvc.item = event;
+				vc = htmlvc;
 				break;
 			case QuizExamTest:
 				// do nothing - quizzes aren't selectable

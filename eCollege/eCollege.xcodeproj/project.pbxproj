@@ -165,6 +165,8 @@
 		EAAE7D9613142B7A0051B2A9 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAAE7D9413142B7A0051B2A9 /* MainWindow.xib */; };
 		EAAE7D9913142B7A0051B2A9 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAE7D9813142B7A0051B2A9 /* LogInViewController.m */; };
 		EAAE7D9C13142B7A0051B2A9 /* LogInView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAAE7D9A13142B7A0051B2A9 /* LogInView.xib */; };
+		EAB164F51368D185008B1EC6 /* UpcomingHTMLContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB164F31368D185008B1EC6 /* UpcomingHTMLContentViewController.m */; };
+		EAB164F61368D185008B1EC6 /* UpcomingHTMLContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAB164F41368D185008B1EC6 /* UpcomingHTMLContentViewController.xib */; };
 		EAD2DFF913181E7500A4D89C /* ECClientConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD2DFF813181E7500A4D89C /* ECClientConfiguration.m */; };
 		EAD48D54134A688F00B33ACD /* person_male_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD48D52134A688F00B33ACD /* person_male_icon.png */; };
 		EAD48D55134A688F00B33ACD /* person_male_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD48D53134A688F00B33ACD /* person_male_icon@2x.png */; };
@@ -419,6 +421,9 @@
 		EAAE7D9713142B7A0051B2A9 /* LogInViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogInViewController.h; sourceTree = "<group>"; };
 		EAAE7D9813142B7A0051B2A9 /* LogInViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
 		EAAE7D9B13142B7A0051B2A9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/LogInView.xib; sourceTree = "<group>"; };
+		EAB164F21368D185008B1EC6 /* UpcomingHTMLContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpcomingHTMLContentViewController.h; sourceTree = "<group>"; };
+		EAB164F31368D185008B1EC6 /* UpcomingHTMLContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpcomingHTMLContentViewController.m; sourceTree = "<group>"; };
+		EAB164F41368D185008B1EC6 /* UpcomingHTMLContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpcomingHTMLContentViewController.xib; sourceTree = "<group>"; };
 		EAD2DFF713181E7500A4D89C /* ECClientConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECClientConfiguration.h; sourceTree = "<group>"; };
 		EAD2DFF813181E7500A4D89C /* ECClientConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECClientConfiguration.m; sourceTree = "<group>"; };
 		EAD48D52134A688F00B33ACD /* person_male_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = person_male_icon.png; path = Images/person_male_icon.png; sourceTree = "<group>"; };
@@ -838,6 +843,9 @@
 				EA0CB10E136743DE00C7166E /* ThreadTopicsViewController.h */,
 				EA0CB10F136743DE00C7166E /* ThreadTopicsViewController.m */,
 				EA0CB110136743DE00C7166E /* ThreadTopicsViewController.xib */,
+				EAB164F21368D185008B1EC6 /* UpcomingHTMLContentViewController.h */,
+				EAB164F31368D185008B1EC6 /* UpcomingHTMLContentViewController.m */,
+				EAB164F41368D185008B1EC6 /* UpcomingHTMLContentViewController.xib */,
 			);
 			name = "Upcoming Events";
 			sourceTree = "<group>";
@@ -1135,6 +1143,7 @@
 				A2FA883913660604001CF6CD /* UpcomingEventItemTableCell.xib in Resources */,
 				EA6D76A213622789005172F3 /* SingleSignOnViewController.xib in Resources */,
 				EA0CB112136743DE00C7166E /* ThreadTopicsViewController.xib in Resources */,
+				EAB164F61368D185008B1EC6 /* UpcomingHTMLContentViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1204,6 +1213,7 @@
 				A2FA883C13660635001CF6CD /* UpcomingEventItemTableCell.m in Sources */,
 				EA6D76A113622789005172F3 /* SingleSignOnViewController.m in Sources */,
 				EA0CB111136743DE00C7166E /* ThreadTopicsViewController.m in Sources */,
+				EAB164F51368D185008B1EC6 /* UpcomingHTMLContentViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
