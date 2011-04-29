@@ -13,6 +13,7 @@
 
 @interface ThreadTopicsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
     IBOutlet UITableView *tableView;
+	IBOutlet UIView *texturedView;
 	DetailHeader *detailHeader;
 	BlockingActivityView *blockingActivityView;
 	ThreadTopicFetcher *threadTopicFetcher;

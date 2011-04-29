@@ -94,8 +94,10 @@
 	[super viewDidLoad];
 	
 	ECClientConfiguration *config = [ECClientConfiguration currentConfiguration];
-	self.view.backgroundColor = [config texturedBackgroundColor];
-	self.view.opaque = NO;
+	self.view.backgroundColor = [config tertiaryColor];
+	
+	texturedView.backgroundColor = [config texturedBackgroundColor];
+	texturedView.opaque = NO;
 	
 	detailHeader = [[DetailHeader alloc] initWithFrame:CGRectMake(20, 10, 280, 500)];
 	[self.view addSubview:detailHeader];
