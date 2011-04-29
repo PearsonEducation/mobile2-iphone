@@ -364,9 +364,9 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
 
 - (void)storeTopic:(UserDiscussionTopic*)topic {
     
-    NSString* courseId = nil;
+    NSNumber* courseId = nil;
     if (topic && topic.topic && topic.topic.containerInfo) {
-        courseId = [NSString stringWithFormat:@"%d",topic.topic.containerInfo.courseId];
+        courseId = topic.topic.containerInfo.courseId;
     }
 
     if (!courseId) {
@@ -374,7 +374,7 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
         return;
     }
 
-    NSMutableDictionary* dict = [self getInfoForCourseId:courseId];
+    NSMutableDictionary* dict = [self getInfoForCourseId:[courseId stringValue]];
     if (!dict) {
         NSLog(@"ERROR: Unable to store topic %@",topic);
         return;
@@ -425,7 +425,7 @@ NSInteger topicInfoSort(NSDictionary* obj1, NSDictionary* obj2, void *context)
     self.orderedCourseInfo = [[[NSMutableArray alloc] initWithCapacity:[allCourseIds count]] autorelease];
     self.courseInfoByCourseId = [[[NSMutableDictionary alloc] initWithCapacity:[allCourseIds count]] autorelease];
     for (NSNumber* courseId in allCourseIds) {
-        Course* course = [[eCollegeAppDelegate delegate] getCourseHavingId:[courseId integerValue]];
+        Course* course = [[eCollegeAppDelegate delegate] getCourseHavingId:courseId];
         if (!course) {
             NSLog(@"ERROR: Cannot create info object for nonexistent course (id: %@)", courseId);
             return;

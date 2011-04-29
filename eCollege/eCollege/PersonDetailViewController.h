@@ -10,7 +10,6 @@
 #import "RosterUser.h"
 
 @interface PersonDetailViewController : UIViewController {
-    NSInteger courseId;
     IBOutlet UILabel* nameLabel;
     IBOutlet UILabel* roleLabel;
     IBOutlet UILabel* courseNameLabel;
@@ -20,7 +19,7 @@
 	IBOutlet UIImageView *textureImageView;
 }
 
-@property (nonatomic, assign) NSInteger courseId;
+@property (nonatomic, retain) NSNumber *courseId;
 @property (nonatomic, retain) RosterUser* user;
 
 @end

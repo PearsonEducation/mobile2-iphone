@@ -57,8 +57,8 @@
     }
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+	self.courseId = nil;
     self.user = nil;
     [super dealloc];
 }

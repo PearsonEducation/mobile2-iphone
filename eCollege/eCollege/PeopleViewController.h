@@ -13,11 +13,8 @@
 #import "GradientCellBackground.h"
 
 @interface PeopleViewController : PullRefreshTableViewController <UITableViewDelegate, UITableViewDataSource> {
-    NSInteger courseId;
-    NSArray* people;
     UserFetcher* peopleFetcher;
     BlockingActivityView* blockingActivityView;
-    NSDate* lastUpdateTime;
     BOOL currentlyLoading;
     BOOL peopleLoadFailure;
     BOOL forceUpdateOnViewWillAppear;
@@ -31,6 +28,6 @@
 
 @property (nonatomic, retain) NSArray* people;
 @property (nonatomic, retain) NSDate* lastUpdateTime;
-@property (nonatomic, assign) NSInteger courseId;
+@property (nonatomic, retain) NSNumber *courseId;
 
 @end

@@ -14,12 +14,11 @@
 @interface AnnouncementDetailViewController : UIViewController {
     AnnouncementFetcher *announcementFetcher;
     id announcement;
-    NSInteger announcementId;
     BlockingActivityView* blockingActivityView;
     NSString* courseName;
     UIScrollView* scrollView;
 }
 
-- (void)setAnnouncementId:(NSInteger)announcementIdValue andCourseId:(NSInteger)courseIdValue andCourseName:(NSString*)courseName;
+- (void)setAnnouncementId:(NSNumber *)announcementIdValue andCourseId:(NSNumber *)courseIdValue andCourseName:(NSString*)courseName;
 
 @end

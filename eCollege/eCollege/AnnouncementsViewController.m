@@ -51,8 +51,8 @@
     return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc { 
+	self.courseId = nil;
     self.blockingActivityView = nil;
     self.announcements = nil;
     self.announcementsFetcher = nil;
@@ -253,7 +253,7 @@
     if (announcement) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         AnnouncementDetailViewController* announcementDetailViewController = [[AnnouncementDetailViewController alloc] init];
-        NSLog(@"Initializing AnnouncementDetailViewController controller with announcement ID: %d and course ID: %d",announcement.announcementId, self.courseId);
+        NSLog(@"Initializing AnnouncementDetailViewController controller with announcement ID: %@ and course ID: %@",announcement.announcementId, self.courseId);
         [announcementDetailViewController setAnnouncementId:announcement.announcementId andCourseId:self.courseId andCourseName:self.courseName];
         announcementDetailViewController.hidesBottomBarWhenPushed = YES;
         [self.table deselectRowAtIndexPath:indexPath animated:YES];

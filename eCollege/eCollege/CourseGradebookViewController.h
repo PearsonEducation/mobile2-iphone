@@ -13,12 +13,12 @@
 @interface CourseGradebookViewController : PullRefreshTableViewController {
     GradebookItemFetcher *fetcher;
 	NSArray *gradebookItems;
-	NSInteger courseId;
+	NSNumber *courseId;
 	BOOL currentlyLoading;
 	NSDate *lastUpdateTime;
 }
 
 @property(nonatomic, retain) NSArray *gradebookItems;
-@property(nonatomic, assign) NSInteger courseId;
+@property(nonatomic, retain) NSNumber *courseId;
 
 @end

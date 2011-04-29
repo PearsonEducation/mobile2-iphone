@@ -42,13 +42,13 @@
 		assignmentName = [item.target.title copy];
 		displayedGrade = [[NSString stringWithFormat:@"%@/%@", self.item.object.pointsAchieved, self.item.target.pointsPossible] retain];
 		postedTime = [self.item.postedTime retain];
-        courseId = item.target.courseId;
+        courseId = [item.target.courseId retain];
         self.gradebookItemGradeFetcher = [[[GradebookItemGradeFetcher alloc] initWithDelegate:self responseSelector:@selector(gradebookItemGradeLoaded:)] autorelease];
     }
     return self;
 }
 
-- (id)initWithCourseId:(NSInteger)cid userGradebookItem:(UserGradebookItem *)ugi {
+- (id)initWithCourseId:(NSNumber *)cid userGradebookItem:(UserGradebookItem *)ugi {
     if ((self = [super init]) != nil) {
 		GradebookItem *gi = ugi.gradebookItem;
 		Grade *g = [ugi grade];
@@ -56,7 +56,7 @@
 		grade = [g retain];
 		displayedGrade = [[ugi displayedGrade] retain];
 		postedTime = [[grade updatedDate] retain];
-        courseId = cid;
+        courseId = [cid retain];
 		[self setupView];
     }
     return self;
@@ -147,6 +147,7 @@
 }
 
 - (void)dealloc {
+	[courseId release]; courseId = nil;
     self.scrollView = nil;
 	self.gradebookItemGradeFetcher = nil;
 	[grade release]; grade = nil;

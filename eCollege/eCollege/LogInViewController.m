@@ -234,7 +234,7 @@
 - (void) userLoaded:(id)response {
 	[userFetcher release]; userFetcher = nil;
     if ([response isKindOfClass:[User class]]) {
-        NSLog(@"User load successful; ID = %d", ((User*)response).userId);
+        NSLog(@"User load successful; ID = %@", ((User*)response).userId);
         [eCollegeAppDelegate delegate].currentUser = (User*)response;
         [self registerForCoursesNotifications];
         [[eCollegeAppDelegate delegate] refreshCourseList];            

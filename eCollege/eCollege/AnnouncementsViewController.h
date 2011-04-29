@@ -12,12 +12,8 @@
 #import "PullRefreshTableViewController.h"
 
 @interface AnnouncementsViewController : PullRefreshTableViewController <UITableViewDelegate, UITableViewDataSource> {
-    NSInteger courseId;
-    NSString* courseName;
-    NSArray* announcements;
     AnnouncementFetcher* announcementsFetcher;
     BlockingActivityView* blockingActivityView;
-    NSDate* lastUpdateTime;
     BOOL currentlyLoading;
     BOOL announcementsLoadFailure;
     BOOL forceUpdateOnViewWillAppear;
@@ -27,7 +23,7 @@
 
 @property (nonatomic, retain) NSArray* announcements;
 @property (nonatomic, retain) NSDate* lastUpdateTime;
-@property (nonatomic, assign) NSInteger courseId;
+@property (nonatomic, retain) NSNumber *courseId;
 @property (nonatomic, retain) NSString* courseName;
 
 @end

@@ -55,8 +55,7 @@
 	if(item) { 
         title.text = [item.title stripHTML];
         
-        NSInteger courseId = item.courseId;
-        Course* course = [[eCollegeAppDelegate delegate] getCourseHavingId:courseId];
+        Course* course = [[eCollegeAppDelegate delegate] getCourseHavingId:item.courseId];
         if (!course) {
             return;
         }

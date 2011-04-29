@@ -50,7 +50,7 @@ extern int coursesRefreshInterval;
 
 - (void)dismissLoginView;
 - (void) singleSignOnComplete;
-- (Course*)getCourseHavingId:(NSInteger)courseId;
+- (Course*)getCourseHavingId:(NSNumber *)courseId;
 - (void)refreshCourseList;
 - (BOOL)shouldRefreshCourses;
 - (NSArray*) getAllCourseIds;

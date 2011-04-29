@@ -38,8 +38,7 @@
     UserDiscussionResponseFetcher* fetcher = (UserDiscussionResponseFetcher*)self.responsesFetcher;
     UserDiscussionResponse* udr = (UserDiscussionResponse*)self.rootItem;
     DiscussionResponse* dr = udr.response;
-    NSInteger drid = dr.discussionResponseId;    
-    [fetcher fetchDiscussionResponsesForResponseId:[NSString stringWithFormat:@"%d",drid]];
+    [fetcher fetchDiscussionResponsesForResponseId:[dr.discussionResponseId stringValue]];
 }
 
 - (void)setupFetchers {    
@@ -72,8 +71,8 @@
 - (void)markAsRead {
     UserDiscussionResponse* udr = (UserDiscussionResponse*)self.rootItem;
     if (!udr.markedAsRead) {
-        NSLog(@"Marking response %d as read", udr.response.discussionResponseId);
-        [self.markAsReadFetcher markResponseId:[NSString stringWithFormat:@"%d",udr.response.discussionResponseId] asRead:YES];
+        NSLog(@"Marking response %@ as read", udr.response.discussionResponseId);
+        [self.markAsReadFetcher markResponseId:[udr.response.discussionResponseId stringValue] asRead:YES];
     }
 }
 

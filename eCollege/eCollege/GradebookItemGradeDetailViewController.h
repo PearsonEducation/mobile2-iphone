@@ -16,7 +16,7 @@
     ActivityStreamItem* item;
     GradebookItemGradeFetcher* gradebookItemGradeFetcher;
     Grade* grade;
-	NSInteger courseId;
+	NSNumber *courseId;
 	NSString *assignmentName;
 	NSString *displayedGrade;
 	NSDate *postedTime;
@@ -25,7 +25,7 @@
 }
 
 - (id)initWithItem:(ActivityStreamItem*)value;
-- (id)initWithCourseId:(NSInteger)cid userGradebookItem:(UserGradebookItem *)ugi;
+- (id)initWithCourseId:(NSNumber *)cid userGradebookItem:(UserGradebookItem *)ugi;
 
 @property (nonatomic, retain) ActivityStreamItem* item;
 

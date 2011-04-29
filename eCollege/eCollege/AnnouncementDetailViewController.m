@@ -25,8 +25,8 @@
 @property (nonatomic, retain) AnnouncementFetcher* announcementFetcher;
 @property (nonatomic, retain) id announcement;
 @property (nonatomic, retain) BlockingActivityView* blockingActivityView;
-@property (nonatomic, assign) NSInteger announcementId;
-@property (nonatomic, assign) NSInteger courseId;
+@property (nonatomic, retain) NSNumber *announcementId;
+@property (nonatomic, retain) NSNumber *courseId;
 @property (nonatomic, retain) NSString* courseName;
 @property (nonatomic, retain) UIScrollView* scrollView;;
 
@@ -55,7 +55,7 @@
     return self;
 }
 
-- (void)setAnnouncementId:(NSInteger)announcementIdValue andCourseId:(NSInteger)courseIdValue andCourseName:(NSString *)courseNameValue {
+- (void)setAnnouncementId:(NSNumber *)announcementIdValue andCourseId:(NSNumber *)courseIdValue andCourseName:(NSString *)courseNameValue {
     self.announcementId = announcementIdValue;
     self.courseId = courseIdValue;
     self.courseName = courseNameValue;
@@ -158,8 +158,9 @@
 }
 
 
-- (void)dealloc
-{
+- (void)dealloc {
+	self.announcementId = nil;
+	self.courseId = nil;
     self.scrollView = nil;
     [self.announcementFetcher cancel];
     self.courseName = nil;

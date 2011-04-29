@@ -17,12 +17,12 @@
     DropboxMessageFetcher* dropboxMessageFetcher;
     DropboxBasketFetcher* dropboxBasketFetcher;
     BlockingActivityView* blockingActivityView;
-    NSInteger courseId;
+    NSNumber *courseId;
     NSString* basketId;
     NSString* messageId;
     UIScrollView* scrollView;
 }
 
-- (id)initWithCourseId:(NSInteger)courseId basketId:(NSString*)basketId messageId:(NSString*)messageId;
+- (id)initWithCourseId:(NSNumber*)courseId basketId:(NSString*)basketId messageId:(NSString*)messageId;
 
 @end

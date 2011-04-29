@@ -30,7 +30,7 @@
 @property (nonatomic, retain) id dropboxMessage;
 @property (nonatomic, retain) id dropboxBasket;
 @property (nonatomic, retain) BlockingActivityView* blockingActivityView;
-@property (nonatomic, assign) NSInteger courseId;
+@property (nonatomic, retain) NSNumber *courseId;
 @property (nonatomic, retain) UIScrollView* scrollView;
 
 - (void)dropboxMessageLoaded:(id)dropboxMsg;
@@ -52,7 +52,7 @@
 @synthesize dropboxBasket;
 @synthesize blockingActivityView;
 
-- (id)initWithCourseId:(NSInteger)cId basketId:(NSString*)bId messageId:(NSString*)mId {
+- (id)initWithCourseId:(NSNumber*)cId basketId:(NSString*)bId messageId:(NSString*)mId {
     if ((self = [super init]) != nil) {
         self.courseId = cId;
         self.basketId = bId;
@@ -195,8 +195,8 @@
 }
 
 
-- (void)dealloc
-{
+- (void)dealloc {
+	self.courseId = nil;
     self.scrollView = nil;
     self.dropboxBasket = nil;
     self.dropboxMessage = nil;

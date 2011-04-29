@@ -303,19 +303,19 @@ int coursesRefreshInterval = 43200; // 12 hours = 43200 seconds
         coursesArray = [value retain];
         coursesDictionary = [[NSMutableDictionary alloc] init];
         for (Course* course in coursesArray) {
-            [coursesDictionary setValue:course forKey:[NSString stringWithFormat:@"%d",course.courseId]];
+            [coursesDictionary setValue:course forKey:[course.courseId stringValue]];
         }
     }
 }
 
-- (Course*) getCourseHavingId:(NSInteger)courseId {
-    return [coursesDictionary objectForKey:[NSString stringWithFormat:@"%d",courseId]];
+- (Course*) getCourseHavingId:(NSNumber *)courseId {
+    return [coursesDictionary objectForKey:[courseId stringValue]];
 }
 
 - (NSArray*) getAllCourseIds {
     NSMutableArray* arr = [[NSMutableArray alloc] initWithCapacity:[self.coursesArray count]];
     for(Course* course in self.coursesArray) {
-        [arr addObject:[NSNumber numberWithInt:[course courseId]]];
+        [arr addObject:course.courseId];
     }
     return [arr autorelease];
 }

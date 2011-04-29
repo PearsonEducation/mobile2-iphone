@@ -64,8 +64,8 @@
     return self;
 }
 
-- (void)dealloc
-{    
+- (void)dealloc {
+	self.courseId = nil;
     self.people = nil;
     self.lastUpdateTime = nil;
     self.userFetcher = nil;
@@ -330,7 +330,7 @@
     if (user) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         PersonDetailViewController *pdvc = [[PersonDetailViewController alloc] initWithNibName:@"PersonDetailViewController" bundle:nil];
-        NSLog(@"Initializing PersonDetailViewController controller with user id: %d", user.rosterUserId);
+        NSLog(@"Initializing PersonDetailViewController controller with user id: %@", user.rosterUserId);
         pdvc.user = user;
         pdvc.courseId = self.courseId;
         pdvc.hidesBottomBarWhenPushed = YES;

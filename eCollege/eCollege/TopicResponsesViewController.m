@@ -39,8 +39,8 @@
     UserDiscussionResponseFetcher* fetcher = (UserDiscussionResponseFetcher*)self.responsesFetcher;
     UserDiscussionTopic* udt = (UserDiscussionTopic*)self.rootItem;
     DiscussionTopic* dt = udt.topic;
-    NSInteger dtid = dt.discussionTopicId;    
-    [fetcher fetchUserDiscussionResponsesForTopicId:[NSString stringWithFormat:@"%d",dtid]];
+    NSNumber *dtid = dt.discussionTopicId;    
+    [fetcher fetchUserDiscussionResponsesForTopicId:[NSString stringWithFormat:@"%@",dtid]];
 }
 
 - (void)setupFetchers {    
