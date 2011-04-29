@@ -10,8 +10,9 @@
 
 @class DetailHeader, BlockingActivityView, TextMultimediaFetcher, UpcomingEventItem;
 
-@interface UpcomingHTMLContentViewController : UIViewController {
+@interface UpcomingHTMLContentViewController : UIViewController<UIWebViewDelegate> {
     IBOutlet UIWebView *webView;
+	IBOutlet UIView *texturedView;
 	DetailHeader *detailHeader;
 	BlockingActivityView *blockingActivityView;
 	TextMultimediaFetcher *multimediaFetcher;

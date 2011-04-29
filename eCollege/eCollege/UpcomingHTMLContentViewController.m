@@ -42,8 +42,24 @@
 }
 
 - (void) htmlLoaded:(NSString *)html {
-	
+	[blockingActivityView hide];
+	[webView loadHTMLString:html baseURL:nil];
 }
+
+#pragma mark - Web View Delegate
+
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+	[blockingActivityView show];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+	[blockingActivityView hide];
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+	[blockingActivityView hide];
+}
+
 
 #pragma mark - View Methods
 
@@ -51,8 +67,10 @@
 	[super viewDidLoad];
 	
 	ECClientConfiguration *config = [ECClientConfiguration currentConfiguration];
-	self.view.backgroundColor = [config texturedBackgroundColor];
-	self.view.opaque = NO;
+	self.view.backgroundColor = [config tertiaryColor];
+	
+	texturedView.backgroundColor = [config texturedBackgroundColor];
+	texturedView.opaque = NO;
 	
 	detailHeader = [[DetailHeader alloc] initWithFrame:CGRectMake(20, 10, 280, 500)];
 	[self.view addSubview:detailHeader];
