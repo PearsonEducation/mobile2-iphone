@@ -85,7 +85,7 @@
 - (void) viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	detailHeader.courseName = self.courseName;
-	detailHeader.itemType = NSLocalizedString(@"Thread Topic", @"Thread Topic");
+	detailHeader.itemType = self.item.title;
 }
 
 
