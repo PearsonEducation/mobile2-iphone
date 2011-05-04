@@ -73,17 +73,19 @@
         
         NSString* imgName = nil;
         
-        self.selectionStyle = UITableViewCellSelectionStyleBlue;
-        arrowView.hidden = NO;
+		self.selectionStyle = UITableViewCellSelectionStyleNone;
+        arrowView.hidden = YES;
         
         ECClientConfiguration* config = [ECClientConfiguration currentConfiguration];
         if (eventType == Html) {
             imgName = [config dropboxIconFileName];
+            arrowView.hidden = NO;
+			self.selectionStyle = UITableViewCellSelectionStyleBlue;
         } else if (eventType == QuizExamTest) {
             imgName = [config examIconFileName];
-            arrowView.hidden = YES;
-            self.selectionStyle = UITableViewCellSelectionStyleNone;
         } else if (eventType == Thread) {
+            arrowView.hidden = NO;
+			self.selectionStyle = UITableViewCellSelectionStyleBlue;
             imgName = [config responseIconFileName];
         }
         
