@@ -81,7 +81,7 @@
 
 - (void)forceFutureRefresh {    
     forceUpdateOnViewWillAppear = YES;
-    if (parent) {
+    if (parent && [parent respondsToSelector:@selector(forceFutureRefresh)]) {
         [parent forceFutureRefresh];
     }
 }
