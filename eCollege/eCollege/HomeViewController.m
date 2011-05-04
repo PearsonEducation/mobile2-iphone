@@ -361,7 +361,7 @@
         for (UpcomingEventItem* eventItem in upcomingEvents) {
             if (eventItem.when && eventItem.when.time) {
                 NSDate* date = eventItem.when.time;
-                eventItem.dateString = [date basicDateTimeString];
+                eventItem.dateString = [date friendlyDateTimeString];
                 int numDates = [today datesUntil:date];                
                 if (numDates >= 6) {
                     [laterUpcomingEvents addObject:eventItem];
