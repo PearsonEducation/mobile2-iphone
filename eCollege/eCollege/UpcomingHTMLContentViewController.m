@@ -86,6 +86,7 @@
 	[super viewWillAppear:animated];
 	detailHeader.courseName = self.courseName;
 	detailHeader.itemType = self.item.title;
+	detailHeader.thirdHeaderText = self.item.dateString;
 }
 
 

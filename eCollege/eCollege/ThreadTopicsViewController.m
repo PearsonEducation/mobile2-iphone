@@ -113,6 +113,7 @@
 	[super viewWillAppear:animated];
 	detailHeader.courseName = self.courseName;
 	detailHeader.itemType = NSLocalizedString(@"Thread Topic", @"Thread Topic");
+	detailHeader.thirdHeaderText = self.item.dateString;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

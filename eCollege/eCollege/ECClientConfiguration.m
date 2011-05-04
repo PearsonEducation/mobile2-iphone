@@ -60,7 +60,7 @@ static ECClientConfiguration *currentConfiguration = nil;
 }
 
 - (BOOL) usesSSO {
-	return true;
+	return false;
 }
 
 - (NSString *) ssoURL {
@@ -239,6 +239,10 @@ static ECClientConfiguration *currentConfiguration = nil;
 
 - (UIFont*)detailHeaderItemTypeFont {
     return [UIFont fontWithName:@"Helvetica-Bold" size:22.0];
+}
+
+- (UIFont*)detailHeaderThirdHeaderNameFont {
+    return [UIFont fontWithName:@"Helvetica-Oblique" size:13.0];
 }
 
 #pragma mark - View Helpers and useful factory methods

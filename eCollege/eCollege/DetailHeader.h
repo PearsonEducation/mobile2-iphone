@@ -10,14 +10,13 @@
 
 
 @interface DetailHeader : UIView {
-    NSString* courseName;
     UILabel* courseNameLabel;
-
-    NSString* itemType;
     UILabel* itemTypeLabel;
+	UILabel* thirdHeaderLabel;
 }
 
 @property (nonatomic, retain) NSString* courseName;
 @property (nonatomic, retain) NSString* itemType;
+@property (nonatomic, retain) NSString* thirdHeaderText;
 
 @end

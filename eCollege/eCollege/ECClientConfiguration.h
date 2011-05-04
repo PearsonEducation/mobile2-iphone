@@ -55,6 +55,7 @@
 - (UIFont*)detailBoxItalicsFont;
 - (UIFont*)detailHeaderCourseNameFont;
 - (UIFont*)detailHeaderItemTypeFont;
+- (UIFont*)detailHeaderThirdHeaderNameFont;
 
 // FILE NAMES
 - (NSString*)splashFileName;
