@@ -86,7 +86,14 @@
 	[super viewWillAppear:animated];
 	detailHeader.courseName = self.courseName;
 	detailHeader.itemType = self.item.title;
-	detailHeader.thirdHeaderText = self.item.dateString;
+	CategoryType catType = self.item.categoryType;
+	if (catType == Start) {
+		detailHeader.thirdHeaderText = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Starts", nil), item.dateString];
+	} else if (catType == End) {
+		detailHeader.thirdHeaderText = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Ends", nil), item.dateString];            
+	} else if (catType == Due) {
+		detailHeader.thirdHeaderText = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Due", nil), item.dateString];            
+	}        
 }
 
 
