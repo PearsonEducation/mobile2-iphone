@@ -587,7 +587,10 @@
 				// Ignore the Ignored.
 				break;
 		}
-		if (vc) [self.navigationController pushViewController:vc animated:YES];
+		if (vc) {
+			vc.hidesBottomBarWhenPushed = YES;
+			[self.navigationController pushViewController:vc animated:YES];	
+		}
 		[vc release];
     }
 }
