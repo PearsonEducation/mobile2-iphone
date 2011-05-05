@@ -681,20 +681,6 @@
 			name = DropboxMessageDetail;
 			sourceTree = "<group>";
 		};
-		A28CB5FA132ECD61000B669D /* TopicDetail */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = TopicDetail;
-			sourceTree = "<group>";
-		};
-		A28CB5FB132ECD69000B669D /* ReplyDetail */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = ReplyDetail;
-			sourceTree = "<group>";
-		};
 		A2A347F9134BBF2900405FE8 /* Styles */ = {
 			isa = PBXGroup;
 			children = (
@@ -708,8 +694,6 @@
 			children = (
 				EA6D769D13622728005172F3 /* Single Sign On */,
 				A2651D3D134A298100490400 /* Announcements */,
-				A28CB5FB132ECD69000B669D /* ReplyDetail */,
-				A28CB5FA132ECD61000B669D /* TopicDetail */,
 				A28CB5F9132ECD51000B669D /* DropboxMessageDetail */,
 				A28CB5F8132ECD43000B669D /* GradebookDetail */,
 				A23366601326A44900DC50DD /* Help */,
