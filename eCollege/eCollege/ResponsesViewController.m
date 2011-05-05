@@ -520,7 +520,7 @@
         responsePromptLabel.text = NSLocalizedString(@"Message",nil);
         
         // placeholder text for the subject field changes depending on minimized state
-        if (dataEntryIsMinimized) {
+        if (!dataEntryIsMinimized) {
             textField.placeholder = NSLocalizedString(@"Subject", nil);
         } else {
             NSString* tmp = NSLocalizedString(@"Post a response",nil);
