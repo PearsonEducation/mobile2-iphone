@@ -98,7 +98,7 @@
     }
     
     // put the right edge of the label at x=294 inside the cell, 10px padding on each side of the label
-    CGRect labelFrame = CGRectMake(294-labelSize.width, 26, labelSize.width, 20);        
+    CGRect labelFrame = CGRectMake(294-labelSize.width, self.frame.size.height/2 - labelSize.height/2, labelSize.width, 20);        
     numberOfUnreadResponsesLabel.frame = labelFrame;
     numberOfUnreadResponsesLabel.text = unreadText;
     
