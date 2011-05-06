@@ -26,7 +26,7 @@
     }
 	
 	flattenedString = [flattenedString stringByReplacingOccurrencesOfString:@"  " withString:@" "];
-    
+	flattenedString = [flattenedString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     return flattenedString;
 }
 
